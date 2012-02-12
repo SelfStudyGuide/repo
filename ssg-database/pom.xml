@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.ssg</groupId>
+	<artifactId>ssg-database</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Database</name>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>${basedir}/schema</directory>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sql-maven-plugin</artifactId>
+				<version>1.5</version>
+
+				<dependencies>
+					<!-- specify the dependent jdbc driver here -->
+					<dependency>
+						<groupId>org.hsqldb</groupId>
+						<artifactId>hsqldb</artifactId>
+						<version>2.2.6</version>
+					</dependency>
+				</dependencies>
+
+				<!-- common configuration shared by all executions -->
+				<configuration>
+					<driver>org.hsqldb.jdbcDriver</driver>
+					<url>jdbc:hsqldb:hsql://localhost/ssg_test</url>
+					<username>SA</username>
+					<password></password>
+					<!-- You can comment out username/password configurations and have maven 
+						to look them up in your settings.xml using ${settingsKey} -->
+					<settingsKey>sensibleKey</settingsKey>
+					<!--all executions are ignored if -Dmaven.test.skip=true -->
+					<!--skip>${maven.test.skip}</skip -->
+				</configuration>
+
+				<executions>
+
+					<execution>
+						<id>create-data</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<!--orderFile>ascending</orderFile-->
+							<printResultSet>true</printResultSet>
+							<fileset>
+								<basedir>${basedir}/schema</basedir>
+								<includes>
+									<include>1.tables.sql</include>
+									<include>9.init_data.sql</include>
+								</includes>
+							</fileset>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											sql-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.5,)
+										</versionRange>
+										<goals>
+											<goal>execute</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

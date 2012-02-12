@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='StudentHome'>
+	<inherits name='com.google.gwt.user.User' />
+
+	<inherits name='com.google.gwt.junit.JUnit' />
+	<inherits name="com.google.gwt.uibinder.UiBinder" />
+	<inherits name='com.google.gwt.user.theme.standard.Standard' />
+	<!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
+	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
+
+
+	<inherits name='org.ssg.core.Dto' />
+	<entry-point class='org.ssg.gui.client.studenthome.StudentHome' />
+
+	<source path='client\service' />
+	<source path='client\studenthome' />
+	<source path='shared' />
+
+</module>

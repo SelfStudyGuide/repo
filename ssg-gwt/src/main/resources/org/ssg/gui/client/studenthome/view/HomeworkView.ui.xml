@@ -1,0 +1,29 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
+
+	<ui:with field='res'
+		type='org.ssg.gui.client.studenthome.StudentHomeworkMessages' />
+
+	<g:VerticalPanel>
+		<g:cell verticalAlignment="ALIGN_TOP">
+			<g:Label>
+				<ui:text from='{res.viewTitle}' />
+			</g:Label>
+		</g:cell>
+
+		<g:cell verticalAlignment="ALIGN_MIDDLE" >
+			<!--  g:Label ui:field="debugMsg">
+				Empty
+			</g:Label-->
+			<c:CellTable ui:field="homeworksTable">
+			</c:CellTable>
+		</g:cell>
+		
+		<g:cell verticalAlignment="ALIGN_BOTTOM">
+			<g:Button ui:field="refreshButton">
+				Refresh
+			</g:Button>
+		</g:cell>
+	</g:VerticalPanel>
+</ui:UiBinder>

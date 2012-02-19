@@ -7,6 +7,7 @@ import org.ssg.gui.client.studenthome.action.GetHomeworksResponse;
 import org.ssg.gui.client.studenthome.event.RefreshStudentHomeworksEvent;
 import org.ssg.gui.client.studenthome.event.RefreshStudentHomeworksEventHandler;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -56,7 +57,7 @@ public class HomeworkPresenter {
 				new AsyncCallback<GetHomeworksResponse>() {
 
 					public void onFailure(Throwable caught) {
-						view.getDebugMessage().setText(caught.getMessage());
+						GWT.log("Cannot get list of homeworks", caught);
 					}
 
 					public void onSuccess(GetHomeworksResponse result) {

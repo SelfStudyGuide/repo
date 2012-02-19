@@ -10,6 +10,9 @@
 
 
 	<inherits name='org.ssg.core.Dto' />
+
+	<!--set-property name="user.agent" value="gecko"/-->
+
 	<entry-point class='org.ssg.gui.client.studenthome.StudentHome' />
 
 	<source path='client\service' />

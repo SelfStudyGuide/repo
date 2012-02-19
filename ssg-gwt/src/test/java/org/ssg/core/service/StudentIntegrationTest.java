@@ -19,7 +19,7 @@ import org.ssg.core.domain.Student;
 import org.ssg.core.support.AbstractDaoTestSupport;
 import org.ssg.core.support.TstDataUtils;
 
-@ContextConfiguration(locations = { "/test-config.ctx.xml" })
+@ContextConfiguration(locations = { "/test-config.ctx.xml", "/spring/core-service.ctx.xml" })
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 public class StudentIntegrationTest extends AbstractDaoTestSupport {

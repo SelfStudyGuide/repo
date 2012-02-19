@@ -6,6 +6,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -24,6 +25,7 @@ public class InitDataIntegrationTest extends AbstractDaoTestSupport {
 	private static final int STUDENT_ID = 1;
 
 	@Test
+	@Ignore
 	public void verifyThatTheModuleCanBeLoaded() {
 		Collection<Module> modules = curriculumDao.getAllModules();
 		Module module = getFirstElement(modules);
@@ -31,6 +33,7 @@ public class InitDataIntegrationTest extends AbstractDaoTestSupport {
 	}
 
 	@Test
+	@Ignore
 	public void verifyThatTheStudentCanBeLoaded() {
 		List<Student> students = userDao.getAllStudents();
 		Student student = getFirstElement(students);
@@ -39,6 +42,7 @@ public class InitDataIntegrationTest extends AbstractDaoTestSupport {
 	}
 
 	@Test
+	@Ignore
 	public void verifyThatGivedToStudentHomeworkCanBeLoaded() {
 		Collection<HomeworkInfo> homeworks = studentService
 				.getHomeworks(STUDENT_ID);

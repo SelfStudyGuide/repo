@@ -68,7 +68,7 @@ public class HomeworkView implements Display {
 				new TextCell()) {
 			@Override
 			public String getValue(HomeworkInfo object) {
-				return "Module 1";
+				return "Module 2";
 			}
 		};
 		

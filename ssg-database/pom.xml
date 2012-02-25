@@ -31,7 +31,7 @@
 				<!-- common configuration shared by all executions -->
 				<configuration>
 					<driver>org.hsqldb.jdbcDriver</driver>
-					<url>jdbc:hsqldb:hsql://localhost/ssg_test</url>
+					<url>jdbc:hsqldb:hsql://localhost/ssg_db</url>
 					<username>SA</username>
 					<password></password>
 					<!-- You can comment out username/password configurations and have maven 

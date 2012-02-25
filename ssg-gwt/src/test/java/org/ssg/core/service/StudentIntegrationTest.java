@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.*;
 import java.util.List;
 
 
+import org.hibernate.cfg.CreateKeySecondPass;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -87,6 +88,15 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 		Assert.assertThat(savedHomework.getId(), not(0));
 		Assert.assertThat(savedHomework.getStudent().getId(), is(savedStudent.getId()));
 		Assert.assertThat(savedHomework.getModules().size(), is(1));
+	}
+	
+	@Test
+	public void verifyThatStudentCanBeLoadedByItsName() {
+		userDao.saveStudent(TstDataUtils.createStudent("John"));
+		
+		Student student = userDao.getStudentByName("John");
+		
+		Assert.assertThat(student.getName(), equalTo("John"));
 	}
 
 	private Homework getSavedHomework() {

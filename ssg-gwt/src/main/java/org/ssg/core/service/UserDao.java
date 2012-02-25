@@ -9,5 +9,6 @@ public interface UserDao {
 	void saveStudent(Student st);
 	List<Student> getAllStudents();
 	Student getStudentById(int id);
+	Student getStudentByName(String name);
 	
 }

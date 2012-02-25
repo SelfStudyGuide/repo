@@ -89,4 +89,19 @@ public class StudentServiceTest {
 		Assert.assertThat(homework.getModules().get(0), is(module));
 
 	}
+	
+	@Test
+	public void verifyThatStudentIdCanBeLoadedByItsUserName() {
+		Student student = TstDataUtils.createStudent("John");
+		student.setId(123);
+		
+		when(userDao.getStudentByName(eq("john"))).thenReturn(student);
+		
+		int id = studentSerice.getStudentIdByName("john");
+		
+		Assert.assertThat(id, is(123));
+		
+		verify(userDao).getStudentByName(eq("john"));
+		
+	}
 }

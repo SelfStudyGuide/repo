@@ -19,15 +19,17 @@
 	</http>
 
 	<authentication-manager>
-		<!--authentication-provider user-service-ref="userDetailService" -->
-		<authentication-provider>
+		<authentication-provider user-service-ref="userDetailService"/>
+		<!--authentication-provider>
 			<user-service>
 				<user name="student" password="1" authorities="student, user" />
 				<user name="student2" password="1" authorities="user" />
 			</user-service>
-		</authentication-provider>
+		</authentication-provider-->
 	</authentication-manager>
 
-	<!--beans:bean id="userDetailService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl"> 
-		<beans:property name="dataSource" ref="dataSource" /> </beans:bean -->
+	<beans:bean id="userDetailService"
+		class="org.ssg.gui.server.service.CustomJdbcUserDetailsManager">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
 </beans:beans>

@@ -126,7 +126,7 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 
 	@Override
 	protected void cleanUpDb() {
-		// deleteAll(Topic.class);
+		deleteAll(Topic.class);
 		deleteAll(Module.class);
 	}
 

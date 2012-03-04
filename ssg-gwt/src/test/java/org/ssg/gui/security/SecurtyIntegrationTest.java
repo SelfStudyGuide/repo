@@ -32,7 +32,7 @@ import org.ssg.gui.server.service.CustomJdbcUserDetailsManager;
 		"/serice-core-mock.ctx.xml", "/spring/db-config.xml",
 		"/test-config.ctx.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class SecurtyIntegrationTest extends AbstractJUnit4SpringContextTests {
+public class SecurtyIntegrationTest  {
 
 	@Autowired
 	@Qualifier("org.springframework.security.authenticationManager")
@@ -44,15 +44,6 @@ public class SecurtyIntegrationTest extends AbstractJUnit4SpringContextTests {
 	@Autowired
 	private CustomJdbcUserDetailsManager userDetailsManager;
 
-	// @Test
-	// public void test() {
-	//
-	// String[] names = applicationContext.getBeanDefinitionNames();
-	// for (String beanNames : names) {
-	// System.out.println("Bean: " + beanNames);
-	// }
-	//
-	// }
 
 	@Before
 	public void setUp() {

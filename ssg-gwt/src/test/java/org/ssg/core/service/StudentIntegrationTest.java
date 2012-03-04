@@ -5,11 +5,12 @@ import static org.hamcrest.CoreMatchers.*;
 import java.util.List;
 
 
-import org.hibernate.cfg.CreateKeySecondPass;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,9 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 
 	@Override
 	protected void cleanUpDb() {
+		deleteAll(Homework.class);
 		deleteAll(Student.class);
+		deleteAll(Module.class);
 	}
 	
 	@Test
@@ -72,7 +75,7 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 		Module module = TstDataUtils.createModuleWithUniqueName();
 		curriculumDao.saveModule(module);
 		
-		clearSession();
+		//clearSession();
 
 		Student savedStudent = getSavedStudent();
 		Module savedModule = getSavedModule();

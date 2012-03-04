@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +45,23 @@ public class AbstractDaoTestSupport {
 		//template.setFlushMode(HibernateAccessor.FLUSH_EAGER);
 		cleanUpDb();
 	}
+	
+	@After
+	public void tearDown() {
+		cleanUpDb();
+	}
 
 	protected void cleanUpDb() {
 	}
 
 	protected void deleteAll(Class<?> domainClassName) {
-		List<?> list = template.loadAll(domainClassName);
-		for (Object o : list) {
-			template.delete(o);
+		try {
+			List<?> list = template.loadAll(domainClassName);
+			for (Object o : list) {
+				template.delete(o);
+			}
+		} catch (RuntimeException e) {
+			e.printStackTrace();
 		}
 	}
 

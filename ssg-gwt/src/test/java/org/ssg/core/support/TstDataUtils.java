@@ -6,6 +6,7 @@ import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
 import org.ssg.core.domain.Topic;
+import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.core.dto.HomeworkInfo;
 
 public class TstDataUtils {
@@ -48,5 +49,12 @@ public class TstDataUtils {
 		HomeworkInfo result = new HomeworkInfo();
 		result.setId(1);
 		return result;
+	}
+	
+	public static ApplicationUserInfo createStudentUserInfo(String name, int studentId) {
+		ApplicationUserInfo info = new ApplicationUserInfo();
+		info.setUsername(name);
+		info.setStudentId(studentId);
+		return info;
 	}
 }

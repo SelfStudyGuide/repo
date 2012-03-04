@@ -51,7 +51,6 @@ public class HomeworkView implements Display {
 		rootPanel.add(uiBinder.createAndBindUi(this));
 
 		initGridColumns();
-
 	}
 
 	private void initGridColumns() {

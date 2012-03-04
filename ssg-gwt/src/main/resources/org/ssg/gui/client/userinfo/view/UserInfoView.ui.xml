@@ -1,0 +1,15 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
+
+	<ui:with field='res' type='org.ssg.gui.client.userinfo.UserInfoMessages' />
+
+	<g:HorizontalPanel>
+		<g:cell horizontalAlignment='ALIGN_LEFT'>
+			<g:Label ui:field='usernameLbl' />
+		</g:cell>
+		<g:cell horizontalAlignment='ALIGN_RIGHT'>
+			<g:Anchor ui:field='logoutBtn' text="{res.logoutLink}" />
+		</g:cell>
+
+	</g:HorizontalPanel>
+</ui:UiBinder>

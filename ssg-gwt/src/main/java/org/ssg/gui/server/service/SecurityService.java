@@ -7,4 +7,6 @@ import org.ssg.core.domain.ApplicationUser;
 public interface SecurityService {
 	ApplicationUser authoriseUser(UserDetails userDetails)
 			throws UsernameNotFoundException;
+	
+	ApplicationUser getAuthorisedUserInfo();
 }

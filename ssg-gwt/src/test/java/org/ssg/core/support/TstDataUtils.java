@@ -1,7 +1,12 @@
 package org.ssg.core.support;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.ssg.core.domain.ApplicationUser;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
@@ -56,5 +61,13 @@ public class TstDataUtils {
 		info.setUsername(name);
 		info.setStudentId(studentId);
 		return info;
+	}
+	
+	public static ApplicationUser createAppUserDetails(String username, int studentId) {
+		List<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
+		roles.add(new SimpleGrantedAuthority("student"));
+		User user = new User(username, "", roles);
+		ApplicationUser appUser = new ApplicationUser(user, studentId);
+		return appUser;
 	}
 }

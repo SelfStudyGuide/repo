@@ -2,7 +2,9 @@ package org.ssg.gui.server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -55,5 +57,17 @@ public class DefaultSecurityService implements SecurityService {
 		
 		return false;
 	}
+
+	public ApplicationUser getAuthorisedUserInfo() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		if (authentication == null) {
+			return null;
+		} else {
+			return (ApplicationUser) authentication.getPrincipal();
+		}
+	}
+	
+	
 
 }

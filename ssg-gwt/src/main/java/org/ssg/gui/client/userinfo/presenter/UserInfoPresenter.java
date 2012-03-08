@@ -94,7 +94,7 @@ public class UserInfoPresenter {
 				new AsyncCallback<GetUserInfoResponse>() {
 
 					public void onFailure(Throwable caught) {
-
+						//TODO: Use Exception Handler mechanism
 					}
 
 					public void onSuccess(GetUserInfoResponse result) {

@@ -8,5 +8,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("Student")
 public interface StudentControlService extends RemoteService {
-	<T extends Response> T execute(Action<T> action);
+	<T extends Response> T execute(Action<T> action) throws SsgGuiServiceException;
 }

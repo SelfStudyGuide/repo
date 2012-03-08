@@ -2,6 +2,7 @@ package org.ssg.gui.server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.server.command.ActionHandler;
 import org.ssg.gui.server.command.ActionHandlerLookup;
 import org.ssg.gui.shared.Action;
@@ -14,7 +15,7 @@ public class StudentUIServiceImpl implements StudentUIService {
 	@Autowired
 	private ActionHandlerLookup handlerLookup; 
 	
-	public <R extends Response> R execute(Action<R> action) {
+	public <R extends Response> R execute(Action<R> action) throws SsgGuiServiceException {
 		ActionHandler<R, Action<R>> handler = handlerLookup.findHandler(action.getClass());
 		return handler.execute(action);
 	}

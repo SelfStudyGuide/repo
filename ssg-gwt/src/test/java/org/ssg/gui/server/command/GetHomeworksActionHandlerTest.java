@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,26 +21,16 @@ import static org.mockito.Mockito.*;
 @ContextConfiguration(locations = { "/spring/gui-service.ctx.xml",
 		"/serice-core-mock.ctx.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class GetHomeworksActionHandlerTest {
-
-	@Autowired
-	private ActionHandlerLookup lookup;
+public class GetHomeworksActionHandlerTest extends AbstractCommandTestCase<GetHomeworksResponse, GetHomeworks> {
 
 	@Autowired
 	private StudentService studentService;
-
-	private ActionHandler<GetHomeworksResponse, GetHomeworks> handler;
-
-	@Before
-	public void setUp() {
-		handler = lookup.findHandler(GetHomeworks.class);
-	}
 
 	@Test
 	public void verifyThatHandlerIsCreated() {
 		when(studentService.getHomeworks(1)).thenReturn(homeworks());
 
-		GetHomeworksResponse response = handler.execute(new GetHomeworks(1));
+		GetHomeworksResponse response = whenAction(new GetHomeworks(1));
 
 		verify(studentService).getHomeworks(1);
 
@@ -61,5 +50,10 @@ public class GetHomeworksActionHandlerTest {
 		info.setId(2);
 
 		return list;
+	}
+
+	@Override
+	protected Class<GetHomeworks> testedCommandClass() {
+		return GetHomeworks.class;
 	}
 }

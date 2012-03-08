@@ -70,20 +70,7 @@ public class HomeworkPresenter {
 			// TODO: display error
 		} else {
 			service.execute(new GetHomeworks(userInfo.getStudentId()),
-					new AsyncCallback<GetHomeworksResponse>() {
-
-						public void onFailure(Throwable caught) {
-							GWT.log("Cannot get list of homeworks", caught);
-						}
-
-						public void onSuccess(GetHomeworksResponse result) {
-							view.getGrid().setRowCount(result.getHomeworks().size());
-							view.getGrid().setRowData(0, result.getHomeworks());
-
-							// int id = result.getHomeworks().iterator().next().getId();
-							// view.getDebugMessage().setText(String.valueOf(id));
-						}
-					});
+					new GetHomeworksResponseCallback());
 
 		}
 	}

@@ -2,7 +2,8 @@ package org.ssg.gui.client.studenthome.presenter;
 
 import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.core.dto.HomeworkInfo;
-import org.ssg.gui.client.service.StudentControlServiceAsync;
+import org.ssg.gui.client.service.ActionCallbackAdapter;
+import org.ssg.gui.client.service.ActionSender;
 import org.ssg.gui.client.studenthome.action.GetHomeworks;
 import org.ssg.gui.client.studenthome.action.GetHomeworksResponse;
 import org.ssg.gui.client.studenthome.event.RefreshStudentHomeworksEvent;
@@ -10,20 +11,18 @@ import org.ssg.gui.client.studenthome.event.RefreshStudentHomeworksEventHandler;
 import org.ssg.gui.client.userinfo.event.ShareUserInfoEvent;
 import org.ssg.gui.client.userinfo.event.ShareUserInfoEventHandler;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.view.client.HasData;
 
 public class HomeworkPresenter {
 	private HandlerManager handlerManager;
 	private Display view;
-	private StudentControlServiceAsync service;
 	private ApplicationUserInfo userInfo;
+	private ActionSender actionSender;
 
 	public interface Display {
 		HasData<HomeworkInfo> getGrid();
@@ -33,12 +32,11 @@ public class HomeworkPresenter {
 		HasText getDebugMessage();
 	}
 
-	public HomeworkPresenter(Display view, StudentControlServiceAsync service,
+	public HomeworkPresenter(Display view, ActionSender actionSender,
 			HandlerManager handlerManager) {
 		this.view = view;
-		this.service = service;
+		this.actionSender = actionSender;
 		this.handlerManager = handlerManager;
-		
 	}
 
 	public void bind() {
@@ -69,34 +67,26 @@ public class HomeworkPresenter {
 		if (userInfo == null) {
 			// TODO: display error
 		} else {
-			service.execute(new GetHomeworks(userInfo.getStudentId()),
-					new GetHomeworksResponseCallback());
+			actionSender.send(new GetHomeworks(userInfo.getStudentId()),
+					new ActionCallbackAdapter<GetHomeworksResponse>() {
+
+						@Override
+						public void onResponse(GetHomeworksResponse result) {
+							view.getGrid().setRowCount(
+									result.getHomeworks().size());
+							view.getGrid().setRowData(0, result.getHomeworks());
+						}
+					});
 
 		}
 	}
-	
+
 	public ApplicationUserInfo getUserInfo() {
 		return userInfo;
 	}
 
 	public void setUserInfo(ApplicationUserInfo userInfo) {
 		this.userInfo = userInfo;
-	}
-
-	private class GetHomeworksResponseCallback implements
-			AsyncCallback<GetHomeworksResponse> {
-
-		public void onFailure(Throwable caught) {
-			GWT.log("Cannot get list of homeworks", caught);
-		}
-
-		public void onSuccess(GetHomeworksResponse result) {
-			view.getGrid().setRowCount(result.getHomeworks().size());
-			view.getGrid().setRowData(0, result.getHomeworks());
-
-			// int id = result.getHomeworks().iterator().next().getId();
-			// view.getDebugMessage().setText(String.valueOf(id));
-		}
 	}
 
 }

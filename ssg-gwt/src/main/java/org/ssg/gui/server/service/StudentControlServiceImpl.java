@@ -20,7 +20,9 @@ public class StudentControlServiceImpl extends SpringGwtServlet implements
 	private StudentUIService studentUIService;
 
 	public <T extends Response> T execute(Action<T> action) throws SsgGuiServiceException {
-		LOG.debug("executing " + action);
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Executing action: " + action.getActionName());
+		}
 		return studentUIService.execute(action);
 	}
 

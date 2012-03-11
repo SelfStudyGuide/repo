@@ -20,7 +20,6 @@ public class DefaultActionHandlerLookup<R extends Response, A extends Action<R>>
 	public void setApplicationContext(ApplicationContext applicationContext)
 			throws BeansException {
 		this.applicationContext = applicationContext;
-
 	}
 
 	public void afterPropertiesSet() throws Exception {
@@ -34,13 +33,7 @@ public class DefaultActionHandlerLookup<R extends Response, A extends Action<R>>
 		}
 	}
 
-
 	public ActionHandler findHandler(Class actionClass) {
-		// TODO Auto-generated method stub
 		return handlers.get(actionClass);
 	}
-
-	
-	
-	
 }

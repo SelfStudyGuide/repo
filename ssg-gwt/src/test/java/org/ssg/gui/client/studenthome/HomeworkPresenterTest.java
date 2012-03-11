@@ -1,6 +1,5 @@
 package org.ssg.gui.client.studenthome;
 
-import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -20,6 +18,9 @@ import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.AbstractPresenterTestCase;
+import org.ssg.gui.client.service.ActionSender;
+import org.ssg.gui.client.service.DefaultActionNameProvider;
+import org.ssg.gui.client.service.DefaultActionSender;
 import org.ssg.gui.client.studenthome.action.GetHomeworks;
 import org.ssg.gui.client.studenthome.action.GetHomeworksResponse;
 import org.ssg.gui.client.studenthome.event.RefreshStudentHomeworksEvent;
@@ -45,11 +46,14 @@ public class HomeworkPresenterTest extends AbstractPresenterTestCase {
 	private HasData<HomeworkInfo> grid;
 
 	private HomeworkPresenter presenter;
+	
+	private ActionSender actionSender;
 
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		presenter = new HomeworkPresenter(view, service,
+		actionSender = new DefaultActionSender(service, new DefaultActionNameProvider());
+		presenter = new HomeworkPresenter(view, actionSender,
 				handlerManager);
 		when(view.getRefreshButton()).thenReturn(refreshButton);
 		when(view.getGrid()).thenReturn(grid);

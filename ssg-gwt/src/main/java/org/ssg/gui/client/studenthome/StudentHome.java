@@ -1,8 +1,9 @@
 package org.ssg.gui.client.studenthome;
 
+import org.ssg.gui.client.service.DefaultActionNameProvider;
+import org.ssg.gui.client.service.DefaultActionSender;
 import org.ssg.gui.client.service.StudentControlService;
 import org.ssg.gui.client.service.StudentControlServiceAsync;
-import org.ssg.gui.client.studenthome.event.RefreshStudentHomeworksEvent;
 import org.ssg.gui.client.studenthome.presenter.HomeworkPresenter;
 import org.ssg.gui.client.studenthome.view.HomeworkView;
 import org.ssg.gui.client.userinfo.event.RetrieveUserInfoEvent;
@@ -33,24 +34,24 @@ public class StudentHome implements EntryPoint {
 
 		HandlerManager handlerManager = new HandlerManager(null);
 		WindowLocation windowLocation = new DefaultWindowLocation();
-
+		DefaultActionNameProvider nameProvider = new DefaultActionNameProvider();
+		DefaultActionSender actionSender = new DefaultActionSender(studentService, nameProvider);
+		
+		
 		HomeworkView homeworkView = new HomeworkView(homeworkMessages);
 
 		HomeworkPresenter homeworkPresenter = new HomeworkPresenter(
-				homeworkView, studentService, handlerManager);
+				homeworkView, actionSender, handlerManager);
 		homeworkView.go(RootPanel.get("homework"));
 		homeworkPresenter.bind();
 
 		UserInfoView userInfoView = new UserInfoView();
 		UserInfoPresenter userInfoPresenter = new UserInfoPresenter(
-				userInfoView, studentService, handlerManager, windowLocation);
+				userInfoView, actionSender, handlerManager, windowLocation);
 
 		userInfoView.go(RootPanel.get("userinfo"));
 		userInfoPresenter.bind();
 		
 		handlerManager.fireEvent(new RetrieveUserInfoEvent());
-
-		// handlerManager.fireEvent(new RefreshStudentHomeworksEvent());
-
 	}
 }

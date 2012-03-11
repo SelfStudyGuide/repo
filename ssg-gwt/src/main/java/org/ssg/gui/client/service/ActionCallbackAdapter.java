@@ -1,0 +1,26 @@
+package org.ssg.gui.client.service;
+
+import org.ssg.gui.shared.Action;
+import org.ssg.gui.shared.Response;
+
+import com.google.gwt.core.client.GWT;
+
+public abstract class ActionCallbackAdapter<R extends Response> implements
+		ActionResponseCallback<R> {
+
+	private Action<R> action;
+
+	/**
+	 * Underlying action is populated by {@link DefaultActionSender}.
+	 */
+	public void setAction(Action<R> action) {
+		this.action = action;
+	}
+	
+	abstract public void onResponse(R response);
+
+	public void onError(SsgGuiServiceException exception) {
+		//TODO: print response id when is available
+		GWT.log("Uncatched exception ", exception);
+	}
+}

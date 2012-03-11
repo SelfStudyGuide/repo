@@ -11,11 +11,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.AbstractPresenterTestCase;
+import org.ssg.gui.client.service.ActionSender;
+import org.ssg.gui.client.service.DefaultActionNameProvider;
+import org.ssg.gui.client.service.DefaultActionSender;
+import org.ssg.gui.client.service.UserInfoHolder;
 import org.ssg.gui.client.userinfo.action.GetUserInfo;
 import org.ssg.gui.client.userinfo.action.GetUserInfoResponse;
 import org.ssg.gui.client.userinfo.event.LogoutEvent;
@@ -45,11 +48,14 @@ public class UserInfoPresenterTest extends AbstractPresenterTestCase {
 
 	private UserInfoPresenter presenter;
 
+	private ActionSender actionSender;
+
 	@Before
 	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-		presenter = new UserInfoPresenter(display, service, handlerManager,
-				windowLocation);
+		actionSender = new DefaultActionSender(service,
+				new DefaultActionNameProvider());
+		presenter = new UserInfoPresenter(display, actionSender,
+				handlerManager, windowLocation);
 		when(display.getUsernameLabel()).thenReturn(userNameLable);
 		when(display.getLogoutButton()).thenReturn(logoutButton);
 		presenter.bind();
@@ -115,6 +121,19 @@ public class UserInfoPresenterTest extends AbstractPresenterTestCase {
 		handler.onClick(null);
 
 		assertEvent.assertInvoked();
+	}
+
+	@Test
+	public void verifyThatUserInfoIsStoredInHolderAfterResponse() {
+		final ApplicationUserInfo userInfo = TstDataUtils
+				.createStudentUserInfo("John Dou", 1);
+
+		handlerManager.fireEvent(new RetrieveUserInfoEvent());
+		AsyncCallback<Response> callback = verifyActionAndResturnCallback(GetUserInfo.class);
+		callback.onSuccess(new GetUserInfoResponse(userInfo));
+		
+		assertThat(UserInfoHolder.getAppUsername(), equalTo("John Dou"));
+		assertThat(UserInfoHolder.getStudentId(), equalTo(1));
 	}
 
 }

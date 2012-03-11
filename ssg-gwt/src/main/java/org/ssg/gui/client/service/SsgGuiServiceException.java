@@ -1,6 +1,5 @@
 package org.ssg.gui.client.service;
 
-
 /**
  * Class of base exception for GWT client.
  */

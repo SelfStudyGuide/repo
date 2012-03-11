@@ -1,5 +1,7 @@
 package org.ssg.gui.shared;
 
-public interface Action<T extends Response> {
+import java.io.Serializable;
 
+public interface Action<T extends Response> extends Serializable {
+	String getActionName();
 }

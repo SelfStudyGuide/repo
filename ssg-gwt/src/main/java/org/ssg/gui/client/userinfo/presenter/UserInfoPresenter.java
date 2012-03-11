@@ -1,7 +1,9 @@
 package org.ssg.gui.client.userinfo.presenter;
 
 import org.ssg.core.dto.ApplicationUserInfo;
-import org.ssg.gui.client.service.StudentControlServiceAsync;
+import org.ssg.gui.client.service.ActionCallbackAdapter;
+import org.ssg.gui.client.service.ActionSender;
+import org.ssg.gui.client.service.UserInfoHolder;
 import org.ssg.gui.client.userinfo.action.GetUserInfo;
 import org.ssg.gui.client.userinfo.action.GetUserInfoResponse;
 import org.ssg.gui.client.userinfo.event.LogoutEvent;
@@ -17,28 +19,27 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasText;
 
 public class UserInfoPresenter {
 
 	private static final String LOGOUT_URL = "j_spring_security_logout";
 	
-	private StudentControlServiceAsync service;
 	private HandlerManager handlerManager;
 	private Display display;
 	private WindowLocation windowLocation;
+	private ActionSender actionSender;
 
 	public interface Display {
 		HasText getUsernameLabel();
 		HasClickHandlers getLogoutButton();
 	}
-
+	
 	public UserInfoPresenter(Display display,
-			StudentControlServiceAsync service, HandlerManager handlerManager,
+			ActionSender actionSender, HandlerManager handlerManager,
 			WindowLocation windowLocation) {
 		this.display = display;
-		this.service = service;
+		this.actionSender = actionSender;
 		this.handlerManager = handlerManager;
 		this.windowLocation = windowLocation;
 	}
@@ -81,28 +82,21 @@ public class UserInfoPresenter {
 
 	protected void doUpdateUserInfo(ApplicationUserInfo applicationUserInfo) {
 		display.getUsernameLabel().setText(applicationUserInfo.getUsername());
+		UserInfoHolder.setAppInfo(applicationUserInfo);
 	}
 
 	protected void doRetieveUserInfo() {
-//		ApplicationUserInfo userInfo = new ApplicationUserInfo();
-//		userInfo.setUsername("Foo");
-//		userInfo.setStudentId(1);
-//		
-//		handlerManager.fireEvent(new ShareUserInfoEvent(userInfo));
-//		
-		service.execute(new GetUserInfo(),
-				new AsyncCallback<GetUserInfoResponse>() {
+		actionSender.send(new GetUserInfo(), new ActionCallbackAdapter<GetUserInfoResponse>() {
 
-					public void onFailure(Throwable caught) {
-						//TODO: Use Exception Handler mechanism
-					}
+			@Override
+			public void onResponse(GetUserInfoResponse result) {
+				GWT.log("User info " + result.getUserInfo());
+				handlerManager.fireEvent(new ShareUserInfoEvent(result
+						.getUserInfo()));
+			}
+		});
+		
 
-					public void onSuccess(GetUserInfoResponse result) {
-						GWT.log("User info " + result.getUserInfo());
-						handlerManager.fireEvent(new ShareUserInfoEvent(result
-								.getUserInfo()));
-					}
-				});
 	}
 
 }

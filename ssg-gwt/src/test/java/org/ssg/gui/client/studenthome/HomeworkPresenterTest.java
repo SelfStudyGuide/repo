@@ -48,13 +48,15 @@ public class HomeworkPresenterTest extends AbstractPresenterTestCase {
 	private HomeworkPresenter presenter;
 	
 	private ActionSender actionSender;
+	
 
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		actionSender = new DefaultActionSender(service, new DefaultActionNameProvider());
-		presenter = new HomeworkPresenter(view, actionSender,
-				handlerManager);
+		actionSender = new DefaultActionSender(service,
+				new DefaultActionNameProvider(), errorDialog, messages);
+		presenter = new HomeworkPresenter(view, actionSender, handlerManager,
+				errorDialog);
 		when(view.getRefreshButton()).thenReturn(refreshButton);
 		when(view.getGrid()).thenReturn(grid);
 		presenter.bind();

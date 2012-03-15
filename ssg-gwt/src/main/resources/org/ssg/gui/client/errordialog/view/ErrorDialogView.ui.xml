@@ -1,0 +1,26 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+	<ui:with field='res'
+		type='org.ssg.gui.client.errordialog.ErrorDialogMessages' />
+
+	<g:DialogBox ui:field="dialogBox" autoHide="false" modal="true">
+		<g:caption>
+			<ui:text from='{res.getCaptionText}' />
+		</g:caption>
+		<g:VerticalPanel>
+			<g:cell>
+				<g:HTML ui:field="messageTextLbl" />
+			</g:cell>
+			<g:cell>
+				<g:Label ui:field="actionInfoLbl" />
+			</g:cell>
+			<g:cell>
+				<g:Button ui:field='closeBtn'>
+					<ui:text from='{res.getCloseButtonText}' />
+				</g:Button>
+			</g:cell>
+		</g:VerticalPanel>
+	</g:DialogBox>
+
+</ui:UiBinder>

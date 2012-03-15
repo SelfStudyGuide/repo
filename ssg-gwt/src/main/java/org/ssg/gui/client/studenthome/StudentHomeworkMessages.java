@@ -14,4 +14,8 @@ public interface StudentHomeworkMessages extends Messages {
 
 	@Key("homework.table.status")
 	String homeworkTableStatus();
+
+	@Key("service.error.unexpected")
+	String serviceErrorUnexpected(String error);
+
 }

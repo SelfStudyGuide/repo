@@ -18,6 +18,8 @@ import org.ssg.core.support.TstDataUtils.TestActionCallback;
 import org.ssg.core.support.TstDataUtils.TestActionCallbackWithAdapter;
 import org.ssg.core.support.TstDataUtils.TestActionResponse;
 import org.ssg.gui.client.AbstractServiceTestCase;
+import org.ssg.gui.client.errordialog.ErrorDialog;
+import org.ssg.gui.client.studenthome.StudentHomeworkMessages;
 import org.ssg.gui.shared.Response;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -32,12 +34,18 @@ public class DefaultActionSenderTest extends AbstractServiceTestCase {
 	private ActionNameProvider nameProvider;
 
 	private DefaultActionSender sender;
+	
+	@Mock
+	private ErrorDialog dialog; 
+	
+	@Mock 
+	private StudentHomeworkMessages messages;
 
 	@Before
 	public void setUp() {
 		// There are limitation in Mockito runner when one of Mocks in super
 		// class
-		sender = new DefaultActionSender(service, nameProvider);
+		sender = new DefaultActionSender(service, nameProvider, dialog, messages);
 	}
 
 	@Test
@@ -93,6 +101,21 @@ public class DefaultActionSenderTest extends AbstractServiceTestCase {
 		sender.send(action, actionCallback);
 		
 		verify(actionCallback).setAction(same(action));
+	}
+	
+	@Test
+	public void verifyThatIfUnexpectedSsgExceptionThenShowErrorDialog() {
+		TestAction action = new TestAction();
+		sender.send(action, actionCallback);
+
+		when(messages.serviceErrorUnexpected(eq("something happened"))).thenReturn("oups");
+		
+		AsyncCallback<Response> callback = verifyActionAndResturnCallback(TestAction.class);
+		UnexpectedCommandException ex = new UnexpectedCommandException(
+				"something happened", "", action.getActionName());
+		callback.onFailure(ex);
+		
+		verify(dialog).show(eq("oups"), same(action));
 	}
 	
 }

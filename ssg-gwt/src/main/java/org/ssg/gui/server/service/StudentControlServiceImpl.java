@@ -11,8 +11,6 @@ import org.ssg.gui.shared.Response;
 
 public class StudentControlServiceImpl extends SpringGwtServlet implements
 		StudentControlService {
-
-	private static final Log LOG = LogFactory.getLog(StudentControlServiceImpl.class);
 	
 	private static final long serialVersionUID = 992653253296938793L;
 
@@ -20,9 +18,6 @@ public class StudentControlServiceImpl extends SpringGwtServlet implements
 	private StudentUIService studentUIService;
 
 	public <T extends Response> T execute(Action<T> action) throws SsgGuiServiceException {
-		if (LOG.isDebugEnabled()) {
-			LOG.debug("Executing action: " + action.getActionName());
-		}
 		return studentUIService.execute(action);
 	}
 

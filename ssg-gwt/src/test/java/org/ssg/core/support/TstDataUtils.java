@@ -2,6 +2,7 @@ package org.ssg.core.support;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +17,7 @@ import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.gui.client.service.ActionCallbackAdapter;
 import org.ssg.gui.client.service.ActionResponseCallback;
 import org.ssg.gui.client.service.SsgGuiServiceException;
+import org.ssg.gui.server.command.ActionHandler;
 import org.ssg.gui.shared.BaseAction;
 import org.ssg.gui.shared.Response;
 
@@ -78,12 +80,28 @@ public class TstDataUtils {
 		return appUser;
 	}
 
+	@SuppressWarnings("serial")
 	public static class TestAction extends BaseAction<TestActionResponse> {
-
+		public TestAction() {
+			setActionName("Test/TestAction/" + new Date().toString());
+		}
 	}
 
 	public static class TestActionResponse implements Response {
 
+	}
+	
+	public static class TestActionHandler implements ActionHandler<TestActionResponse, TestAction> {
+
+		public TestActionResponse execute(TestAction action)
+				throws SsgGuiServiceException {
+			return null;
+		}
+
+		public Class<TestAction> forClass() {
+			return TestAction.class;
+		}
+		
 	}
 
 	public static class TestActionCallback implements

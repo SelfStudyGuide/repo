@@ -1,5 +1,8 @@
 package org.ssg.gui.client.studenthome;
 
+import org.ssg.gui.client.errordialog.ErrorDialog;
+import org.ssg.gui.client.errordialog.ErrorDialogMessages;
+import org.ssg.gui.client.errordialog.view.ErrorDialogView;
 import org.ssg.gui.client.service.DefaultActionNameProvider;
 import org.ssg.gui.client.service.DefaultActionSender;
 import org.ssg.gui.client.service.StudentControlService;
@@ -35,13 +38,19 @@ public class StudentHome implements EntryPoint {
 		HandlerManager handlerManager = new HandlerManager(null);
 		WindowLocation windowLocation = new DefaultWindowLocation();
 		DefaultActionNameProvider nameProvider = new DefaultActionNameProvider();
-		DefaultActionSender actionSender = new DefaultActionSender(studentService, nameProvider);
 		
 		
+		ErrorDialogView errorDialogView = new ErrorDialogView();
+		ErrorDialogMessages errorDialogMessages = GWT.create(ErrorDialogMessages.class);
+		ErrorDialog errorDialog = new ErrorDialog(errorDialogView, errorDialogMessages);
+		
+		DefaultActionSender actionSender = new DefaultActionSender(
+				studentService, nameProvider, errorDialog, homeworkMessages);
+
 		HomeworkView homeworkView = new HomeworkView(homeworkMessages);
 
 		HomeworkPresenter homeworkPresenter = new HomeworkPresenter(
-				homeworkView, actionSender, handlerManager);
+				homeworkView, actionSender, handlerManager, errorDialog);
 		homeworkView.go(RootPanel.get("homework"));
 		homeworkPresenter.bind();
 

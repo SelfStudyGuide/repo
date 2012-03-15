@@ -82,7 +82,6 @@ public class UserInfoPresenter {
 
 	protected void doUpdateUserInfo(ApplicationUserInfo applicationUserInfo) {
 		display.getUsernameLabel().setText(applicationUserInfo.getUsername());
-		UserInfoHolder.setAppInfo(applicationUserInfo);
 	}
 
 	protected void doRetieveUserInfo() {
@@ -91,12 +90,10 @@ public class UserInfoPresenter {
 			@Override
 			public void onResponse(GetUserInfoResponse result) {
 				GWT.log("User info " + result.getUserInfo());
+				UserInfoHolder.setAppInfo(result.getUserInfo());
 				handlerManager.fireEvent(new ShareUserInfoEvent(result
 						.getUserInfo()));
 			}
 		});
-		
-
 	}
-
 }

@@ -17,6 +17,10 @@ public abstract class ActionCallbackAdapter<R extends Response> implements
 		this.action = action;
 	}
 	
+	public Action<R> getAction() {
+		return action;
+	}
+
 	abstract public void onResponse(R response);
 
 	public void onError(SsgGuiServiceException exception) {

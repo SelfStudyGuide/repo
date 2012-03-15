@@ -53,7 +53,7 @@ public class UserInfoPresenterTest extends AbstractPresenterTestCase {
 	@Before
 	public void setUp() {
 		actionSender = new DefaultActionSender(service,
-				new DefaultActionNameProvider());
+				new DefaultActionNameProvider(), errorDialog, messages);
 		presenter = new UserInfoPresenter(display, actionSender,
 				handlerManager, windowLocation);
 		when(display.getUsernameLabel()).thenReturn(userNameLable);

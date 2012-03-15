@@ -12,6 +12,7 @@
 	<inherits name='org.ssg.core.Dto' />
 	<inherits name='org.ssg.gui.UserInfo' />
 	<inherits name='org.ssg.gui.client.Service' />
+	<inherits name='org.ssg.gui.client.ErrorDialog' />
 	
 
 	<!--set-property name="user.agent" value="gecko"/-->

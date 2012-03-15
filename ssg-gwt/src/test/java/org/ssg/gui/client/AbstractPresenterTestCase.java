@@ -10,6 +10,8 @@ import java.lang.reflect.Proxy;
 
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.ssg.gui.client.errordialog.ErrorDialog;
+import org.ssg.gui.client.studenthome.StudentHomeworkMessages;
 import org.ssg.gui.shared.WindowLocation;
 
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -23,6 +25,12 @@ public abstract class AbstractPresenterTestCase extends AbstractServiceTestCase 
 	@Mock
 	protected WindowLocation windowLocation;
 	protected HandlerManager handlerManager = new HandlerManager(null);
+	
+	@Mock
+	protected ErrorDialog errorDialog; 
+	
+	@Mock 
+	protected StudentHomeworkMessages messages;
 
 	protected ClickHandler verifyAndCaptureClickHnd(HasClickHandlers btn) {
 		ArgumentCaptor<ClickHandler> click = ArgumentCaptor

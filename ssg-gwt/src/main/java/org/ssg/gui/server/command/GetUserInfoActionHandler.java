@@ -1,5 +1,7 @@
 package org.ssg.gui.server.command;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.ssg.core.domain.ApplicationUser;
@@ -14,6 +16,8 @@ import org.ssg.gui.server.service.SecurityService;
 public class GetUserInfoActionHandler implements
 		ActionHandler<GetUserInfoResponse, GetUserInfo> {
 
+	private static final Log LOG = LogFactory.getLog(GetUserInfoActionHandler.class);
+	
 	@Autowired
 	private SecurityService securityService;
 
@@ -23,8 +27,7 @@ public class GetUserInfoActionHandler implements
 		ApplicationUser user = securityService.getAuthorisedUserInfo();
 		
 		if (user == null) {
-			//TODO: use ExcpetionHandler mechanism
-			throw new SsgGuiServiceException("User id not authenticated");
+			throw new SsgGuiServiceException("User id not authenticated", "userNotLoggedIn");
 		}
 		
 		ApplicationUserAdpater adapter = new ApplicationUserAdpater(user);

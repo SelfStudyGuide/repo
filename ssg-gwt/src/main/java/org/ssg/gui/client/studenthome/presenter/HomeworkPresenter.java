@@ -2,6 +2,7 @@ package org.ssg.gui.client.studenthome.presenter;
 
 import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.core.dto.HomeworkInfo;
+import org.ssg.gui.client.errordialog.ErrorDialog;
 import org.ssg.gui.client.service.ActionCallbackAdapter;
 import org.ssg.gui.client.service.ActionSender;
 import org.ssg.gui.client.studenthome.action.GetHomeworks;
@@ -23,6 +24,7 @@ public class HomeworkPresenter {
 	private Display view;
 	private ApplicationUserInfo userInfo;
 	private ActionSender actionSender;
+	private ErrorDialog errorDialog;
 
 	public interface Display {
 		HasData<HomeworkInfo> getGrid();
@@ -33,10 +35,11 @@ public class HomeworkPresenter {
 	}
 
 	public HomeworkPresenter(Display view, ActionSender actionSender,
-			HandlerManager handlerManager) {
+			HandlerManager handlerManager, ErrorDialog errorDialog) {
 		this.view = view;
 		this.actionSender = actionSender;
 		this.handlerManager = handlerManager;
+		this.errorDialog = errorDialog;
 	}
 
 	public void bind() {
@@ -75,6 +78,8 @@ public class HomeworkPresenter {
 							view.getGrid().setRowCount(
 									result.getHomeworks().size());
 							view.getGrid().setRowData(0, result.getHomeworks());
+							
+							//errorDialog.show("Received " + result.getHomeworks().size() + " items", this.getAction());
 						}
 					});
 

@@ -5,15 +5,15 @@ import org.ssg.gui.client.errordialog.ErrorDialogMessages;
 import org.ssg.gui.client.errordialog.view.ErrorDialogView;
 import org.ssg.gui.client.service.DefaultActionNameProvider;
 import org.ssg.gui.client.service.DefaultActionSender;
+import org.ssg.gui.client.service.DefaultWindowLocation;
 import org.ssg.gui.client.service.StudentControlService;
 import org.ssg.gui.client.service.StudentControlServiceAsync;
+import org.ssg.gui.client.service.WindowLocation;
 import org.ssg.gui.client.studenthome.presenter.HomeworkPresenter;
 import org.ssg.gui.client.studenthome.view.HomeworkView;
 import org.ssg.gui.client.userinfo.event.RetrieveUserInfoEvent;
 import org.ssg.gui.client.userinfo.presenter.UserInfoPresenter;
 import org.ssg.gui.client.userinfo.view.UserInfoView;
-import org.ssg.gui.shared.DefaultWindowLocation;
-import org.ssg.gui.shared.WindowLocation;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;

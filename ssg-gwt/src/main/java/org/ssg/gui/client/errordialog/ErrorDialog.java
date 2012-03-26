@@ -1,6 +1,7 @@
 package org.ssg.gui.client.errordialog;
 
-import org.ssg.gui.shared.Action;
+
+import org.ssg.gui.client.action.Action;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

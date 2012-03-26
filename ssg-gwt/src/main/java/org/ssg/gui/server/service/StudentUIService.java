@@ -1,8 +1,8 @@
 package org.ssg.gui.server.service;
 
+import org.ssg.gui.client.action.Action;
+import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.service.SsgGuiServiceException;
-import org.ssg.gui.shared.Action;
-import org.ssg.gui.shared.Response;
 
 public interface StudentUIService {
 	

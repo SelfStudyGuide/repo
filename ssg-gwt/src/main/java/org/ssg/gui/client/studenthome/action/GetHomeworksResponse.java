@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.ssg.core.dto.HomeworkInfo;
-import org.ssg.gui.shared.Response;
+import org.ssg.gui.client.action.Response;
 
 public class GetHomeworksResponse implements Response, Serializable {
 	private static final long serialVersionUID = -8278997593973008184L;

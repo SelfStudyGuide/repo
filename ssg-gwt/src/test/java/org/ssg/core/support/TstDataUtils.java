@@ -14,12 +14,12 @@ import org.ssg.core.domain.Student;
 import org.ssg.core.domain.Topic;
 import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.core.dto.HomeworkInfo;
+import org.ssg.gui.client.action.BaseAction;
+import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.service.ActionCallbackAdapter;
 import org.ssg.gui.client.service.ActionResponseCallback;
 import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.server.command.ActionHandler;
-import org.ssg.gui.shared.BaseAction;
-import org.ssg.gui.shared.Response;
 
 public class TstDataUtils {
 	public static Module createModule() {

@@ -4,6 +4,7 @@ import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.gui.client.service.ActionCallbackAdapter;
 import org.ssg.gui.client.service.ActionSender;
 import org.ssg.gui.client.service.UserInfoHolder;
+import org.ssg.gui.client.service.WindowLocation;
 import org.ssg.gui.client.userinfo.action.GetUserInfo;
 import org.ssg.gui.client.userinfo.action.GetUserInfoResponse;
 import org.ssg.gui.client.userinfo.event.LogoutEvent;
@@ -12,7 +13,6 @@ import org.ssg.gui.client.userinfo.event.RetrieveUserInfoEvent;
 import org.ssg.gui.client.userinfo.event.RetrieveUserInfoEventHandler;
 import org.ssg.gui.client.userinfo.event.ShareUserInfoEvent;
 import org.ssg.gui.client.userinfo.event.ShareUserInfoEventHandler;
-import org.ssg.gui.shared.WindowLocation;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

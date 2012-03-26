@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module rename-to='StudentHome'>
+<module rename-to='UserInfo'>
 	<inherits name='com.google.gwt.user.User' />
 
 	<inherits name="com.google.gwt.uibinder.UiBinder" />
 	<inherits name='com.google.gwt.user.theme.standard.Standard' />
 	<!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
 	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
-
-
+	
+	<inherits name='org.ssg.gui.client.Service' />
+	<inherits name='org.ssg.gui.client.Action' />
 	<inherits name='org.ssg.core.Dto' />
 
 	<!--set-property name="user.agent" value="gecko"/-->
 
 
-	<source path='client\service' />
-	<source path='client\userinfo' />
-	<source path='shared' />
+	<source path='userinfo' />
 
 </module>

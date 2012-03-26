@@ -2,8 +2,8 @@ package org.ssg.gui.server.command;
 
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.ssg.gui.shared.Action;
-import org.ssg.gui.shared.Response;
+import org.ssg.gui.client.action.Action;
+import org.ssg.gui.client.action.Response;
 
 public abstract class AbstractCommandTestCase<R extends Response, A extends Action<R>> {
 	@Autowired

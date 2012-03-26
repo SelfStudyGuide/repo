@@ -15,6 +15,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.AbstractPresenterTestCase;
+import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.service.ActionSender;
 import org.ssg.gui.client.service.DefaultActionNameProvider;
 import org.ssg.gui.client.service.DefaultActionSender;
@@ -27,7 +28,6 @@ import org.ssg.gui.client.userinfo.event.RetrieveUserInfoEvent;
 import org.ssg.gui.client.userinfo.event.ShareUserInfoEvent;
 import org.ssg.gui.client.userinfo.event.ShareUserInfoEventHandler;
 import org.ssg.gui.client.userinfo.presenter.UserInfoPresenter.Display;
-import org.ssg.gui.shared.Response;
 
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;

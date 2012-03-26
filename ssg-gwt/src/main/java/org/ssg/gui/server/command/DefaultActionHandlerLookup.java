@@ -7,8 +7,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.ssg.gui.shared.Action;
-import org.ssg.gui.shared.Response;
+import org.ssg.gui.client.action.Action;
+import org.ssg.gui.client.action.Response;
 
 public class DefaultActionHandlerLookup<R extends Response, A extends Action<R>> implements ActionHandlerLookup,
 		ApplicationContextAware, InitializingBean {

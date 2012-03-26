@@ -1,4 +1,4 @@
-package org.ssg.gui.shared;
+package org.ssg.gui.client.service;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;

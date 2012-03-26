@@ -1,7 +1,7 @@
 package org.ssg.gui.client.service;
 
-import org.ssg.gui.shared.Action;
-import org.ssg.gui.shared.Response;
+import org.ssg.gui.client.action.Action;
+import org.ssg.gui.client.action.Response;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;

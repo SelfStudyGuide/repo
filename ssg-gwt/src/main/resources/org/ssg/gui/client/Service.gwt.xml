@@ -2,6 +2,6 @@
 <module rename-to='Service'>
 	<inherits name='com.google.gwt.user.User' />
 	<inherits name='org.ssg.core.Dto' />
+	
 	<source path='service' />
-
 </module>

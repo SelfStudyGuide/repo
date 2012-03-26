@@ -1,4 +1,4 @@
-package org.ssg.gui.shared;
+package org.ssg.gui.client.action;
 
 
 public interface Response {

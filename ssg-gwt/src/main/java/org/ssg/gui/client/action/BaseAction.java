@@ -1,4 +1,4 @@
-package org.ssg.gui.shared;
+package org.ssg.gui.client.action;
 
 public abstract class BaseAction<T extends Response> implements Action<T> {
 	

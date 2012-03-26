@@ -1,9 +1,7 @@
 package org.ssg.gui.client.userinfo.action;
 
 import java.io.Serializable;
-
-import org.ssg.gui.shared.BaseAction;
-
+import org.ssg.gui.client.action.BaseAction;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class GetUserInfo extends BaseAction<GetUserInfoResponse> implements Serializable, IsSerializable {

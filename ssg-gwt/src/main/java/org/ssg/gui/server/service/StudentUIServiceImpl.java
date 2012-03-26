@@ -4,12 +4,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.ssg.gui.client.action.Action;
+import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.service.UnexpectedCommandException;
 import org.ssg.gui.server.command.ActionHandler;
 import org.ssg.gui.server.command.ActionHandlerLookup;
-import org.ssg.gui.shared.Action;
-import org.ssg.gui.shared.Response;
 
 @Service
 public class StudentUIServiceImpl implements StudentUIService {

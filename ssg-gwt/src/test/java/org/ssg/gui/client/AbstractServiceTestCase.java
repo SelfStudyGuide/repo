@@ -8,9 +8,9 @@ import static org.mockito.Mockito.verify;
 
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.ssg.gui.client.action.Action;
+import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.service.StudentControlServiceAsync;
-import org.ssg.gui.shared.Action;
-import org.ssg.gui.shared.Response;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

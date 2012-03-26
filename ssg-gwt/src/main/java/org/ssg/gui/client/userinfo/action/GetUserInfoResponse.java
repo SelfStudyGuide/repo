@@ -3,7 +3,7 @@ package org.ssg.gui.client.userinfo.action;
 import java.io.Serializable;
 
 import org.ssg.core.dto.ApplicationUserInfo;
-import org.ssg.gui.shared.Response;
+import org.ssg.gui.client.action.Response;
 
 public class GetUserInfoResponse implements Response, Serializable {
 	private static final long serialVersionUID = 6275941025176248880L;

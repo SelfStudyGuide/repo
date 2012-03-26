@@ -18,9 +18,9 @@ import org.ssg.core.support.TstDataUtils.TestActionCallback;
 import org.ssg.core.support.TstDataUtils.TestActionCallbackWithAdapter;
 import org.ssg.core.support.TstDataUtils.TestActionResponse;
 import org.ssg.gui.client.AbstractServiceTestCase;
+import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.errordialog.ErrorDialog;
 import org.ssg.gui.client.studenthome.StudentHomeworkMessages;
-import org.ssg.gui.shared.Response;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

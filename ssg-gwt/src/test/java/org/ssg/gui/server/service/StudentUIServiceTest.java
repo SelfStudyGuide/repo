@@ -12,12 +12,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.ssg.core.service.StudentService;
 import org.ssg.core.support.TstDataUtils;
+import org.ssg.gui.client.action.Action;
+import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.service.UnexpectedCommandException;
 import org.ssg.gui.client.studenthome.action.GetHomeworks;
 import org.ssg.gui.client.studenthome.action.GetHomeworksResponse;
 import org.ssg.gui.server.command.ActionHandlerLookup;
-import org.ssg.gui.shared.Action;
-import org.ssg.gui.shared.Response;
 
 import static org.hamcrest.CoreMatchers.*;
 

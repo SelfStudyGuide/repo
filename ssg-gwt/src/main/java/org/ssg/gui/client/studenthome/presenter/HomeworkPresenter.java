@@ -7,6 +7,7 @@ import org.ssg.gui.client.service.ActionCallbackAdapter;
 import org.ssg.gui.client.service.ActionSender;
 import org.ssg.gui.client.studenthome.action.GetHomeworks;
 import org.ssg.gui.client.studenthome.action.GetHomeworksResponse;
+import org.ssg.gui.client.studenthome.event.HomeworkSelectedEvent;
 import org.ssg.gui.client.studenthome.event.RefreshStudentHomeworksEvent;
 import org.ssg.gui.client.studenthome.event.RefreshStudentHomeworksEventHandler;
 import org.ssg.gui.client.userinfo.event.ShareUserInfoEvent;
@@ -18,6 +19,8 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.view.client.HasData;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 
 public class HomeworkPresenter {
 	private HandlerManager handlerManager;
@@ -32,6 +35,8 @@ public class HomeworkPresenter {
 		HasClickHandlers getRefreshButton();
 
 		HasText getDebugMessage();
+		
+		SingleSelectionModel<HomeworkInfo> getSelectionModel();
 	}
 
 	public HomeworkPresenter(Display view, ActionSender actionSender,
@@ -55,6 +60,17 @@ public class HomeworkPresenter {
 				handlerManager.fireEvent(new RefreshStudentHomeworksEvent());
 			}
 		});
+		
+		view.getSelectionModel().addSelectionChangeHandler(
+				new SelectionChangeEvent.Handler() {
+
+					public void onSelectionChange(SelectionChangeEvent event) {
+						HomeworkInfo selected = view.getSelectionModel()
+								.getSelectedObject();
+						handlerManager.fireEvent(new HomeworkSelectedEvent(
+								selected));
+					}
+				});
 
 		handlerManager.addHandler(ShareUserInfoEvent.TYPE,
 				new ShareUserInfoEventHandler() {

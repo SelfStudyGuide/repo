@@ -23,6 +23,7 @@ import org.ssg.gui.client.service.DefaultActionNameProvider;
 import org.ssg.gui.client.service.DefaultActionSender;
 import org.ssg.gui.client.studenthome.action.GetHomeworks;
 import org.ssg.gui.client.studenthome.action.GetHomeworksResponse;
+import org.ssg.gui.client.studenthome.event.HomeworkSelectedEvent;
 import org.ssg.gui.client.studenthome.event.RefreshStudentHomeworksEvent;
 import org.ssg.gui.client.studenthome.presenter.HomeworkPresenter;
 import org.ssg.gui.client.studenthome.presenter.HomeworkPresenter.Display;
@@ -32,6 +33,10 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.HasData;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SelectionChangeEvent.Handler;
+import com.google.gwt.view.client.SelectionChangeEvent.HasSelectionChangedHandlers;
+import com.google.gwt.view.client.SingleSelectionModel;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HomeworkPresenterTest extends AbstractPresenterTestCase {
@@ -44,6 +49,9 @@ public class HomeworkPresenterTest extends AbstractPresenterTestCase {
 
 	@Mock
 	private HasData<HomeworkInfo> grid;
+	
+	@Mock
+	private SingleSelectionModel<HomeworkInfo> homeworkSelection;
 
 	private HomeworkPresenter presenter;
 	
@@ -59,6 +67,7 @@ public class HomeworkPresenterTest extends AbstractPresenterTestCase {
 				errorDialog);
 		when(view.getRefreshButton()).thenReturn(refreshButton);
 		when(view.getGrid()).thenReturn(grid);
+		when(view.getSelectionModel()).thenReturn(homeworkSelection);
 		presenter.bind();
 	}
 	
@@ -115,6 +124,24 @@ public class HomeworkPresenterTest extends AbstractPresenterTestCase {
 		
 		verify(grid).setRowData(0, data);
 		verify(grid).setRowCount(2);
+	}
+	
+	@Test
+	public void verifyThatHwSelectionEventIsFiredIfRowIsSelected() {
+		final HomeworkInfo homeworkInfo = TstDataUtils.createHomeworkInfo();
+		Handler selectionHnd = verifyAndCaptureSelectionHnd(homeworkSelection);
+		AssertEventHandler assertAppEvent = assertAppEvent(
+				HomeworkSelectedEvent.TYPE,
+				new HomeworkSelectedEvent.Handler() {
+					public void onHomeworkSelection(HomeworkInfo selected) {
+						assertThat(selected.getId(), is(homeworkInfo.getId()));
+					}
+				});
+		when(homeworkSelection.getSelectedObject()).thenReturn(homeworkInfo);
+
+		selectionHnd.onSelectionChange(null);
+
+		assertAppEvent.assertInvoked();
 	}
 	
 }

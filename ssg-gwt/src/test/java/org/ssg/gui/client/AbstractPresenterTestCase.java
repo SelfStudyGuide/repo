@@ -19,6 +19,8 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SelectionChangeEvent.HasSelectionChangedHandlers;
 
 public abstract class AbstractPresenterTestCase extends AbstractServiceTestCase {
 
@@ -36,6 +38,14 @@ public abstract class AbstractPresenterTestCase extends AbstractServiceTestCase 
 		ArgumentCaptor<ClickHandler> click = ArgumentCaptor
 				.forClass(ClickHandler.class);
 		verify(btn).addClickHandler(click.capture());
+		return click.getValue();
+	}
+	
+	protected SelectionChangeEvent.Handler verifyAndCaptureSelectionHnd(
+			HasSelectionChangedHandlers select) {
+		ArgumentCaptor<SelectionChangeEvent.Handler> click = ArgumentCaptor
+				.forClass(SelectionChangeEvent.Handler.class);
+		verify(select).addSelectionChangeHandler(click.capture());
 		return click.getValue();
 	}
 

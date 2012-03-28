@@ -17,6 +17,9 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.HasData;
+import com.google.gwt.view.client.SelectionChangeEvent.HasSelectionChangedHandlers;
+import com.google.gwt.view.client.SelectionModel;
+import com.google.gwt.view.client.SingleSelectionModel;
 
 public class HomeworkView implements Display {
 
@@ -35,6 +38,8 @@ public class HomeworkView implements Display {
 
 	private final StudentHomeworkMessages messages;
 
+	private SingleSelectionModel<HomeworkInfo> selectionModel;
+
 	public HomeworkView(StudentHomeworkMessages homeworkMessages) {
 		this.messages = homeworkMessages;
 	}
@@ -47,6 +52,10 @@ public class HomeworkView implements Display {
 		return refreshButton;
 	}
 
+	public SingleSelectionModel<HomeworkInfo> getSelectionModel() {
+		return selectionModel;
+	}
+
 	public void go(RootPanel rootPanel) {
 		rootPanel.add(uiBinder.createAndBindUi(this));
 
@@ -54,7 +63,6 @@ public class HomeworkView implements Display {
 	}
 
 	private void initGridColumns() {
-
 		Column<HomeworkInfo, String> idColumn = new Column<HomeworkInfo, String>(
 				new TextCell()) {
 			@Override
@@ -78,10 +86,23 @@ public class HomeworkView implements Display {
 				return "Not started";
 			}
 		};
+		
+//		Column<HomeworkInfo, String> openColumn = new Column<HomeworkInfo, String>(
+//				new ButtonCell()) {
+//			@Override
+//			public String getValue(HomeworkInfo object) {
+//				return messages.homeworkTableOpenButton();
+//			}
+//		};
 
 		homeworksTable.addColumn(idColumn, messages.homeworkTableId());
 		homeworksTable.addColumn(modulesColumn, messages.homeworkTableModule());
 		homeworksTable.addColumn(statusColumn, messages.homeworkTableStatus());
+//		homeworksTable.addColumn(openColumn, "");
+		
+		selectionModel = new SingleSelectionModel<HomeworkInfo>();
+		homeworksTable.setSelectionModel(selectionModel);
+		
 	}
 
 	public HasText getDebugMessage() {

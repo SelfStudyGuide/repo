@@ -130,7 +130,7 @@ public class HomeworkPresenterTest extends AbstractPresenterTestCase {
 	public void verifyThatHwSelectionEventIsFiredIfRowIsSelected() {
 		final HomeworkInfo homeworkInfo = TstDataUtils.createHomeworkInfo();
 		Handler selectionHnd = verifyAndCaptureSelectionHnd(homeworkSelection);
-		AssertEventHandler assertAppEvent = assertAppEvent(
+		AssertEventHandler assertAppEvent = verifyAppEvent(
 				HomeworkSelectedEvent.TYPE,
 				new HomeworkSelectedEvent.Handler() {
 					public void onHomeworkSelection(HomeworkInfo selected) {

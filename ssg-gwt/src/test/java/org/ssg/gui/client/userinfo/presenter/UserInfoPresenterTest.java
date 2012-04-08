@@ -74,7 +74,7 @@ public class UserInfoPresenterTest extends AbstractPresenterTestCase {
 		final ApplicationUserInfo userInfo = TstDataUtils
 				.createStudentUserInfo("John Dou", 1);
 
-		AssertEventHandler eventAssert = assertAppEvent(
+		AssertEventHandler eventAssert = verifyAppEvent(
 				ShareUserInfoEvent.TYPE, new ShareUserInfoEventHandler() {
 					public void onUserInfoRetrieve(ShareUserInfoEvent event) {
 						assertThat(event.getUserInfo(), is(userInfo));
@@ -111,7 +111,7 @@ public class UserInfoPresenterTest extends AbstractPresenterTestCase {
 
 	@Test
 	public void verifyThatWheUserClickOnLogoutButtonLogoutEventIsFired() {
-		AssertEventHandler assertEvent = assertAppEvent(LogoutEvent.TYPE,
+		AssertEventHandler assertEvent = verifyAppEvent(LogoutEvent.TYPE,
 				new LogoutEventHandler() {
 					public void onLogout() {
 					}

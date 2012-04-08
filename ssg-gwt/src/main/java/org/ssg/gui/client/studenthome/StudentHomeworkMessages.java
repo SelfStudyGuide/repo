@@ -21,5 +21,15 @@ public interface StudentHomeworkMessages extends Messages {
 
 	@Key("service.error.unexpected")
 	String serviceErrorUnexpected(String error);
+	
+	@Key("homework.details.notstarted")
+	String homeworkDetailsNotStarted(String topicName);
+
+	@Key("homework.details.inprogress")
+	String homeworkDetailsInProgress(String topicName);
+
+	@Key("homework.details.done")
+	String homeworkDetailsDone(String topicName);
+
 
 }

@@ -20,6 +20,9 @@ public class AbstractServiceTestCase {
 	protected StudentControlServiceAsync service;
 
 	
+	/**
+	 * When need to assert sent action.
+	 */	
 	@SuppressWarnings("unchecked")
 	protected <A extends Action<?>> A verifyAction(Class<A> actionClass) {
 		ArgumentCaptor<? extends Action<?>> argument = ArgumentCaptor
@@ -30,6 +33,9 @@ public class AbstractServiceTestCase {
 		return action;
 	}
 
+	/**
+	 * When need to emulate response.
+	 */
 	@SuppressWarnings("unchecked")
 	protected AsyncCallback<Response> verifyActionAndResturnCallback(Class<? extends Action> actionClass) {
 		ArgumentCaptor<AsyncCallback> acCaptor = ArgumentCaptor

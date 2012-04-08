@@ -6,6 +6,11 @@ public interface HomeworkDao {
 
 	void saveHomework(Homework homework);
 
-	Homework getHomework(int userId);
+	/**
+	 * Loads Homework from database by its id.
+	 * 
+	 * @param homeworkId
+	 */
+	Homework getHomework(int homeworkId);
 
 }

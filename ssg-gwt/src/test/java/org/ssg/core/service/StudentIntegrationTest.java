@@ -4,13 +4,10 @@ import static org.hamcrest.CoreMatchers.*;
 
 import java.util.List;
 
-
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,10 +31,41 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 	}
 	
 	@Test
-	public void verifyThatStudentCanBeSaved() {
-		Student st = TstDataUtils.createStudent("name");
+	public void verifyThatHomeworkCanBeLoadedById() {
+		Student savedStudent = createStudentAndSave();
+		Module savedModule = createModuleAndSave();
+		Homework savedHomework = createHomeworkAndSave(savedStudent,
+				savedModule);
+		clearSession();
 
+		Homework loadedHomework = homeworkDao
+				.getHomework(savedHomework.getId());
+
+		Assert.assertThat(loadedHomework.getId(), is(savedHomework.getId()));
+	}
+
+	private Homework createHomeworkAndSave(Student savedStudent,
+			Module savedModule) {
+		Homework savedHomework = TstDataUtils.createHomework(savedStudent, savedModule);
+		homeworkDao.saveHomework(savedHomework);
+		return savedHomework;
+	}
+
+	private Module createModuleAndSave() {
+		Module savedModule = TstDataUtils.createModuleWithUniqueName();
+		curriculumDao.saveModule(savedModule);
+		return savedModule;
+	}
+
+	private Student createStudentAndSave() {
+		Student st = TstDataUtils.createStudent("name");
 		userDao.saveStudent(st);
+		return st;
+	}
+	
+	@Test
+	public void verifyThatStudentCanBeSaved() {
+		createStudentAndSave();
 
 		Student savedStudent = getSavedStudent();
 
@@ -49,8 +77,7 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 
 	@Test
 	public void verifyThatStudentCanBeLoadedById() {
-		Student st = TstDataUtils.createStudent("name");
-		userDao.saveStudent(st);
+		createStudentAndSave();
 		Student savedStudent = getSavedStudent();
 
 		clearSession();
@@ -70,19 +97,15 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 	@Test
 	//@Rollback(value=false)
 	public void verifyThatHomeworkCanBeAssignedToStudent() {
-		Student st = TstDataUtils.createStudent("name");
-		userDao.saveStudent(st);
-		Module module = TstDataUtils.createModuleWithUniqueName();
-		curriculumDao.saveModule(module);
+		createStudentAndSave();
+		Module module = createModuleAndSave();
 		
 		//clearSession();
 
 		Student savedStudent = getSavedStudent();
 		Module savedModule = getSavedModule();
 
-		Homework homework = TstDataUtils.createHomework(savedStudent, savedModule);
-
-		homeworkDao.saveHomework(homework);
+		Homework homework = createHomeworkAndSave(savedStudent, savedModule);
 
 		clearSession();
 		

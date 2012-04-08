@@ -20,7 +20,7 @@ public class Homework {
 	private int id;
 	private List<Module> modules;
 	private Student student;
-	private List<Answer> answers;
+	private List<TopicProgress> progresses;
 
 	@Id
 	@GeneratedValue
@@ -57,12 +57,12 @@ public class Homework {
 	}
 
 	@Transient
-	public List<Answer> getAnswers() {
-		return answers;
+	public List<TopicProgress> getProgresses() {
+		return progresses;
 	}
 
-	public void setAnswers(List<Answer> answers) {
-		this.answers = answers;
+	public void setProgresses(List<TopicProgress> progresses) {
+		this.progresses = progresses;
 	}
-
+	
 }

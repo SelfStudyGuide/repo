@@ -12,8 +12,11 @@ import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
 import org.ssg.core.domain.Topic;
+import org.ssg.core.domain.TopicProgress;
 import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.core.dto.HomeworkInfo;
+import org.ssg.core.dto.ModuleInfo;
+import org.ssg.core.dto.TopicProgressInfo;
 import org.ssg.gui.client.action.BaseAction;
 import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.service.ActionCallbackAdapter;
@@ -29,6 +32,23 @@ public class TstDataUtils {
 		return module;
 	}
 
+	public static Module enrichModuleWithTopics(Module module) {
+		module.setTopics(new ArrayList<Topic>() {
+			{
+				add(createTopicWithUniqueName());
+				add(createTopicWithUniqueName());
+				add(createTopicWithUniqueName());
+			}
+		});
+		return module;
+
+	}
+
+	public static Module enrichModuleWithId(Module mod) {
+		mod.setId(123);
+		return mod;
+	}
+	
 	public static Module createModuleWithUniqueName() {
 		Module module = TstDataUtils.createModule();
 		module.setName("unique module name " + System.currentTimeMillis());
@@ -48,19 +68,66 @@ public class TstDataUtils {
 		return student;
 	}
 
-	public static Homework createHomework(Student student, Module module) {
+	public static Homework createHomework(Student student, Module... module) {
 		Homework homework = new Homework();
 		homework.setModules(Arrays.asList(module));
 		homework.setStudent(student);
 		student.setHomeworks(Arrays.asList(homework));
-		// module.setHomeworks(Arrays.asList(homework));
+		return homework;
+	}
+	
+	public static Homework enrichHomeworkWithProgress(Homework homework, List<Topic> topics) {
+		ArrayList<TopicProgress> progresses = new ArrayList<TopicProgress>();
+		homework.setProgresses(progresses);
+		int i = 1;
+		for (Topic topic : topics) {
+			topic.setName("Test topic " + i);
+			TopicProgress progress = new TopicProgress(topic);
+			progress.setId(10 + i);
+			progresses.add(progress);
+			i++;
+		}
 		return homework;
 	}
 
 	public static HomeworkInfo createHomeworkInfo() {
 		HomeworkInfo result = new HomeworkInfo();
 		result.setId(1);
+		result.setAssignedModules("Test Module");
 		return result;
+	}
+
+	public static HomeworkInfo createHomeworkInfoWithDetails() {
+		HomeworkInfo result = createHomeworkInfo();
+		
+		ArrayList<TopicProgressInfo> topicProgress = new ArrayList<TopicProgressInfo>();
+		result.setTopicProgress(topicProgress);
+		
+		TopicProgressInfo info = new TopicProgressInfo();
+		info.setId(1);
+		info.setStatus("0");
+		info.setTopicName("TestTopic1");
+		topicProgress.add(info);
+		
+		info = new TopicProgressInfo();
+		info.setId(2);
+		info.setStatus("20");
+		info.setTopicName("TestTopic2");
+		topicProgress.add(info);
+		
+		info = new TopicProgressInfo();
+		info.setId(3);
+		info.setStatus("100");
+		info.setTopicName("TestTopic3");
+		topicProgress.add(info);
+		return result;
+	}
+
+	public static ModuleInfo createModuleInfo() {
+		ModuleInfo info = new ModuleInfo();
+		info.setId(1);
+		info.setName("name");
+		return info;
 	}
 
 	public static ApplicationUserInfo createStudentUserInfo(String name,
@@ -90,8 +157,9 @@ public class TstDataUtils {
 	public static class TestActionResponse implements Response {
 
 	}
-	
-	public static class TestActionHandler implements ActionHandler<TestActionResponse, TestAction> {
+
+	public static class TestActionHandler implements
+			ActionHandler<TestActionResponse, TestAction> {
 
 		public TestActionResponse execute(TestAction action)
 				throws SsgGuiServiceException {
@@ -101,7 +169,7 @@ public class TstDataUtils {
 		public Class<TestAction> forClass() {
 			return TestAction.class;
 		}
-		
+
 	}
 
 	public static class TestActionCallback implements

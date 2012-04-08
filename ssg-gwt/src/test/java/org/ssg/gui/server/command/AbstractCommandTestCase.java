@@ -1,5 +1,7 @@
 package org.ssg.gui.server.command;
 
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.ssg.gui.client.action.Action;
@@ -19,6 +21,7 @@ public abstract class AbstractCommandTestCase<R extends Response, A extends Acti
 	protected abstract Class<A> testedCommandClass();
 
 	public R whenAction(A action) {
+		Assert.assertThat("Handler for command " + testedCommandClass() + " is not found", commandHandler, CoreMatchers.notNullValue());
 		return commandHandler.execute(action);
 	}
 }

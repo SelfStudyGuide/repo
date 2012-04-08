@@ -23,8 +23,7 @@ public class DefaultHomeWorkDao extends HibernateDaoSupport implements
 		getHibernateTemplate().flush();
 	}
 
-	public Homework getHomework(int userId) {
-		// Can be used userDao
-		return null;
+	public Homework getHomework(int homeworkId) {
+		return getHibernateTemplate().get(Homework.class, homeworkId);
 	}
 }

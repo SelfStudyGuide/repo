@@ -17,4 +17,6 @@ public interface StudentService {
 	 */
 	int getStudentIdByName(String name) throws SsgServiceException;
 
+	HomeworkInfo getHomeworksDetails(int homeworkId);
+	
 }

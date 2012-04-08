@@ -22,11 +22,16 @@ import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SelectionChangeEvent.HasSelectionChangedHandlers;
 
+
+/**
+ * This class provide base facilities for test cases on presenter classes.
+ */
 public abstract class AbstractPresenterTestCase extends AbstractServiceTestCase {
 
+	protected HandlerManager handlerManager = new HandlerManager(null);
+	
 	@Mock
 	protected WindowLocation windowLocation;
-	protected HandlerManager handlerManager = new HandlerManager(null);
 	
 	@Mock
 	protected ErrorDialog errorDialog; 
@@ -49,7 +54,7 @@ public abstract class AbstractPresenterTestCase extends AbstractServiceTestCase 
 		return click.getValue();
 	}
 
-	protected AssertEventHandler assertAppEvent(GwtEvent.Type type, EventHandler handler) {
+	protected AssertEventHandler verifyAppEvent(GwtEvent.Type type, EventHandler handler) {
 		AssertEventHandler assertEventHandler = new AssertEventHandler(handler);
 		EventHandler proxy = (EventHandler) Proxy.newProxyInstance(handler
 				.getClass().getClassLoader(), new Class[] { handler.getClass()

@@ -75,7 +75,7 @@ public class HomeworkView implements Display {
 				new TextCell()) {
 			@Override
 			public String getValue(HomeworkInfo object) {
-				return "Module 2";
+				return object.getAssignedModules();
 			}
 		};
 		
@@ -87,18 +87,9 @@ public class HomeworkView implements Display {
 			}
 		};
 		
-//		Column<HomeworkInfo, String> openColumn = new Column<HomeworkInfo, String>(
-//				new ButtonCell()) {
-//			@Override
-//			public String getValue(HomeworkInfo object) {
-//				return messages.homeworkTableOpenButton();
-//			}
-//		};
-
 		homeworksTable.addColumn(idColumn, messages.homeworkTableId());
 		homeworksTable.addColumn(modulesColumn, messages.homeworkTableModule());
 		homeworksTable.addColumn(statusColumn, messages.homeworkTableStatus());
-//		homeworksTable.addColumn(openColumn, "");
 		
 		selectionModel = new SingleSelectionModel<HomeworkInfo>();
 		homeworksTable.setSelectionModel(selectionModel);

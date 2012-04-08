@@ -5,6 +5,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 
 public class ApplicationMessageSource extends ResourceBundleMessageSource {
 	public ApplicationMessageSource() {
+		// messages.properties
 		setBasename("org.ssg.gui.server.messages");
 	}
 

@@ -3,7 +3,6 @@ package org.ssg.gui.client.studenthome.presenter;
 import java.util.ArrayList;
 
 import org.ssg.core.dto.HomeworkInfo;
-import org.ssg.core.dto.ModuleInfo;
 import org.ssg.core.dto.TopicProgressInfo;
 import org.ssg.gui.client.service.ActionCallbackAdapter;
 import org.ssg.gui.client.service.ActionSender;
@@ -33,6 +32,11 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 		
 		HasText getCompleteDate();
 		
+		HasText getTeacherName();
+		
+		void hide();
+		
+		void show();
 	}
 
 	private Display view;
@@ -56,6 +60,7 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 	}
 
 	public void onHomeworkSelection(HomeworkInfo selected) {
+		view.hide();
 		actionSender.send(new GetHomeworkDetails(UserInfoHolder.getStudentId(),
 				selected.getId()),
 				new ActionCallbackAdapter<GetHomeworkDetailsResponse>() {
@@ -70,9 +75,12 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 
 	protected void doUpdateDetails(HomeworkInfo homework) {
 		view.creanUpView();
-		view.getModuleName().setText(homework.getAssignedModules());		
+		view.getModuleName().setText(homework.getAssignedModules());
+		view.getCompleteDate().setText("N/A");
+		view.getAssignedDate().setText("N/A");
+		view.getTeacherName().setText("N/A");
 		updateTopics(homework);
-	
+		view.show();
 	}
 
 	private void updateTopics(HomeworkInfo homework) {
@@ -90,7 +98,10 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 					topicName = topic.getTopicName();
 				}
 				
-				view.addTopic(topicName, windowLocation.getUrl(TOPIC_MODULE_NAME + "?id=" + topic.getId()));
+				view.addTopic(
+						topicName,
+						windowLocation.getUrl(TOPIC_MODULE_NAME + "?id="
+								+ homework.getId() + "_" + topic.getTopicId()));
 			}
 		}
 	}

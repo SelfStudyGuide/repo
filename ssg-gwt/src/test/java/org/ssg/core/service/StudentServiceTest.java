@@ -106,7 +106,7 @@ public class StudentServiceTest {
 	}
 
 	@Test
-	public void verifyThatHomeworkCanBeGaveToStudent() {
+	public void verifyThatHomeworkCanBeGivenToStudent() {
 		Student student = TstDataUtils.createStudent("studen");
 		Module module = TstDataUtils.createModule();
 		when(userDao.getStudentById(eq(1))).thenReturn(student);

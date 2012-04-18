@@ -119,7 +119,7 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 	}
 
 	private Topic createTestTopic(String desc) {
-		Topic topic = TstDataUtils.createTopicWithUniqueName();
+		Topic topic = TstDataUtils.createTopicWithUniqueName(null);
 		topic.setDescription(desc);
 		return topic;
 	}

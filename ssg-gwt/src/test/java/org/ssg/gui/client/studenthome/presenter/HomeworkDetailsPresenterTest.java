@@ -38,10 +38,22 @@ public class HomeworkDetailsPresenterTest extends AbstractPresenterTestCase {
 
 	@Mock
 	private HasText moduleName;
+	
+	@Mock
+	private HasText assignedDate;
+	
+	@Mock
+	private HasText completeDate;
+	
+	@Mock
+	private HasText teacher;
 
 	@Before
 	public void setUp() {
 		when(view.getModuleName()).thenReturn(moduleName);
+		when(view.getAssignedDate()).thenReturn(assignedDate);
+		when(view.getCompleteDate()).thenReturn(completeDate);
+		when(view.getTeacherName()).thenReturn(teacher);
 		
 		actionSender = new DefaultActionSender(service,
 				new DefaultActionNameProvider(), errorDialog, messages);
@@ -54,6 +66,12 @@ public class HomeworkDetailsPresenterTest extends AbstractPresenterTestCase {
 				1234));
 	}
 
+	@Test
+	public void verifyThatAfterHwSelectEventViewIsHidden() {
+		fireHomeworkSelectEvent();
+		verify(view).hide();
+	}
+	
 	@Test
 	public void verifyThatAfterHwSelectEventGetHwRequestIsSend() {
 		fireHomeworkSelectEvent();
@@ -70,17 +88,26 @@ public class HomeworkDetailsPresenterTest extends AbstractPresenterTestCase {
 	}
 
 	@Test
+	public void verifyThatIfHwDetailsIsReceivedThenViewIsShown() {
+		fireHomeworkSelectEvent();		
+		mockExternalServiceCalls();
+		processResponse();
+		
+		verify(view).show();
+	}
+	
+	@Test
 	public void verifyThatIfHwDetailsIsReceivedThenModulesAreUpdated() {
 		fireHomeworkSelectEvent();		
 		mockExternalServiceCalls();
 		processResponse();
 
 		verify(view).addTopic(eq("TestTopic1 - Not strarted"),
-				eq("http://localhost/ssg/Topic.html?id=1"));
+				eq("http://localhost/ssg/Topic.html?id=567_1"));
 		verify(view).addTopic(eq("TestTopic2 - In progress"),
-				eq("http://localhost/ssg/Topic.html?id=2"));
+				eq("http://localhost/ssg/Topic.html?id=567_2"));
 		verify(view).addTopic(eq("TestTopic3 - Done"),
-				eq("http://localhost/ssg/Topic.html?id=3"));
+				eq("http://localhost/ssg/Topic.html?id=567_3"));
 	}
 
 	private void mockExternalServiceCalls() {
@@ -90,12 +117,13 @@ public class HomeworkDetailsPresenterTest extends AbstractPresenterTestCase {
 				"TestTopic2 - In progress");
 		when(messages.homeworkDetailsNotStarted(eq("TestTopic1"))).thenReturn(
 				"TestTopic1 - Not strarted");
-		when(windowLocation.getUrl(eq("Topic.html?id=3"))).thenReturn(
-				"http://localhost/ssg/Topic.html?id=3");
-		when(windowLocation.getUrl(eq("Topic.html?id=2"))).thenReturn(
-				"http://localhost/ssg/Topic.html?id=2");
-		when(windowLocation.getUrl(eq("Topic.html?id=1"))).thenReturn(
-				"http://localhost/ssg/Topic.html?id=1");
+		
+		when(windowLocation.getUrl(eq("Topic.html?id=567_3"))).thenReturn(
+				"http://localhost/ssg/Topic.html?id=567_3");
+		when(windowLocation.getUrl(eq("Topic.html?id=567_2"))).thenReturn(
+				"http://localhost/ssg/Topic.html?id=567_2");
+		when(windowLocation.getUrl(eq("Topic.html?id=567_1"))).thenReturn(
+				"http://localhost/ssg/Topic.html?id=567_1");
 	}
 
 	@Test

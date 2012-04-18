@@ -74,12 +74,13 @@ public class HomeworkAdapter {
 		}
 
 		for (TopicProgress tp : progresses) {
+			
 			TopicProgressInfo info = new TopicProgressInfo();
 			BeanUtils.copyProperties(tp, info);
-			BeanUtils.copyProperties(tp, this);
+			BeanUtils.copyProperties(this, info);
 			result.add(info);
 		}
 		return result;
 	}
-
+	
 }

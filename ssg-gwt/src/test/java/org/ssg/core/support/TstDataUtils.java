@@ -32,12 +32,13 @@ public class TstDataUtils {
 		return module;
 	}
 
-	public static Module enrichModuleWithTopics(Module module) {
+	@SuppressWarnings("serial")
+	public static Module enrichModuleWithTopics(final Module module) {
 		module.setTopics(new ArrayList<Topic>() {
 			{
-				add(createTopicWithUniqueName());
-				add(createTopicWithUniqueName());
-				add(createTopicWithUniqueName());
+				add(createTopicWithUniqueName(module));
+				add(createTopicWithUniqueName(module));
+				add(createTopicWithUniqueName(module));
 			}
 		});
 		return module;
@@ -55,8 +56,9 @@ public class TstDataUtils {
 		return module;
 	}
 
-	public static Topic createTopicWithUniqueName() {
+	public static Topic createTopicWithUniqueName(Module module) {
 		Topic topic = new Topic();
+		topic.setModule(module);
 		topic.setName("unique topic name " + System.currentTimeMillis());
 		return topic;
 	}
@@ -76,18 +78,28 @@ public class TstDataUtils {
 		return homework;
 	}
 	
-	public static Homework enrichHomeworkWithProgress(Homework homework, List<Topic> topics) {
+	public static Homework enrichHomeworkWithProgress(Homework homework,
+			List<Topic> topics) {
 		ArrayList<TopicProgress> progresses = new ArrayList<TopicProgress>();
 		homework.setProgresses(progresses);
 		int i = 1;
 		for (Topic topic : topics) {
 			topic.setName("Test topic " + i);
-			TopicProgress progress = new TopicProgress(topic);
-			progress.setId(10 + i);
+			TopicProgress progress = new TopicProgress(topic, homework);
 			progresses.add(progress);
 			i++;
 		}
 		return homework;
+	}
+	
+	public static List<TopicProgress> enrichTopicProgressesWithId(
+			List<TopicProgress> tp) {
+		int i = 1;
+		for (TopicProgress p : tp) {
+			p.setId(10 + i);
+			i++;
+		}
+		return tp;
 	}
 
 	public static HomeworkInfo createHomeworkInfo() {
@@ -104,19 +116,19 @@ public class TstDataUtils {
 		result.setTopicProgress(topicProgress);
 		
 		TopicProgressInfo info = new TopicProgressInfo();
-		info.setId(1);
+		info.setTopicId(1);
 		info.setStatus("0");
 		info.setTopicName("TestTopic1");
 		topicProgress.add(info);
 		
 		info = new TopicProgressInfo();
-		info.setId(2);
+		info.setTopicId(2);
 		info.setStatus("20");
 		info.setTopicName("TestTopic2");
 		topicProgress.add(info);
 		
 		info = new TopicProgressInfo();
-		info.setId(3);
+		info.setTopicId(3);
 		info.setStatus("100");
 		info.setTopicName("TestTopic3");
 		topicProgress.add(info);

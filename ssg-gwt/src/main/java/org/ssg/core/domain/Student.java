@@ -47,7 +47,8 @@ public class Student {
 		this.email = email;
 	}
 
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "student")
+	@OneToMany(//cascade=CascadeType.ALL, 
+			mappedBy = "student")
 	public List<Homework> getHomeworks() {
 		return homeworks;
 	}

@@ -34,7 +34,7 @@ public class Topic {
 		this.id = id;
 	}
 
-	@Column(name = "NAME", nullable=false, unique=true)
+	@Column(name = "NAME", nullable=false)
 	public String getName() {
 		return name;
 	}

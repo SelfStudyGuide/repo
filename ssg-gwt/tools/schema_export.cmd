@@ -1,0 +1,1 @@
+java -cp hibernate_classpaths org.hibernate.tool.hbm2ddl.SchemaExport options mapping_files 

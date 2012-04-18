@@ -1,6 +1,7 @@
 package org.ssg.core.service;
 
 import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
+import org.ssg.core.domain.TopicProgress;
 import org.ssg.core.support.AbstractDaoTestSupport;
 import org.ssg.core.support.TstDataUtils;
 
@@ -26,7 +28,9 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 	@Override
 	protected void cleanUpDb() {
 		deleteAll(Homework.class);
+		//deleteAll(TopicProgress.class);
 		deleteAll(Student.class);
+		//deleteAll(Topic.class);
 		deleteAll(Module.class);
 	}
 	
@@ -113,7 +117,36 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 		
 		Assert.assertThat(savedHomework.getId(), not(0));
 		Assert.assertThat(savedHomework.getStudent().getId(), is(savedStudent.getId()));
-		Assert.assertThat(savedHomework.getModules().size(), is(1));
+		assertThat(savedHomework.getModules().size(), is(1));
+		
+	}
+	
+	@Test
+	//@Rollback(value=false)
+	public void verifyThatTopicProgressCanBeSavedWithHomework() {
+		createStudentAndSave();
+		Module module = TstDataUtils.enrichModuleWithTopics(TstDataUtils.createModuleWithUniqueName());
+		curriculumDao.saveModule(module);
+		
+		Student savedStudent = getSavedStudent();
+		Module savedModule = getSavedModule();
+
+		Homework homework = TstDataUtils.createHomework(savedStudent, savedModule);
+		homework = TstDataUtils.enrichHomeworkWithProgress(homework, savedModule.getTopics());
+		homeworkDao.saveHomework(homework);
+		
+		clearSession();
+		
+		Homework savedHomework = getSavedHomework();
+		
+		List<TopicProgress> savedProgress = savedHomework.getProgresses();
+		assertThat(savedProgress.size(), is(3));
+		assertThat(savedProgress.get(0).getHomework().getId(), is(savedHomework.getId()));
+		assertThat(savedProgress.get(1).getHomework().getId(), is(savedHomework.getId()));
+		assertThat(savedProgress.get(2).getHomework().getId(), is(savedHomework.getId()));
+		assertThat(savedProgress.get(0).getTopic().getId(), is(savedModule.getTopics().get(0).getId()));
+		assertThat(savedProgress.get(1).getTopic().getId(), is(savedModule.getTopics().get(1).getId()));
+		assertThat(savedProgress.get(2).getTopic().getId(), is(savedModule.getTopics().get(2).getId()));
 	}
 	
 	@Test

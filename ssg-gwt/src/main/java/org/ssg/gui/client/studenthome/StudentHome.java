@@ -9,7 +9,9 @@ import org.ssg.gui.client.service.DefaultWindowLocation;
 import org.ssg.gui.client.service.StudentControlService;
 import org.ssg.gui.client.service.StudentControlServiceAsync;
 import org.ssg.gui.client.service.WindowLocation;
+import org.ssg.gui.client.studenthome.presenter.HomeworkDetailsPresenter;
 import org.ssg.gui.client.studenthome.presenter.HomeworkPresenter;
+import org.ssg.gui.client.studenthome.view.HomeworkDetailsView;
 import org.ssg.gui.client.studenthome.view.HomeworkView;
 import org.ssg.gui.client.userinfo.event.RetrieveUserInfoEvent;
 import org.ssg.gui.client.userinfo.presenter.UserInfoPresenter;
@@ -38,12 +40,13 @@ public class StudentHome implements EntryPoint {
 		HandlerManager handlerManager = new HandlerManager(null);
 		WindowLocation windowLocation = new DefaultWindowLocation();
 		DefaultActionNameProvider nameProvider = new DefaultActionNameProvider();
-		
-		
+
 		ErrorDialogView errorDialogView = new ErrorDialogView();
-		ErrorDialogMessages errorDialogMessages = GWT.create(ErrorDialogMessages.class);
-		ErrorDialog errorDialog = new ErrorDialog(errorDialogView, errorDialogMessages);
-		
+		ErrorDialogMessages errorDialogMessages = GWT
+				.create(ErrorDialogMessages.class);
+		ErrorDialog errorDialog = new ErrorDialog(errorDialogView,
+				errorDialogMessages);
+
 		DefaultActionSender actionSender = new DefaultActionSender(
 				studentService, nameProvider, errorDialog, homeworkMessages);
 
@@ -60,7 +63,15 @@ public class StudentHome implements EntryPoint {
 
 		userInfoView.go(RootPanel.get("userinfo"));
 		userInfoPresenter.bind();
-		
+
+		HomeworkDetailsView detailsView = new HomeworkDetailsView(
+				RootPanel.get("homeworkDetails"));
+
+		HomeworkDetailsPresenter detailsPresenter = new HomeworkDetailsPresenter(
+				detailsView, homeworkMessages, windowLocation, actionSender,
+				handlerManager);
+		detailsPresenter.bind();
+
 		handlerManager.fireEvent(new RetrieveUserInfoEvent());
 	}
 }

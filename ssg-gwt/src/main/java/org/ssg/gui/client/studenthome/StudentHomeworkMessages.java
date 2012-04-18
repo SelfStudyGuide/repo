@@ -31,5 +31,13 @@ public interface StudentHomeworkMessages extends Messages {
 	@Key("homework.details.done")
 	String homeworkDetailsDone(String topicName);
 
-
+	@Key("homework.details.assigned")
+	String homeworkDetailsAssigned();
+	
+	@Key("homework.details.complete")
+	String homeworkDetailsComplete();
+	
+	@Key("homework.details.teacher")
+	String homeworkDetailsTeacher();
+	
 }

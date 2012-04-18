@@ -1,29 +1,49 @@
 package org.ssg.core.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
-public class TopicProgress {
-	private int id;
+@Entity
+@Table(name = "TOPIC_PROGRESS")
+public class TopicProgress implements Serializable {
+	private static final long serialVersionUID = -1107116198666337327L;
+	//private int id;
 	private Homework homework;
 	private Topic topic;	
 	private String status;
 	private List<Answer> answers;
 	
 	
-	public TopicProgress(Topic topic) {
-		this.topic = topic;		
+	public TopicProgress(Topic topic, Homework homework) {
+		this.topic = topic;
+		this.homework = homework;		
 	}
 	
-	public int getId() {
-		return id;
+	public TopicProgress() {
+		
 	}
+	
+//	@Transient
+//	public int getId() {
+//		return id;
+//	}
+//
+//	public void setId(int id) {
+//		this.id = id;
+//	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	@Id
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "HW_ID")
 	public Homework getHomework() {
 		return homework;
 	}
@@ -32,6 +52,9 @@ public class TopicProgress {
 		this.homework = homework;
 	}
 
+	@Id
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TOPIC_ID")
 	public Topic getTopic() {
 		return topic;
 	}
@@ -40,6 +63,7 @@ public class TopicProgress {
 		this.topic = topic;
 	}
 
+	@Column(name = "STATUS")
 	public String getStatus() {
 		return status;
 	}
@@ -57,8 +81,14 @@ public class TopicProgress {
 		this.answers = answers;
 	}
 	
+	@Transient
 	public String getTopicName() {
 		return getTopic() != null ? getTopic().getName() : null;
+	}
+	
+	@Transient
+	public int getTopicId() {
+		return getTopic() != null ? getTopic().getId() : -1;
 	}
 	
 }

@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -56,7 +57,7 @@ public class Homework {
 		this.student = student;
 	}
 
-	@Transient
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "homework", orphanRemoval = true)
 	public List<TopicProgress> getProgresses() {
 		return progresses;
 	}

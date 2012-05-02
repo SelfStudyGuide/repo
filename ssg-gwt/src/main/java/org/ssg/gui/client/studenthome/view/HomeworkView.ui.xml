@@ -1,29 +1,77 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-	xmlns:g='urn:import:com.google.gwt.user.client.ui'
-	xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
 
 	<ui:with field='res'
 		type='org.ssg.gui.client.studenthome.StudentHomeworkMessages' />
 
-	<g:VerticalPanel>
-		<g:cell verticalAlignment="ALIGN_TOP">
+	<ui:style>
+		.clickButton {
+			border: 1px solid #3079ED;
+			color: white !important;
+			background-color: #4D90FE;
+			background-image: -webkit-linear-gradient(top, #4D90FE, #4787ED);
+			background-image: -moz-linear-gradient(top, #4D90FE, #4787ED);
+			background-image: -ms-linear-gradient(top, #4D90FE, #4787ED);
+			background-image: -o-linear-gradient(top, #4D90FE, #4787ED);
+			background-image: linear-gradient(top, #4D90FE, #4787ED);
+			-moz-border-radius: 2px;
+			-webkit-border-radius: 2px;
+			border-radius: 2px;
+			cursor: default !important;
+			display: inline-block;
+			padding: 0 8px;
+			text-align: center;
+			text-decoration: none !important;
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			
+			font-weight: bold;
+			height: 29px;
+			line-height: 29px;
+			min-width: 54px;
+		}
+		
+		.clickButton:hover {
+			border: 1px solid #357AE8;
+			background-color: #2F5BB7;
+			background-image: -webkit-linear-gradient(top, #4D90FE, #357AE8);
+			background-image: -moz-linear-gradient(top, #4D90FE, #357AE8);
+			background-image: -ms-linear-gradient(top, #4D90FE, #357AE8);
+			background-image: -o-linear-gradient(top, #4D90FE, #357AE8);
+			background-image: linear-gradient(top, #4D90FE, #357AE8);
+		}
+		
+		.widget_title {
+			float: left;
+			background-color: #F27A01;
+			text-decoration: none;
+			font-weight: bold;
+			color: white;
+			font-size: 15px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			padding-right: 5px;
+			padding-left: 5px;
+			border-radius: 3px;
+		}
+	</ui:style>
+
+	<g:HTMLPanel>
+		<g:FlowPanel styleName='{style.widget_title}'>
 			<g:Label>
 				<ui:text from='{res.viewTitle}' />
 			</g:Label>
-		</g:cell>
-
-		<g:cell verticalAlignment="ALIGN_MIDDLE" >
-			<!--  g:Label ui:field="debugMsg">
-				Empty
-			</g:Label-->
+		</g:FlowPanel>
+		<g:FlowPanel styleName='clear' ></g:FlowPanel>
+		<g:FlowPanel>
 			<c:CellTable ui:field="homeworksTable">
 			</c:CellTable>
-		</g:cell>
-		
-		<g:cell verticalAlignment="ALIGN_BOTTOM">
-			<g:Button ui:field="refreshButton">
-				Refresh
+		</g:FlowPanel>
+		<g:FlowPanel>
+			<g:Button styleName="{style.clickButton}" ui:field="refreshButton">
+				<ui:text from='{res.homeworkRefreshButton}' />
 			</g:Button>
-		</g:cell>
-	</g:VerticalPanel>
+		</g:FlowPanel>
+	</g:HTMLPanel>
+
 </ui:UiBinder>

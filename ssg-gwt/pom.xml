@@ -220,6 +220,8 @@
 				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
 					documentation at codehaus.org -->
 				<configuration>
+					<draftCompile>true</draftCompile>
+					<style>DETAILED</style>				
 					<runTarget>StudentHome.html</runTarget>
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
 					<i18nMessagesBundle>org.ssg.gui.client.Messages</i18nMessagesBundle>

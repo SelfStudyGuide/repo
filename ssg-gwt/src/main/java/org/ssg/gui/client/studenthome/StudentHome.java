@@ -37,6 +37,8 @@ public class StudentHome implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 
+		StudentHomeResources.INSTANCE.styles().ensureInjected();
+		
 		HandlerManager handlerManager = new HandlerManager(null);
 		WindowLocation windowLocation = new DefaultWindowLocation();
 		DefaultActionNameProvider nameProvider = new DefaultActionNameProvider();

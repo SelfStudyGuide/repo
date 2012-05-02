@@ -96,7 +96,7 @@ public class TstDataUtils {
 			List<TopicProgress> tp) {
 		int i = 1;
 		for (TopicProgress p : tp) {
-			p.setId(10 + i);
+			//p.setId(10 + i);
 			i++;
 		}
 		return tp;

@@ -4,7 +4,7 @@ import com.google.gwt.i18n.client.Messages;
 
 // StudentHomeworkMessages.properties
 public interface StudentHomeworkMessages extends Messages {
-	@Key("view.title")
+	@Key("homework.view.title")
 	String viewTitle();
 
 	@Key("homework.table.id")
@@ -19,6 +19,9 @@ public interface StudentHomeworkMessages extends Messages {
 	@Key("homework.table.openbutton")
 	String homeworkTableOpenButton();
 
+	@Key("homework.btn.refresh")
+	String homeworkRefreshButton();
+	
 	@Key("service.error.unexpected")
 	String serviceErrorUnexpected(String error);
 	

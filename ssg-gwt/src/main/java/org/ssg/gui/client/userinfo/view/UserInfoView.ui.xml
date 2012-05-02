@@ -3,13 +3,15 @@
 
 	<ui:with field='res' type='org.ssg.gui.client.userinfo.UserInfoMessages' />
 
-	<g:HorizontalPanel>
-		<g:cell horizontalAlignment='ALIGN_LEFT'>
-			<g:Label ui:field='usernameLbl' />
-		</g:cell>
-		<g:cell horizontalAlignment='ALIGN_RIGHT'>
-			<g:Anchor ui:field='logoutBtn' text="{res.logoutLink}" />
-		</g:cell>
+	<g:HTMLPanel>
+		<ul class="g_menu">
+			<li>
+				<div ui:field="usernameLbl"></div>
+			</li>
+			<li style="border: 0">
+				<a href="#" ui:field="logoutBtn">Sign out</a>
+			</li>
+		</ul>
+	</g:HTMLPanel>
 
-	</g:HorizontalPanel>
 </ui:UiBinder>

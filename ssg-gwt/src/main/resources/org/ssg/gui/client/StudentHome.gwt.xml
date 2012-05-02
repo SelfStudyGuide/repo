@@ -2,9 +2,10 @@
 <module rename-to='StudentHome'>
 	<inherits name='com.google.gwt.user.User' />
 
-	<inherits name='com.google.gwt.junit.JUnit' />
+	<!--inherits name='com.google.gwt.junit.JUnit' /-->
 	<inherits name="com.google.gwt.uibinder.UiBinder" />
 	<inherits name='com.google.gwt.user.theme.standard.Standard' />
+	<inherits name="com.google.gwt.resources.Resources" />
 	<!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
 	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
 

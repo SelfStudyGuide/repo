@@ -1,0 +1,161 @@
+@def OUTER_SCR_WIDTH 984px;
+@def INNER_SCR_WIDTH 960px;
+@def MENU_FONT_SIZE 12px; 
+
+/** Common Styles **/
+
+.h_15 {
+	height: 15px;
+}
+
+.h_20 {
+	height: 20px;
+}
+
+.clear {
+	clear: both;
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+/**/
+
+.body {
+	font-size: 13px;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	background-color: #f3f3f3;
+	color: #000000;
+	height: 100%;
+	min-width: INNER_SCR_WIDTH;
+}
+
+.header {
+	margin-bottom: 10px;
+}
+
+.container {
+	margin-left: auto;
+	margin-right: auto;
+	width: INNER_SCR_WIDTH;
+}
+
+.top {
+	background-image: url(img/b_f_top.png);
+	background-repeat: no-repeat;
+	height: 10px;
+	width: OUTER_SCR_WIDTH;
+}
+
+.center {
+	background-image: url(img/b_f_center.png);
+	background-repeat: repeat-y;
+	width: OUTER_SCR_WIDTH;
+}
+
+.bottom {
+	background-image: url(img/b_f_bottom.png);
+	background-repeat: no-repeat;
+	height: 10px;
+	width: OUTER_SCR_WIDTH;
+}
+
+.logo {
+	display: inline;
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+	width: 220px;
+}
+
+/**/
+
+.top_menu_outer {
+	display: inline;
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+	width: 700px;
+}
+
+.top_menu_inner {
+	float: right;
+	width: 100%;
+	padding-top: 20px;
+}
+
+.top_menu {
+	float: left;
+	font-size: MENU_FONT_SIZE;
+}
+
+ul.g_menu {
+	margin: 0px;
+	padding: 0px;
+	float: left;
+}
+
+ul.g_menu li {
+	list-style-type: none;
+	text-align: right;
+	float: left;
+	padding: 2px 10px 0px 6px;
+	margin: 0px;
+	border-right: 1px solid #d3d3d3;
+	height: 20px;
+}
+
+ul.g_menu li a {
+	font-size: MENU_FONT_SIZE;
+}
+
+/**/
+
+.userinfo {
+	float: right;
+	font-size: MENU_FONT_SIZE;
+}
+
+/** Student Home Styles **/
+
+.homework_cnt {
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+/** Example rules used by the template application (remove for your app) */
+h1 {
+	font-size: 2em;
+	font-weight: bold;
+	color: #777777;
+	margin: 40px 0px 70px;
+	text-align: center;
+}
+
+.sendButton {
+	display: block;
+	font-size: 16pt;
+}
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+	width: 400px;
+}
+
+.dialogVPanel {
+	margin: 5px;
+}
+
+.serverResponseLabelError {
+	color: red;
+}
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+#closeButton {
+	margin: 15px 6px 6px;
+}
+
+

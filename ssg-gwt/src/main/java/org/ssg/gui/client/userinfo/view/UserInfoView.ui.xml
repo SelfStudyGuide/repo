@@ -6,10 +6,12 @@
 	<g:HTMLPanel>
 		<ul class="g_menu">
 			<li>
-				<div ui:field="usernameLbl"></div>
+				<g:Label ui:field="usernameLbl">...</g:Label>
 			</li>
 			<li style="border: 0">
-				<a href="#" ui:field="logoutBtn">Sign out</a>
+				<g:Anchor href="{res.logoutLink}" ui:field="logoutBtn" >
+					<ui:text from='{res.logoutLabel}' />
+				</g:Anchor>
 			</li>
 		</ul>
 	</g:HTMLPanel>

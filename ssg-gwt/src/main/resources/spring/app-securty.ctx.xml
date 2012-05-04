@@ -15,7 +15,7 @@
 		<form-login login-page="/login.jsp"
 			authentication-failure-url="/login.jsp?authfailed=true"
 			default-target-url="/index.jsp" />
-		<logout invalidate-session="true" logout-url="/j_spring_security_logout" />
+		<logout invalidate-session="true" logout-url="/j_spring_security_logout" logout-success-url="/login.jsp"/>
 	</http>
 
 	<authentication-manager>

@@ -72,6 +72,10 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 
 				});
 	}
+	
+	public void onHomeworkDeselected() {
+		view.hide();
+	}
 
 	protected void doUpdateDetails(HomeworkInfo homework) {
 		view.creanUpView();
@@ -105,4 +109,6 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 			}
 		}
 	}
+
+	
 }

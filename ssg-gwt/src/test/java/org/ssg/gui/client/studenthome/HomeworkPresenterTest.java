@@ -131,17 +131,37 @@ public class HomeworkPresenterTest extends AbstractPresenterTestCase {
 		final HomeworkInfo homeworkInfo = TstDataUtils.createHomeworkInfo();
 		Handler selectionHnd = verifyAndCaptureSelectionHnd(homeworkSelection);
 		AssertEventHandler assertAppEvent = verifyAppEvent(
-				HomeworkSelectedEvent.TYPE,
-				new HomeworkSelectedEvent.Handler() {
-					public void onHomeworkSelection(HomeworkInfo selected) {
-						assertThat(selected.getId(), is(homeworkInfo.getId()));
-					}
-				});
+				HomeworkSelectedEvent.TYPE, 
+				HomeworkSelectedEvent.Handler.class);
+//				new HomeworkSelectedEvent.Handler() {
+//					public void onHomeworkSelection(HomeworkInfo selected) {
+//						assertThat(selected.getId(), is(homeworkInfo.getId()));
+//					}
+//
+//					public void onHomeworkDeselected() {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//				});
 		when(homeworkSelection.getSelectedObject()).thenReturn(homeworkInfo);
 
 		selectionHnd.onSelectionChange(null);
 
 		assertAppEvent.assertInvoked();
+		assertAppEvent.assertMethodInvoked("onHomeworkSelection");
+		assertThat(assertAppEvent.lastArgument(0, HomeworkInfo.class).getId(), is(homeworkInfo.getId()));
+	}
+	
+	@Test
+	public void verifyThatAfterHomeworkListRefreshSelectionEventIsFiredWithNullValue() {
+		presenter.setUserInfo(TstDataUtils.createStudentUserInfo("Foo", 3));
+
+		AssertEventHandler assertAppEvent = verifyAppEvent(HomeworkSelectedEvent.TYPE, HomeworkSelectedEvent.Handler.class);
+
+		verifyAndCaptureClickHnd(refreshButton).onClick(null);
+		
+		assertAppEvent.assertMethodInvoked("onHomeworkDeselected");
+
 	}
 	
 }

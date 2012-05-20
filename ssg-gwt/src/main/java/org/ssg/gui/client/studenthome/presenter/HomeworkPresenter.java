@@ -13,6 +13,7 @@ import org.ssg.gui.client.studenthome.event.RefreshStudentHomeworksEventHandler;
 import org.ssg.gui.client.userinfo.event.ShareUserInfoEvent;
 import org.ssg.gui.client.userinfo.event.ShareUserInfoEventHandler;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -51,6 +52,7 @@ public class HomeworkPresenter {
 		handlerManager.addHandler(RefreshStudentHomeworksEvent.TYPE,
 				new RefreshStudentHomeworksEventHandler() {
 					public void onHomeworkRefresh() {
+						handlerManager.fireEvent(new HomeworkSelectedEvent(null));
 						doHomeworksRequest();
 					}
 				});
@@ -67,6 +69,7 @@ public class HomeworkPresenter {
 					public void onSelectionChange(SelectionChangeEvent event) {
 						HomeworkInfo selected = view.getSelectionModel()
 								.getSelectedObject();
+						GWT.log("Fire HomeworkSelectedEvent for " + selected);
 						handlerManager.fireEvent(new HomeworkSelectedEvent(
 								selected));
 					}

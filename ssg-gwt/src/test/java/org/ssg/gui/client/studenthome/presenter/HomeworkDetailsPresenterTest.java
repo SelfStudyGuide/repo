@@ -133,6 +133,18 @@ public class HomeworkDetailsPresenterTest extends AbstractPresenterTestCase {
 
 		verify(moduleName).setText("Test Module");
 	}
+	
+	@Test
+	public void verifyThatIfDelectEventThenDetailsViewShouldBeHidden() {
+		fireDeselectedEvent();
+		
+		verify(view).hide();
+		
+	}
+
+	private void fireDeselectedEvent() {
+		handlerManager.fireEvent(new HomeworkSelectedEvent(null));
+	}
 
 	private void processResponse() {
 		AsyncCallback<Response> callback = verifyActionAndResturnCallback(GetHomeworkDetails.class);

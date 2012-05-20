@@ -9,10 +9,15 @@ public class HomeworkSelectedEvent extends GwtEvent<HomeworkSelectedEvent.Handle
 
 	public interface Handler extends EventHandler {
 		void onHomeworkSelection(HomeworkInfo selected);
+		void onHomeworkDeselected();
 	}
 
 	private HomeworkInfo selected;
 
+	/**
+	 * 
+	 * @param selected is <tt>null</tt> then unselected event
+	 */
 	public HomeworkSelectedEvent(HomeworkInfo selected) {
 		this.selected = selected;
 	}
@@ -24,7 +29,15 @@ public class HomeworkSelectedEvent extends GwtEvent<HomeworkSelectedEvent.Handle
 	}
 
 	protected void dispatch(HomeworkSelectedEvent.Handler handler) {
-		handler.onHomeworkSelection(selected);
+		if (selected()) {
+			handler.onHomeworkSelection(selected);
+		} else {
+			handler.onHomeworkDeselected();
+		}
+	}
+
+	private boolean selected() {
+		return selected != null;
 	}
 	
 }

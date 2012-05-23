@@ -41,23 +41,10 @@
 			background-image: linear-gradient(top, #4D90FE, #357AE8);
 		}
 		
-		.widget_title {
-			float: left;
-			background-color: #F27A01;
-			text-decoration: none;
-			font-weight: bold;
-			color: white;
-			font-size: 15px;
-			padding-top: 5px;
-			padding-bottom: 5px;
-			padding-right: 5px;
-			padding-left: 5px;
-			border-radius: 3px;
-		}
 	</ui:style>
 
 	<g:HTMLPanel>
-		<g:FlowPanel styleName='{style.widget_title}'>
+		<g:FlowPanel styleName='widget_title'>
 			<g:Label>
 				<ui:text from='{res.viewTitle}' />
 			</g:Label>

@@ -2,15 +2,70 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-		.important {
-			font-weight: bold;
+		.floatLeft {
+			float: left;
+		}
+		.paddingRight5 {
+			padding-right: 5px
+		}
+		.paddingRight10 {
+			padding-right: 10px
 		}
 	</ui:style>
 
-	<ui:with
-		field='res' type='org.ssg.gui.client.studenthome.StudentHomeworkMessages' />
-	
-	<g:VerticalPanel>
+	<ui:with field='res'
+		type='org.ssg.gui.client.studenthome.StudentHomeworkMessages' />
+
+	<g:HTMLPanel>
+		<g:FlowPanel styleName='widget_title'>
+			<g:Label>
+				<ui:text from='{res.homeworkDetailsViewTitle}' />
+			</g:Label>
+		</g:FlowPanel>
+		<g:FlowPanel styleName='clear'></g:FlowPanel>
+		<g:FlowPanel>
+			<g:Label ui:field="moduleName" />
+		</g:FlowPanel>
+
+		<g:FlowPanel styleName='clear'></g:FlowPanel>
+
+		<g:FlowPanel styleName='{style.floatLeft} {style.paddingRight5}'>
+			<g:Label>
+				<ui:text from='{res.homeworkDetailsAssigned}' />
+			</g:Label>
+		</g:FlowPanel>
+		<g:FlowPanel styleName="{style.floatLeft} {style.paddingRight10}">
+			<g:Label ui:field="assignDate" />
+		</g:FlowPanel>
+		<g:FlowPanel styleName='{style.floatLeft} {style.paddingRight5}'>
+			<g:Label>
+				<ui:text from='{res.homeworkDetailsComplete}' />
+			</g:Label>
+		</g:FlowPanel>
+		<g:FlowPanel styleName="{style.floatLeft}" >
+			<g:Label ui:field="completeDate" />
+		</g:FlowPanel>
+
+		<g:FlowPanel styleName='clear'></g:FlowPanel>
+
+		<g:FlowPanel styleName='{style.floatLeft} {style.paddingRight5}'>
+			<g:Label>
+				<ui:text from='{res.homeworkDetailsComplete}' />
+			</g:Label>
+		</g:FlowPanel>
+		<g:FlowPanel styleName="{style.floatLeft} {style.paddingRight10}">
+			<g:Label ui:field="teacherName" />
+		</g:FlowPanel>
+
+		<g:FlowPanel styleName='clear'></g:FlowPanel>
+
+		<g:FlowPanel>
+			<g:VerticalPanel ui:field="topicList" />
+		</g:FlowPanel>
+
+	</g:HTMLPanel>
+
+	<!--  g:VerticalPanel>
 		<g:cell>
 			<g:Label ui:field="moduleName" />
 		</g:cell>
@@ -49,5 +104,5 @@
 		<g:cell>
 			<g:VerticalPanel ui:field="topicList" />
 		</g:cell>
-	</g:VerticalPanel>
+	</g:VerticalPanel-->
 </ui:UiBinder> 

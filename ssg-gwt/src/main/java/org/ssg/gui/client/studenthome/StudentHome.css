@@ -70,6 +70,21 @@
 	width: 220px;
 }
 
+
+.widget_title {
+	float: left;
+	background-color: #F27A01;
+	text-decoration: none;
+	font-weight: bold;
+	color: white;
+	font-size: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 5px;
+	padding-left: 5px;
+	border-radius: 3px;
+}
+
 /**/
 
 .top_menu_outer {

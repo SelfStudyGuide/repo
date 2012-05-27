@@ -43,7 +43,7 @@ public class Topic {
 		this.name = name;
 	}
 	
-	@Column(name = "DESC")
+	@Column(name = "DESCRIPTION")
 	public String getDescription() {
 		return description;
 	}

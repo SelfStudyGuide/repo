@@ -6,6 +6,21 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Database</name>
 
+	<dependencies>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.20</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.flyway</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+
+	</dependencies>
+
 	<build>
 		<resources>
 			<resource>
@@ -14,56 +29,27 @@
 		</resources>
 
 		<plugins>
+			<!-- <profile> <id>dev</id> <properties> <dbUser>ssg_user</dbUser> <dbPass>ssg_user</dbPass> 
+				<dbUrl>jdbc:mysql://localhost:3306/ssg_db_01</dbUrl> <dbSchema>ssg_db_01</dbSchema> 
+				</properties> </profile> -->
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>sql-maven-plugin</artifactId>
-				<version>1.5</version>
-
-				<dependencies>
-					<!-- specify the dependent jdbc driver here -->
-					<dependency>
-						<groupId>org.hsqldb</groupId>
-						<artifactId>hsqldb</artifactId>
-						<version>2.2.6</version>
-					</dependency>
-				</dependencies>
-
-				<!-- common configuration shared by all executions -->
+				<groupId>com.googlecode.flyway</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>1.6.1</version>
 				<configuration>
-					<driver>org.hsqldb.jdbcDriver</driver>
-					<url>jdbc:hsqldb:hsql://localhost/ssg_db</url>
-					<!--url>jdbc:hsqldb:hsql://localhost/ssg_test</url-->
-					<username>SA</username>
-					<password></password>
-					<!-- You can comment out username/password configurations and have maven 
-						to look them up in your settings.xml using ${settingsKey} -->
-					<settingsKey>sensibleKey</settingsKey>
-					<!--all executions are ignored if -Dmaven.test.skip=true -->
-					<!--skip>${maven.test.skip}</skip -->
+					<baseDir>ssg_db_migration</baseDir>
+					<driver>com.mysql.jdbc.Driver</driver>
+					<!--mavenProject>ssg-database</mavenProject -->
+					<schemas>${dbSchema}</schemas>
+					<url>${dbUrl}</url>
+					<user>${dbUser}</user>
+					<password>${dbPass}</password>
+					<placeholders>
+						<ssgEnv>${ssgEnv}</ssgEnv>
+					</placeholders>
 				</configuration>
-
-				<executions>
-
-					<execution>
-						<id>create-data</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>execute</goal>
-						</goals>
-						<configuration>
-							<!--orderFile>ascending</orderFile-->
-							<printResultSet>true</printResultSet>
-							<fileset>
-								<basedir>${basedir}/schema</basedir>
-								<includes>
-									<include>1.tables.sql</include>
-									<include>9.init_data.sql</include>
-								</includes>
-							</fileset>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
+
 		</plugins>
 		<pluginManagement>
 			<plugins>

@@ -7,5 +7,6 @@ public class Task {
 	private String name;
 	private List<Exercise> exercises;
 	private TaskType type;
+	/** Fields contain description of a task */
 	private List<Field> items;
 }

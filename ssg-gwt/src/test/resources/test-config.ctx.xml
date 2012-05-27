@@ -9,7 +9,7 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>/test-db.properties</value>
+				<value>/test-mysql-db.properties</value>
 			</list>
 		</property>
 	</bean>

@@ -160,6 +160,12 @@
 			<version>1.2</version>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.20</version>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -167,7 +173,7 @@
 		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
 
 		<plugins>
-
+			
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
@@ -221,7 +227,7 @@
 					documentation at codehaus.org -->
 				<configuration>
 					<draftCompile>true</draftCompile>
-					<style>DETAILED</style>				
+					<style>DETAILED</style>
 					<runTarget>StudentHome.html</runTarget>
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
 					<i18nMessagesBundle>org.ssg.gui.client.Messages</i18nMessagesBundle>

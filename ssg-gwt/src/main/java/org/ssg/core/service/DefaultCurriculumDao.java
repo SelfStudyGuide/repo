@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.ssg.core.domain.Module;
+import org.ssg.core.domain.Task;
 import org.ssg.core.domain.Topic;
 
 @Repository(value = "CurriculumDao")
@@ -48,5 +49,11 @@ public class DefaultCurriculumDao extends HibernateDaoSupport implements
 	public void saveTopic(Topic t) {
 		getHibernateTemplate().saveOrUpdate(t);
 	}
+
+	public void saveTask(Task task) {
+		getHibernateTemplate().saveOrUpdate(task);
+	}
+	
+	
 
 }

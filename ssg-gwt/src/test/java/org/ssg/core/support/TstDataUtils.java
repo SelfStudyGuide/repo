@@ -11,6 +11,8 @@ import org.ssg.core.domain.ApplicationUser;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
+import org.ssg.core.domain.Task;
+import org.ssg.core.domain.TaskType;
 import org.ssg.core.domain.Topic;
 import org.ssg.core.domain.TopicProgress;
 import org.ssg.core.dto.ApplicationUserInfo;
@@ -62,6 +64,13 @@ public class TstDataUtils {
 		topic.setName("unique topic name " + System.currentTimeMillis());
 		return topic;
 	}
+	
+	public static Task createTask(TaskType type) {
+		Task task = new Task();
+		task.setName(type.toString() + " task");
+		task.setType(type);
+		return task;
+	}
 
 	public static Student createStudent(String name) {
 		Student student = new Student();
@@ -92,15 +101,15 @@ public class TstDataUtils {
 		return homework;
 	}
 	
-	public static List<TopicProgress> enrichTopicProgressesWithId(
-			List<TopicProgress> tp) {
-		int i = 1;
-		for (TopicProgress p : tp) {
-			//p.setId(10 + i);
-			i++;
-		}
-		return tp;
-	}
+//	public static List<TopicProgress> enrichTopicProgressesWithId(
+//			List<TopicProgress> tp) {
+//		int i = 1;
+//		for (TopicProgress p : tp) {
+//			//p.setId(10 + i);
+//			i++;
+//		}
+//		return tp;
+//	}
 
 	public static HomeworkInfo createHomeworkInfo() {
 		HomeworkInfo result = new HomeworkInfo();

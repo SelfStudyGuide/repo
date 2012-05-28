@@ -1,13 +1,16 @@
 package org.ssg.core.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -63,7 +66,7 @@ public class Topic {
 		this.module = module;
 	}
 
-	@Transient
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "topic", orphanRemoval = true)
 	public List<Task> getTasks() {
 		return tasks;
 	}
@@ -72,6 +75,14 @@ public class Topic {
 		this.tasks = tasks;
 	}
 	
-	
+	public static void assignTask(Topic topic, Task task) {
+		List<Task> tasks = topic.getTasks();
+		if (tasks == null) {
+			tasks = new ArrayList<Task>();
+		}
+		tasks.add(task);
+		topic.setTasks(tasks);
+		task.setTopic(topic);
+	}
 	
 }

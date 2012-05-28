@@ -1,6 +1,7 @@
 package org.ssg.core.support;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
+import org.ssg.core.domain.Task;
+import org.ssg.core.domain.TaskType;
 import org.ssg.core.domain.Topic;
 import org.ssg.core.service.CurriculumDao;
 import org.ssg.core.service.HomeworkDao;
@@ -65,17 +68,35 @@ public class AbstractDaoTestSupport {
 		}
 	}
 
+	protected Task getSavedTask(TaskType type) {
+		List<Task> all = template.loadAll(Task.class);
+		for (Task task : all) {
+			if (task.getType() == type) {
+				return task;
+			}
+		}
+		Assert.fail("No task with type: " + type + " saved");
+		return null;
+	}
+	
 	protected Module getSavedModule() {
-		Collection<Module> modules = curriculumDao.getAllModules();
+		Collection<Module> modules = template.loadAll(Module.class);
+		//Collection<Module> modules = curriculumDao.getAllModules();
 		Assert.assertThat("Expected one module has been saved", modules.size(),
 				is(1));
 		return getFirstElement(modules);
 	}
 
+	protected void assertSavedTopics(int cnt) {
+		assertThat("Expected Topics in DB", template.loadAll(Topic.class)
+				.size(), is(cnt));
+	}
+	
 	protected Topic getSavedTopic() {
-		Module savedModule = getSavedModule();
-		List<Topic> savedTopics = savedModule.getTopics();
-		Assert.assertThat("Expected one topic has been saved",
+		//Module savedModule = getSavedModule();
+		//List<Topic> savedTopics = savedModule.getTopics();
+		List<Topic> savedTopics = template.loadAll(Topic.class);
+		assertThat("Expected one topic has been saved",
 				savedTopics.size(), is(1));
 		return getFirstElement(savedTopics);
 	}

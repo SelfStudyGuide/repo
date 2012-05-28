@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.ssg.core.domain.Module;
+import org.ssg.core.domain.Task;
 import org.ssg.core.domain.Topic;
 
 public interface CurriculumDao {
@@ -14,5 +15,6 @@ public interface CurriculumDao {
 	
 	List<Topic> getTopicsByModuleId(int moduleId);
 	void saveTopic(Topic t);
+	void saveTask(Task task);
 	
 }

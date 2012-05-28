@@ -87,5 +87,7 @@ public class ModuleDaoIntegrationTest extends AbstractDaoTestSupport {
 
 		Assert.assertThat(modules.isEmpty(), is(true));
 	}
+	
+	
 
 }

@@ -1,6 +1,7 @@
 package org.ssg.core.service;
 
 import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.ssg.core.domain.Module;
+import org.ssg.core.domain.Task;
+import org.ssg.core.domain.TaskType;
 import org.ssg.core.domain.Topic;
 import org.ssg.core.support.AbstractDaoTestSupport;
 import org.ssg.core.support.TstDataUtils;
@@ -79,7 +82,7 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 	}
 
 	@Test
-	public void verifyThatTopicCanBeAddedToPercictedModule() {
+	public void verifyThatTopicCanBeAddedToPersistedModule() {
 		Module module = TstDataUtils.createModuleWithUniqueName();
 		curriculumDao.saveModule(module);
 		Module savedModule = getSavedModule();
@@ -102,6 +105,71 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 				.getId());
 		Assert.assertThat("Expected one topic has been saved", topics.size(),
 				is(1));
+	}
+	
+	@Test
+	//@Rollback(value = false)
+	public void verifyThatTaskCanBeSaved() {
+		// Given
+		saveModuleWithTopic(); 
+		
+		Topic topic = getSavedTopic();
+		
+		Task task = TstDataUtils.createTask(TaskType.TEXT);
+		Topic.assignTask(topic, task);
+		
+		// When
+		curriculumDao.saveTask(task);
+		
+		// Then
+		Task savedTask = getSavedTask(TaskType.TEXT);
+		assertThat(savedTask.getId(), is(not(0)));
+		assertThat(savedTask.getName(), is("TEXT task"));
+		assertThat(savedTask.getType(), is(TaskType.TEXT));
+		assertThat(savedTask.getTopic().getId(), is(topic.getId()));
+	}
+	
+	@Test
+	public void verifyThatPersistedTaskIsAvailabeThenInTopidAfterReLoad() {
+		// Given
+		saveModuleWithTopic(); 
+		
+		Topic topic = getSavedTopic();
+		
+		Task task = TstDataUtils.createTask(TaskType.TEXT);
+		Topic.assignTask(topic, task);
+		
+		// When
+		curriculumDao.saveTask(task);
+		
+		// Then
+		clearSession();
+		Topic reloadTopic = getSavedTopic();
+		assertThat(reloadTopic.getTasks().size(), is(1));
+		Task savedTask = reloadTopic.getTasks().get(0);
+		assertThat(savedTask.getId(), is(not(0)));
+		assertThat(savedTask.getName(), is("TEXT task"));
+		assertThat(savedTask.getType(), is(TaskType.TEXT));
+		assertThat(savedTask.getTopic().getId(), is(topic.getId()));
+	}
+	
+//	@Test
+//	public void verifyThatIfTopicIsDeletedThenTaskIsDeletedAsWell() {
+//		
+//	}
+	
+	@Test
+	public void verifyThatWhenModuleIsDeletedThenTopicIsDeletedByCascade() {
+		// Given
+		saveModuleWithTopic(); 
+		Module savedModule = getSavedModule();
+		assertSavedTopics(1);
+		
+		// When
+		curriculumDao.deleteModule(savedModule.getId());
+		
+		//Then
+		assertSavedTopics(0);
 	}
 
 	private void addTopicToModule(Module savedModule, Topic topic,
@@ -126,8 +194,9 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 
 	@Override
 	protected void cleanUpDb() {
-		deleteAll(Topic.class);
 		deleteAll(Module.class);
+		deleteAll(Topic.class);
+		deleteAll(Task.class);
 	}
 
 	

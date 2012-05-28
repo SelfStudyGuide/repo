@@ -3,7 +3,7 @@
 ------------
 create table MODULE (
 ID integer not null auto_increment, 
-DESCRIPTION varchar(255), 
+`DESC` varchar(255), 
 NAME varchar(255) not null unique, 
 primary key (ID));
 
@@ -32,7 +32,7 @@ alter table HOMEWORK add index FK11BB2470D751A4B9 (STUD_ID), add constraint HOME
 ------------ 
 create table TOPIC (
 ID integer not null auto_increment, 
-DESCRIPTION varchar(255), 
+`DESC` varchar(255), 
 NAME varchar(255) not null, 
 MOD_ID integer, 
 primary key (ID));
@@ -84,7 +84,7 @@ create table group_authorities (
   authority varchar(50) not null,
   constraint fk_group_authorities_group foreign key(group_id) references groups(id));
 
-create table group_members (
+create table   group_members (
   id integer not null auto_increment,
   username varchar(50) not null,
   group_id integer not null,

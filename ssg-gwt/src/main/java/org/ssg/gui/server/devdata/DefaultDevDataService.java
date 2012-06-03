@@ -38,6 +38,10 @@ public class DefaultDevDataService {
 	@Transactional
 	public void processRequest(Map<Object, Object> params, PrintWriter writer) {
 		LOG.info("Creating dev data for request " + params);
+		if (params.isEmpty()) {
+			printUsage(writer);
+		}
+		
 		for (Object key : params.keySet()) {
 			if (key.equals("user")) {
 				processUser(params, writer);
@@ -45,8 +49,14 @@ public class DefaultDevDataService {
 				processModule(params, writer);
 			} else if (key.equals("homeworkForStudent")) {
 				processHomework(params, writer);
-			}
+			} 
 		}
+	}
+
+	private void printUsage(PrintWriter writer) {
+		writer.println("To create Student. ?user=1");
+		writer.println("To create Module. ?module=name&topics=2");
+		writer.println("To create Homework. ?homeworkForStudent=1&moduleId=2");
 	}
 
 	private void processHomework(Map<Object, Object> params, PrintWriter writer) {

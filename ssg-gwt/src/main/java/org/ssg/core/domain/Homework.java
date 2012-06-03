@@ -1,5 +1,6 @@
 package org.ssg.core.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,7 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "HOMEWORK")
@@ -64,6 +64,14 @@ public class Homework {
 
 	public void setProgresses(List<TopicProgress> progresses) {
 		this.progresses = progresses;
+	}
+
+	public void initTopicProgress(List<Topic> topics) {
+		ArrayList<TopicProgress> list = new ArrayList<TopicProgress>(topics.size());
+		for (Topic topic : topics) {
+			list.add(new TopicProgress(topic, this));
+		}
+		setProgresses(list);
 	}
 	
 }

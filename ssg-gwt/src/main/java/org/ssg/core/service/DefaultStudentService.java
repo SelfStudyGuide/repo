@@ -2,7 +2,7 @@ package org.ssg.core.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,6 +15,7 @@ import org.ssg.core.common.SsgServiceException;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
+import org.ssg.core.domain.TopicProgress;
 import org.ssg.core.domain.adapter.HomeworkAdapter;
 import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.gui.server.ApplicationMessageSource;
@@ -36,7 +37,7 @@ public class DefaultStudentService implements StudentService {
 	
 	private MessageSourceAccessor applicationMsg = ApplicationMessageSource.getAccessor();
 
-	public Collection<HomeworkInfo> getHomeworks(int userId) {
+	public List<HomeworkInfo> getHomeworks(int userId) {
 		LOG.info("Loading list of homeworks for user with id " + userId);
 		Student student = userDao.getStudentById(userId);
 		
@@ -59,14 +60,15 @@ public class DefaultStudentService implements StudentService {
 
 	public void giveHomework(int studentId, int moduleId) {
 		Student student = userDao.getStudentById(studentId);
-		Module module = curriculumDao.getModuleById(moduleId);
+		Module m = curriculumDao.getModuleById(moduleId);
 		Homework homework = new Homework();
-		homework.setModules(Arrays.asList(module));
+		homework.setModules(Arrays.asList(m));
 		homework.setStudent(student);
-
+		homework.initTopicProgress(m.getTopics());
+		
 		homeworkDao.saveHomework(homework);
 	}
-
+	
 	public int getStudentIdByName(String name) {
 		LOG.info("Loading student with name " + name);
 		

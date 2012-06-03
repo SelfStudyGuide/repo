@@ -45,6 +45,10 @@
 		</property>
 	</bean>
 	
+	<bean id="jdbcOps" class="org.springframework.jdbc.core.JdbcTemplate" scope="singleton">
+		<constructor-arg index="0" ref="dataSource"/>
+	</bean>
+	
 	<tx:annotation-driven />
 
 </beans>

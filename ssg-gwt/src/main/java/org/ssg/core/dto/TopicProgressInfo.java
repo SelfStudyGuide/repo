@@ -2,6 +2,7 @@ package org.ssg.core.dto;
 
 import java.io.Serializable;
 
+
 public class TopicProgressInfo implements Serializable {
 	private static final long serialVersionUID = 9121820558110681358L;
 
@@ -47,12 +48,16 @@ public class TopicProgressInfo implements Serializable {
 	}
 
 	public boolean isInProgress() {
-		int statusInt = Integer.parseInt(getStatus());		
+		if (getStatus() == null || getStatus().isEmpty()) {
+			return false;
+		}
+		
+		int statusInt = Integer.parseInt(getStatus());
 		return statusInt > 0 && statusInt < 100;
 	}
 
 	public boolean isNotStarted() {
-		return "0".equals(getStatus());
+		return getStatus() == null || getStatus().isEmpty() || "0".equals(getStatus());
 	}
 
 }

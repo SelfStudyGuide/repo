@@ -10,6 +10,7 @@
 	<global-method-security pre-post-annotations="disabled" />
 
 	<http use-expressions="true">
+		<intercept-url pattern="/DevData" access="permitAll" />
 		<intercept-url pattern="/index.jsp" access="permitAll" />
 		<intercept-url pattern="/login.jsp*" access="permitAll" />
 		<intercept-url pattern="/**" access="isAuthenticated()" />

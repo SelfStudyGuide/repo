@@ -33,6 +33,13 @@ public class TstDataUtils {
 		module.setDescription("desc");
 		return module;
 	}
+	
+	public static Module createModule(String name, int id) {
+		Module module = createModule();
+		module.setName(name);
+		module.setId(id);
+		return module;
+	}
 
 	@SuppressWarnings("serial")
 	public static Module enrichModuleWithTopics(final Module module) {
@@ -65,6 +72,13 @@ public class TstDataUtils {
 		return topic;
 	}
 	
+	public static Topic createTopic(String name, int id) {
+		Topic topic = createTopicWithUniqueName(null);
+		topic.setName(name);
+		topic.setId(id);
+		return topic;
+	}
+	
 	public static Task createTask(TaskType type) {
 		Task task = new Task();
 		task.setName(type.toString() + " task");
@@ -76,6 +90,12 @@ public class TstDataUtils {
 		Student student = new Student();
 		student.setName(name);
 		student.setEmail("student@email.com");
+		return student;
+	}
+	
+	public static Student createStudent(int id, String name) {
+		Student student = createStudent(name);
+		student.setId(id);
 		return student;
 	}
 
@@ -141,6 +161,13 @@ public class TstDataUtils {
 		info.setStatus("100");
 		info.setTopicName("TestTopic3");
 		topicProgress.add(info);
+		
+		info = new TopicProgressInfo();
+		info.setTopicId(4);
+		info.setStatus(null);
+		info.setTopicName("TestTopic4");
+		topicProgress.add(info);
+		
 		return result;
 	}
 

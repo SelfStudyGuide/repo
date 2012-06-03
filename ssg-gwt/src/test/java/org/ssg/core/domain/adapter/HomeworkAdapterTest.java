@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.ssg.core.domain.Homework;
@@ -22,15 +23,18 @@ public class HomeworkAdapterTest {
 		Student student = TstDataUtils.createStudent("studen with homework");
 		Module module = TstDataUtils.enrichModuleWithTopics(TstDataUtils.createModule());
 		module.setName("Testing Module");
-		homework = TstDataUtils.createHomework(student, module);
-		homework.setId(2);
 		module.getTopics().get(0).setId(123);
 		module.getTopics().get(1).setId(124);
 		module.getTopics().get(2).setId(125);
+		module.getTopics().add(TstDataUtils.createTopicWithUniqueName(module));
+		module.getTopics().get(3).setId(126);
+		homework = TstDataUtils.createHomework(student, module);
+		homework.setId(2);
 		homework = TstDataUtils.enrichHomeworkWithProgress(homework, module.getTopics());
 		homework.getProgresses().get(0).setStatus("0");
 		homework.getProgresses().get(1).setStatus("20");
 		homework.getProgresses().get(2).setStatus("100");
+		homework.getProgresses().get(3).setStatus(null);
 	}
 
 	@Test
@@ -81,7 +85,14 @@ public class HomeworkAdapterTest {
 		assertThat(topicProgressInfo.getTopicId(), equalTo(125));
 		assertThat(topicProgressInfo.getTopicName(), equalTo("Test topic 3"));
 		assertThat(topicProgressInfo.getStatus(), equalTo("100"));
-		
+	}
+	
+	@Test
+	public void verifyThatStatusOfProgressIsNullThenInfoStatusIsNullAsWell() {
+		HomeworkAdapter adapter = new HomeworkAdapter(homework, true);
+		HomeworkInfo info = populateInfoAndReturn(adapter);
+		TopicProgressInfo topicProgressInfo = info.getTopicProgress().get(3);
+		assertThat(topicProgressInfo.getStatus(), CoreMatchers.nullValue());
 	}
 	
 	@Test

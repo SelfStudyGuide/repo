@@ -51,10 +51,9 @@ public class StudentServiceTest {
 	@Test
 	public void verifyThatHomeworkInfoCanBeLoadedByStudentId() {
 		// given
-		Student student = TstDataUtils.createStudent("studen with homework");
+		Student student = prepareStudent("studen with homework", 123);
 		Homework homework = TstDataUtils.createHomework(student, TstDataUtils.createModule());
 		homework.setId(2);
-		when(userDao.getStudentById(eq(123))).thenReturn(student);
 		
 		// when
 		Collection<HomeworkInfo> hwList = studentSerice.getHomeworks(123);
@@ -102,16 +101,14 @@ public class StudentServiceTest {
 	public void verifyThatExceptionIsThrownIfNoStudentFound() {
 		when(userDao.getStudentById(eq(124))).thenReturn(null);
 
-		Collection<HomeworkInfo> hw = studentSerice.getHomeworks(124);
+		studentSerice.getHomeworks(124);
 	}
 
 	@Test
 	public void verifyThatHomeworkCanBeGivenToStudent() {
-		Student student = TstDataUtils.createStudent("studen");
-		Module module = TstDataUtils.createModule();
-		when(userDao.getStudentById(eq(1))).thenReturn(student);
-		when(curriculumDao.getModuleById(eq(2))).thenReturn(module);
-
+		Student student = prepareStudent("studen", 1);
+		Module module = prepareModule(2);
+		
 		studentSerice.giveHomework(1, 2);
 
 		ArgumentCaptor<Homework> homeworkCaptor = ArgumentCaptor
@@ -123,6 +120,37 @@ public class StudentServiceTest {
 		Assert.assertThat(homework.getModules().size(), is(1));
 		Assert.assertThat(homework.getModules().get(0), is(module));
 
+	}
+
+	
+	@Test
+	public void verifyThatTopicProgressIsCreatedWhenHomeworkIsCreatedForStudent() {
+		// Given
+		prepareStudent("studen", 1);
+		prepareModule(2);
+
+		// When
+		studentSerice.giveHomework(1, 2);
+
+		// Then
+		ArgumentCaptor<Homework> homeworkCaptor = ArgumentCaptor
+				.forClass(Homework.class);
+		verify(homeworkDao).saveHomework(homeworkCaptor.capture());
+		Homework createdHomework = homeworkCaptor.getValue();
+		assertThat(createdHomework.getProgresses().size(), is(3));
+	}
+
+	private Module prepareModule(int id) {
+		Module module = TstDataUtils.createModule();
+		module = TstDataUtils.enrichModuleWithTopics(module);
+		when(curriculumDao.getModuleById(eq(id))).thenReturn(module);
+		return module;
+	}
+	
+	private Student prepareStudent(String name, int id) {
+		Student student = TstDataUtils.createStudent(name);
+		when(userDao.getStudentById(eq(id))).thenReturn(student);
+		return student;
 	}
 	
 	@Test

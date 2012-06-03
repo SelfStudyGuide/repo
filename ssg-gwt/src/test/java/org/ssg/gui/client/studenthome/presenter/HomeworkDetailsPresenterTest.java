@@ -108,6 +108,8 @@ public class HomeworkDetailsPresenterTest extends AbstractPresenterTestCase {
 				eq("http://localhost/ssg/Topic.html?id=567_2"));
 		verify(view).addTopic(eq("TestTopic3 - Done"),
 				eq("http://localhost/ssg/Topic.html?id=567_3"));
+		verify(view).addTopic(eq("TestTopic4 - Not strarted"),
+				eq("http://localhost/ssg/Topic.html?id=567_4"));
 	}
 
 	private void mockExternalServiceCalls() {
@@ -117,6 +119,8 @@ public class HomeworkDetailsPresenterTest extends AbstractPresenterTestCase {
 				"TestTopic2 - In progress");
 		when(messages.homeworkDetailsNotStarted(eq("TestTopic1"))).thenReturn(
 				"TestTopic1 - Not strarted");
+		when(messages.homeworkDetailsNotStarted(eq("TestTopic4"))).thenReturn(
+				"TestTopic4 - Not strarted");
 		
 		when(windowLocation.getUrl(eq("Topic.html?id=567_3"))).thenReturn(
 				"http://localhost/ssg/Topic.html?id=567_3");
@@ -124,6 +128,8 @@ public class HomeworkDetailsPresenterTest extends AbstractPresenterTestCase {
 				"http://localhost/ssg/Topic.html?id=567_2");
 		when(windowLocation.getUrl(eq("Topic.html?id=567_1"))).thenReturn(
 				"http://localhost/ssg/Topic.html?id=567_1");
+		when(windowLocation.getUrl(eq("Topic.html?id=567_4"))).thenReturn(
+		"http://localhost/ssg/Topic.html?id=567_4");
 	}
 
 	@Test

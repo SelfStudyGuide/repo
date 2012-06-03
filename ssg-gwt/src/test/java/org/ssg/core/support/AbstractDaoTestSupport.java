@@ -86,6 +86,16 @@ public class AbstractDaoTestSupport {
 				is(1));
 		return getFirstElement(modules);
 	}
+	
+	protected Collection<Module> getSavedModules() {
+		Collection<Module> modules = template.loadAll(Module.class);
+		return modules;
+	}
+	
+	protected Module[] getSavedModulesArray() {
+		Collection<Module> modules = getSavedModules();
+		return modules.toArray(new Module[modules.size()]);
+	}
 
 	protected void assertSavedTopics(int cnt) {
 		assertThat("Expected Topics in DB", template.loadAll(Topic.class)

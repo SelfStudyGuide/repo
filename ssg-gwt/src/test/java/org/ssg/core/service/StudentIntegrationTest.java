@@ -3,6 +3,8 @@ package org.ssg.core.service;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Assert;
@@ -49,8 +51,8 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 	}
 
 	private Homework createHomeworkAndSave(Student savedStudent,
-			Module savedModule) {
-		Homework savedHomework = TstDataUtils.createHomework(savedStudent, savedModule);
+			Module... savedModules) {
+		Homework savedHomework = TstDataUtils.createHomework(savedStudent, savedModules);
 		homeworkDao.saveHomework(savedHomework);
 		return savedHomework;
 	}
@@ -102,14 +104,16 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 	//@Rollback(value=false)
 	public void verifyThatHomeworkCanBeAssignedToStudent() {
 		createStudentAndSave();
-		Module module = createModuleAndSave();
+		createModuleAndSave();
+		createModuleAndSave();
 		
 		//clearSession();
 
 		Student savedStudent = getSavedStudent();
-		Module savedModule = getSavedModule();
-
-		Homework homework = createHomeworkAndSave(savedStudent, savedModule);
+		Module[] savedModules = getSavedModulesArray();
+		
+		
+		Homework homework = createHomeworkAndSave(savedStudent, savedModules[0], savedModules[1]);
 
 		clearSession();
 		
@@ -117,7 +121,7 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 		
 		Assert.assertThat(savedHomework.getId(), not(0));
 		Assert.assertThat(savedHomework.getStudent().getId(), is(savedStudent.getId()));
-		assertThat(savedHomework.getModules().size(), is(1));
+		assertThat(savedHomework.getModules().size(), is(2));
 		
 	}
 	

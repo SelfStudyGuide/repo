@@ -4,6 +4,12 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	http://www.mockito.org/spring/mockito https://bitbucket.org/kubek2k/springockito/raw/tip/springockito/src/main/resources/spring/mockito.xsd">
 
-	<mockito:mock id="studentService"
-		class="org.ssg.core.service.StudentService" />
+	<mockito:mock id="studentService" class="org.ssg.core.service.StudentService" />
+
+	<mockito:mock id="UserDao" class="org.ssg.core.service.UserDao" />
+	
+	<mockito:mock id="CurriculumDao" class="org.ssg.core.service.CurriculumDao" />
+	
+	<mockito:mock id="jdbcOps" class="org.springframework.jdbc.core.JdbcTemplate" />
+	
 </beans>

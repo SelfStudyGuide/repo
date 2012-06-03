@@ -7,7 +7,8 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:/spring/app-config.ctx.xml
-		classpath:/spring/app-securty.ctx.xml</param-value>
+		classpath:/spring/app-securty.ctx.xml
+		classpath:/spring/dev-data.ctx.xml</param-value>
 	</context-param>
 
 	<filter>
@@ -37,11 +38,19 @@
 		<servlet-class>org.ssg.gui.server.service.StudentControlServiceImpl</servlet-class>
 	</servlet>
 
-
+	<servlet>
+		<servlet-name>devDataServlet</servlet-name>
+		<servlet-class>org.ssg.gui.server.devdata.PopulateDevDataServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>studentService</servlet-name>
 		<url-pattern>/StudentHome/Student</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>devDataServlet</servlet-name>
+		<url-pattern>/DevData</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->

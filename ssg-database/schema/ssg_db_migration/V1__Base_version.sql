@@ -3,7 +3,7 @@
 ------------
 create table MODULE (
 ID integer not null auto_increment, 
-`DESC` varchar(255), 
+DESCRIPTION varchar(255), 
 NAME varchar(255) not null unique, 
 primary key (ID));
 
@@ -32,7 +32,7 @@ alter table HOMEWORK add index FK11BB2470D751A4B9 (STUD_ID), add constraint HOME
 ------------ 
 create table TOPIC (
 ID integer not null auto_increment, 
-`DESC` varchar(255), 
+DESCRIPTION varchar(255), 
 NAME varchar(255) not null, 
 MOD_ID integer, 
 primary key (ID));

@@ -43,6 +43,9 @@ public class Homework {
 		return modules;
 	}
 
+	/**
+	 * Sets assigned module. Should be only one.
+	 */
 	public void setModules(List<Module> modules) {
 		this.modules = modules;
 	}

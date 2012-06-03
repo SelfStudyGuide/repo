@@ -51,7 +51,7 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 	}
 
 	private Homework createHomeworkAndSave(Student savedStudent,
-			Module... savedModules) {
+			Module savedModules) {
 		Homework savedHomework = TstDataUtils.createHomework(savedStudent, savedModules);
 		homeworkDao.saveHomework(savedHomework);
 		return savedHomework;
@@ -105,15 +105,14 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 	public void verifyThatHomeworkCanBeAssignedToStudent() {
 		createStudentAndSave();
 		createModuleAndSave();
-		createModuleAndSave();
 		
 		//clearSession();
 
 		Student savedStudent = getSavedStudent();
-		Module[] savedModules = getSavedModulesArray();
+		Module savedModule = getSavedModule();
 		
 		
-		Homework homework = createHomeworkAndSave(savedStudent, savedModules[0], savedModules[1]);
+		Homework homework = createHomeworkAndSave(savedStudent, savedModule);
 
 		clearSession();
 		
@@ -121,7 +120,7 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 		
 		Assert.assertThat(savedHomework.getId(), not(0));
 		Assert.assertThat(savedHomework.getStudent().getId(), is(savedStudent.getId()));
-		assertThat(savedHomework.getModules().size(), is(2));
+		assertThat(savedHomework.getModules().size(), is(1));
 		
 	}
 	

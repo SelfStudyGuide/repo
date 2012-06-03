@@ -99,7 +99,7 @@ public class TstDataUtils {
 		return student;
 	}
 
-	public static Homework createHomework(Student student, Module... module) {
+	public static Homework createHomework(Student student, Module module) {
 		Homework homework = new Homework();
 		homework.setModules(Arrays.asList(module));
 		homework.setStudent(student);

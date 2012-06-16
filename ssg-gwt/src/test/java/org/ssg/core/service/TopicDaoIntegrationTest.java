@@ -10,14 +10,15 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Task;
-import org.ssg.core.domain.TaskType;
 import org.ssg.core.domain.Topic;
+import org.ssg.core.dto.TaskType;
 import org.ssg.core.support.AbstractDaoTestSupport;
 import org.ssg.core.support.TstDataUtils;
 
@@ -127,10 +128,32 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 		assertThat(savedTask.getName(), is("TEXT task"));
 		assertThat(savedTask.getType(), is(TaskType.TEXT));
 		assertThat(savedTask.getTopic().getId(), is(topic.getId()));
+		assertThat(savedTask.getDescription(), is("TEXT task descr"));
 	}
 	
 	@Test
-	public void verifyThatPersistedTaskIsAvailabeThenInTopidAfterReLoad() {
+	@Rollback(value = false)
+	public void verifyThatLongStringCanBePersistedInTaskDescription() {
+		// Given
+		Task task = TstDataUtils.createTask(TaskType.LISTENING);
+		StringBuffer longStr = new StringBuffer(65353);
+		for (int i = 0; i < 65353; i++) {
+			longStr.append(i % 9);
+		}
+		task.setDescription(longStr.toString());
+		
+		// When
+		curriculumDao.saveTask(task);
+		
+		// Then
+		clearSession();
+		Task savedTask = getSavedTask(TaskType.LISTENING);
+		assertThat(savedTask.getDescription().length(), is(65353));
+		assertThat(savedTask.getDescription(), is(longStr.toString()));
+	}
+	
+	@Test
+	public void verifyThatPersistedTaskIsAvailabeInTopicAfterReLoad() {
 		// Given
 		saveModuleWithTopic(); 
 		

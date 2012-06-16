@@ -2,15 +2,21 @@ package org.ssg.core.domain;
 
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.ssg.core.dto.TaskType;
 
 @Entity
 @Table(name = "TOPIC_TASK")
@@ -20,7 +26,8 @@ public class Task {
 	private List<Exercise> exercises;
 	private TaskType type;
 	/** Fields contain description of a task */
-	private List<Field> items;
+	//private List<Field> fields;
+	private String description;
 	private Topic topic;
 	
 	@Id
@@ -63,4 +70,27 @@ public class Task {
 	public void setTopic(Topic topic) {
 		this.topic = topic;
 	}
+
+	@Column(name = "DESCRIPTION", columnDefinition = "TEXT")
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+//	@OneToMany(orphanRemoval=true)
+//    @JoinColumn(name="PARENT_ID") 
+//	public List<Field> getFields() {
+//		return fields;
+//	}
+//
+//	public void setFields(List<Field> items) {
+//		this.fields = items;
+//	}
+	
+	
 }

@@ -12,12 +12,12 @@ import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
 import org.ssg.core.domain.Task;
-import org.ssg.core.domain.TaskType;
 import org.ssg.core.domain.Topic;
 import org.ssg.core.domain.TopicProgress;
 import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.core.dto.ModuleInfo;
+import org.ssg.core.dto.TaskType;
 import org.ssg.core.dto.TopicProgressInfo;
 import org.ssg.gui.client.action.BaseAction;
 import org.ssg.gui.client.action.Response;
@@ -83,6 +83,7 @@ public class TstDataUtils {
 		Task task = new Task();
 		task.setName(type.toString() + " task");
 		task.setType(type);
+		task.setDescription(type.toString() + " task descr");
 		return task;
 	}
 

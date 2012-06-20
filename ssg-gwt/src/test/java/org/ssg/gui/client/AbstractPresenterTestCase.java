@@ -9,11 +9,13 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
+import org.junit.Before;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.errordialog.ErrorDialog;
+import org.ssg.gui.client.service.SsgMessages;
 import org.ssg.gui.client.service.WindowLocation;
 import org.ssg.gui.client.studenthome.StudentHomeworkMessages;
 
@@ -41,6 +43,14 @@ public abstract class AbstractPresenterTestCase extends AbstractServiceTestCase 
 	
 	@Mock 
 	protected StudentHomeworkMessages messages;
+	
+	@Mock
+	protected SsgMessages ssgMessages;
+	
+	@Before
+	public void mockMessages() {
+		TstDataUtils.createMockExpectationFor(ssgMessages);
+	}
 
 	protected ClickHandler verifyAndCaptureClickHnd(HasClickHandlers btn) {
 		ArgumentCaptor<ClickHandler> click = ArgumentCaptor
@@ -112,8 +122,8 @@ public abstract class AbstractPresenterTestCase extends AbstractServiceTestCase 
 			return lastInvokedMethod == null ? null : lastInvokedMethod.getName();
 		}
 		
-		public <T> T lastArgument(int idx, Class<T> argClass) {			
-			return (T) lastArguments[idx];
+		public <T> T lastArgument(int idx, Class<T> argClass) {		
+			return argClass.cast(lastArguments[idx]);
 		}
 	}
 

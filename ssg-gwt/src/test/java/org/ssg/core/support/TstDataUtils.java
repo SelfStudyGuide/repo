@@ -1,5 +1,7 @@
 package org.ssg.core.support;
 
+import static org.mockito.Mockito.when;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -18,12 +20,14 @@ import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.core.dto.ModuleInfo;
 import org.ssg.core.dto.TaskType;
+import org.ssg.core.dto.TopicDetailedProgressInfo;
 import org.ssg.core.dto.TopicProgressInfo;
 import org.ssg.gui.client.action.BaseAction;
 import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.service.ActionCallbackAdapter;
 import org.ssg.gui.client.service.ActionResponseCallback;
 import org.ssg.gui.client.service.SsgGuiServiceException;
+import org.ssg.gui.client.service.SsgMessages;
 import org.ssg.gui.server.command.ActionHandler;
 
 public class TstDataUtils {
@@ -145,33 +149,42 @@ public class TstDataUtils {
 		ArrayList<TopicProgressInfo> topicProgress = new ArrayList<TopicProgressInfo>();
 		result.setTopicProgress(topicProgress);
 		
-		TopicProgressInfo info = new TopicProgressInfo();
-		info.setTopicId(1);
+		TopicProgressInfo info = createTopicProgressInfo(1, "TestTopic1");
 		info.setStatus("0");
-		info.setTopicName("TestTopic1");
 		topicProgress.add(info);
 		
-		info = new TopicProgressInfo();
-		info.setTopicId(2);
+		info = createTopicProgressInfo(2, "TestTopic2");
 		info.setStatus("20");
-		info.setTopicName("TestTopic2");
 		topicProgress.add(info);
 		
-		info = new TopicProgressInfo();
-		info.setTopicId(3);
+		info = createTopicProgressInfo(3, "TestTopic3");
 		info.setStatus("100");
-		info.setTopicName("TestTopic3");
 		topicProgress.add(info);
 		
-		info = new TopicProgressInfo();
-		info.setTopicId(4);
+		info = createTopicProgressInfo(4, "TestTopic4");
 		info.setStatus(null);
-		info.setTopicName("TestTopic4");
 		topicProgress.add(info);
 		
 		return result;
 	}
 
+	public static TopicProgressInfo createTopicProgressInfo(int id, String name) {
+		TopicProgressInfo info = new TopicProgressInfo();
+		info.setTopicId(id);
+		info.setStatus("10");
+		info.setTopicName(name);
+		return info;
+	}
+	
+	public static TopicDetailedProgressInfo createTopicDetailedProgressInfo(int id, String name) {
+		TopicDetailedProgressInfo info = new TopicDetailedProgressInfo();
+		info.setTopicId(id);
+		info.setStatus("10");
+		info.setTopicName(name);
+		info.setDescription("Some Topic description");
+		return info;
+	}
+	
 	public static ModuleInfo createModuleInfo() {
 		ModuleInfo info = new ModuleInfo();
 		info.setId(1);
@@ -196,6 +209,14 @@ public class TstDataUtils {
 		return appUser;
 	}
 
+	public static void createMockExpectationFor(SsgMessages messages) {
+		when(messages.topicViewTopicStatusInProgress()).thenReturn(
+				"In Progress");
+		when(messages.topicViewTopicStatusDone()).thenReturn("Done");
+		when(messages.topicViewTopicStatusNosStarted()).thenReturn(
+				"Not Started");
+	}
+	
 	@SuppressWarnings("serial")
 	public static class TestAction extends BaseAction<TestActionResponse> {
 		public TestAction() {

@@ -33,9 +33,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.HasData;
-import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SelectionChangeEvent.Handler;
-import com.google.gwt.view.client.SelectionChangeEvent.HasSelectionChangedHandlers;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -62,7 +60,7 @@ public class HomeworkPresenterTest extends AbstractPresenterTestCase {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		actionSender = new DefaultActionSender(service,
-				new DefaultActionNameProvider(), errorDialog, messages);
+				new DefaultActionNameProvider(), errorDialog, ssgMessages);
 		presenter = new HomeworkPresenter(view, actionSender, handlerManager,
 				errorDialog);
 		when(view.getRefreshButton()).thenReturn(refreshButton);

@@ -1,7 +1,6 @@
 package org.ssg.gui.client.studenthome.presenter;
 
 import static org.mockito.Mockito.*;
-import static org.mockito.Matchers.*;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -56,9 +55,9 @@ public class HomeworkDetailsPresenterTest extends AbstractPresenterTestCase {
 		when(view.getTeacherName()).thenReturn(teacher);
 		
 		actionSender = new DefaultActionSender(service,
-				new DefaultActionNameProvider(), errorDialog, messages);
+				new DefaultActionNameProvider(), errorDialog, ssgMessages);
 
-		homeworkDetailsPresenter = new HomeworkDetailsPresenter(view, messages,
+		homeworkDetailsPresenter = new HomeworkDetailsPresenter(view, ssgMessages,
 				windowLocation, actionSender, handlerManager);
 		homeworkDetailsPresenter.bind();
 
@@ -113,13 +112,13 @@ public class HomeworkDetailsPresenterTest extends AbstractPresenterTestCase {
 	}
 
 	private void mockExternalServiceCalls() {
-		when(messages.homeworkDetailsDone(eq("TestTopic3"))).thenReturn(
+		when(ssgMessages.homeworkDetailsDone(eq("TestTopic3"))).thenReturn(
 				"TestTopic3 - Done");
-		when(messages.homeworkDetailsInProgress(eq("TestTopic2"))).thenReturn(
+		when(ssgMessages.homeworkDetailsInProgress(eq("TestTopic2"))).thenReturn(
 				"TestTopic2 - In progress");
-		when(messages.homeworkDetailsNotStarted(eq("TestTopic1"))).thenReturn(
+		when(ssgMessages.homeworkDetailsNotStarted(eq("TestTopic1"))).thenReturn(
 				"TestTopic1 - Not strarted");
-		when(messages.homeworkDetailsNotStarted(eq("TestTopic4"))).thenReturn(
+		when(ssgMessages.homeworkDetailsNotStarted(eq("TestTopic4"))).thenReturn(
 				"TestTopic4 - Not strarted");
 		
 		when(windowLocation.getUrl(eq("Topic.html?id=567_3"))).thenReturn(

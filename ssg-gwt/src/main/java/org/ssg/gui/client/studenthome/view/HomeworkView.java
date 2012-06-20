@@ -1,6 +1,7 @@
 package org.ssg.gui.client.studenthome.view;
 
 import org.ssg.core.dto.HomeworkInfo;
+import org.ssg.gui.client.service.SsgMessages;
 import org.ssg.gui.client.studenthome.StudentHomeworkMessages;
 import org.ssg.gui.client.studenthome.presenter.HomeworkPresenter.Display;
 
@@ -44,11 +45,11 @@ public class HomeworkView implements Display {
 	@UiField
 	public CellTable<HomeworkInfo> homeworksTable;
 
-	private final StudentHomeworkMessages messages;
+	private final SsgMessages messages;
 
 	private SingleSelectionModel<HomeworkInfo> selectionModel;
 
-	public HomeworkView(StudentHomeworkMessages homeworkMessages) {
+	public HomeworkView(SsgMessages homeworkMessages) {
 		this.messages = homeworkMessages;
 	}
 

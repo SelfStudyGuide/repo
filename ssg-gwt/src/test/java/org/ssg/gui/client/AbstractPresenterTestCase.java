@@ -41,8 +41,8 @@ public abstract class AbstractPresenterTestCase extends AbstractServiceTestCase 
 	@Mock
 	protected ErrorDialog errorDialog; 
 	
-	@Mock 
-	protected StudentHomeworkMessages messages;
+	//@Mock 
+	//protected StudentHomeworkMessages messages;
 	
 	@Mock
 	protected SsgMessages ssgMessages;

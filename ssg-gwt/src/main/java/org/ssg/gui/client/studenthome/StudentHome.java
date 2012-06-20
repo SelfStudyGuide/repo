@@ -6,6 +6,7 @@ import org.ssg.gui.client.errordialog.view.ErrorDialogView;
 import org.ssg.gui.client.service.DefaultActionNameProvider;
 import org.ssg.gui.client.service.DefaultActionSender;
 import org.ssg.gui.client.service.DefaultWindowLocation;
+import org.ssg.gui.client.service.SsgMessages;
 import org.ssg.gui.client.service.StudentControlService;
 import org.ssg.gui.client.service.StudentControlServiceAsync;
 import org.ssg.gui.client.service.WindowLocation;
@@ -29,8 +30,8 @@ public class StudentHome implements EntryPoint {
 
 	private final StudentControlServiceAsync studentService = GWT
 			.create(StudentControlService.class);
-	private final StudentHomeworkMessages homeworkMessages = GWT
-			.create(StudentHomeworkMessages.class);
+	private final SsgMessages ssgMessages = GWT.create(SsgMessages.class);
+	
 
 	/**
 	 * This is the entry point method.
@@ -50,9 +51,9 @@ public class StudentHome implements EntryPoint {
 				errorDialogMessages);
 
 		DefaultActionSender actionSender = new DefaultActionSender(
-				studentService, nameProvider, errorDialog, homeworkMessages);
+				studentService, nameProvider, errorDialog, ssgMessages);
 
-		HomeworkView homeworkView = new HomeworkView(homeworkMessages);
+		HomeworkView homeworkView = new HomeworkView(ssgMessages);
 
 		HomeworkPresenter homeworkPresenter = new HomeworkPresenter(
 				homeworkView, actionSender, handlerManager, errorDialog);
@@ -70,7 +71,7 @@ public class StudentHome implements EntryPoint {
 				RootPanel.get("homeworkDetails"));
 
 		HomeworkDetailsPresenter detailsPresenter = new HomeworkDetailsPresenter(
-				detailsView, homeworkMessages, windowLocation, actionSender,
+				detailsView, ssgMessages, windowLocation, actionSender,
 				handlerManager);
 		detailsPresenter.bind();
 

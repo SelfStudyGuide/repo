@@ -14,13 +14,13 @@ public class DefaultActionSender implements ActionSender {
 	private StudentControlServiceAsync service;
 	private ActionNameProvider actionNameProvider;
 	private ErrorDialog errorDialog;
-	private StudentHomeworkMessages messages;
+	private SsgMessages messages;
 
 	protected DefaultActionSender() {
 	}
 
 	public DefaultActionSender(StudentControlServiceAsync service,
-			ActionNameProvider actionNameProvider, ErrorDialog errorDialog, StudentHomeworkMessages messages) {
+			ActionNameProvider actionNameProvider, ErrorDialog errorDialog, SsgMessages messages) {
 		this.service = service;
 		this.actionNameProvider = actionNameProvider;
 		this.errorDialog = errorDialog;

@@ -43,7 +43,7 @@ public class TopicInfoPresenterTest extends AbstractPresenterTestCase {
 	@Before
 	public void setUp() {
 		DefaultActionSender actionSender = new DefaultActionSender(service,
-				new DefaultActionNameProvider(), errorDialog, messages);
+				new DefaultActionNameProvider(), errorDialog, ssgMessages);
 
 		when(display.getTopicName()).thenReturn(topicName);
 		when(display.getTopicDescription()).thenReturn(topicDescription);

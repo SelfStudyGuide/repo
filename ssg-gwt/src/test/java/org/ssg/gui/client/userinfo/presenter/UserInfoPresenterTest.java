@@ -1,7 +1,6 @@
 package org.ssg.gui.client.userinfo.presenter;
 
 import static org.mockito.Mockito.*;
-import static org.mockito.Matchers.*;
 
 import static org.junit.Assert.*;
 
@@ -53,7 +52,7 @@ public class UserInfoPresenterTest extends AbstractPresenterTestCase {
 	@Before
 	public void setUp() {
 		actionSender = new DefaultActionSender(service,
-				new DefaultActionNameProvider(), errorDialog, messages);
+				new DefaultActionNameProvider(), errorDialog, ssgMessages);
 		presenter = new UserInfoPresenter(display, actionSender,
 				handlerManager, windowLocation);
 		when(display.getUsernameLabel()).thenReturn(userNameLable);

@@ -1,7 +1,6 @@
 package org.ssg.gui.client.service;
 
 import static org.mockito.Mockito.*;
-import static org.mockito.Matchers.*;
 
 import static org.junit.Assert.*;
 
@@ -20,7 +19,6 @@ import org.ssg.core.support.TstDataUtils.TestActionResponse;
 import org.ssg.gui.client.AbstractServiceTestCase;
 import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.errordialog.ErrorDialog;
-import org.ssg.gui.client.studenthome.StudentHomeworkMessages;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -39,7 +37,7 @@ public class DefaultActionSenderTest extends AbstractServiceTestCase {
 	private ErrorDialog dialog; 
 	
 	@Mock 
-	private StudentHomeworkMessages messages;
+	private SsgMessages messages;
 
 	@Before
 	public void setUp() {

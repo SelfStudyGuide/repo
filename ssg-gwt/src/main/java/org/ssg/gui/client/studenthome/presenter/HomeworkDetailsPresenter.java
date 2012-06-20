@@ -6,9 +6,9 @@ import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.core.dto.TopicProgressInfo;
 import org.ssg.gui.client.service.ActionCallbackAdapter;
 import org.ssg.gui.client.service.ActionSender;
+import org.ssg.gui.client.service.SsgMessages;
 import org.ssg.gui.client.service.UserInfoHolder;
 import org.ssg.gui.client.service.WindowLocation;
-import org.ssg.gui.client.studenthome.StudentHomeworkMessages;
 import org.ssg.gui.client.studenthome.action.GetHomeworkDetails;
 import org.ssg.gui.client.studenthome.action.GetHomeworkDetailsResponse;
 import org.ssg.gui.client.studenthome.event.HomeworkSelectedEvent;
@@ -42,11 +42,11 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 	private Display view;
 	private HandlerManager handlerManager;
 	private final ActionSender actionSender;
-	private final StudentHomeworkMessages messages;
+	private final SsgMessages messages;
 	private final WindowLocation windowLocation;
 
 	public HomeworkDetailsPresenter(Display view,
-			StudentHomeworkMessages messages, WindowLocation windowLocation,
+			SsgMessages messages, WindowLocation windowLocation,
 			ActionSender actionSender, HandlerManager handlerManager) {
 		this.view = view;
 		this.messages = messages;

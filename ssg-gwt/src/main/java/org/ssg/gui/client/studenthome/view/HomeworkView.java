@@ -2,7 +2,6 @@ package org.ssg.gui.client.studenthome.view;
 
 import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.gui.client.service.SsgMessages;
-import org.ssg.gui.client.studenthome.StudentHomeworkMessages;
 import org.ssg.gui.client.studenthome.presenter.HomeworkPresenter.Display;
 
 import com.google.gwt.cell.client.TextCell;

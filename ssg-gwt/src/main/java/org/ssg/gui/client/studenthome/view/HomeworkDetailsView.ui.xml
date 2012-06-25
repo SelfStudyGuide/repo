@@ -14,7 +14,7 @@
 	</ui:style>
 
 	<ui:with field='res'
-		type='org.ssg.gui.client.studenthome.StudentHomeworkMessages' />
+		type='org.ssg.gui.client.service.SsgMessages' />
 
 	<g:HTMLPanel>
 		<g:FlowPanel styleName='widget_title'>

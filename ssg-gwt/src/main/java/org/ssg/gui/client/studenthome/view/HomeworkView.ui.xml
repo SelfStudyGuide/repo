@@ -2,7 +2,7 @@
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
 
 	<ui:with field='res'
-		type='org.ssg.gui.client.studenthome.StudentHomeworkMessages' />
+		type='org.ssg.gui.client.service.SsgMessages' />
 
 	<ui:style>
 		.clickButton {

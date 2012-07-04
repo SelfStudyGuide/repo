@@ -1,4 +1,4 @@
-package org.ssg.gui.server.command;
+package org.ssg.gui.server.command.handler;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -10,6 +10,7 @@ import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.userinfo.action.GetUserInfo;
 import org.ssg.gui.client.userinfo.action.GetUserInfoResponse;
+import org.ssg.gui.server.command.ActionHandler;
 import org.ssg.gui.server.service.SecurityService;
 
 @Service

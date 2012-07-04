@@ -22,7 +22,6 @@ import org.ssg.core.service.StudentService;
 import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.studenthome.action.GetHomeworkDetails;
 import org.ssg.gui.client.studenthome.action.GetHomeworkDetailsResponse;
-import org.ssg.gui.server.command.AbstractCommandTestCase;
 
 
 @ContextConfiguration(locations = { "/spring/gui-service.ctx.xml",

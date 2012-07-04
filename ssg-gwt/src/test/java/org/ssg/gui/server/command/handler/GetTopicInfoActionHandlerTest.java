@@ -16,7 +16,6 @@ import org.ssg.core.service.HomeworkDao;
 import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.topic.action.GetTopicInfo;
 import org.ssg.gui.client.topic.action.GetTopicInfoResponse;
-import org.ssg.gui.server.command.AbstractCommandTestCase;
 
 @ContextConfiguration(locations = { "/spring/gui-service.ctx.xml",
 		"/serice-core-mock.ctx.xml" })

@@ -1,4 +1,4 @@
-package org.ssg.gui.server.command;
+package org.ssg.gui.server.command.handler;
 
 import static org.hamcrest.CoreMatchers.*;
 

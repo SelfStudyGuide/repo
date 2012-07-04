@@ -102,13 +102,13 @@ public class HomeworkDetailsPresenterTest extends AbstractPresenterTestCase {
 		processResponse();
 
 		verify(view).addTopic(eq("TestTopic1 - Not strarted"),
-				eq("http://localhost/ssg/Topic.html?id=567_1"));
+				eq("http://localhost/ssg/Topic.html?hid=567&tid=1"));
 		verify(view).addTopic(eq("TestTopic2 - In progress"),
-				eq("http://localhost/ssg/Topic.html?id=567_2"));
+				eq("http://localhost/ssg/Topic.html?hid=567&tid=2"));
 		verify(view).addTopic(eq("TestTopic3 - Done"),
-				eq("http://localhost/ssg/Topic.html?id=567_3"));
+				eq("http://localhost/ssg/Topic.html?hid=567&tid=3"));
 		verify(view).addTopic(eq("TestTopic4 - Not strarted"),
-				eq("http://localhost/ssg/Topic.html?id=567_4"));
+				eq("http://localhost/ssg/Topic.html?hid=567&tid=4"));
 	}
 
 	private void mockExternalServiceCalls() {
@@ -121,14 +121,14 @@ public class HomeworkDetailsPresenterTest extends AbstractPresenterTestCase {
 		when(ssgMessages.homeworkDetailsNotStarted(eq("TestTopic4"))).thenReturn(
 				"TestTopic4 - Not strarted");
 		
-		when(windowLocation.getUrl(eq("Topic.html?id=567_3"))).thenReturn(
-				"http://localhost/ssg/Topic.html?id=567_3");
-		when(windowLocation.getUrl(eq("Topic.html?id=567_2"))).thenReturn(
-				"http://localhost/ssg/Topic.html?id=567_2");
-		when(windowLocation.getUrl(eq("Topic.html?id=567_1"))).thenReturn(
-				"http://localhost/ssg/Topic.html?id=567_1");
-		when(windowLocation.getUrl(eq("Topic.html?id=567_4"))).thenReturn(
-		"http://localhost/ssg/Topic.html?id=567_4");
+		when(windowLocation.getUrl(eq("Topic.html?hid=567&tid=3"))).thenReturn(
+				"http://localhost/ssg/Topic.html?hid=567&tid=3");
+		when(windowLocation.getUrl(eq("Topic.html?hid=567&tid=2"))).thenReturn(
+				"http://localhost/ssg/Topic.html?hid=567&tid=2");
+		when(windowLocation.getUrl(eq("Topic.html?hid=567&tid=1"))).thenReturn(
+				"http://localhost/ssg/Topic.html?hid=567&tid=1");
+		when(windowLocation.getUrl(eq("Topic.html?hid=567&tid=4"))).thenReturn(
+		"http://localhost/ssg/Topic.html?hid=567&tid=4");
 	}
 
 	@Test

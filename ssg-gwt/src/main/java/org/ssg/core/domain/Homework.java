@@ -77,4 +77,19 @@ public class Homework {
 		setProgresses(list);
 	}
 	
+	
+	/**
+	 * Lookups TopicProgress by given topidId.
+	 */
+	public TopicProgress getTopicProgress(int topicId) {
+		TopicProgress result = null;
+		for (TopicProgress t : getProgresses()) {
+			if (t.getTopicId() == topicId) {
+				result = t;
+				break;
+			}
+		}
+		return result;
+	}
+	
 }

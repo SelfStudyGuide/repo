@@ -80,6 +80,7 @@ public class TstDataUtils {
 		Topic topic = createTopicWithUniqueName(null);
 		topic.setName(name);
 		topic.setId(id);
+		topic.setDescription("Description of topic");
 		return topic;
 	}
 	
@@ -113,6 +114,11 @@ public class TstDataUtils {
 	}
 	
 	public static Homework enrichHomeworkWithProgress(Homework homework,
+			Topic... topics) {
+		return enrichHomeworkWithProgress(homework, Arrays.asList(topics));
+	}
+	
+	public static Homework enrichHomeworkWithProgress(Homework homework,
 			List<Topic> topics) {
 		ArrayList<TopicProgress> progresses = new ArrayList<TopicProgress>();
 		homework.setProgresses(progresses);
@@ -121,6 +127,7 @@ public class TstDataUtils {
 			topic.setName("Test topic " + i);
 			TopicProgress progress = new TopicProgress(topic, homework);
 			progresses.add(progress);
+			progress.setStatus("10");
 			i++;
 		}
 		return homework;

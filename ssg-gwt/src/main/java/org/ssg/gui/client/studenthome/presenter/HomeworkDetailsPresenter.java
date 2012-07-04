@@ -104,8 +104,8 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 				
 				view.addTopic(
 						topicName,
-						windowLocation.getUrl(TOPIC_MODULE_NAME + "?id="
-								+ homework.getId() + "_" + topic.getTopicId()));
+						windowLocation.getUrl(TOPIC_MODULE_NAME + "?hid="
+								+ homework.getId() + "&tid=" + topic.getTopicId()));
 			}
 		}
 	}

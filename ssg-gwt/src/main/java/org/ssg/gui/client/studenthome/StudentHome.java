@@ -10,6 +10,7 @@ import org.ssg.gui.client.service.SsgMessages;
 import org.ssg.gui.client.service.StudentControlService;
 import org.ssg.gui.client.service.StudentControlServiceAsync;
 import org.ssg.gui.client.service.WindowLocation;
+import org.ssg.gui.client.service.res.StudentHomeResources;
 import org.ssg.gui.client.studenthome.presenter.HomeworkDetailsPresenter;
 import org.ssg.gui.client.studenthome.presenter.HomeworkPresenter;
 import org.ssg.gui.client.studenthome.view.HomeworkDetailsView;
@@ -21,6 +22,7 @@ import org.ssg.gui.client.userinfo.view.UserInfoView;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
@@ -38,6 +40,9 @@ public class StudentHome implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 
+		
+		((ServiceDefTarget)studentService).setServiceEntryPoint(GWT.getHostPageBaseURL() + "StudentHome/Student");
+		
 		StudentHomeResources.INSTANCE.styles().ensureInjected();
 		
 		HandlerManager handlerManager = new HandlerManager(null);

@@ -4,11 +4,20 @@ import java.io.Serializable;
 
 import org.ssg.gui.client.action.BaseAction;
 
-public class GetTopicInfo extends BaseAction<GetTopicInfoResponse> implements Serializable {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class GetTopicInfo extends BaseAction<GetTopicInfoResponse> implements Serializable, IsSerializable {
 	private static final long serialVersionUID = 3362046547360460874L;
 	
 	private int homeworkId;
 	private int topicId;
+
+	/**
+	 * Used by GWT RPC
+	 */
+	public GetTopicInfo() {
+		super();
+	}
 
 	public GetTopicInfo(int homeworkId, int topicId) {
 		this.homeworkId = homeworkId;
@@ -22,4 +31,11 @@ public class GetTopicInfo extends BaseAction<GetTopicInfoResponse> implements Se
 	public int getTopicId() {
 		return topicId;
 	}
+
+	@Override
+	public String toString() {
+		return "GetTopicInfo [homeworkId=" + homeworkId + ", topicId="
+				+ topicId + "]";
+	}
+	
 }

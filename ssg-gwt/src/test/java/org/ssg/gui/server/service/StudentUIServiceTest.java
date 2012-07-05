@@ -76,6 +76,7 @@ public class StudentUIServiceTest {
 	}
 
 	private static class UnknownCommand implements Action<Response> {
+		private static final long serialVersionUID = 1L;
 
 		public String getActionName() {
 			return null;

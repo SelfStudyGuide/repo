@@ -4,6 +4,7 @@ import org.ssg.gui.client.action.Action;
 import org.ssg.gui.client.action.BaseAction;
 import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.errordialog.ErrorDialog;
+import org.ssg.gui.client.service.res.SsgMessages;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;

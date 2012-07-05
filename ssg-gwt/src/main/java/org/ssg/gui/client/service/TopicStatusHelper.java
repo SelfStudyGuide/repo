@@ -2,6 +2,7 @@ package org.ssg.gui.client.service;
 
 import org.ssg.core.dto.TopicDetailedProgressInfo;
 import org.ssg.core.dto.TopicProgressInfo;
+import org.ssg.gui.client.service.res.SsgMessages;
 
 public class TopicStatusHelper {
 

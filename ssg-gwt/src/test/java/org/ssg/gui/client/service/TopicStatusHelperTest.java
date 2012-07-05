@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.ssg.core.dto.TopicDetailedProgressInfo;
 import org.ssg.core.support.TstDataUtils;
+import org.ssg.gui.client.service.res.SsgMessages;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TopicStatusHelperTest {

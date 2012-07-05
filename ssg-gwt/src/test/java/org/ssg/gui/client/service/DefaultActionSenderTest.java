@@ -19,6 +19,7 @@ import org.ssg.core.support.TstDataUtils.TestActionResponse;
 import org.ssg.gui.client.AbstractServiceTestCase;
 import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.errordialog.ErrorDialog;
+import org.ssg.gui.client.service.res.SsgMessages;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

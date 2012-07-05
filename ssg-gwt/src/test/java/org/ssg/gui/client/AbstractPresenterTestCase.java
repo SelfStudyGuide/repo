@@ -15,8 +15,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.errordialog.ErrorDialog;
-import org.ssg.gui.client.service.SsgMessages;
 import org.ssg.gui.client.service.WindowLocation;
+import org.ssg.gui.client.service.res.SsgMessages;
 
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;

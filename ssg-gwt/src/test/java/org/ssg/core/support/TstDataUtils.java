@@ -27,7 +27,7 @@ import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.service.ActionCallbackAdapter;
 import org.ssg.gui.client.service.ActionResponseCallback;
 import org.ssg.gui.client.service.SsgGuiServiceException;
-import org.ssg.gui.client.service.SsgMessages;
+import org.ssg.gui.client.service.res.SsgMessages;
 import org.ssg.gui.server.command.ActionHandler;
 
 public class TstDataUtils {

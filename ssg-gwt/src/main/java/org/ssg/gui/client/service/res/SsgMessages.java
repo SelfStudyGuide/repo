@@ -1,4 +1,4 @@
-package org.ssg.gui.client.service;
+package org.ssg.gui.client.service.res;
 
 import com.google.gwt.i18n.client.Messages;
 import com.google.gwt.i18n.client.LocalizableResource.Key;

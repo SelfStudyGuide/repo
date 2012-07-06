@@ -6,8 +6,8 @@ import org.ssg.gui.client.errordialog.view.ErrorDialogView;
 import org.ssg.gui.client.service.DefaultActionNameProvider;
 import org.ssg.gui.client.service.DefaultActionSender;
 import org.ssg.gui.client.service.DefaultWindowLocation;
-import org.ssg.gui.client.service.StudentControlService;
 import org.ssg.gui.client.service.StudentControlServiceAsync;
+import org.ssg.gui.client.service.StudentControlServiceLocator;
 import org.ssg.gui.client.service.WindowLocation;
 import org.ssg.gui.client.service.res.SsgMessages;
 import org.ssg.gui.client.service.res.StudentHomeResources;
@@ -21,18 +21,14 @@ import org.ssg.gui.client.userinfo.view.UserInfoView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class TopicEntryPoint implements com.google.gwt.core.client.EntryPoint {
 
-	private final StudentControlServiceAsync studentService = GWT
-			.create(StudentControlService.class);
+	private final StudentControlServiceAsync studentService = StudentControlServiceLocator.create();
 	private final SsgMessages ssgMessages = GWT.create(SsgMessages.class);
 
 	public void onModuleLoad() {
-		
-		((ServiceDefTarget)studentService).setServiceEntryPoint(GWT.getHostPageBaseURL() + "StudentHome/Student");
 		
 		StudentHomeResources.INSTANCE.styles().ensureInjected();
 		

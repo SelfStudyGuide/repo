@@ -34,7 +34,7 @@
 
 
 	<servlet>
-		<servlet-name>studentService</servlet-name>
+		<servlet-name>studentControlService</servlet-name>
 		<servlet-class>org.ssg.gui.server.service.StudentControlServiceImpl</servlet-class>
 	</servlet>
 
@@ -44,8 +44,8 @@
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>studentService</servlet-name>
-		<url-pattern>/StudentHome/Student</url-pattern>
+		<servlet-name>studentControlService</servlet-name>
+		<url-pattern>/StudentControlService</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

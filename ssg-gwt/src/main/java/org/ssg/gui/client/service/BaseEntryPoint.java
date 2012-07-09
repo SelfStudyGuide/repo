@@ -3,6 +3,7 @@ package org.ssg.gui.client.service;
 import org.ssg.gui.client.errordialog.ErrorDialog;
 import org.ssg.gui.client.errordialog.ErrorDialogMessages;
 import org.ssg.gui.client.errordialog.view.ErrorDialogView;
+import org.ssg.gui.client.service.res.SsgLookupMessages;
 import org.ssg.gui.client.service.res.SsgMessages;
 import org.ssg.gui.client.service.res.StudentHomeResources;
 import org.ssg.gui.client.userinfo.presenter.UserInfoPresenter;
@@ -25,6 +26,8 @@ public abstract class BaseEntryPoint implements EntryPoint {
 			.create();
 	private final SsgMessages ssgMessages = GWT.create(SsgMessages.class);
 	
+	private final SsgLookupMessages ssgLookupMessages = GWT.create(SsgLookupMessages.class);
+	
 	private HandlerManager handlerManager;
 	private WindowLocation windowLocation;
 	private DefaultActionNameProvider nameProvider;
@@ -43,6 +46,7 @@ public abstract class BaseEntryPoint implements EntryPoint {
 
 		actionSender = new DefaultActionSender(studentService, nameProvider,
 				errorDialog, ssgMessages);
+		actionSender.setSsgLookupMessages(ssgLookupMessages);
 
 		createUserInfoView();
 

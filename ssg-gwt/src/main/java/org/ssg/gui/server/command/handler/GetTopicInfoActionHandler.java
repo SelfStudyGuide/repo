@@ -31,12 +31,34 @@ public class GetTopicInfoActionHandler implements ActionHandler<GetTopicInfoResp
 
 		int topicId = action.getTopicId();
 		int homeworkId = action.getHomeworkId();
-		Homework homework = homeworkDao.getHomework(homeworkId);
-		TopicProgress topicProgress = homework.getTopicProgress(topicId);
+		Homework homework = loadHomework(homeworkId);		
+		TopicProgress topicProgress = loadTopic(topicId, homework);
 
 		TopicDetailedProgressInfo info = new TopicDetailedProgressInfo();
 		new TopicProgressAdapter(topicProgress).populate(info);
 		return new GetTopicInfoResponse(info);
+	}
+
+	private TopicProgress loadTopic(int topicId, Homework homework) {
+		TopicProgress topicProgress = homework.getTopicProgress(topicId);
+		
+		if (topicProgress == null) {
+			throw new SsgGuiServiceException(
+					"TopicProgress object cannot be found in db with id "
+							+ topicId, "topic.view.notfound");
+		}
+		return topicProgress;
+	}
+
+	private Homework loadHomework(int homeworkId) {
+		Homework homework = homeworkDao.getHomework(homeworkId);
+		
+		if (homework == null) {
+			throw new SsgGuiServiceException(
+					"Homework object cannot be found in db with id "
+							+ homeworkId, "topic.view.notfound");
+		}
+		return homework;
 	}
 
 	public Class<GetTopicInfo> forClass() {

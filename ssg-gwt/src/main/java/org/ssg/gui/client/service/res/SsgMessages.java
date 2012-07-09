@@ -1,9 +1,12 @@
 package org.ssg.gui.client.service.res;
 
 import com.google.gwt.i18n.client.Messages;
-import com.google.gwt.i18n.client.LocalizableResource.Key;
 
-// SsgMessages.properties
+/**
+ * All messages across whole application should be registered here.
+ * <br>
+ * SsgMessages.properties
+ */
 public interface SsgMessages extends Messages {
 	@Key("topic.view.topic.status.inprogress")
 	String topicViewTopicStatusInProgress();

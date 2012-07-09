@@ -247,7 +247,8 @@
 						<goals>
 							<goal>compile</goal>
 							<goal>test</goal>
-							<!--goal>i18n</goal> <goal>generateAsync</goal -->
+							<!--goal>i18n</goal -->
+							<!--goal>generateAsync</goal -->
 						</goals>
 					</execution>
 				</executions>
@@ -258,7 +259,8 @@
 					<style>DETAILED</style>
 					<runTarget>StudentHome.html</runTarget>
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
-					<i18nMessagesBundle>org.ssg.gui.client.Messages</i18nMessagesBundle>
+					<!--i18nMessagesBundle>org.ssg.gui.client.Messages</i18nMessagesBundle -->
+					<i18nConstantsWithLookupBundle>org.ssg.gui.client.service.res.SsgLookupMessages</i18nConstantsWithLookupBundle>
 				</configuration>
 			</plugin>
 

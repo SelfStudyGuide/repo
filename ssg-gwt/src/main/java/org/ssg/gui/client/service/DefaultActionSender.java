@@ -1,9 +1,12 @@
 package org.ssg.gui.client.service;
 
+import static org.ssg.gui.client.service.res.SsgLookupMessagesHelper.dot2underscore;
+
 import org.ssg.gui.client.action.Action;
 import org.ssg.gui.client.action.BaseAction;
 import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.errordialog.ErrorDialog;
+import org.ssg.gui.client.service.res.SsgLookupMessages;
 import org.ssg.gui.client.service.res.SsgMessages;
 
 import com.google.gwt.core.client.GWT;
@@ -15,6 +18,7 @@ public class DefaultActionSender implements ActionSender {
 	private ActionNameProvider actionNameProvider;
 	private ErrorDialog errorDialog;
 	private SsgMessages messages;
+	private SsgLookupMessages ssgLookupMessages;
 
 	protected DefaultActionSender() {
 	}
@@ -56,7 +60,13 @@ public class DefaultActionSender implements ActionSender {
 				if (caught instanceof UnexpectedCommandException) {
 					displayError(action, (UnexpectedCommandException)caught);
 				} else if (caught instanceof SsgGuiServiceException) {
-					callback.onError((SsgGuiServiceException) caught);
+					SsgGuiServiceException guiEx = (SsgGuiServiceException) caught;
+					callback.onError(guiEx);
+					if (!guiEx.isHandled()) {
+						String dialogMsg = ssgLookupMessages
+								.getString(dot2underscore(guiEx.getErrorCode()));
+						errorDialog.show(dialogMsg, action);
+					}
 				} else {
 					GWT.log("unexpected exception", caught);
 				}
@@ -84,4 +94,14 @@ public class DefaultActionSender implements ActionSender {
 	public void setService(StudentControlServiceAsync service) {
 		this.service = service;
 	}
+
+	public SsgLookupMessages getSsgLookupMessages() {
+		return ssgLookupMessages;
+	}
+
+	public void setSsgLookupMessages(SsgLookupMessages ssgLookupMessages) {
+		this.ssgLookupMessages = ssgLookupMessages;
+	}
+	
+	
 }

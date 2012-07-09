@@ -1,6 +1,7 @@
 package org.ssg.gui.client.service;
 
 import static org.mockito.Mockito.*;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 import static org.junit.Assert.*;
 
@@ -9,9 +10,14 @@ import static org.hamcrest.CoreMatchers.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.internal.verification.VerificationModeFactory;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
+import org.mockito.verification.VerificationMode;
 import org.ssg.core.support.TstDataUtils.TestAction;
 import org.ssg.core.support.TstDataUtils.TestActionCallback;
 import org.ssg.core.support.TstDataUtils.TestActionCallbackWithAdapter;
@@ -19,6 +25,7 @@ import org.ssg.core.support.TstDataUtils.TestActionResponse;
 import org.ssg.gui.client.AbstractServiceTestCase;
 import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.errordialog.ErrorDialog;
+import org.ssg.gui.client.service.res.SsgLookupMessages;
 import org.ssg.gui.client.service.res.SsgMessages;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -39,12 +46,17 @@ public class DefaultActionSenderTest extends AbstractServiceTestCase {
 	
 	@Mock 
 	private SsgMessages messages;
+	
+	@Mock
+	private SsgLookupMessages ssgLookupMessages;
 
 	@Before
 	public void setUp() {
 		// There are limitation in Mockito runner when one of Mocks in super
 		// class
 		sender = new DefaultActionSender(service, nameProvider, dialog, messages);
+		sender.setSsgLookupMessages(ssgLookupMessages);
+		
 	}
 
 	@Test
@@ -78,6 +90,64 @@ public class DefaultActionSenderTest extends AbstractServiceTestCase {
 		callback.onFailure(ex);
 
 		verify(actionCallback).onError(same(ex));
+	}
+	
+	@Test
+	public void verifyThatIfExceptionHasNotHandledThenShowDialogWindowWithMessage() {
+		// Given		
+		TestAction action = new TestAction();
+		SsgGuiServiceException ex = new SsgGuiServiceException("description", "error.code");
+
+		when(ssgLookupMessages.getString(eq("error_code"))).thenReturn("oups");
+		
+//		Mockito.doAnswer(new Answer<SsgGuiServiceException>() {
+//
+//			public SsgGuiServiceException answer(InvocationOnMock invocation)
+//					throws Throwable {
+//				SsgGuiServiceException passedEx = (SsgGuiServiceException) invocation.getArguments()[0];
+//				passedEx.
+//				return null;
+//			}
+//		}).when(actionCallback).onError(same(ex));
+		
+		// When
+		sender.send(action, actionCallback);
+
+		
+		
+		AsyncCallback<Response> callback = verifyActionAndResturnCallback(TestAction.class);
+		callback.onFailure(ex);
+		
+		// Then
+		verify(dialog).show(eq("oups"), same(action));
+	}
+	
+	@Test
+	public void verifyThatIfExceptionHasBeenHandledThenDontShowDialogWindowWithMessage () {
+		// Given		
+		TestAction action = new TestAction();
+		SsgGuiServiceException ex = new SsgGuiServiceException("description", "error.code");
+
+		when(ssgLookupMessages.getString(eq("error_code"))).thenReturn("oups");
+		
+		Mockito.doAnswer(new Answer<SsgGuiServiceException>() {
+
+			public SsgGuiServiceException answer(InvocationOnMock invocation)
+					throws Throwable {
+				SsgGuiServiceException passedEx = (SsgGuiServiceException) invocation.getArguments()[0];
+				passedEx.setHandled(true);
+				return null;
+			}
+		}).when(actionCallback).onError(same(ex));
+		
+		// When
+		sender.send(action, actionCallback);
+		
+		AsyncCallback<Response> callback = verifyActionAndResturnCallback(TestAction.class);
+		callback.onFailure(ex);
+		
+		// Then
+		verify(dialog, times(0)).show(eq("oups"), same(action));
 	}
 
 	@Test
@@ -115,6 +185,10 @@ public class DefaultActionSenderTest extends AbstractServiceTestCase {
 		callback.onFailure(ex);
 		
 		verify(dialog).show(eq("oups"), same(action));
+	}
+	
+	private void mockingMessages(SsgLookupMessages message) {
+		
 	}
 	
 }

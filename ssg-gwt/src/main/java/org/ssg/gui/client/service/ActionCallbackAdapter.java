@@ -25,7 +25,6 @@ public abstract class ActionCallbackAdapter<R extends Response> implements
 	abstract public void onResponse(R response);
 
 	public void onError(SsgGuiServiceException exception) {
-		//TODO: print response id when is available
 		GWT.log("Uncatched exception ", exception);
 	}
 }

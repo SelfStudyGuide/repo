@@ -3,6 +3,7 @@ package org.ssg.gui.client.service;
 
 import org.ssg.gui.client.action.Action;
 import org.ssg.gui.client.action.Response;
+import org.ssg.gui.client.service.sender.DefaultActionSender;
 
 import com.google.gwt.core.client.GWT;
 

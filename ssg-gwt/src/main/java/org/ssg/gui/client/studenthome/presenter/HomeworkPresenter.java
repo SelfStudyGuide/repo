@@ -4,7 +4,7 @@ import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.gui.client.errordialog.ErrorDialog;
 import org.ssg.gui.client.service.ActionCallbackAdapter;
-import org.ssg.gui.client.service.ActionSender;
+import org.ssg.gui.client.service.sender.ActionSender;
 import org.ssg.gui.client.studenthome.action.GetHomeworks;
 import org.ssg.gui.client.studenthome.action.GetHomeworksResponse;
 import org.ssg.gui.client.studenthome.event.HomeworkSelectedEvent;

@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.errordialog.ErrorDialog;
 import org.ssg.gui.client.service.WindowLocation;
+import org.ssg.gui.client.service.res.SsgLookupMessages;
 import org.ssg.gui.client.service.res.SsgMessages;
 
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -40,11 +41,11 @@ public abstract class AbstractPresenterTestCase extends AbstractServiceTestCase 
 	@Mock
 	protected ErrorDialog errorDialog; 
 	
-	//@Mock 
-	//protected StudentHomeworkMessages messages;
-	
 	@Mock
 	protected SsgMessages ssgMessages;
+
+	@Mock
+	protected SsgLookupMessages ssgLookupMessages;
 	
 	@Before
 	public void mockMessages() {

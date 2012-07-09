@@ -37,9 +37,16 @@ public class ErrorDialog {
 		});
 	}
 
+	@Deprecated
 	public void show(String message, Action<?> action) {
 		view.getActionInfoBox().setText(
 				messages.getActionInfo(action.getActionName()));
+		view.getMessageBox().setHTML(message);
+		view.show();
+	}
+	
+	public void show(String message, String actionName) {
+		view.getActionInfoBox().setText(messages.getActionInfo(actionName));
 		view.getMessageBox().setHTML(message);
 		view.show();
 	}

@@ -15,7 +15,8 @@ import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.AbstractPresenterTestCase;
 import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.service.DefaultActionNameProvider;
-import org.ssg.gui.client.service.DefaultActionSender;
+import org.ssg.gui.client.service.sender.DefaultActionResponseCallbackProcessor;
+import org.ssg.gui.client.service.sender.DefaultActionSender;
 import org.ssg.gui.client.topic.action.GetTopicInfo;
 import org.ssg.gui.client.topic.action.GetTopicInfoResponse;
 import org.ssg.gui.client.topic.event.RefreshTopicInfoEvent;
@@ -40,10 +41,16 @@ public class TopicInfoPresenterTest extends AbstractPresenterTestCase {
 	@Mock
 	private HasText topicProgress;
 
+	private DefaultActionSender actionSender;
+
+	private DefaultActionResponseCallbackProcessor processor;
+
 	@Before
 	public void setUp() {
-		DefaultActionSender actionSender = new DefaultActionSender(service,
-				new DefaultActionNameProvider(), errorDialog, ssgMessages);
+		processor = new DefaultActionResponseCallbackProcessor(errorDialog,
+				ssgMessages, ssgLookupMessages);
+		actionSender = new DefaultActionSender(service, new DefaultActionNameProvider(), processor);
+		
 
 		when(display.getTopicName()).thenReturn(topicName);
 		when(display.getTopicDescription()).thenReturn(topicDescription);

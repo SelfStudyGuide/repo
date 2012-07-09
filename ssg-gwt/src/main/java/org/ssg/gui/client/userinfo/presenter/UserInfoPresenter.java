@@ -2,9 +2,9 @@ package org.ssg.gui.client.userinfo.presenter;
 
 import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.gui.client.service.ActionCallbackAdapter;
-import org.ssg.gui.client.service.ActionSender;
 import org.ssg.gui.client.service.UserInfoHolder;
 import org.ssg.gui.client.service.WindowLocation;
+import org.ssg.gui.client.service.sender.ActionSender;
 import org.ssg.gui.client.userinfo.action.GetUserInfo;
 import org.ssg.gui.client.userinfo.action.GetUserInfoResponse;
 import org.ssg.gui.client.userinfo.event.LogoutEvent;

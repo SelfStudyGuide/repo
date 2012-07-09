@@ -6,6 +6,8 @@ import org.ssg.gui.client.errordialog.view.ErrorDialogView;
 import org.ssg.gui.client.service.res.SsgLookupMessages;
 import org.ssg.gui.client.service.res.SsgMessages;
 import org.ssg.gui.client.service.res.StudentHomeResources;
+import org.ssg.gui.client.service.sender.DefaultActionResponseCallbackProcessor;
+import org.ssg.gui.client.service.sender.DefaultActionSender;
 import org.ssg.gui.client.userinfo.presenter.UserInfoPresenter;
 import org.ssg.gui.client.userinfo.view.UserInfoView;
 
@@ -33,6 +35,7 @@ public abstract class BaseEntryPoint implements EntryPoint {
 	private DefaultActionNameProvider nameProvider;
 	private DefaultActionSender actionSender;
 	private ErrorDialog errorDialog;
+	private DefaultActionResponseCallbackProcessor processor;
 
 	public final void onModuleLoad() {
 		
@@ -43,10 +46,10 @@ public abstract class BaseEntryPoint implements EntryPoint {
 		nameProvider = new DefaultActionNameProvider();
 
 		createErrorDialog();
-
-		actionSender = new DefaultActionSender(studentService, nameProvider,
-				errorDialog, ssgMessages);
-		actionSender.setSsgLookupMessages(ssgLookupMessages);
+	
+		processor = new DefaultActionResponseCallbackProcessor(errorDialog,
+				ssgMessages, ssgLookupMessages);
+		actionSender = new DefaultActionSender(studentService, nameProvider, processor);
 
 		createUserInfoView();
 

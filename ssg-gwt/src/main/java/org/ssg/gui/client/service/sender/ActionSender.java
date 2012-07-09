@@ -1,7 +1,8 @@
-package org.ssg.gui.client.service;
+package org.ssg.gui.client.service.sender;
 
 import org.ssg.gui.client.action.Action;
 import org.ssg.gui.client.action.Response;
+import org.ssg.gui.client.service.ActionResponseCallback;
 
 
 public interface ActionSender {

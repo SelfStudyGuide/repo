@@ -2,9 +2,9 @@ package org.ssg.gui.client.topic.presenter;
 
 import org.ssg.gui.client.service.ActionCallbackAdapter;
 import org.ssg.gui.client.service.ActionResponseCallback;
-import org.ssg.gui.client.service.DefaultActionSender;
 import org.ssg.gui.client.service.TopicStatusHelper;
 import org.ssg.gui.client.service.res.SsgMessages;
+import org.ssg.gui.client.service.sender.DefaultActionSender;
 import org.ssg.gui.client.topic.action.GetTopicInfo;
 import org.ssg.gui.client.topic.action.GetTopicInfoResponse;
 import org.ssg.gui.client.topic.event.RefreshTopicInfoEvent;

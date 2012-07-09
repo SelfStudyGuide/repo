@@ -79,7 +79,7 @@ public class Homework {
 	
 	
 	/**
-	 * Lookups TopicProgress by given topidId.
+	 * Lookups TopicProgress by given topidId. Returns null if nothing found.
 	 */
 	public TopicProgress getTopicProgress(int topicId) {
 		TopicProgress result = null;

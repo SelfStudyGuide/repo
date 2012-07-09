@@ -22,6 +22,7 @@ import org.ssg.gui.server.ApplicationMessageSource;
 
 @Service
 @Transactional
+@Deprecated
 public class DefaultStudentService implements StudentService {
 
 	private static final Log LOG = LogFactory.getLog(DefaultStudentService.class);

@@ -202,38 +202,25 @@
 					</execution>
 				</executions>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
-				<!-- or if you want to use tomcat 6.x <artifactId>tomcat6-maven-plugin</artifactId> -->
 				<version>2.0-beta-1</version>
 				<configuration>
-					<!-- http port -->
 					<port>8080</port>
-					<!-- application path always starts with / -->
-					<path>/</path>
-					<!-- optionnal path to a context file -->
-					<contextFile>/Users/olamy/dev/tomcat-context-archiva-gmail.xml</contextFile>
-					<!-- optionnal system propoerties you want to add -->
-					<systemProperties>
+					<server>ssgTomcatServer</server>
+					<path>/ssg-gwt</path>
+					<contextFile>${tomcatContext}</contextFile>
+					<!--systemProperties>
 						<appserver.base>/Users/olamy/dev/sources/tomcat/maven-plugin-svn/target/checkout/target/appserver-base</appserver.base>
 						<appserver.home>/Users/olamy/dev/sources/tomcat/maven-plugin-svn/target/checkout/target/appserver-home</appserver.home>
 						<derby.system.home>/Users/olamy/dev/sources/tomcat/maven-plugin-svn/target/checkout/target/appserver-base/logs</derby.system.home>
 						<java.io.tmpdir>/Users/olamy/dev/sources/tomcat/maven-plugin-svn/target/checkout/target</java.io.tmpdir>
-					</systemProperties>
-					<!-- if you want to use test dependencies rather than only runtime -->
+					</systemProperties-->
 					<useTestClasspath>false</useTestClasspath>
-					<!-- optionnal if you want to add some extra directories in the class 
-						loader -->
-					<additionalClasspathDirs>
-						<additionalClasspathDir></additionalClasspathDir>
-					</additionalClasspathDirs>
 				</configuration>
-				<!-- if you need some extra dependencies only for running the embeded 
-					tomcat add them in the plugin dependencies -->
-				<!-- dependencies> <dependency> <groupId>org.apache.derby</groupId> <artifactId>derby</artifactId> 
-					<version>${derbyVersion}</version> </dependency> <dependency> <groupId>javax.mail</groupId> 
-					<artifactId>mail</artifactId> <version>1.4</version> </dependency> </dependencies -->
+				
 			</plugin>
 
 			<!-- GWT Maven Plugin -->
@@ -293,8 +280,6 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!-- plugin> <groupId>org.apache.tomcat.maven</groupId> <artifactId>tomcat6-maven-plugin</artifactId> 
-					<version>2.0-beta-1</version> </plugin -->
 				<plugin>
 					<groupId>org.apache.tomcat.maven</groupId>
 					<artifactId>tomcat7-maven-plugin</artifactId>
@@ -351,4 +336,14 @@
 		</pluginManagement>
 	</build>
 
+	<reporting>
+		<plugins>
+			<!-- http://mojo.codehaus.org/cobertura-maven-plugin/plugin-info.html -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.5.1</version>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>

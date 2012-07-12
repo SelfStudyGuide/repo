@@ -173,6 +173,7 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 		assertThat(savedTask.getId(), is(not(0)));
 		assertThat(savedTask.getName(), is("TEXT task"));
 		assertThat(savedTask.getType(), is(TaskType.TEXT));
+		assertThat(savedTask.getExecrisesCount(), is(2));
 		assertThat(savedTask.getTopic().getId(), is(topic.getId()));
 	}
 	

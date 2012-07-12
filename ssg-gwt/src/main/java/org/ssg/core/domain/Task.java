@@ -18,6 +18,11 @@ import javax.persistence.Table;
 
 import org.ssg.core.dto.TaskType;
 
+/**
+ * Task aggregates exercises according to type of task (text, listening...)
+ * Task should have execrisesCount fields which then will used to 
+ * calculate completed task
+ */
 @Entity
 @Table(name = "TOPIC_TASK")
 public class Task {
@@ -25,10 +30,9 @@ public class Task {
 	private String name;
 	private List<Exercise> exercises;
 	private TaskType type;
-	/** Fields contain description of a task */
-	//private List<Field> fields;
 	private String description;
 	private Topic topic;
+	private int execrisesCount;
 	
 	@Id
     @GeneratedValue
@@ -81,16 +85,17 @@ public class Task {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	@Column(name = "EXECRCISE_CNT")
+	public int getExecrisesCount() {
+		return execrisesCount;
+	}
 
-//	@OneToMany(orphanRemoval=true)
-//    @JoinColumn(name="PARENT_ID") 
-//	public List<Field> getFields() {
-//		return fields;
-//	}
-//
-//	public void setFields(List<Field> items) {
-//		this.fields = items;
-//	}
+	
+	public void setExecrisesCount(int execrisesCount) {
+		this.execrisesCount = execrisesCount;
+	}
+	
 	
 	
 }

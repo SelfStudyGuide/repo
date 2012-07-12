@@ -89,6 +89,7 @@ public class TstDataUtils {
 		task.setName(type.toString() + " task");
 		task.setType(type);
 		task.setDescription(type.toString() + " task descr");
+		task.setExecrisesCount(2);
 		return task;
 	}
 

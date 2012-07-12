@@ -26,7 +26,7 @@ import org.ssg.core.dto.FieldType;
 //@DiscriminatorColumn(name="FIELD_TYPE", discriminatorType=DiscriminatorType.STRING, length=20)
 public abstract class Field {
 
-	/** Defines name of a field in a task */
+	/** Defines id of a field in a task */
 	@Id
     @GeneratedValue
     @Column(name = "ID", nullable=false)
@@ -46,5 +46,5 @@ public abstract class Field {
 	@Transient
 	private List<Field> childFields;
 	
-	
+	// Fields should implements WithAnswer interface 
 }

@@ -69,6 +69,7 @@ public class TstDataUtils {
 		return module;
 	}
 
+	@Deprecated
 	public static Topic createTopicWithUniqueName(Module module) {
 		Topic topic = new Topic();
 		topic.setModule(module);
@@ -76,6 +77,7 @@ public class TstDataUtils {
 		return topic;
 	}
 	
+	@Deprecated
 	public static Topic createTopic(String name, int id) {
 		Topic topic = createTopicWithUniqueName(null);
 		topic.setName(name);
@@ -84,6 +86,7 @@ public class TstDataUtils {
 		return topic;
 	}
 	
+	@Deprecated
 	public static Task createTask(TaskType type) {
 		Task task = new Task();
 		task.setName(type.toString() + " task");
@@ -106,6 +109,7 @@ public class TstDataUtils {
 		return student;
 	}
 
+	@Deprecated
 	public static Homework createHomework(Student student, Module module) {
 		Homework homework = new Homework();
 		homework.setModules(Arrays.asList(module));
@@ -119,6 +123,7 @@ public class TstDataUtils {
 		return enrichHomeworkWithProgress(homework, Arrays.asList(topics));
 	}
 	
+	@Deprecated
 	public static Homework enrichHomeworkWithProgress(Homework homework,
 			List<Topic> topics) {
 		ArrayList<TopicProgress> progresses = new ArrayList<TopicProgress>();
@@ -151,6 +156,7 @@ public class TstDataUtils {
 		return result;
 	}
 
+	@Deprecated
 	public static HomeworkInfo createHomeworkInfoWithDetails() {
 		HomeworkInfo result = createHomeworkInfo();
 		
@@ -176,6 +182,7 @@ public class TstDataUtils {
 		return result;
 	}
 
+	@Deprecated
 	public static TopicProgressInfo createTopicProgressInfo(int id, String name) {
 		TopicProgressInfo info = new TopicProgressInfo();
 		info.setTopicId(id);

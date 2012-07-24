@@ -95,19 +95,4 @@ public class GetTopicInfoActionHandlerTest extends
 				TstDataUtils.createTopic("Name", 345));
 		return hw;
 	}
-	
-	private Matcher<SsgGuiServiceException> hasErrorCode(final Matcher<String> matcher) {
-		return new TypeSafeMatcher<SsgGuiServiceException>() {
-			public void describeTo(Description description) {
-				description.appendText("exception with error code ");
-				description.appendDescriptionOf(matcher);
-			}
-		
-			@Override
-			public boolean matchesSafely(SsgGuiServiceException item) {
-				return matcher.matches(item.getErrorCode());
-			}
-		};
-	}
-
 }

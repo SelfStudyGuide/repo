@@ -70,7 +70,7 @@ public class SecurtyIntegrationTest  {
 		assertThat(a.getAuthorities().size(), is(1));
 		assertThat(a.getAuthorities().iterator().next().getAuthority(),
 				equalTo("student"));
-		assertThat(a.getPrincipal(), is(ApplicationUser.class));
+		assertThat((ApplicationUser)a.getPrincipal(), is(ApplicationUser.class));
 		assertThat(((ApplicationUser) a.getPrincipal()).getUsername(),
 				equalTo("user"));
 		assertThat(((ApplicationUser) a.getPrincipal()).getPersonId(), is(123));
@@ -90,7 +90,7 @@ public class SecurtyIntegrationTest  {
 		assertThat(a.getAuthorities().size(), is(1));
 		assertThat(a.getAuthorities().iterator().next().getAuthority(),
 				equalTo("teacher"));
-		assertThat(a.getPrincipal(), is(ApplicationUser.class));
+		assertThat((ApplicationUser)a.getPrincipal(), is(ApplicationUser.class));
 		assertThat(((ApplicationUser) a.getPrincipal()).getUsername(),
 				equalTo("user2"));
 		//assertThat(((ApplicationUser) a.getPrincipal()).getPersonId(), is(123));

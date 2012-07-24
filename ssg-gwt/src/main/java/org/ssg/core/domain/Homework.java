@@ -1,6 +1,7 @@
 package org.ssg.core.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -49,6 +50,10 @@ public class Homework {
 	public void setModules(List<Module> modules) {
 		this.modules = modules;
 	}
+	
+	public void setModule(Module module) {
+		this.modules = Arrays.asList(module);
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "STUD_ID")
@@ -83,11 +88,16 @@ public class Homework {
 	 */
 	public TopicProgress getTopicProgress(int topicId) {
 		TopicProgress result = null;
-		for (TopicProgress t : getProgresses()) {
-			if (t.getTopicId() == topicId) {
-				result = t;
-				break;
+		
+		if (getProgresses() != null && !getProgresses().isEmpty()) {
+		
+			for (TopicProgress t : getProgresses()) {
+				if (t.getTopicId() == topicId) {
+					result = t;
+					break;
+				}
 			}
+		
 		}
 		return result;
 	}

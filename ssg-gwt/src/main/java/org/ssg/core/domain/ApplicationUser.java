@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+// TODO: This class should expose interface
 public class ApplicationUser implements UserDetails {
 	private static final long serialVersionUID = 2299224597100254165L;
 	private UserDetails underlying;

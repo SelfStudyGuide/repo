@@ -16,9 +16,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.stubbing.Answer;
 import org.ssg.core.dto.TaskType;
 import org.ssg.core.dto.TopicTaskInfo;
 import org.ssg.core.support.TstDataBuilder;
@@ -61,16 +59,7 @@ public class TaskListPresenterTest extends AbstractPresenterTestCase {
 				listeningTask);
 		when(display.getTask(Mockito.eq(30), Mockito.anyString())).thenReturn(
 				lexicalTask);
-
-		when(windowLocation.getUrl(Mockito.anyString())).thenAnswer(
-				new Answer<String>() {
-
-					public String answer(InvocationOnMock invocation)
-							throws Throwable {
-						return "http://localhost"
-								+ invocation.getArguments()[0];
-					}
-				});
+		
 	}
 
 	@Test
@@ -132,7 +121,7 @@ public class TaskListPresenterTest extends AbstractPresenterTestCase {
 		ArgumentCaptor<String> href = ArgumentCaptor.forClass(String.class);
 		verify(display).getTask(Matchers.eq(10), href.capture());
 		href.getAllValues();
-		assertThat(href.getValue(), is("http://localhost/task.html?hwid=1&tid=10"));
+		assertThat(href.getValue(), is("http://localhost/ssg/Task.html?hid=1&taid=10"));
 	}
 	
 	@Test
@@ -143,7 +132,7 @@ public class TaskListPresenterTest extends AbstractPresenterTestCase {
 		ArgumentCaptor<String> href = ArgumentCaptor.forClass(String.class);
 		verify(display).getTask(Matchers.eq(20), href.capture());
 		href.getAllValues();
-		assertThat(href.getValue(), is("http://localhost/task.html?hwid=1&tid=20"));
+		assertThat(href.getValue(), is("http://localhost/ssg/Task.html?hid=1&taid=20"));
 	}
 	
 	@Test
@@ -154,7 +143,7 @@ public class TaskListPresenterTest extends AbstractPresenterTestCase {
 		ArgumentCaptor<String> href = ArgumentCaptor.forClass(String.class);
 		verify(display).getTask(Matchers.eq(30), href.capture());
 		href.getAllValues();
-		assertThat(href.getValue(), is("http://localhost/task.html?hwid=1&tid=30"));
+		assertThat(href.getValue(), is("http://localhost/ssg/Task.html?hid=1&taid=30"));
 	}
 
 	private List<TopicTaskInfo> taskInfos() {

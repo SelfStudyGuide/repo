@@ -114,15 +114,6 @@ public class HomeworkDetailsPresenterTest extends AbstractPresenterTestCase {
 				"TestTopic1 - Not strarted");
 		when(ssgMessages.homeworkDetailsNotStarted(eq("TestTopic4"))).thenReturn(
 				"TestTopic4 - Not strarted");
-		
-		when(windowLocation.getUrl(eq("Topic.html?hid=567&tid=3"))).thenReturn(
-				"http://localhost/ssg/Topic.html?hid=567&tid=3");
-		when(windowLocation.getUrl(eq("Topic.html?hid=567&tid=2"))).thenReturn(
-				"http://localhost/ssg/Topic.html?hid=567&tid=2");
-		when(windowLocation.getUrl(eq("Topic.html?hid=567&tid=1"))).thenReturn(
-				"http://localhost/ssg/Topic.html?hid=567&tid=1");
-		when(windowLocation.getUrl(eq("Topic.html?hid=567&tid=4"))).thenReturn(
-		"http://localhost/ssg/Topic.html?hid=567&tid=4");
 	}
 
 	@Test

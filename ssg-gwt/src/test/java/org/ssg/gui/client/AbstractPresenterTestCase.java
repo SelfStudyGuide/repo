@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -13,6 +14,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.ssg.gui.client.errordialog.ErrorDialog;
 import org.ssg.gui.client.service.DefaultActionNameProvider;
 import org.ssg.gui.client.service.WindowLocation;
@@ -56,6 +60,16 @@ public abstract class AbstractPresenterTestCase extends AbstractServiceTestCase 
 	@Before
 	public void mockMessages() {
 		ssgMessages = SsgMessagesMock.mockMsg(SsgMessages.class);
+		
+		when(windowLocation.getUrl(Mockito.anyString())).thenAnswer(
+				new Answer<String>() {
+
+					public String answer(InvocationOnMock invocation)
+							throws Throwable {
+						return "http://localhost/ssg/"
+								+ invocation.getArguments()[0];
+					}
+				});
 	
 		processor = new DefaultActionResponseCallbackProcessor(errorDialog,
 				ssgMessages, ssgLookupMessages);

@@ -1,5 +1,9 @@
 package org.ssg.gui.client.studenthome.presenter;
 
+import static org.ssg.gui.client.service.res.UrlContants.HOMEWORK_ID;
+import static org.ssg.gui.client.service.res.UrlContants.TOPIC_ID;
+import static org.ssg.gui.client.service.res.UrlContants.TOPIC_PAGE;
+
 import java.util.ArrayList;
 
 import org.ssg.core.dto.HomeworkInfo;
@@ -18,8 +22,6 @@ import com.google.gwt.user.client.ui.HasText;
 
 public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 
-	private static final String TOPIC_MODULE_NAME  = "Topic.html";
-	
 	public interface Display {
 
 		void creanUpView();
@@ -104,8 +106,8 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 				
 				view.addTopic(
 						topicName,
-						windowLocation.getUrl(TOPIC_MODULE_NAME + "?hid="
-								+ homework.getId() + "&tid=" + topic.getTopicId()));
+						windowLocation.getUrl(TOPIC_PAGE + "?" + HOMEWORK_ID + "="
+								+ homework.getId() + "&" + TOPIC_ID + "=" + topic.getTopicId()));
 			}
 		}
 	}

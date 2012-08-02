@@ -1,5 +1,9 @@
 package org.ssg.gui.client.topic.presenter;
 
+import static org.ssg.gui.client.service.res.UrlContants.HOMEWORK_ID;
+import static org.ssg.gui.client.service.res.UrlContants.TASK_ID;
+import static org.ssg.gui.client.service.res.UrlContants.TASK_PAGE;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,7 +81,7 @@ public class TaskListPresenter implements RefreshTopicInfoEvent.Handler {
 	}
 
 	private String getTaskPageHref(final int homeworkId, int taksId) {
-		return windowLocation.getUrl("/task.html?hwid=" + homeworkId + "&tid="
-				+ taksId);
+		return windowLocation.getUrl(TASK_PAGE + "?" + HOMEWORK_ID + "="
+				+ homeworkId + "&" + TASK_ID + "=" + taksId);
 	}
 }

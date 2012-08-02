@@ -1,5 +1,8 @@
 package org.ssg.gui.client.topic;
 
+import static org.ssg.gui.client.service.res.UrlContants.HOMEWORK_ID;
+import static org.ssg.gui.client.service.res.UrlContants.TOPIC_ID;
+
 import org.ssg.gui.client.service.BaseEntryPoint;
 import org.ssg.gui.client.topic.event.RefreshTopicInfoEvent;
 import org.ssg.gui.client.topic.presenter.TopicInfoPresenter;
@@ -23,7 +26,7 @@ public class TopicEntryPoint extends BaseEntryPoint {
 		topicInfoPresenter.bind();
 
 		getHandlerManager().fireEvent(new RefreshTopicInfoEvent(
-				getParameterInt("hid"), getParameterInt("tid")));
+				getParameterInt(HOMEWORK_ID), getParameterInt(TOPIC_ID)));
 
 	}
 

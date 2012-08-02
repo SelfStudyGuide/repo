@@ -1,10 +1,8 @@
 package org.ssg.gui.client.errordialog;
 
-import static org.mockito.Mockito.*;
-import static org.mockito.Matchers.*;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;

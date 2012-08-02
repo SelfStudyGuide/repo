@@ -11,9 +11,42 @@ import org.ssg.core.domain.Task;
 import org.ssg.core.domain.Topic;
 import org.ssg.core.domain.TopicProgress;
 import org.ssg.core.dto.TaskType;
+import org.ssg.core.dto.TopicTaskInfo;
 
 public class TstDataBuilder {
 
+	public static TopicTaskInfoBuilder topicTaskInfoBuilder() {
+		return new TopicTaskInfoBuilder();
+	}
+	
+	public static class TopicTaskInfoBuilder {
+		private TopicTaskInfo topicTaskInfo = new TopicTaskInfo();
+		
+		public TopicTaskInfo build() {
+			return topicTaskInfo;
+		}
+		
+		public TopicTaskInfoBuilder id(int id) {
+			topicTaskInfo.setId(id);
+			return this;
+		}
+		
+		public TopicTaskInfoBuilder type(TaskType type) {
+			topicTaskInfo.setType(type);
+			return this;
+		}
+		
+		public TopicTaskInfoBuilder execrisesCount(int cnt) {
+			topicTaskInfo.setExecrisesCount(cnt);
+			return this;
+		}
+		
+		public TopicTaskInfoBuilder completedCount(int cnt) {
+			topicTaskInfo.setCompletedCount(cnt);
+			return this;
+		}
+	}
+	
 	public static TaskBuilder taskBuilder() {
 		return new TaskBuilder();
 	}

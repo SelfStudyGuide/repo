@@ -30,7 +30,11 @@ import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.service.res.SsgMessages;
 import org.ssg.gui.server.command.ActionHandler;
 
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.GwtEvent;
+
 public class TstDataUtils {
+	
 	public static Module createModule() {
 		Module module = new Module();
 		module.setName("name");
@@ -223,14 +227,8 @@ public class TstDataUtils {
 		ApplicationUser appUser = new ApplicationUser(user, studentId);
 		return appUser;
 	}
-
-	public static void createMockExpectationFor(SsgMessages messages) {
-		when(messages.topicViewTopicStatusInProgress()).thenReturn(
-				"In Progress");
-		when(messages.topicViewTopicStatusDone()).thenReturn("Done");
-		when(messages.topicViewTopicStatusNosStarted()).thenReturn(
-				"Not Started");
-	}
+	
+	// ======================= TestAction =============================
 	
 	@SuppressWarnings("serial")
 	public static class TestAction extends BaseAction<TestActionResponse> {
@@ -272,5 +270,27 @@ public class TstDataUtils {
 
 		public void onResponse(TestActionResponse response) {
 		}
+	}
+	
+	// ======================= TestApplicationEvent =============================
+	
+	public static class TestApplicationEvent extends GwtEvent<TestApplicationEventHandler> {
+
+		public static final com.google.gwt.event.shared.GwtEvent.Type<TestApplicationEventHandler> TYPE = new Type<TstDataUtils.TestApplicationEventHandler>();
+
+		@Override
+		public com.google.gwt.event.shared.GwtEvent.Type<TestApplicationEventHandler> getAssociatedType() {
+			return TYPE;
+		}
+
+		@Override
+		protected void dispatch(TestApplicationEventHandler handler) {
+			handler.process();
+		}
+		
+	}
+	
+	public interface TestApplicationEventHandler extends EventHandler {
+		void process();
 	}
 }

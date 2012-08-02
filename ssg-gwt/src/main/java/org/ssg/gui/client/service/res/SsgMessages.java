@@ -58,4 +58,13 @@ public interface SsgMessages extends Messages {
 	
 	@Key("homework.details.teacher")
 	String homeworkDetailsTeacher();
+	
+	@Key("topic.view.task.text")
+	String topicViewTaskText();
+	
+	@Key("topic.view.task.listening")
+	String topicViewTaskListening();
+	
+	@Key("topic.view.task.lexical")
+	String topicViewTaskLexical();
 }

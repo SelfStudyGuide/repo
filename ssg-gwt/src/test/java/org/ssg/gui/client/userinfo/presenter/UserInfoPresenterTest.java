@@ -1,10 +1,11 @@
 package org.ssg.gui.client.userinfo.presenter;
 
-import static org.mockito.Mockito.*;
-
-import static org.junit.Assert.*;
-
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,11 +16,7 @@ import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.AbstractPresenterTestCase;
 import org.ssg.gui.client.action.Response;
-import org.ssg.gui.client.service.DefaultActionNameProvider;
 import org.ssg.gui.client.service.UserInfoHolder;
-import org.ssg.gui.client.service.sender.ActionSender;
-import org.ssg.gui.client.service.sender.DefaultActionResponseCallbackProcessor;
-import org.ssg.gui.client.service.sender.DefaultActionSender;
 import org.ssg.gui.client.userinfo.action.GetUserInfo;
 import org.ssg.gui.client.userinfo.action.GetUserInfoResponse;
 import org.ssg.gui.client.userinfo.event.LogoutEvent;
@@ -48,16 +45,8 @@ public class UserInfoPresenterTest extends AbstractPresenterTestCase {
 
 	private UserInfoPresenter presenter;
 
-	private ActionSender actionSender;
-
-	private DefaultActionResponseCallbackProcessor processor;
-
 	@Before
 	public void setUp() {
-		processor = new DefaultActionResponseCallbackProcessor(errorDialog,
-				ssgMessages, ssgLookupMessages);
-		actionSender = new DefaultActionSender(service, new DefaultActionNameProvider(), processor);
-		
 		presenter = new UserInfoPresenter(display, actionSender,
 				handlerManager, windowLocation);
 		when(display.getUsernameLabel()).thenReturn(userNameLable);

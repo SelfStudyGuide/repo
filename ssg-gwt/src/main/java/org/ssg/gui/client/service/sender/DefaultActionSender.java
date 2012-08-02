@@ -14,11 +14,11 @@ public class DefaultActionSender implements ActionSender {
 
 	private StudentControlServiceAsync service;
 	private ActionNameProvider actionNameProvider;
-	private DefaultActionResponseCallbackProcessor responseProcessor;
+	private ActionResponseCallbackProcessor responseProcessor;
 
 	public DefaultActionSender(StudentControlServiceAsync service,
 			ActionNameProvider actionNameProvider,
-			DefaultActionResponseCallbackProcessor processor) {
+			ActionResponseCallbackProcessor processor) {
 		this.service = service;
 		this.actionNameProvider = actionNameProvider;
 		this.responseProcessor = processor;

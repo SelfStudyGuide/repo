@@ -8,25 +8,24 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.ssg.core.dto.TopicDetailedProgressInfo;
 import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.service.res.SsgMessages;
+import org.ssg.gui.client.service.res.SsgMessagesMock;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TopicStatusHelperTest {
 	private TopicStatusHelper helper;
-
-	@Mock
+	
 	private SsgMessages messages;
 
 	@Before
 	public void setUp() {
+		messages = SsgMessagesMock.mockMsg(SsgMessages.class);
+		
 		helper = new TopicStatusHelper(TopicStatusHelper.TOPIC_DETAILS,
 				messages);
-
-		TstDataUtils.createMockExpectationFor(messages);
 	}
 
 	@Test

@@ -4,7 +4,7 @@ import org.ssg.gui.client.service.ActionCallbackAdapter;
 import org.ssg.gui.client.service.ActionResponseCallback;
 import org.ssg.gui.client.service.TopicStatusHelper;
 import org.ssg.gui.client.service.res.SsgMessages;
-import org.ssg.gui.client.service.sender.DefaultActionSender;
+import org.ssg.gui.client.service.sender.ActionSender;
 import org.ssg.gui.client.topic.action.GetTopicInfo;
 import org.ssg.gui.client.topic.action.GetTopicInfoResponse;
 import org.ssg.gui.client.topic.event.RefreshTopicInfoEvent;
@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.HasText;
 
 public class TopicInfoPresenter implements RefreshTopicInfoEvent.Handler {
 
-	private DefaultActionSender actionSender;
+	private ActionSender actionSender;
 	private HandlerManager handlerManager;
 	private Display display;
 	private SsgMessages messages;
@@ -29,7 +29,7 @@ public class TopicInfoPresenter implements RefreshTopicInfoEvent.Handler {
 	}
 
 	public TopicInfoPresenter(Display display,
-			DefaultActionSender actionSender, HandlerManager handlerManager,
+			ActionSender actionSender, HandlerManager handlerManager,
 			SsgMessages messages) {
 		this.display = display;
 		this.actionSender = actionSender;

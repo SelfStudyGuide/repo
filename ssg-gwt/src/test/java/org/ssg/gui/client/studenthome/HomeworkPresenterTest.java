@@ -12,16 +12,11 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.ssg.core.dto.ApplicationUserInfo;
 import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.AbstractPresenterTestCase;
-import org.ssg.gui.client.service.DefaultActionNameProvider;
-import org.ssg.gui.client.service.sender.ActionSender;
-import org.ssg.gui.client.service.sender.DefaultActionResponseCallbackProcessor;
-import org.ssg.gui.client.service.sender.DefaultActionSender;
 import org.ssg.gui.client.studenthome.action.GetHomeworks;
 import org.ssg.gui.client.studenthome.action.GetHomeworksResponse;
 import org.ssg.gui.client.studenthome.event.HomeworkSelectedEvent;
@@ -51,24 +46,11 @@ public class HomeworkPresenterTest extends AbstractPresenterTestCase {
 	
 	@Mock
 	private SingleSelectionModel<HomeworkInfo> homeworkSelection;
-	
 
 	private HomeworkPresenter presenter;
 	
-	private ActionSender actionSender;
-
-	private DefaultActionResponseCallbackProcessor processor;
-
-	
-
 	@Before
 	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-	
-		processor = new DefaultActionResponseCallbackProcessor(errorDialog,
-				ssgMessages, ssgLookupMessages);
-		actionSender = new DefaultActionSender(service, new DefaultActionNameProvider(), processor);
-		
 		presenter = new HomeworkPresenter(view, actionSender, handlerManager,
 				errorDialog);
 		when(view.getRefreshButton()).thenReturn(refreshButton);
@@ -79,8 +61,6 @@ public class HomeworkPresenterTest extends AbstractPresenterTestCase {
 	
 	@Test
 	public void verifyThatAfterUserInfoEventRequestToRefreshHomeWorksIsExecuted() {
-		assertThat(service, notNullValue());
-		
 		ApplicationUserInfo userInfo = TstDataUtils.createStudentUserInfo("John Dou", 2);
 		
 		handlerManager.fireEvent(new ShareUserInfoEvent(userInfo));

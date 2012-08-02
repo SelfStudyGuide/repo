@@ -13,11 +13,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.errordialog.ErrorDialog;
+import org.ssg.gui.client.service.DefaultActionNameProvider;
 import org.ssg.gui.client.service.WindowLocation;
 import org.ssg.gui.client.service.res.SsgLookupMessages;
 import org.ssg.gui.client.service.res.SsgMessages;
+import org.ssg.gui.client.service.res.SsgMessagesMock;
+import org.ssg.gui.client.service.sender.DefaultActionResponseCallbackProcessor;
+import org.ssg.gui.client.service.sender.DefaultActionSender;
 
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -41,15 +44,23 @@ public abstract class AbstractPresenterTestCase extends AbstractServiceTestCase 
 	@Mock
 	protected ErrorDialog errorDialog; 
 	
-	@Mock
 	protected SsgMessages ssgMessages;
 
 	@Mock
 	protected SsgLookupMessages ssgLookupMessages;
+
+	protected DefaultActionSender actionSender;
+
+	protected DefaultActionResponseCallbackProcessor processor;
 	
 	@Before
 	public void mockMessages() {
-		TstDataUtils.createMockExpectationFor(ssgMessages);
+		ssgMessages = SsgMessagesMock.mockMsg(SsgMessages.class);
+	
+		processor = new DefaultActionResponseCallbackProcessor(errorDialog,
+				ssgMessages, ssgLookupMessages);
+		actionSender = new DefaultActionSender(service, new DefaultActionNameProvider(), processor);
+		
 	}
 
 	protected ClickHandler verifyAndCaptureClickHnd(HasClickHandlers btn) {

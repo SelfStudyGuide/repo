@@ -3,6 +3,13 @@
 @def MENU_FONT_SIZE 12px; 
 
 /** Common Styles **/
+.floatLeft {
+	float: left;
+}
+
+.floatRight {
+	float: right;
+}
 
 .h_15 {
 	height: 15px;
@@ -10,6 +17,16 @@
 
 .h_20 {
 	height: 20px;
+}
+
+/* For external use. REMOVE if not used */
+.clear_ext {
+	clear: both;
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
 }
 
 .clear {

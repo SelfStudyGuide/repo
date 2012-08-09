@@ -1,11 +1,16 @@
 package org.ssg.gui.server.command.handler;
 
+import static org.ssg.gui.server.command.ActionHandlerLogHelper.debug;
+import static org.ssg.gui.server.command.ActionHandlerLogHelper.info;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.metadata.ClassMapBuilder;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +32,8 @@ public class GetTopicTasksInfoActionHandler
 		AbstractMapperActionHandler<GetTopicTasksInfoResponse, GetTopicTasksInfo>
 		implements InitializingBean {
 
+	private static final Log LOG = LogFactory.getLog(GetTopicTasksInfoActionHandler.class);
+	
 	@Autowired
 	private HomeworkDao homeworkDao;
 
@@ -41,8 +48,17 @@ public class GetTopicTasksInfoActionHandler
 
 		List<Task> tasks = topicProgress.getTopic().getTasks();
 		
+		debug(LOG, action, "Loaded %s task(s) for topic %d", tasks.size(),
+				action.getTopicId());
+
 		for (Task task : tasks) {
-			taskInfos.add(map(task, new TopicTaskInfo()));
+			TopicTaskInfo taskInfo = map(task, new TopicTaskInfo());
+			taskInfos.add(taskInfo);
+			
+			info(LOG, action,
+					"Added TaskInfo %s for topic %d", taskInfo.getType(),
+					action.getTopicId());
+			
 		}
 
 		return new GetTopicTasksInfoResponse(taskInfos);

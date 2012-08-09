@@ -28,6 +28,7 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.6.1</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -201,6 +202,9 @@
 				<version>2.7.1</version>
 				<configuration>
 					<redirectTestOutputToFile>true</redirectTestOutputToFile>
+					<excludes>
+						<exclude>**/*GwtTest.java</exclude>
+					</excludes>
 				</configuration>
 				<executions>
 					<execution>
@@ -247,7 +251,7 @@
 					documentation at codehaus.org -->
 				<configuration>
 					<draftCompile>true</draftCompile>
-					<style>DETAILED</style>
+					<!--style>DETAILED</style-->
 					<runTarget>StudentHome.html</runTarget>
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
 					<!--i18nMessagesBundle>org.ssg.gui.client.Messages</i18nMessagesBundle -->

@@ -1,8 +1,6 @@
 @def OUTER_SCR_WIDTH 984px;
 @def INNER_SCR_WIDTH 960px;
-@def MENU_FONT_SIZE 12px; 
-
-/** Common Styles **/
+@def MENU_FONT_SIZE 12px; /** Common Styles **/
 .floatLeft {
 	float: left;
 }
@@ -17,6 +15,14 @@
 
 .h_20 {
 	height: 20px;
+}
+
+.paddingRight5 {
+	padding-right: 5px
+}
+
+.paddingRight10 {
+	padding-right: 10px
 }
 
 /* For external use. REMOVE if not used */
@@ -39,7 +45,6 @@
 }
 
 /**/
-
 .body {
 	font-size: 13px;
 	font-family: Tahoma, Arial, Helvetica, sans-serif;
@@ -87,7 +92,6 @@
 	width: 220px;
 }
 
-
 .widget_title {
 	float: left;
 	background-color: #F27A01;
@@ -103,7 +107,6 @@
 }
 
 /**/
-
 .top_menu_outer {
 	display: inline;
 	float: left;
@@ -144,18 +147,51 @@ ul.g_menu li a {
 }
 
 /**/
-
 .userinfo {
 	float: right;
 	font-size: MENU_FONT_SIZE;
 }
 
 /** Student Home Styles **/
-
 .homework_cnt {
 	float: left;
 	margin-left: 10px;
 	margin-right: 10px;
+}
+
+.clickButton {
+	border: 1px solid #3079ED;
+	color: white !important;
+	background-color: #4D90FE;
+	background-image: -webkit-linear-gradient(top, #4D90FE, #4787ED);
+	background-image: -moz-linear-gradient(top, #4D90FE, #4787ED);
+	background-image: -ms-linear-gradient(top, #4D90FE, #4787ED);
+	background-image: -o-linear-gradient(top, #4D90FE, #4787ED);
+	background-image: linear-gradient(top, #4D90FE, #4787ED);
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	cursor: default !important;
+	display: inline-block;
+	padding: 0 8px;
+	text-align: center;
+	text-decoration: none !important;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	font-weight: bold;
+	height: 29px;
+	line-height: 29px;
+	min-width: 54px;
+}
+
+.clickButton:hover {
+	border: 1px solid #357AE8;
+	background-color: #2F5BB7;
+	background-image: -webkit-linear-gradient(top, #4D90FE, #357AE8);
+	background-image: -moz-linear-gradient(top, #4D90FE, #357AE8);
+	background-image: -ms-linear-gradient(top, #4D90FE, #357AE8);
+	background-image: -o-linear-gradient(top, #4D90FE, #357AE8);
+	background-image: linear-gradient(top, #4D90FE, #357AE8);
 }
 
 /** Example rules used by the template application (remove for your app) */
@@ -189,5 +225,3 @@ h1 {
 #closeButton {
 	margin: 15px 6px 6px;
 }
-
-

@@ -1,62 +1,26 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
 
-	<ui:with field='res'
-		type='org.ssg.gui.client.service.res.SsgMessages' />
+	<ui:with field='msg' type='org.ssg.gui.client.service.res.SsgMessages' />
 
-	<ui:style>
-		.clickButton {
-			border: 1px solid #3079ED;
-			color: white !important;
-			background-color: #4D90FE;
-			background-image: -webkit-linear-gradient(top, #4D90FE, #4787ED);
-			background-image: -moz-linear-gradient(top, #4D90FE, #4787ED);
-			background-image: -ms-linear-gradient(top, #4D90FE, #4787ED);
-			background-image: -o-linear-gradient(top, #4D90FE, #4787ED);
-			background-image: linear-gradient(top, #4D90FE, #4787ED);
-			-moz-border-radius: 2px;
-			-webkit-border-radius: 2px;
-			border-radius: 2px;
-			cursor: default !important;
-			display: inline-block;
-			padding: 0 8px;
-			text-align: center;
-			text-decoration: none !important;
-			-moz-user-select: none;
-			-webkit-user-select: none;
-			
-			font-weight: bold;
-			height: 29px;
-			line-height: 29px;
-			min-width: 54px;
-		}
-		
-		.clickButton:hover {
-			border: 1px solid #357AE8;
-			background-color: #2F5BB7;
-			background-image: -webkit-linear-gradient(top, #4D90FE, #357AE8);
-			background-image: -moz-linear-gradient(top, #4D90FE, #357AE8);
-			background-image: -ms-linear-gradient(top, #4D90FE, #357AE8);
-			background-image: -o-linear-gradient(top, #4D90FE, #357AE8);
-			background-image: linear-gradient(top, #4D90FE, #357AE8);
-		}
-		
-	</ui:style>
+	<ui:with field="css"
+		type="org.ssg.gui.client.service.res.StudentHomeResources" />
+
 
 	<g:HTMLPanel>
-		<g:FlowPanel styleName='widget_title'>
+		<g:FlowPanel styleName="{css.styles.widget_title}">
 			<g:Label>
-				<ui:text from='{res.viewTitle}' />
+				<ui:text from='{msg.viewTitle}' />
 			</g:Label>
 		</g:FlowPanel>
-		<g:FlowPanel styleName='clear' ></g:FlowPanel>
+		<g:FlowPanel styleName='{css.styles.clear}'></g:FlowPanel>
 		<g:FlowPanel>
 			<c:CellTable ui:field="homeworksTable">
 			</c:CellTable>
 		</g:FlowPanel>
 		<g:FlowPanel>
-			<g:Button styleName="{style.clickButton}" ui:field="refreshButton">
-				<ui:text from='{res.homeworkRefreshButton}' />
+			<g:Button styleName="{css.styles.clickButton}" ui:field="refreshButton">
+				<ui:text from='{msg.homeworkRefreshButton}' />
 			</g:Button>
 		</g:FlowPanel>
 	</g:HTMLPanel>

@@ -20,5 +20,11 @@ public interface StudentHomeResources extends ClientBundle {
 		String clear();
 		
 		String widget_title();
+		
+		String clickButton();
+		
+		String paddingRight5();
+		
+		String paddingRight10();
 	}
 }

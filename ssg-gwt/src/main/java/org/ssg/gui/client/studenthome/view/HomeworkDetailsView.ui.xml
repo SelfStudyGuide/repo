@@ -1,63 +1,55 @@
 <!--!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent" -->
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	<ui:style>
-		.floatLeft {
-			float: left;
-		}
-		.paddingRight5 {
-			padding-right: 5px
-		}
-		.paddingRight10 {
-			padding-right: 10px
-		}
-	</ui:style>
+	
+	<ui:with field="css"
+		type="org.ssg.gui.client.service.res.StudentHomeResources" />
 
-	<ui:with field='res'
+	<ui:with field='msg'
 		type='org.ssg.gui.client.service.res.SsgMessages' />
 
 	<g:HTMLPanel>
-		<g:FlowPanel styleName='widget_title'>
+		<g:FlowPanel styleName='{css.styles.widget_title}'>
 			<g:Label>
-				<ui:text from='{res.homeworkDetailsViewTitle}' />
+				<ui:text from='{msg.homeworkDetailsViewTitle}' />
 			</g:Label>
 		</g:FlowPanel>
-		<g:FlowPanel styleName='clear'></g:FlowPanel>
+		<g:FlowPanel styleName='{css.styles.clear}'></g:FlowPanel>
 		<g:FlowPanel>
 			<g:Label ui:field="moduleName" />
 		</g:FlowPanel>
 
-		<g:FlowPanel styleName='clear'></g:FlowPanel>
+		<g:FlowPanel styleName='{css.styles.clear}'></g:FlowPanel>
 
-		<g:FlowPanel styleName='{style.floatLeft} {style.paddingRight5}'>
+		<g:FlowPanel styleName='{css.styles.floatLeft} {css.styles.paddingRight5}'>
 			<g:Label>
-				<ui:text from='{res.homeworkDetailsAssigned}' />
+				<ui:text from='{msg.homeworkDetailsAssigned}' />
 			</g:Label>
 		</g:FlowPanel>
-		<g:FlowPanel styleName="{style.floatLeft} {style.paddingRight10}">
+		<g:FlowPanel styleName="{css.styles.floatLeft} {css.styles.paddingRight10}">
 			<g:Label ui:field="assignDate" />
 		</g:FlowPanel>
-		<g:FlowPanel styleName='{style.floatLeft} {style.paddingRight5}'>
+		<g:FlowPanel styleName='{css.styles.floatLeft} {css.styles.paddingRight5}'>
 			<g:Label>
-				<ui:text from='{res.homeworkDetailsComplete}' />
+				<ui:text from='{msg.homeworkDetailsComplete}' />
 			</g:Label>
 		</g:FlowPanel>
-		<g:FlowPanel styleName="{style.floatLeft}" >
+		<g:FlowPanel styleName="{css.styles.floatLeft}" >
 			<g:Label ui:field="completeDate" />
 		</g:FlowPanel>
 
-		<g:FlowPanel styleName='clear'></g:FlowPanel>
+		<g:FlowPanel styleName='{css.styles.clear}'></g:FlowPanel>
 
-		<g:FlowPanel styleName='{style.floatLeft} {style.paddingRight5}'>
+		<g:FlowPanel styleName='{css.styles.floatLeft} {css.styles.paddingRight5}'>
 			<g:Label>
-				<ui:text from='{res.homeworkDetailsComplete}' />
+				<ui:text from='{msg.homeworkDetailsComplete}' />
 			</g:Label>
 		</g:FlowPanel>
-		<g:FlowPanel styleName="{style.floatLeft} {style.paddingRight10}">
+		<g:FlowPanel styleName="{css.styles.floatLeft} {css.styles.paddingRight10}">
 			<g:Label ui:field="teacherName" />
 		</g:FlowPanel>
 
-		<g:FlowPanel styleName='clear'></g:FlowPanel>
+		<g:FlowPanel styleName='{css.styles.clear}'></g:FlowPanel>
 
 		<g:FlowPanel>
 			<g:VerticalPanel ui:field="topicList" />
@@ -65,44 +57,4 @@
 
 	</g:HTMLPanel>
 
-	<!--  g:VerticalPanel>
-		<g:cell>
-			<g:Label ui:field="moduleName" />
-		</g:cell>
-		<g:cell>
-			<g:HorizontalPanel>
-				<g:cell>
-					<g:Label>
-						<ui:text from='{res.homeworkDetailsAssigned}' />
-					</g:Label>
-				</g:cell>
-				<g:cell>
-					<g:Label ui:field="assignDate" />
-				</g:cell>
-				<g:cell>
-					<g:Label>
-						<ui:text from='{res.homeworkDetailsComplete}' />
-					</g:Label>
-				</g:cell>
-				<g:cell>
-					<g:Label ui:field="completeDate" />
-				</g:cell>
-			</g:HorizontalPanel>
-		</g:cell>
-		<g:cell>
-			<g:HorizontalPanel>
-				<g:cell>
-					<g:Label>
-						<ui:text from='{res.homeworkDetailsTeacher}' />
-					</g:Label>
-				</g:cell>
-				<g:cell>
-					<g:Label ui:field="teacherName" />
-				</g:cell>
-			</g:HorizontalPanel>
-		</g:cell>
-		<g:cell>
-			<g:VerticalPanel ui:field="topicList" />
-		</g:cell>
-	</g:VerticalPanel-->
 </ui:UiBinder> 

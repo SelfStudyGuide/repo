@@ -34,6 +34,14 @@ public class Task {
 	private Topic topic;
 	private int execrisesCount;
 	
+	public Task() {
+		
+	}
+	
+	public Task(Topic topic) {
+		Topic.assignTask(topic, this);
+	}
+
 	@Id
     @GeneratedValue
     @Column(name = "ID", nullable=false)

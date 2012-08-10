@@ -59,6 +59,22 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 		Assert.assertThat(savedTopic.getName(), equalTo(topicName));
 
 	}
+	
+	@Test
+	public void verifyThatTopicCanBeLoadedById() {
+		// Given
+		Module module = saveModuleWithTopic();
+		Topic topic = module.getTopics().get(0);
+		
+		clearSession();
+		
+		// Then
+		Topic loadedTopic = curriculumDao.getTopic(topic.getId());
+		
+		// Then
+		Assert.assertThat(loadedTopic.getId(), is(topic.getId()));
+		Assert.assertThat(loadedTopic.getName(), equalTo(topic.getName()));
+	}
 
 	@Test
 	// @Rollback(value = false)
@@ -203,11 +219,12 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 		topic.setModule(savedModule);
 	}
 
-	private void saveModuleWithTopic() {
+	private Module saveModuleWithTopic() {
 		Module module = TstDataUtils.createModuleWithUniqueName();
 		Topic topic = createTestTopic("test topic descr");
 		addTopicToModule(module, topic, new ArrayList<Topic>());
 		curriculumDao.saveModule(module);
+		return module;
 	}
 
 	private Topic createTestTopic(String desc) {

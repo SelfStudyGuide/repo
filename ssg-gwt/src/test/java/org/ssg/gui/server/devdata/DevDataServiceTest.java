@@ -1,7 +1,6 @@
 package org.ssg.gui.server.devdata;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.reset;
@@ -22,16 +21,20 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Matchers;
 import org.mockito.internal.verification.Times;
+import org.mockito.internal.verification.VerificationModeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
+import org.ssg.core.domain.Task;
 import org.ssg.core.domain.Topic;
+import org.ssg.core.dto.TaskType;
 import org.ssg.core.service.CurriculumDao;
 import org.ssg.core.service.StudentService;
 import org.ssg.core.service.UserDao;
+import org.ssg.core.support.TstDataBuilder;
 import org.ssg.core.support.TstDataUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -235,6 +238,27 @@ public class DevDataServiceTest {
 		
 		//Then
 		verify(studentService).giveHomework(eq(10), eq(1));
+	}
+	
+	@Test
+	public void givenTaskForTopicRequestThenThreeTypesOfTasksSholdBeCreated() {
+		// Given
+		param("taskForTopic", "10");
+		
+		Topic topic = TstDataBuilder.topicBuilder().id(10).name("some name").build();
+		
+		when(curriculumDao.getTopic(eq(10))).thenReturn(topic);
+		
+		//When
+		devDataService.processRequest(params, writer);
+	
+		// Then
+		verify(curriculumDao, VerificationModeFactory.times(3)).saveTask(Matchers.isA(Task.class));
+		assertThat(topic.getTasks().size(), is(3));
+	}
+	
+	private void param(String name, String value) {
+		params.put(name, new String[] { value });
 	}
 	
 }

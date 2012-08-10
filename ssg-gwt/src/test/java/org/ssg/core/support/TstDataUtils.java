@@ -73,12 +73,9 @@ public class TstDataUtils {
 		return module;
 	}
 
-	@Deprecated
 	public static Topic createTopicWithUniqueName(Module module) {
-		Topic topic = new Topic();
-		topic.setModule(module);
-		topic.setName("unique topic name " + System.currentTimeMillis());
-		return topic;
+		return TstDataBuilder.topicBuilder().module(module)
+				.unigueName("unique topic name").build();
 	}
 	
 	@Deprecated

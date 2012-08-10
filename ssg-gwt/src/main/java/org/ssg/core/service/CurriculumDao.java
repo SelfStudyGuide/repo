@@ -18,6 +18,8 @@ public interface CurriculumDao {
 	
 	List<Topic> getTopicsByModuleId(int moduleId);
 	void saveTopic(Topic t);
+	Topic getTopic(int id);
+	
 	void saveTask(Task task);
 	
 }

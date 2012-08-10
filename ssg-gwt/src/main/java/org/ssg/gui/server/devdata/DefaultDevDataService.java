@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.ssg.core.common.SsgServiceException;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
+import org.ssg.core.domain.Task;
 import org.ssg.core.domain.Topic;
+import org.ssg.core.dto.TaskType;
 import org.ssg.core.service.CurriculumDao;
 import org.ssg.core.service.StudentService;
 import org.ssg.core.service.UserDao;
@@ -38,18 +41,31 @@ public class DefaultDevDataService {
 	@Transactional
 	public void processRequest(Map<Object, Object> params, PrintWriter writer) {
 		LOG.info("Creating dev data for request " + params);
-		if (params.isEmpty()) {
+		if (!params.isEmpty()) {
+			dispatchRequest(params, writer);
+		} else {
 			printUsage(writer);
 		}
-		
-		for (Object key : params.keySet()) {
-			if (key.equals("user")) {
-				processUser(params, writer);
-			} else if (key.equals("module")) {
-				processModule(params, writer);
-			} else if (key.equals("homeworkForStudent")) {
-				processHomework(params, writer);
-			} 
+	}
+
+	private void dispatchRequest(Map<Object, Object> params, PrintWriter writer) {
+		try {
+			for (Object key : params.keySet()) {
+				if (key.equals("user")) {
+					processUser(params, writer);
+				} else if (key.equals("module")) {
+					processModule(params, writer);
+				} else if (key.equals("homeworkForStudent")) {
+					processHomework(params, writer);
+				} else if (key.equals("taskForTopic")) {
+					processTaskForTopic(params, writer);
+				}
+			}
+		} catch (RuntimeException e) {
+			LOG.error(params, e);
+			writer.println("Error");
+			writer.println("Request: " + params);
+			e.printStackTrace(writer);
 		}
 	}
 
@@ -57,6 +73,8 @@ public class DefaultDevDataService {
 		writer.println("To create Student. ?user=1");
 		writer.println("To create Module. ?module=name&topics=2");
 		writer.println("To create Homework. ?homeworkForStudent=1&moduleId=2");
+		writer.println("To create Tasks. ?taskForTopic=1");
+		writer.println("Get info for module. ?moduleInfo=1");
 	}
 
 	private void processHomework(Map<Object, Object> params, PrintWriter writer) {
@@ -117,6 +135,33 @@ public class DefaultDevDataService {
 				+ "','student')");
 		student = userDao.getStudentByName(name);
 		writer.append("User Id: " + student.getId());
+	}
+	
+	private void processTaskForTopic(Map<Object, Object> params,
+			PrintWriter writer) {
+		
+		int topicId = getParamInt(params, "taskForTopic");
+		Topic topic = curriculumDao.getTopic(topicId);
+		if (topic != null) {
+			Task task = new Task(topic);
+			task.setType(TaskType.LEXICAL);
+			task.setName(TaskType.LEXICAL.name());
+			curriculumDao.saveTask(task);
+			
+			task = new Task(topic);
+			task.setType(TaskType.LISTENING);
+			task.setName(TaskType.LISTENING.name());
+			curriculumDao.saveTask(task);
+			
+			task = new Task(topic);
+			task.setType(TaskType.TEXT);
+			task.setName(TaskType.TEXT.name());
+			curriculumDao.saveTask(task);
+			
+		} else {
+			throw new SsgServiceException("Topic " + topicId + " not found");
+		}
+
 	}
 
 	private String getParam(Map<Object, Object> params, String name) {

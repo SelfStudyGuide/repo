@@ -50,6 +50,10 @@ public class DefaultCurriculumDao extends HibernateDaoSupport implements
 		getHibernateTemplate().saveOrUpdate(t);
 	}
 
+	public Topic getTopic(int id) {
+		return getHibernateTemplate().get(Topic.class, id);
+	}
+
 	public void saveTask(Task task) {
 		getHibernateTemplate().saveOrUpdate(task);
 	}

@@ -110,6 +110,11 @@ public class TstDataBuilder {
 			topic.setModule(module);
 			return this;
 		}
+		
+		public TopicBuilder unigueName(String prefix) {
+			topic.setName(prefix + " " + System.currentTimeMillis()); 
+			return this;
+		}
 
 		public TopicBuilder task(Task task) {
 			task.setTopic(topic);

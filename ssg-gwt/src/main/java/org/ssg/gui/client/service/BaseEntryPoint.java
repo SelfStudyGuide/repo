@@ -20,16 +20,15 @@ import com.google.gwt.user.client.ui.RootPanel;
  * Base entry point which include common initialization.
  * 
  * @author Maksym
- *
+ * 
  */
 public abstract class BaseEntryPoint implements EntryPoint {
 
-	private final StudentControlServiceAsync studentService = StudentControlServiceLocator
-			.create();
+	private final StudentControlServiceAsync studentService = StudentControlServiceLocator.create();
 	private final SsgMessages ssgMessages = GWT.create(SsgMessages.class);
-	
+
 	private final SsgLookupMessages ssgLookupMessages = GWT.create(SsgLookupMessages.class);
-	
+
 	private HandlerManager handlerManager;
 	private WindowLocation windowLocation;
 	private DefaultActionNameProvider nameProvider;
@@ -38,17 +37,16 @@ public abstract class BaseEntryPoint implements EntryPoint {
 	private DefaultActionResponseCallbackProcessor processor;
 
 	public final void onModuleLoad() {
-		
+
 		StudentHomeResources.INSTANCE.styles().ensureInjected();
-		
+
 		handlerManager = new HandlerManager(null);
 		windowLocation = new DefaultWindowLocation();
 		nameProvider = new DefaultActionNameProvider();
 
 		createErrorDialog();
-	
-		processor = new DefaultActionResponseCallbackProcessor(errorDialog,
-				ssgMessages, ssgLookupMessages);
+
+		processor = new DefaultActionResponseCallbackProcessor(errorDialog, ssgMessages, ssgLookupMessages);
 		actionSender = new DefaultActionSender(studentService, nameProvider, processor);
 
 		createUserInfoView();
@@ -59,8 +57,8 @@ public abstract class BaseEntryPoint implements EntryPoint {
 
 	private void createUserInfoView() {
 		UserInfoView userInfoView = new UserInfoView();
-		UserInfoPresenter userInfoPresenter = new UserInfoPresenter(
-				userInfoView, actionSender, handlerManager, windowLocation);
+		UserInfoPresenter userInfoPresenter = new UserInfoPresenter(userInfoView, actionSender, handlerManager,
+		        windowLocation);
 
 		userInfoView.go(RootPanel.get("userinfo"));
 		userInfoPresenter.bind();
@@ -68,10 +66,8 @@ public abstract class BaseEntryPoint implements EntryPoint {
 
 	private void createErrorDialog() {
 		ErrorDialogView errorDialogView = new ErrorDialogView();
-		ErrorDialogMessages errorDialogMessages = GWT
-				.create(ErrorDialogMessages.class);
-		errorDialog = new ErrorDialog(errorDialogView,
-				errorDialogMessages);
+		ErrorDialogMessages errorDialogMessages = GWT.create(ErrorDialogMessages.class);
+		errorDialog = new ErrorDialog(errorDialogView, errorDialogMessages);
 	}
 
 	protected abstract void initPageContent();

@@ -15,8 +15,7 @@ import org.ssg.core.domain.Topic;
 
 @Repository(value = "CurriculumDao")
 @Transactional
-public class DefaultCurriculumDao extends HibernateDaoSupport implements
-		CurriculumDao {
+public class DefaultCurriculumDao extends HibernateDaoSupport implements CurriculumDao {
 
 	@Autowired
 	public void populateSessionFactory(SessionFactory sessionFactory) {
@@ -57,7 +56,5 @@ public class DefaultCurriculumDao extends HibernateDaoSupport implements
 	public void saveTask(Task task) {
 		getHibernateTemplate().saveOrUpdate(task);
 	}
-	
-	
 
 }

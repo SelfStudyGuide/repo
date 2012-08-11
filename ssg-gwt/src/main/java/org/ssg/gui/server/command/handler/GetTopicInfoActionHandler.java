@@ -17,21 +17,20 @@ import org.ssg.gui.server.command.ActionHandler;
 
 @Service
 public class GetTopicInfoActionHandler implements ActionHandler<GetTopicInfoResponse, GetTopicInfo> {
-	
+
 	private static final Log LOG = LogFactory.getLog(GetTopicInfoActionHandler.class);
-	
+
 	@Autowired
 	private HomeworkDao homeworkDao;
-	
+
 	@Transactional
-	public GetTopicInfoResponse execute(GetTopicInfo action)
-			throws SsgGuiServiceException {
+	public GetTopicInfoResponse execute(GetTopicInfo action) throws SsgGuiServiceException {
 
 		LOG.debug("Running GetTopicInfoActionHandler action with " + action);
 
 		int topicId = action.getTopicId();
 		int homeworkId = action.getHomeworkId();
-		Homework homework = loadHomework(homeworkId);		
+		Homework homework = loadHomework(homeworkId);
 		TopicProgress topicProgress = loadTopic(topicId, homework);
 
 		TopicDetailedProgressInfo info = new TopicDetailedProgressInfo();
@@ -41,22 +40,20 @@ public class GetTopicInfoActionHandler implements ActionHandler<GetTopicInfoResp
 
 	private TopicProgress loadTopic(int topicId, Homework homework) {
 		TopicProgress topicProgress = homework.getTopicProgress(topicId);
-		
+
 		if (topicProgress == null) {
-			throw new SsgGuiServiceException(
-					"TopicProgress object cannot be found in db with id "
-							+ topicId, "topic.view.notfound");
+			throw new SsgGuiServiceException("TopicProgress object cannot be found in db with id " + topicId,
+			        "topic.view.notfound");
 		}
 		return topicProgress;
 	}
 
 	private Homework loadHomework(int homeworkId) {
 		Homework homework = homeworkDao.getHomework(homeworkId);
-		
+
 		if (homework == null) {
-			throw new SsgGuiServiceException(
-					"Homework object cannot be found in db with id "
-							+ homeworkId, "topic.view.notfound");
+			throw new SsgGuiServiceException("Homework object cannot be found in db with id " + homeworkId,
+			        "topic.view.notfound");
 		}
 		return homework;
 	}

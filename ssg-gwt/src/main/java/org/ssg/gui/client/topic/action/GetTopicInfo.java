@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class GetTopicInfo extends BaseAction<GetTopicInfoResponse> implements Serializable, IsSerializable {
 	private static final long serialVersionUID = 3362046547360460874L;
-	
+
 	private int homeworkId;
 	private int topicId;
 
@@ -35,8 +35,7 @@ public class GetTopicInfo extends BaseAction<GetTopicInfoResponse> implements Se
 
 	@Override
 	public String toString() {
-		return "GetTopicInfo [homeworkId=" + homeworkId + ", topicId="
-				+ topicId + "]";
+		return "GetTopicInfo [homeworkId=" + homeworkId + ", topicId=" + topicId + "]";
 	}
-	
+
 }

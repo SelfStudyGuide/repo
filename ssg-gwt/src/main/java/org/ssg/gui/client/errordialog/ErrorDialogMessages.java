@@ -9,7 +9,6 @@ public interface ErrorDialogMessages extends Messages {
 	@Key("errorDialog.closeButton")
 	String getCloseButtonText();
 
-	
 	@Key("errorDialog.caption")
 	String getCaptionText();
 

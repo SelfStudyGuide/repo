@@ -21,8 +21,7 @@ import org.ssg.core.domain.Module;
 import org.ssg.core.support.AbstractDaoTestSupport;
 import org.ssg.core.support.TstDataUtils;
 
-@ContextConfiguration(locations = { "/test-config.ctx.xml",
-		"/spring/core-service.ctx.xml" })
+@ContextConfiguration(locations = { "/test-config.ctx.xml", "/spring/core-service.ctx.xml" })
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ModuleDaoIntegrationTest extends AbstractDaoTestSupport {
@@ -56,8 +55,7 @@ public class ModuleDaoIntegrationTest extends AbstractDaoTestSupport {
 
 		Module savedModule = getSavedModule();
 
-		Module moduleFetchedById = curriculumDao.getModuleById(savedModule
-				.getId());
+		Module moduleFetchedById = curriculumDao.getModuleById(savedModule.getId());
 
 		Assert.assertThat(moduleFetchedById.getName(), equalTo("name"));
 		Assert.assertThat(moduleFetchedById.getDescription(), equalTo("desc"));
@@ -87,7 +85,5 @@ public class ModuleDaoIntegrationTest extends AbstractDaoTestSupport {
 
 		Assert.assertThat(modules.isEmpty(), is(true));
 	}
-	
-	
 
 }

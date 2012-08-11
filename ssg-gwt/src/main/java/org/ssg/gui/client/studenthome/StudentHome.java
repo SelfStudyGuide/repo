@@ -18,17 +18,14 @@ public class StudentHome extends BaseEntryPoint {
 
 		HomeworkView homeworkView = new HomeworkView(getSsgMessages());
 
-		HomeworkPresenter homeworkPresenter = new HomeworkPresenter(
-				homeworkView, getActionSender(), getHandlerManager(),
-				getErrorDialog());
+		HomeworkPresenter homeworkPresenter = new HomeworkPresenter(homeworkView, getActionSender(),
+		        getHandlerManager(), getErrorDialog());
 		homeworkView.go(RootPanel.get("homework"));
 		homeworkPresenter.bind();
 
-		HomeworkDetailsView detailsView = new HomeworkDetailsView(
-				RootPanel.get("homeworkDetails"));
-		HomeworkDetailsPresenter detailsPresenter = new HomeworkDetailsPresenter(
-				detailsView, getSsgMessages(), getWindowLocation(),
-				getActionSender(), getHandlerManager());
+		HomeworkDetailsView detailsView = new HomeworkDetailsView(RootPanel.get("homeworkDetails"));
+		HomeworkDetailsPresenter detailsPresenter = new HomeworkDetailsPresenter(detailsView, getSsgMessages(),
+		        getWindowLocation(), getActionSender(), getHandlerManager());
 		detailsPresenter.bind();
 
 		getHandlerManager().fireEvent(new RetrieveUserInfoEvent());

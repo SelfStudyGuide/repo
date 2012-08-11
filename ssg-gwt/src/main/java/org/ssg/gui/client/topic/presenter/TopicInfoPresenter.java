@@ -28,15 +28,13 @@ public class TopicInfoPresenter implements RefreshTopicInfoEvent.Handler {
 		HasText getTopicProgress();
 	}
 
-	public TopicInfoPresenter(Display display,
-			ActionSender actionSender, HandlerManager handlerManager,
-			SsgMessages messages) {
+	public TopicInfoPresenter(Display display, ActionSender actionSender, HandlerManager handlerManager,
+	        SsgMessages messages) {
 		this.display = display;
 		this.actionSender = actionSender;
 		this.handlerManager = handlerManager;
 		this.messages = messages;
-		this.topicStatusHelper = new TopicStatusHelper(
-				TopicStatusHelper.TOPIC_DETAILS, messages);
+		this.topicStatusHelper = new TopicStatusHelper(TopicStatusHelper.TOPIC_DETAILS, messages);
 	}
 
 	public void bind() {
@@ -44,20 +42,16 @@ public class TopicInfoPresenter implements RefreshTopicInfoEvent.Handler {
 	}
 
 	public void onRefreshTopicInfo(int homeworkId, int topicId) {
-		actionSender.send(new GetTopicInfo(homeworkId, topicId),
-				handleTopicInfo());
+		actionSender.send(new GetTopicInfo(homeworkId, topicId), handleTopicInfo());
 	}
 
 	private ActionResponseCallback<GetTopicInfoResponse> handleTopicInfo() {
 		return new ActionCallbackAdapter<GetTopicInfoResponse>() {
 
 			public void onResponse(GetTopicInfoResponse response) {
-				display.getTopicName().setText(
-						response.getInfo().getTopicName());
-				display.getTopicDescription().setText(
-						response.getInfo().getDescription());
-				display.getTopicProgress().setText(
-						topicStatusHelper.getStatus((response.getInfo())));
+				display.getTopicName().setText(response.getInfo().getTopicName());
+				display.getTopicDescription().setText(response.getInfo().getDescription());
+				display.getTopicProgress().setText(topicStatusHelper.getStatus((response.getInfo())));
 			}
 		};
 	}

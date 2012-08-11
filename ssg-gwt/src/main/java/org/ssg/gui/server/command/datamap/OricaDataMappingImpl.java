@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 /**
- * Provides implementation of {@link DataMappingSupport}. Implementation is a state-full.
- * <br/>
+ * Provides implementation of {@link DataMappingSupport}. Implementation is a
+ * state-full. <br/>
  * Documentation: http://code.google.com/p/orika/wiki/GettingStartedGuide.
  */
 
@@ -31,8 +31,7 @@ public class OricaDataMappingImpl implements DataMappingSupport {
 
 	public void setDataMappingConfiguration(DataMappingConfiguration config) {
 		if (config instanceof OrikaDataMappingConfiguration) {
-			((OrikaDataMappingConfiguration) config)
-					.copfigureDataMapper(factory);
+			((OrikaDataMappingConfiguration) config).copfigureDataMapper(factory);
 		}
 	}
 

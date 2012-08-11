@@ -35,16 +35,16 @@ public class DefaultActionSenderTest extends AbstractServiceTestCase {
 
 	@Mock
 	private TestActionCallback actionCallback;
-	
+
 	@Mock
 	private ActionNameProvider nameProvider;
-	
+
 	@Mock
-	private ErrorDialog dialog; 
-	
-	@Mock 
+	private ErrorDialog dialog;
+
+	@Mock
 	private SsgMessages messages;
-	
+
 	@Mock
 	private SsgLookupMessages ssgLookupMessages;
 
@@ -58,11 +58,10 @@ public class DefaultActionSenderTest extends AbstractServiceTestCase {
 	public void setUp() {
 		action = new TestAction();
 		when(ssgLookupMessages.getString(eq("error_code"))).thenReturn("oups");
-		
-		processor = new DefaultActionResponseCallbackProcessor(dialog,
-				messages, ssgLookupMessages);
+
+		processor = new DefaultActionResponseCallbackProcessor(dialog, messages, ssgLookupMessages);
 		sender = new DefaultActionSender(service, nameProvider, processor);
-		
+
 	}
 
 	@Test
@@ -99,11 +98,11 @@ public class DefaultActionSenderTest extends AbstractServiceTestCase {
 	public void verifyThatNameOfActionIsPopulated() {
 		// Given
 		when(nameProvider.getActionName(eq(action))).thenReturn("action name");
-		
+
 		// When
 		sender.send(action, actionCallback);
-		
-		//Then
+
+		// Then
 		TestAction verifyAction = verifyAction(TestAction.class);
 		assertThat(verifyAction.getActionName(), equalTo("action name"));
 	}
@@ -111,11 +110,10 @@ public class DefaultActionSenderTest extends AbstractServiceTestCase {
 	@Test
 	public void verifyThatResponseObjectIsPopulatedToHandler() {
 		TestActionCallbackWithAdapter actionCallback = Mockito.mock(TestActionCallbackWithAdapter.class);
-		
+
 		sender.send(action, actionCallback);
-		
+
 		verify(actionCallback).setAction(same(action));
 	}
-	
-	
+
 }

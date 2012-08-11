@@ -15,7 +15,7 @@ public class GetHomeworkDetailsResponse implements Response, Serializable {
 	 * */
 	protected GetHomeworkDetailsResponse() {
 	}
-	
+
 	public GetHomeworkDetailsResponse(HomeworkInfo homework) {
 		this.homework = homework;
 	}

@@ -10,7 +10,7 @@ public class SsgGuiServiceException extends RuntimeException {
 	private static final long serialVersionUID = 394554731771570163L;
 
 	private String errorCode;
-	
+
 	private transient boolean handled;
 
 	/**
@@ -26,8 +26,11 @@ public class SsgGuiServiceException extends RuntimeException {
 
 	/**
 	 * 
-	 * @param message description of error
-	 * @param errorCode message key which can be registered in {@link SsgLookupMessages}}
+	 * @param message
+	 *            description of error
+	 * @param errorCode
+	 *            message key which can be registered in
+	 *            {@link SsgLookupMessages}
 	 */
 	public SsgGuiServiceException(String message, String errorCode) {
 		super(message);
@@ -35,7 +38,7 @@ public class SsgGuiServiceException extends RuntimeException {
 	}
 
 	/**
-	 *  Returns message key which can be registered in {@link SsgLookupMessages}
+	 * Returns message key which can be registered in {@link SsgLookupMessages}
 	 */
 	public String getErrorCode() {
 		return errorCode;
@@ -44,15 +47,16 @@ public class SsgGuiServiceException extends RuntimeException {
 	/**
 	 * Indicates whether this exception was handled by presented classes.
 	 * <p>
-	 * If not then application tries to lookup message by {@link #getErrorCode()} 
-	 * and display error dialog.
+	 * If not then application tries to lookup message by
+	 * {@link #getErrorCode()} and display error dialog.
 	 */
 	public boolean isHandled() {
 		return handled;
 	}
 
 	/**
-	 * Specifies if this exception has been handled and dont needed default processing.
+	 * Specifies if this exception has been handled and dont needed default
+	 * processing.
 	 * 
 	 * @see #isHandled()
 	 */

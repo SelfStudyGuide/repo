@@ -14,17 +14,17 @@ import org.ssg.gui.client.userinfo.event.ShareUserInfoEvent;
 import com.google.gwt.event.shared.HandlerManager;
 
 public class FireEventWhenUserInfoTest {
-	
+
 	protected HandlerManager handlerManager;
-	
+
 	private FireEventWhenUserInfo tested;
-	
+
 	@Before
 	public void setUp() {
 		handlerManager = new HandlerManager(null);
 		tested = new FireEventWhenUserInfo(handlerManager);
 	}
-	
+
 	@Test
 	public void givenAnActionWhenUserInfoIsReceivedThenTheActionShouldBeFired() {
 		// Given
@@ -32,23 +32,23 @@ public class FireEventWhenUserInfoTest {
 		tested.setEvent(event);
 		TestApplicationEventHandler eventHandler = mock(TestApplicationEventHandler.class);
 		handlerManager.addHandler(TestApplicationEvent.TYPE, eventHandler);
-		
+
 		// When
 		handlerManager.fireEvent(new ShareUserInfoEvent(TstDataUtils.createStudentUserInfo("", 0)));
-		
+
 		// Then
 		verify(eventHandler).process();
 	}
-	
+
 	@Test
 	public void givenNoActionSpecifiedUserInfoIsReceivedThenNoActionShouldBeFired() {
 		// Given
 		TestApplicationEventHandler eventHandler = mock(TestApplicationEventHandler.class);
 		handlerManager.addHandler(TestApplicationEvent.TYPE, eventHandler);
-		
+
 		// When
 		handlerManager.fireEvent(new ShareUserInfoEvent(TstDataUtils.createStudentUserInfo("", 0)));
-		
+
 		// Then
 		verify(eventHandler, noMoreInteractions()).process();
 	}

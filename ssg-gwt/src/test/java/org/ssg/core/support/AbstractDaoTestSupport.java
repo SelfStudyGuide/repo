@@ -30,13 +30,13 @@ public class AbstractDaoTestSupport {
 
 	@Autowired
 	protected CurriculumDao curriculumDao;
-	
-	@Autowired 
+
+	@Autowired
 	protected UserDao userDao;
-	
+
 	@Autowired
 	protected HomeworkDao homeworkDao;
-	
+
 	@Autowired
 	protected StudentService studentService;
 
@@ -45,10 +45,10 @@ public class AbstractDaoTestSupport {
 	@Before
 	public void setUpTest() {
 		template = new HibernateTemplate(sessionFactory);
-		//template.setFlushMode(HibernateAccessor.FLUSH_EAGER);
+		// template.setFlushMode(HibernateAccessor.FLUSH_EAGER);
 		cleanUpDb();
 	}
-	
+
 	@After
 	public void tearDown() {
 		cleanUpDb();
@@ -78,52 +78,48 @@ public class AbstractDaoTestSupport {
 		Assert.fail("No task with type: " + type + " saved");
 		return null;
 	}
-	
+
 	protected Module getSavedModule() {
 		Collection<Module> modules = template.loadAll(Module.class);
-		//Collection<Module> modules = curriculumDao.getAllModules();
-		Assert.assertThat("Expected one module has been saved", modules.size(),
-				is(1));
+		// Collection<Module> modules = curriculumDao.getAllModules();
+		Assert.assertThat("Expected one module has been saved", modules.size(), is(1));
 		return getFirstElement(modules);
 	}
-	
+
 	protected Collection<Module> getSavedModules() {
 		Collection<Module> modules = template.loadAll(Module.class);
 		return modules;
 	}
-	
+
 	protected Module[] getSavedModulesArray() {
 		Collection<Module> modules = getSavedModules();
 		return modules.toArray(new Module[modules.size()]);
 	}
 
 	protected void assertSavedTopics(int cnt) {
-		assertThat("Expected Topics in DB", template.loadAll(Topic.class)
-				.size(), is(cnt));
+		assertThat("Expected Topics in DB", template.loadAll(Topic.class).size(), is(cnt));
 	}
-	
+
 	protected Topic getSavedTopic() {
-		//Module savedModule = getSavedModule();
-		//List<Topic> savedTopics = savedModule.getTopics();
+		// Module savedModule = getSavedModule();
+		// List<Topic> savedTopics = savedModule.getTopics();
 		List<Topic> savedTopics = template.loadAll(Topic.class);
-		assertThat("Expected one topic has been saved",
-				savedTopics.size(), is(1));
+		assertThat("Expected one topic has been saved", savedTopics.size(), is(1));
 		return getFirstElement(savedTopics);
 	}
-	
+
 	protected Student getSavedStudent() {
 		List<Student> list = userDao.getAllStudents();
-		Assert.assertThat("Expected one student has been saved",
-				list.size(), is(1));
+		Assert.assertThat("Expected one student has been saved", list.size(), is(1));
 		return getFirstElement(list);
 	}
-	
+
 	protected <T> T getFirstElement(Collection<T> col) {
 		Iterator<T> iterator = col.iterator();
 		Assert.assertThat("Collection should contain at least one element", iterator.hasNext(), is(true));
 		return iterator.next();
 	}
-	
+
 	protected void clearSession() {
 		template.clear();
 	}

@@ -36,9 +36,8 @@ public class TaskListPresenter implements RefreshTopicInfoEvent.Handler {
 		HasText getTask(int id, String href);
 	}
 
-	public TaskListPresenter(Display display, HandlerManager handlerManager,
-			ActionSender actionSender, WindowLocation windowLocation,
-			SsgMessages messages) {
+	public TaskListPresenter(Display display, HandlerManager handlerManager, ActionSender actionSender,
+	        WindowLocation windowLocation, SsgMessages messages) {
 		this.handlerManager = handlerManager;
 		this.actionSender = actionSender;
 		this.display = display;
@@ -60,28 +59,26 @@ public class TaskListPresenter implements RefreshTopicInfoEvent.Handler {
 
 	public void onRefreshTopicInfo(final int homeworkId, int topicId) {
 		actionSender.send(new GetTopicTasksInfo(homeworkId, topicId),
-				new ActionCallbackAdapter<GetTopicTasksInfoResponse>() {
+		        new ActionCallbackAdapter<GetTopicTasksInfoResponse>() {
 
-					public void onResponse(GetTopicTasksInfoResponse response) {
-						for (TopicTaskInfo task : response.getTaskInfos()) {
-							HasText taskBotton = display.getTask(task.getId(),
-									getTaskPageHref(homeworkId, task.getId()));
-							taskBotton.setText(getButtonLabel(task));
-						}
-					}
+			        public void onResponse(GetTopicTasksInfoResponse response) {
+				        for (TopicTaskInfo task : response.getTaskInfos()) {
+					        HasText taskBotton = display.getTask(task.getId(),
+					                getTaskPageHref(homeworkId, task.getId()));
+					        taskBotton.setText(getButtonLabel(task));
+				        }
+			        }
 
-				});
+		        });
 	}
 
 	private String getButtonLabel(TopicTaskInfo task) {
-		String buttonName = typeToString.containsKey(task.getType()) ? typeToString
-				.get(task.getType()) : task.getType().toString();
-		return buttonName + " [" + task.getCompletedCount() + "/"
-				+ task.getExecrisesCount() + "]";
+		String buttonName = typeToString.containsKey(task.getType()) ? typeToString.get(task.getType()) : task
+		        .getType().toString();
+		return buttonName + " [" + task.getCompletedCount() + "/" + task.getExecrisesCount() + "]";
 	}
 
 	private String getTaskPageHref(final int homeworkId, int taksId) {
-		return windowLocation.getUrl(TASK_PAGE + "?" + HOMEWORK_ID + "="
-				+ homeworkId + "&" + TASK_ID + "=" + taksId);
+		return windowLocation.getUrl(TASK_PAGE + "?" + HOMEWORK_ID + "=" + homeworkId + "&" + TASK_ID + "=" + taksId);
 	}
 }

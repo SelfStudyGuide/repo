@@ -36,7 +36,7 @@ import org.ssg.gui.client.topic.action.GetTopicTasksInfoResponse;
  * {@link GetTopicTasksInfoActionHandler}
  */
 public class GetTopicTasksInfoActionHandlerTest extends
-		AbstractCommandTestCase<GetTopicTasksInfoResponse, GetTopicTasksInfo> {
+        AbstractCommandTestCase<GetTopicTasksInfoResponse, GetTopicTasksInfo> {
 
 	@Autowired
 	private HomeworkDao homeworkDao;
@@ -139,40 +139,32 @@ public class GetTopicTasksInfoActionHandlerTest extends
 	private void testDataWithoutTopics() {
 		Module module = TstDataUtils.createModule();
 
-		Homework homework = homeworkBuilder().id(1)
-				.student(TstDataUtils.createStudent("foo")).module(module)
-				.build();
-		
+		Homework homework = homeworkBuilder().id(1).student(TstDataUtils.createStudent("foo")).module(module).build();
+
 		when(homeworkDao.getHomework(Matchers.eq(1))).thenReturn(homework);
 	}
 
 	private void testData() {
 		Module module = TstDataUtils.createModule();
 
-		Task listeningTask = taskBuilder().id(5).type(LISTENING)
-				.execrisesCount(10).build();
+		Task listeningTask = taskBuilder().id(5).type(LISTENING).execrisesCount(10).build();
 
-		Task textTask = taskBuilder().id(6).type(TEXT).execrisesCount(4)
-				.build();
+		Task textTask = taskBuilder().id(6).type(TEXT).execrisesCount(4).build();
 
-		Task lexicalTask = taskBuilder().id(7).type(LEXICAL).execrisesCount(2)
-				.build();
+		Task lexicalTask = taskBuilder().id(7).type(LEXICAL).execrisesCount(2).build();
 
-		Topic topic = topicBuilder().module(module).id(2).name("topic1")
-				.task(listeningTask).task(lexicalTask).task(textTask).build();
+		Topic topic = topicBuilder().module(module).id(2).name("topic1").task(listeningTask).task(lexicalTask)
+		        .task(textTask).build();
 
-		TopicProgress topicProgress = topicProgressBuilder().topic(topic)
-				.build();
+		TopicProgress topicProgress = topicProgressBuilder().topic(topic).build();
 
-		Homework homework = homeworkBuilder().id(1)
-				.student(TstDataUtils.createStudent("foo")).module(module)
-				.topicProgress(topicProgress).build();
+		Homework homework = homeworkBuilder().id(1).student(TstDataUtils.createStudent("foo")).module(module)
+		        .topicProgress(topicProgress).build();
 
 		when(homeworkDao.getHomework(Matchers.eq(1))).thenReturn(homework);
 	}
 
-	private TopicTaskInfo lookForTask(List<TopicTaskInfo> taskInfos,
-			TaskType type) {
+	private TopicTaskInfo lookForTask(List<TopicTaskInfo> taskInfos, TaskType type) {
 
 		for (TopicTaskInfo task : taskInfos) {
 

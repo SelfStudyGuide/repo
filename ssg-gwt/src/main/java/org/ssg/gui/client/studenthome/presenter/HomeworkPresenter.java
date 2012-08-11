@@ -36,12 +36,12 @@ public class HomeworkPresenter {
 		HasClickHandlers getRefreshButton();
 
 		HasText getDebugMessage();
-		
+
 		SingleSelectionModel<HomeworkInfo> getSelectionModel();
 	}
 
-	public HomeworkPresenter(Display view, ActionSender actionSender,
-			HandlerManager handlerManager, ErrorDialog errorDialog) {
+	public HomeworkPresenter(Display view, ActionSender actionSender, HandlerManager handlerManager,
+	        ErrorDialog errorDialog) {
 		this.view = view;
 		this.actionSender = actionSender;
 		this.handlerManager = handlerManager;
@@ -49,40 +49,34 @@ public class HomeworkPresenter {
 	}
 
 	public void bind() {
-		handlerManager.addHandler(RefreshStudentHomeworksEvent.TYPE,
-				new RefreshStudentHomeworksEventHandler() {
-					public void onHomeworkRefresh() {
-						handlerManager.fireEvent(new HomeworkSelectedEvent(null));
-						doHomeworksRequest();
-					}
-				});
+		handlerManager.addHandler(RefreshStudentHomeworksEvent.TYPE, new RefreshStudentHomeworksEventHandler() {
+			public void onHomeworkRefresh() {
+				handlerManager.fireEvent(new HomeworkSelectedEvent(null));
+				doHomeworksRequest();
+			}
+		});
 
 		view.getRefreshButton().addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				handlerManager.fireEvent(new RefreshStudentHomeworksEvent());
 			}
 		});
-		
-		view.getSelectionModel().addSelectionChangeHandler(
-				new SelectionChangeEvent.Handler() {
 
-					public void onSelectionChange(SelectionChangeEvent event) {
-						HomeworkInfo selected = view.getSelectionModel()
-								.getSelectedObject();
-						GWT.log("Fire HomeworkSelectedEvent for " + selected);
-						handlerManager.fireEvent(new HomeworkSelectedEvent(
-								selected));
-					}
-				});
+		view.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 
-		handlerManager.addHandler(ShareUserInfoEvent.TYPE,
-				new ShareUserInfoEventHandler() {
-					public void onUserInfoRetrieve(ShareUserInfoEvent event) {
-						userInfo = event.getUserInfo();
-						handlerManager
-								.fireEvent(new RefreshStudentHomeworksEvent());
-					}
-				});
+			public void onSelectionChange(SelectionChangeEvent event) {
+				HomeworkInfo selected = view.getSelectionModel().getSelectedObject();
+				GWT.log("Fire HomeworkSelectedEvent for " + selected);
+				handlerManager.fireEvent(new HomeworkSelectedEvent(selected));
+			}
+		});
+
+		handlerManager.addHandler(ShareUserInfoEvent.TYPE, new ShareUserInfoEventHandler() {
+			public void onUserInfoRetrieve(ShareUserInfoEvent event) {
+				userInfo = event.getUserInfo();
+				handlerManager.fireEvent(new RefreshStudentHomeworksEvent());
+			}
+		});
 	}
 
 	protected void doHomeworksRequest() {
@@ -90,17 +84,18 @@ public class HomeworkPresenter {
 			// TODO: display error
 		} else {
 			actionSender.send(new GetHomeworks(userInfo.getStudentId()),
-					new ActionCallbackAdapter<GetHomeworksResponse>() {
+			        new ActionCallbackAdapter<GetHomeworksResponse>() {
 
-						@Override
-						public void onResponse(GetHomeworksResponse result) {
-							view.getGrid().setRowCount(
-									result.getHomeworks().size());
-							view.getGrid().setRowData(0, result.getHomeworks());
-							
-							//errorDialog.show("Received " + result.getHomeworks().size() + " items", this.getAction());
-						}
-					});
+				        @Override
+				        public void onResponse(GetHomeworksResponse result) {
+					        view.getGrid().setRowCount(result.getHomeworks().size());
+					        view.getGrid().setRowData(0, result.getHomeworks());
+
+					        // errorDialog.show("Received " +
+							// result.getHomeworks().size() + " items",
+							// this.getAction());
+				        }
+			        });
 
 		}
 	}

@@ -18,39 +18,39 @@ public class TstDataBuilder {
 	public static TopicTaskInfoBuilder topicTaskInfoBuilder() {
 		return new TopicTaskInfoBuilder();
 	}
-	
+
 	public static class TopicTaskInfoBuilder {
 		private TopicTaskInfo topicTaskInfo = new TopicTaskInfo();
-		
+
 		public TopicTaskInfo build() {
 			return topicTaskInfo;
 		}
-		
+
 		public TopicTaskInfoBuilder id(int id) {
 			topicTaskInfo.setId(id);
 			return this;
 		}
-		
+
 		public TopicTaskInfoBuilder type(TaskType type) {
 			topicTaskInfo.setType(type);
 			return this;
 		}
-		
+
 		public TopicTaskInfoBuilder execrisesCount(int cnt) {
 			topicTaskInfo.setExecrisesCount(cnt);
 			return this;
 		}
-		
+
 		public TopicTaskInfoBuilder completedCount(int cnt) {
 			topicTaskInfo.setCompletedCount(cnt);
 			return this;
 		}
 	}
-	
+
 	public static TaskBuilder taskBuilder() {
 		return new TaskBuilder();
 	}
-	
+
 	public static class TaskBuilder {
 		private Task task = new Task();
 
@@ -68,7 +68,7 @@ public class TstDataBuilder {
 			task.setType(type);
 			return this;
 		}
-		
+
 		public TaskBuilder execrisesCount(int cnt) {
 			task.setExecrisesCount(cnt);
 			return this;
@@ -110,9 +110,9 @@ public class TstDataBuilder {
 			topic.setModule(module);
 			return this;
 		}
-		
+
 		public TopicBuilder unigueName(String prefix) {
-			topic.setName(prefix + " " + System.currentTimeMillis()); 
+			topic.setName(prefix + " " + System.currentTimeMillis());
 			return this;
 		}
 
@@ -160,12 +160,10 @@ public class TstDataBuilder {
 		return new HomeworkBuilder();
 	}
 
-	private static void setTopicProgressToHomework(TopicProgress progress,
-			Homework homework) {
+	private static void setTopicProgressToHomework(TopicProgress progress, Homework homework) {
 		List<TopicProgress> progresses = homework.getProgresses();
 		if (progresses == null) {
-			homework.setProgresses(new ArrayList<TopicProgress>(Arrays
-					.asList(progress)));
+			homework.setProgresses(new ArrayList<TopicProgress>(Arrays.asList(progress)));
 		} else {
 			progresses.add(progress);
 			homework.setProgresses(progresses);
@@ -191,8 +189,7 @@ public class TstDataBuilder {
 
 			List<Homework> homeworks = student.getHomeworks();
 			if (homeworks == null) {
-				student.setHomeworks(new ArrayList<Homework>(Arrays
-						.asList(homework)));
+				student.setHomeworks(new ArrayList<Homework>(Arrays.asList(homework)));
 			} else {
 				homeworks.add(homework);
 				student.setHomeworks(homeworks);

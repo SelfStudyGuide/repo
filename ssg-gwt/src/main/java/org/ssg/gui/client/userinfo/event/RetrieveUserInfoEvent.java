@@ -2,8 +2,7 @@ package org.ssg.gui.client.userinfo.event;
 
 import com.google.gwt.event.shared.GwtEvent;
 
-public class RetrieveUserInfoEvent extends
-		GwtEvent<RetrieveUserInfoEventHandler> {
+public class RetrieveUserInfoEvent extends GwtEvent<RetrieveUserInfoEventHandler> {
 
 	public static final Type<RetrieveUserInfoEventHandler> TYPE = new Type<RetrieveUserInfoEventHandler>();
 

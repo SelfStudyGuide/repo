@@ -35,11 +35,8 @@ public class Homework {
 		this.id = id;
 	}
 
-	@ManyToMany(cascade={CascadeType.ALL},
-			targetEntity=Module.class)
-	@JoinTable(name = "HOMEWORK_MODULE", 
-			joinColumns = @JoinColumn(name = "HW_ID"), 
-			inverseJoinColumns = @JoinColumn(name = "MODULE_ID"))
+	@ManyToMany(cascade = { CascadeType.ALL }, targetEntity = Module.class)
+	@JoinTable(name = "HOMEWORK_MODULE", joinColumns = @JoinColumn(name = "HW_ID"), inverseJoinColumns = @JoinColumn(name = "MODULE_ID"))
 	public List<Module> getModules() {
 		return modules;
 	}
@@ -50,7 +47,7 @@ public class Homework {
 	public void setModules(List<Module> modules) {
 		this.modules = modules;
 	}
-	
+
 	public void setModule(Module module) {
 		this.modules = Arrays.asList(module);
 	}
@@ -81,25 +78,24 @@ public class Homework {
 		}
 		setProgresses(list);
 	}
-	
-	
+
 	/**
 	 * Lookups TopicProgress by given topidId. Returns null if nothing found.
 	 */
 	public TopicProgress getTopicProgress(int topicId) {
 		TopicProgress result = null;
-		
+
 		if (getProgresses() != null && !getProgresses().isEmpty()) {
-		
+
 			for (TopicProgress t : getProgresses()) {
 				if (t.getTopicId() == topicId) {
 					result = t;
 					break;
 				}
 			}
-		
+
 		}
 		return result;
 	}
-	
+
 }

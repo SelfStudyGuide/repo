@@ -23,8 +23,7 @@ import org.ssg.core.service.UserDao;
 
 @Service(value = "DevDataService")
 public class DefaultDevDataService {
-	private static final Log LOG = LogFactory
-			.getLog(DefaultDevDataService.class);
+	private static final Log LOG = LogFactory.getLog(DefaultDevDataService.class);
 
 	@Autowired
 	private UserDao userDao;
@@ -34,7 +33,7 @@ public class DefaultDevDataService {
 
 	@Autowired
 	private JdbcOperations jdbcOperations;
-	
+
 	@Autowired
 	private StudentService studentService;
 
@@ -80,28 +79,27 @@ public class DefaultDevDataService {
 	private void processHomework(Map<Object, Object> params, PrintWriter writer) {
 		int studentId = getParamInt(params, "homeworkForStudent");
 		int moduleId = getParamInt(params, "moduleId");
-		
+
 		studentService.giveHomework(studentId, moduleId);
-		
-		writer.println("Homework is created for student: " + studentId + ". Assigned module " + moduleId );
+
+		writer.println("Homework is created for student: " + studentId + ". Assigned module " + moduleId);
 	}
 
-	
 	private void processModule(Map<Object, Object> params, PrintWriter writer) {
 		String name = getParam(params, "module");
 		String topicsCnt = getParam(params, "topics");
-		
+
 		Module module = new Module();
 		module.setName("Module " + name);
 		curriculumDao.saveModule(module);
-		
+
 		for (Module m : curriculumDao.getAllModules()) {
 			if (module.getName().equals(m.getName())) {
 				module = m;
 				break;
 			}
 		}
-		
+
 		writer.println("Module Id: " + module.getId());
 
 		if (topicsCnt != null) {
@@ -112,9 +110,9 @@ public class DefaultDevDataService {
 				curriculumDao.saveTopic(topic);
 			}
 		}
-		
+
 		module = curriculumDao.getModuleById(module.getId());
-		
+
 		if (module.getTopics() != null) {
 			for (Topic t : module.getTopics()) {
 				writer.println("Topic Id: " + t.getId());
@@ -129,17 +127,14 @@ public class DefaultDevDataService {
 		student.setName(name);
 		student.setEmail(name + "@email.com");
 		userDao.saveStudent(student);
-		jdbcOperations.execute("insert into users values('" + name
-				+ "','1',TRUE)");
-		jdbcOperations.execute("insert into authorities values('" + name
-				+ "','student')");
+		jdbcOperations.execute("insert into users values('" + name + "','1',TRUE)");
+		jdbcOperations.execute("insert into authorities values('" + name + "','student')");
 		student = userDao.getStudentByName(name);
 		writer.append("User Id: " + student.getId());
 	}
-	
-	private void processTaskForTopic(Map<Object, Object> params,
-			PrintWriter writer) {
-		
+
+	private void processTaskForTopic(Map<Object, Object> params, PrintWriter writer) {
+
 		int topicId = getParamInt(params, "taskForTopic");
 		Topic topic = curriculumDao.getTopic(topicId);
 		if (topic != null) {
@@ -147,17 +142,17 @@ public class DefaultDevDataService {
 			task.setType(TaskType.LEXICAL);
 			task.setName(TaskType.LEXICAL.name());
 			curriculumDao.saveTask(task);
-			
+
 			task = new Task(topic);
 			task.setType(TaskType.LISTENING);
 			task.setName(TaskType.LISTENING.name());
 			curriculumDao.saveTask(task);
-			
+
 			task = new Task(topic);
 			task.setType(TaskType.TEXT);
 			task.setName(TaskType.TEXT.name());
 			curriculumDao.saveTask(task);
-			
+
 		} else {
 			throw new SsgServiceException("Topic " + topicId + " not found");
 		}
@@ -167,7 +162,7 @@ public class DefaultDevDataService {
 	private String getParam(Map<Object, Object> params, String name) {
 		return params.containsKey(name) ? ((String[]) params.get(name))[0] : null;
 	}
-	
+
 	private int getParamInt(Map<Object, Object> params, String name) {
 		return Integer.parseInt(getParam(params, name));
 	}

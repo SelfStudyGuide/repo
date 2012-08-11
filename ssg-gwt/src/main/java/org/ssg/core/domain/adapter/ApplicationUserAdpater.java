@@ -5,7 +5,7 @@ import org.ssg.core.domain.ApplicationUser;
 import org.ssg.core.dto.ApplicationUserInfo;
 
 public class ApplicationUserAdpater {
-	
+
 	private final ApplicationUser user;
 
 	public ApplicationUserAdpater(ApplicationUser user) {
@@ -16,7 +16,7 @@ public class ApplicationUserAdpater {
 		BeanUtils.copyProperties(user, info);
 		BeanUtils.copyProperties(this, info);
 	}
-	
+
 	public int getStudentId() {
 		if (user.containRole("student")) {
 			return user.getPersonId();
@@ -24,6 +24,5 @@ public class ApplicationUserAdpater {
 			return 0;
 		}
 	}
-	
-	
+
 }

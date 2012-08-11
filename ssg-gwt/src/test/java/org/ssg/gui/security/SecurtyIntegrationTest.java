@@ -29,10 +29,9 @@ import org.ssg.core.service.StudentService;
 import org.ssg.gui.server.service.CustomJdbcUserDetailsManager;
 
 @ContextConfiguration(locations = { "/spring/app-securty.ctx.xml", "/spring/gui-service.ctx.xml",
-		"/serice-core-mock.ctx.xml", "/spring/db-config.xml",
-		"/test-config.ctx.xml" })
+        "/serice-core-mock.ctx.xml", "/spring/db-config.xml", "/test-config.ctx.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class SecurtyIntegrationTest  {
+public class SecurtyIntegrationTest {
 
 	@Autowired
 	@Qualifier("org.springframework.security.authenticationManager")
@@ -43,7 +42,6 @@ public class SecurtyIntegrationTest  {
 
 	@Autowired
 	private CustomJdbcUserDetailsManager userDetailsManager;
-
 
 	@Before
 	public void setUp() {
@@ -63,57 +61,50 @@ public class SecurtyIntegrationTest  {
 
 		when(studentService.getStudentIdByName("user")).thenReturn(123);
 
-		Authentication authentication = new UsernamePasswordAuthenticationToken(
-				"user", "pass");
+		Authentication authentication = new UsernamePasswordAuthenticationToken("user", "pass");
 		Authentication a = authenticationManager.authenticate(authentication);
 
 		assertThat(a.getAuthorities().size(), is(1));
-		assertThat(a.getAuthorities().iterator().next().getAuthority(),
-				equalTo("student"));
-		assertThat((ApplicationUser)a.getPrincipal(), is(ApplicationUser.class));
-		assertThat(((ApplicationUser) a.getPrincipal()).getUsername(),
-				equalTo("user"));
+		assertThat(a.getAuthorities().iterator().next().getAuthority(), equalTo("student"));
+		assertThat((ApplicationUser) a.getPrincipal(), is(ApplicationUser.class));
+		assertThat(((ApplicationUser) a.getPrincipal()).getUsername(), equalTo("user"));
 		assertThat(((ApplicationUser) a.getPrincipal()).getPersonId(), is(123));
 
 		verify(studentService).getStudentIdByName(eq("user"));
 
 	}
-	
+
 	@Test
 	public void verifyThatTeacherCanBeAuthenticatedWithCredentials() {
 		createUser("user2", "teacher");
-		
-		Authentication authentication = new UsernamePasswordAuthenticationToken(
-				"user2", "pass");
+
+		Authentication authentication = new UsernamePasswordAuthenticationToken("user2", "pass");
 		Authentication a = authenticationManager.authenticate(authentication);
 
 		assertThat(a.getAuthorities().size(), is(1));
-		assertThat(a.getAuthorities().iterator().next().getAuthority(),
-				equalTo("teacher"));
-		assertThat((ApplicationUser)a.getPrincipal(), is(ApplicationUser.class));
-		assertThat(((ApplicationUser) a.getPrincipal()).getUsername(),
-				equalTo("user2"));
-		//assertThat(((ApplicationUser) a.getPrincipal()).getPersonId(), is(123));
+		assertThat(a.getAuthorities().iterator().next().getAuthority(), equalTo("teacher"));
+		assertThat((ApplicationUser) a.getPrincipal(), is(ApplicationUser.class));
+		assertThat(((ApplicationUser) a.getPrincipal()).getUsername(), equalTo("user2"));
+		// assertThat(((ApplicationUser) a.getPrincipal()).getPersonId(),
+		// is(123));
 	}
-	
-	//@Test(expected = UsernameNotFoundException.class)
+
+	// @Test(expected = UsernameNotFoundException.class)
 	@Test(expected = BadCredentialsException.class)
 	public void verifyThatExceptionIsThrownIfStudentNotFound() {
 		createUser("user3", "student");
-		
+
 		when(studentService.getStudentIdByName("user3")).thenThrow(new SsgServiceException(""));
-		
-		Authentication authentication = new UsernamePasswordAuthenticationToken(
-				"user3", "pass");
+
+		Authentication authentication = new UsernamePasswordAuthenticationToken("user3", "pass");
 		authenticationManager.authenticate(authentication);
 	}
-	
+
 	@Test(expected = BadCredentialsException.class)
 	public void verifyThatExceptionIsThrownWhenUserDoesNotHaveRoles() {
 		createUser("user4", "other_role");
-		
-		Authentication authentication = new UsernamePasswordAuthenticationToken(
-				"user4", "pass");
+
+		Authentication authentication = new UsernamePasswordAuthenticationToken("user4", "pass");
 		authenticationManager.authenticate(authentication);
 	}
 

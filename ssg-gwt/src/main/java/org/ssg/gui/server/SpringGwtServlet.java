@@ -12,8 +12,7 @@ public class SpringGwtServlet extends RemoteServiceServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		WebApplicationContextUtils
-				.getRequiredWebApplicationContext(getServletContext())
-				.getAutowireCapableBeanFactory().autowireBean(this);
+		WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext())
+		        .getAutowireCapableBeanFactory().autowireBean(this);
 	}
 }

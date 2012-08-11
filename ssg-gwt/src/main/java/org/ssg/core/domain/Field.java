@@ -28,23 +28,23 @@ public abstract class Field {
 
 	/** Defines id of a field in a task */
 	@Id
-    @GeneratedValue
-    @Column(name = "ID", nullable=false)
+	@GeneratedValue
+	@Column(name = "ID", nullable = false)
 	private int fieldId;
-	
+
 	/** Type of fields (eg. SingleLineText, MultiLineText etc) */
 	@Enumerated(EnumType.STRING)
-	@Column(name = "FIELD_TYPE", nullable=false)
+	@Column(name = "FIELD_TYPE", nullable = false)
 	private FieldType type;
-	
+
 	@Column(name = "TITLE")
 	private String title;
-	
+
 	@Column(name = "VALUE")
 	private String value;
-	
+
 	@Transient
 	private List<Field> childFields;
-	
-	// Fields should implements WithAnswer interface 
+
+	// Fields should implements WithAnswer interface
 }

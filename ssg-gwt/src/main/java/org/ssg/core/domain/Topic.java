@@ -16,18 +16,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "TOPIC")
 public class Topic {
-	
+
 	private int id;
 	private String name;
 	private String description;
 	private Module module;
-	
+
 	private List<Task> tasks;
 
-	
 	@Id
-    @GeneratedValue
-    @Column(name = "ID", nullable=false)
+	@GeneratedValue
+	@Column(name = "ID", nullable = false)
 	public int getId() {
 		return id;
 	}
@@ -36,7 +35,7 @@ public class Topic {
 		this.id = id;
 	}
 
-	@Column(name = "NAME", nullable=false)
+	@Column(name = "NAME", nullable = false)
 	public String getName() {
 		return name;
 	}
@@ -44,7 +43,7 @@ public class Topic {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@Column(name = "DESCRIPTION")
 	public String getDescription() {
 		return description;
@@ -55,8 +54,8 @@ public class Topic {
 	}
 
 	@ManyToOne()
-    //@JoinColumn(name="MOD_ID", nullable=false)
-	@JoinColumn(name="MOD_ID")
+	// @JoinColumn(name="MOD_ID", nullable=false)
+	@JoinColumn(name = "MOD_ID")
 	public Module getModule() {
 		return module;
 	}
@@ -73,7 +72,7 @@ public class Topic {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
-	
+
 	public static void assignTask(Topic topic, Task task) {
 		List<Task> tasks = topic.getTasks();
 		if (tasks == null) {
@@ -83,5 +82,5 @@ public class Topic {
 		topic.setTasks(tasks);
 		task.setTopic(topic);
 	}
-	
+
 }

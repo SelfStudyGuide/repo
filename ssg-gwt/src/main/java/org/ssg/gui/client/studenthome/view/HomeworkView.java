@@ -24,7 +24,7 @@ public class HomeworkView implements Display {
 
 	interface MyUiBinder extends UiBinder<Widget, HomeworkView> {
 	}
-	
+
 	interface HomeworkTableResources extends CellTable.Resources {
 		@Source({ CellTable.Style.DEFAULT_CSS, "HomeworkTable.css" })
 		HomeworkTableStyle cellTableStyle();
@@ -70,42 +70,40 @@ public class HomeworkView implements Display {
 		initGridColumns();
 	}
 
-	@UiFactory CellTable<HomeworkInfo> makeHomeworkTable() {
+	@UiFactory
+	CellTable<HomeworkInfo> makeHomeworkTable() {
 		return new CellTable<HomeworkInfo>(10, homeworkTableResources);
 	}
-	
+
 	private void initGridColumns() {
-		Column<HomeworkInfo, String> idColumn = new Column<HomeworkInfo, String>(
-				new TextCell()) {
+		Column<HomeworkInfo, String> idColumn = new Column<HomeworkInfo, String>(new TextCell()) {
 			@Override
 			public String getValue(HomeworkInfo object) {
 				return String.valueOf(object.getId());
 			}
 		};
-		
-		Column<HomeworkInfo, String> modulesColumn = new Column<HomeworkInfo, String>(
-				new TextCell()) {
+
+		Column<HomeworkInfo, String> modulesColumn = new Column<HomeworkInfo, String>(new TextCell()) {
 			@Override
 			public String getValue(HomeworkInfo object) {
 				return object.getAssignedModules();
 			}
 		};
-		
-		Column<HomeworkInfo, String> statusColumn = new Column<HomeworkInfo, String>(
-				new TextCell()) {
+
+		Column<HomeworkInfo, String> statusColumn = new Column<HomeworkInfo, String>(new TextCell()) {
 			@Override
 			public String getValue(HomeworkInfo object) {
 				return "Not started";
 			}
 		};
-		
+
 		homeworksTable.addColumn(idColumn, messages.homeworkTableId());
 		homeworksTable.addColumn(modulesColumn, messages.homeworkTableModule());
 		homeworksTable.addColumn(statusColumn, messages.homeworkTableStatus());
-		
+
 		selectionModel = new SingleSelectionModel<HomeworkInfo>();
 		homeworksTable.setSelectionModel(selectionModel);
-		
+
 	}
 
 	public HasText getDebugMessage() {

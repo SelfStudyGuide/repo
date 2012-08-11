@@ -52,8 +52,7 @@ public class HomeworkAdapterTest {
 
 		HomeworkInfo info = populateInfoAndReturn(adapter);
 
-		assertThat(info.getAssignedModules(),
-				equalTo("Testing Module"));
+		assertThat(info.getAssignedModules(), equalTo("Testing Module"));
 	}
 
 	@Test
@@ -65,28 +64,28 @@ public class HomeworkAdapterTest {
 
 		assertThat(info.getAssignedModules(), equalTo(""));
 	}
-	
+
 	@Test
 	public void verifyThatTopicProgressCollectionIsPopulatedIfDetails() {
 		HomeworkAdapter adapter = new HomeworkAdapter(homework, true);
 		HomeworkInfo info = populateInfoAndReturn(adapter);
-		
+
 		TopicProgressInfo topicProgressInfo = info.getTopicProgress().get(0);
 		assertThat(topicProgressInfo.getTopicId(), equalTo(123));
 		assertThat(topicProgressInfo.getTopicName(), equalTo("Test topic 1"));
 		assertThat(topicProgressInfo.getStatus(), equalTo("0"));
-		
+
 		topicProgressInfo = info.getTopicProgress().get(1);
 		assertThat(topicProgressInfo.getTopicId(), equalTo(124));
 		assertThat(topicProgressInfo.getTopicName(), equalTo("Test topic 2"));
 		assertThat(topicProgressInfo.getStatus(), equalTo("20"));
-		
+
 		topicProgressInfo = info.getTopicProgress().get(2);
 		assertThat(topicProgressInfo.getTopicId(), equalTo(125));
 		assertThat(topicProgressInfo.getTopicName(), equalTo("Test topic 3"));
 		assertThat(topicProgressInfo.getStatus(), equalTo("100"));
 	}
-	
+
 	@Test
 	public void verifyThatStatusOfProgressIsNullThenInfoStatusIsNullAsWell() {
 		HomeworkAdapter adapter = new HomeworkAdapter(homework, true);
@@ -94,17 +93,15 @@ public class HomeworkAdapterTest {
 		TopicProgressInfo topicProgressInfo = info.getTopicProgress().get(3);
 		assertThat(topicProgressInfo.getStatus(), CoreMatchers.nullValue());
 	}
-	
+
 	@Test
 	public void verifyThatTopicProgressCollectionIsNotPopulatedIfNoDetails() {
 		HomeworkAdapter adapter = new HomeworkAdapter(homework, false);
 		HomeworkInfo info = populateInfoAndReturn(adapter);
-		
+
 		assertThat(info.getTopicProgress().size(), is(0));
 	}
-		
-	
-	
+
 	private HomeworkInfo populateInfoAndReturn(HomeworkAdapter adapter) {
 		HomeworkInfo info = new HomeworkInfo();
 		adapter.populate(info);

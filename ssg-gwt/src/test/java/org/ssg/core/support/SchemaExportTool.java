@@ -19,8 +19,8 @@ public class SchemaExportTool {
 
 	@Autowired
 	@Qualifier("sessionFactory")
-	private LocalSessionFactoryBean factoryBean;  
-	
+	private LocalSessionFactoryBean factoryBean;
+
 	@Test
 	@Ignore
 	public void execute() {

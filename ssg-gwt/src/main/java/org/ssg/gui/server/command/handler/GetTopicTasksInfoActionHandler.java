@@ -27,61 +27,53 @@ import org.ssg.gui.server.command.AbstractMapperActionHandler;
 import org.ssg.gui.server.command.datamap.OrikaDataMappingConfiguration;
 
 @Service
-public class GetTopicTasksInfoActionHandler
-		extends
-		AbstractMapperActionHandler<GetTopicTasksInfoResponse, GetTopicTasksInfo>
-		implements InitializingBean {
+public class GetTopicTasksInfoActionHandler extends
+        AbstractMapperActionHandler<GetTopicTasksInfoResponse, GetTopicTasksInfo> implements InitializingBean {
 
 	private static final Log LOG = LogFactory.getLog(GetTopicTasksInfoActionHandler.class);
-	
+
 	@Autowired
 	private HomeworkDao homeworkDao;
 
 	@Transactional
-	public GetTopicTasksInfoResponse execute(GetTopicTasksInfo action)
-			throws SsgGuiServiceException {
+	public GetTopicTasksInfoResponse execute(GetTopicTasksInfo action) throws SsgGuiServiceException {
 
 		Homework homework = loadHomework(action.getHomeworkId());
 		TopicProgress topicProgress = loadTopic(action.getTopicId(), homework);
-		
+
 		List<TopicTaskInfo> taskInfos = new ArrayList<TopicTaskInfo>();
 
 		List<Task> tasks = topicProgress.getTopic().getTasks();
-		
-		debug(LOG, action, "Loaded %s task(s) for topic %d", tasks.size(),
-				action.getTopicId());
+
+		debug(LOG, action, "Loaded %s task(s) for topic %d", tasks.size(), action.getTopicId());
 
 		for (Task task : tasks) {
 			TopicTaskInfo taskInfo = map(task, new TopicTaskInfo());
 			taskInfos.add(taskInfo);
-			
-			info(LOG, action,
-					"Added TaskInfo %s for topic %d", taskInfo.getType(),
-					action.getTopicId());
-			
+
+			info(LOG, action, "Added TaskInfo %s for topic %d", taskInfo.getType(), action.getTopicId());
+
 		}
 
 		return new GetTopicTasksInfoResponse(taskInfos);
 	}
-	
+
 	private TopicProgress loadTopic(int topicId, Homework homework) {
 		TopicProgress topicProgress = homework.getTopicProgress(topicId);
-		
+
 		if (topicProgress == null) {
-			throw new SsgGuiServiceException(
-					"TopicProgress object cannot be found in db with id "
-							+ topicId, "topic.view.notfound");
+			throw new SsgGuiServiceException("TopicProgress object cannot be found in db with id " + topicId,
+			        "topic.view.notfound");
 		}
 		return topicProgress;
 	}
 
 	private Homework loadHomework(int homeworkId) {
 		Homework homework = homeworkDao.getHomework(homeworkId);
-		
+
 		if (homework == null) {
-			throw new SsgGuiServiceException(
-					"Homework object cannot be found in db with id "
-							+ homeworkId, "topic.view.notfound");
+			throw new SsgGuiServiceException("Homework object cannot be found in db with id " + homeworkId,
+			        "topic.view.notfound");
 		}
 		return homework;
 	}
@@ -90,12 +82,10 @@ public class GetTopicTasksInfoActionHandler
 		return GetTopicTasksInfo.class;
 	}
 
-	private static class DataMapperConfiguration implements
-			OrikaDataMappingConfiguration {
+	private static class DataMapperConfiguration implements OrikaDataMappingConfiguration {
 
 		public void copfigureDataMapper(MapperFactory factory) {
-			ClassMapBuilder<Task, TopicTaskInfo> mapBuilder = ClassMapBuilder
-					.map(Task.class, TopicTaskInfo.class);
+			ClassMapBuilder<Task, TopicTaskInfo> mapBuilder = ClassMapBuilder.map(Task.class, TopicTaskInfo.class);
 
 			factory.registerClassMap(mapBuilder.byDefault().toClassMap());
 		}

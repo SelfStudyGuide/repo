@@ -15,11 +15,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class TaskListView extends Composite implements
-		TaskListPresenter.Display {
+public class TaskListView extends Composite implements TaskListPresenter.Display {
 
-	private static TaskListViewUiBinder uiBinder = GWT
-			.create(TaskListViewUiBinder.class);
+	private static TaskListViewUiBinder uiBinder = GWT.create(TaskListViewUiBinder.class);
 	private final RootPanel panel;
 
 	interface TaskListViewUiBinder extends UiBinder<Widget, TaskListView> {

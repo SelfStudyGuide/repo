@@ -11,29 +11,29 @@ import org.ssg.core.dto.TopicDetailedProgressInfo;
 import org.ssg.core.support.TstDataUtils;
 
 public class TopicProgressAdapterTest {
-	
+
 	private TopicProgress topicProgress;
 	private TopicProgressAdapter adapter;
-	
+
 	@Before
 	public void setUp() {
 		Topic topic = TstDataUtils.createTopic("Some topic", 123);
 		topic.setDescription("Some description");
-		
+
 		Homework homework = TstDataUtils.createHomework(TstDataUtils.createStudent("jd"), TstDataUtils.createModule());
 		topicProgress = new TopicProgress(topic, homework);
-		
+
 		adapter = new TopicProgressAdapter(topicProgress);
 	}
-	
+
 	@Test
 	public void verifyThatDescriptionIsCopiedIfDetailedInfo() {
-		// Given		
+		// Given
 		TopicDetailedProgressInfo info = new TopicDetailedProgressInfo();
-		
+
 		// When
 		adapter.populate(info);
-		
+
 		// Then
 		Assert.assertThat(info.getDescription(), CoreMatchers.is("Some description"));
 	}

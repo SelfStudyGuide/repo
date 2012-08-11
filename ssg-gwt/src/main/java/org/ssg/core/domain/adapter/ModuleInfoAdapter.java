@@ -10,7 +10,7 @@ public class ModuleInfoAdapter {
 	public ModuleInfoAdapter(Module module) {
 		this.module = module;
 	}
-	
+
 	public void populate(ModuleInfo info) {
 		BeanUtils.copyProperties(module, info);
 		BeanUtils.copyProperties(this, info);

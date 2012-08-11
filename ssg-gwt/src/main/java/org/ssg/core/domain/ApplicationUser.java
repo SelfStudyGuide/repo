@@ -47,7 +47,7 @@ public class ApplicationUser implements UserDetails {
 	public int getPersonId() {
 		return personId;
 	}
-	
+
 	public boolean containRole(String roleName) {
 		for (GrantedAuthority role : getAuthorities()) {
 			if (role.getAuthority().equals(roleName)) {

@@ -7,11 +7,12 @@
 	<mockito:mock id="studentService" class="org.ssg.core.service.StudentService" />
 
 	<mockito:mock id="UserDao" class="org.ssg.core.service.UserDao" />
-	
+
 	<mockito:mock id="CurriculumDao" class="org.ssg.core.service.CurriculumDao" />
-	
+
 	<mockito:mock id="HomeworkDao" class="org.ssg.core.service.HomeworkDao" />
-	
-	<mockito:mock id="jdbcOps" class="org.springframework.jdbc.core.JdbcTemplate" />
-	
+
+	<mockito:mock id="jdbcOps"
+		class="org.springframework.jdbc.core.JdbcTemplate" />
+
 </beans>

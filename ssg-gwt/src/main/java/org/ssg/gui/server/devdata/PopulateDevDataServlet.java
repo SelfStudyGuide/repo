@@ -20,17 +20,15 @@ public class PopulateDevDataServlet extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		WebApplicationContextUtils
-				.getRequiredWebApplicationContext(getServletContext())
-				.getAutowireCapableBeanFactory().autowireBean(this);
+		WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext())
+		        .getAutowireCapableBeanFactory().autowireBean(this);
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		devDataService.processRequest(req.getParameterMap(), resp.getWriter());
-		
+
 		resp.getWriter().flush();
 	}
 

@@ -34,14 +34,14 @@ import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class TstDataUtils {
-	
+
 	public static Module createModule() {
 		Module module = new Module();
 		module.setName("name");
 		module.setDescription("desc");
 		return module;
 	}
-	
+
 	public static Module createModule(String name, int id) {
 		Module module = createModule();
 		module.setName(name);
@@ -66,7 +66,7 @@ public class TstDataUtils {
 		mod.setId(123);
 		return mod;
 	}
-	
+
 	public static Module createModuleWithUniqueName() {
 		Module module = TstDataUtils.createModule();
 		module.setName("unique module name " + System.currentTimeMillis());
@@ -74,10 +74,9 @@ public class TstDataUtils {
 	}
 
 	public static Topic createTopicWithUniqueName(Module module) {
-		return TstDataBuilder.topicBuilder().module(module)
-				.unigueName("unique topic name").build();
+		return TstDataBuilder.topicBuilder().module(module).unigueName("unique topic name").build();
 	}
-	
+
 	@Deprecated
 	public static Topic createTopic(String name, int id) {
 		Topic topic = createTopicWithUniqueName(null);
@@ -86,7 +85,7 @@ public class TstDataUtils {
 		topic.setDescription("Description of topic");
 		return topic;
 	}
-	
+
 	@Deprecated
 	public static Task createTask(TaskType type) {
 		Task task = new Task();
@@ -103,7 +102,7 @@ public class TstDataUtils {
 		student.setEmail("student@email.com");
 		return student;
 	}
-	
+
 	public static Student createStudent(int id, String name) {
 		Student student = createStudent(name);
 		student.setId(id);
@@ -118,15 +117,13 @@ public class TstDataUtils {
 		student.setHomeworks(Arrays.asList(homework));
 		return homework;
 	}
-	
-	public static Homework enrichHomeworkWithProgress(Homework homework,
-			Topic... topics) {
+
+	public static Homework enrichHomeworkWithProgress(Homework homework, Topic... topics) {
 		return enrichHomeworkWithProgress(homework, Arrays.asList(topics));
 	}
-	
+
 	@Deprecated
-	public static Homework enrichHomeworkWithProgress(Homework homework,
-			List<Topic> topics) {
+	public static Homework enrichHomeworkWithProgress(Homework homework, List<Topic> topics) {
 		ArrayList<TopicProgress> progresses = new ArrayList<TopicProgress>();
 		homework.setProgresses(progresses);
 		int i = 1;
@@ -139,16 +136,16 @@ public class TstDataUtils {
 		}
 		return homework;
 	}
-	
-//	public static List<TopicProgress> enrichTopicProgressesWithId(
-//			List<TopicProgress> tp) {
-//		int i = 1;
-//		for (TopicProgress p : tp) {
-//			//p.setId(10 + i);
-//			i++;
-//		}
-//		return tp;
-//	}
+
+	// public static List<TopicProgress> enrichTopicProgressesWithId(
+	// List<TopicProgress> tp) {
+	// int i = 1;
+	// for (TopicProgress p : tp) {
+	// //p.setId(10 + i);
+	// i++;
+	// }
+	// return tp;
+	// }
 
 	public static HomeworkInfo createHomeworkInfo() {
 		HomeworkInfo result = new HomeworkInfo();
@@ -160,26 +157,26 @@ public class TstDataUtils {
 	@Deprecated
 	public static HomeworkInfo createHomeworkInfoWithDetails() {
 		HomeworkInfo result = createHomeworkInfo();
-		
+
 		ArrayList<TopicProgressInfo> topicProgress = new ArrayList<TopicProgressInfo>();
 		result.setTopicProgress(topicProgress);
-		
+
 		TopicProgressInfo info = createTopicProgressInfo(1, "TestTopic1");
 		info.setStatus("0");
 		topicProgress.add(info);
-		
+
 		info = createTopicProgressInfo(2, "TestTopic2");
 		info.setStatus("20");
 		topicProgress.add(info);
-		
+
 		info = createTopicProgressInfo(3, "TestTopic3");
 		info.setStatus("100");
 		topicProgress.add(info);
-		
+
 		info = createTopicProgressInfo(4, "TestTopic4");
 		info.setStatus(null);
 		topicProgress.add(info);
-		
+
 		return result;
 	}
 
@@ -191,7 +188,7 @@ public class TstDataUtils {
 		info.setTopicName(name);
 		return info;
 	}
-	
+
 	public static TopicDetailedProgressInfo createTopicDetailedProgressInfo(int id, String name) {
 		TopicDetailedProgressInfo info = new TopicDetailedProgressInfo();
 		info.setTopicId(id);
@@ -200,7 +197,7 @@ public class TstDataUtils {
 		info.setDescription("Some Topic description");
 		return info;
 	}
-	
+
 	public static ModuleInfo createModuleInfo() {
 		ModuleInfo info = new ModuleInfo();
 		info.setId(1);
@@ -208,25 +205,23 @@ public class TstDataUtils {
 		return info;
 	}
 
-	public static ApplicationUserInfo createStudentUserInfo(String name,
-			int studentId) {
+	public static ApplicationUserInfo createStudentUserInfo(String name, int studentId) {
 		ApplicationUserInfo info = new ApplicationUserInfo();
 		info.setUsername(name);
 		info.setStudentId(studentId);
 		return info;
 	}
 
-	public static ApplicationUser createAppUserDetails(String username,
-			int studentId) {
+	public static ApplicationUser createAppUserDetails(String username, int studentId) {
 		List<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
 		roles.add(new SimpleGrantedAuthority("student"));
 		User user = new User(username, "", roles);
 		ApplicationUser appUser = new ApplicationUser(user, studentId);
 		return appUser;
 	}
-	
+
 	// ======================= TestAction =============================
-	
+
 	@SuppressWarnings("serial")
 	public static class TestAction extends BaseAction<TestActionResponse> {
 		public TestAction() {
@@ -238,11 +233,9 @@ public class TstDataUtils {
 
 	}
 
-	public static class TestActionHandler implements
-			ActionHandler<TestActionResponse, TestAction> {
+	public static class TestActionHandler implements ActionHandler<TestActionResponse, TestAction> {
 
-		public TestActionResponse execute(TestAction action)
-				throws SsgGuiServiceException {
+		public TestActionResponse execute(TestAction action) throws SsgGuiServiceException {
 			return null;
 		}
 
@@ -252,8 +245,7 @@ public class TstDataUtils {
 
 	}
 
-	public static class TestActionCallback implements
-			ActionResponseCallback<TestActionResponse> {
+	public static class TestActionCallback implements ActionResponseCallback<TestActionResponse> {
 
 		public void onResponse(TestActionResponse response) {
 		}
@@ -262,15 +254,15 @@ public class TstDataUtils {
 		}
 	}
 
-	public static class TestActionCallbackWithAdapter extends
-			ActionCallbackAdapter<TestActionResponse> {
+	public static class TestActionCallbackWithAdapter extends ActionCallbackAdapter<TestActionResponse> {
 
 		public void onResponse(TestActionResponse response) {
 		}
 	}
-	
-	// ======================= TestApplicationEvent =============================
-	
+
+	// ======================= TestApplicationEvent
+	// =============================
+
 	public static class TestApplicationEvent extends GwtEvent<TestApplicationEventHandler> {
 
 		public static final com.google.gwt.event.shared.GwtEvent.Type<TestApplicationEventHandler> TYPE = new Type<TstDataUtils.TestApplicationEventHandler>();
@@ -284,9 +276,9 @@ public class TstDataUtils {
 		protected void dispatch(TestApplicationEventHandler handler) {
 			handler.process();
 		}
-		
+
 	}
-	
+
 	public interface TestApplicationEventHandler extends EventHandler {
 		void process();
 	}

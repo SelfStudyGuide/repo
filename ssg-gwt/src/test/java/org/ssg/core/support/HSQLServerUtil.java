@@ -11,7 +11,7 @@ import org.hsqldb.server.ServerConfiguration;
  * Utility to start the HSQL server.
  * 
  * @author Denis Pavlov
- * @since 1.0.0 * 
+ * @since 1.0.0 *
  */
 public final class HSQLServerUtil {
 
@@ -31,8 +31,7 @@ public final class HSQLServerUtil {
 		return UTIL;
 	}
 
-	private void doStart(final HsqlProperties props) throws IOException,
-			AclFormatException {
+	private void doStart(final HsqlProperties props) throws IOException, AclFormatException {
 
 		ServerConfiguration.translateDefaultDatabaseProperty(props);
 
@@ -57,8 +56,7 @@ public final class HSQLServerUtil {
 	 * @throws AclFormatException
 	 * @throws IOException
 	 */
-	public void start(final String dbName, final int port) throws IOException,
-			AclFormatException {
+	public void start(final String dbName, final int port) throws IOException, AclFormatException {
 		HsqlProperties props = new HsqlProperties();
 		props.setProperty("server.port", port);
 		props.setProperty("server.database.0", dbName);
@@ -74,8 +72,7 @@ public final class HSQLServerUtil {
 	 * @throws AclFormatException
 	 * @throws IOException
 	 */
-	public void start(final String dbName) throws IOException,
-			AclFormatException {
+	public void start(final String dbName) throws IOException, AclFormatException {
 		HsqlProperties props = new HsqlProperties();
 		props.setProperty("server.database.0", dbName);
 		props.setProperty("server.dbname.0", dbName);

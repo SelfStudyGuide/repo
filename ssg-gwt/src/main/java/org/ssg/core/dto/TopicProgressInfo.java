@@ -2,14 +2,12 @@ package org.ssg.core.dto;
 
 import java.io.Serializable;
 
-
 public class TopicProgressInfo implements Serializable {
 	private static final long serialVersionUID = 9121820558110681358L;
 
 	private String status;
 	private String name;
 	private int topicId;
-	
 
 	public int getTopicId() {
 		return topicId;
@@ -43,7 +41,7 @@ public class TopicProgressInfo implements Serializable {
 		if (getStatus() == null || getStatus().isEmpty()) {
 			return false;
 		}
-		
+
 		int statusInt = Integer.parseInt(getStatus());
 		return statusInt > 0 && statusInt < 100;
 	}

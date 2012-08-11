@@ -78,10 +78,8 @@ public class TaskListViewGwtTest extends GWTTestCase {
 	}
 
 	private Anchor getAnchorAt(int idx) {
-		assertTrue("Expeted " + (idx + 1) + " buttons added",
-				(idx + 1) <= view.topicTaskButtons.getWidgetCount());
-		assertTrue("Expented instance of Panel",
-				view.topicTaskButtons.getWidget(idx) instanceof Panel);
+		assertTrue("Expeted " + (idx + 1) + " buttons added", (idx + 1) <= view.topicTaskButtons.getWidgetCount());
+		assertTrue("Expented instance of Panel", view.topicTaskButtons.getWidget(idx) instanceof Panel);
 		Panel panel = (Panel) view.topicTaskButtons.getWidget(idx);
 		assertTrue("Expented Anchor in the panel", panel.iterator().hasNext());
 		return (Anchor) panel.iterator().next();

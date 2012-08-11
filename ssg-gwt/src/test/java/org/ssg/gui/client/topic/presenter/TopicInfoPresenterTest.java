@@ -38,15 +38,13 @@ public class TopicInfoPresenterTest extends AbstractPresenterTestCase {
 	@Mock
 	private HasText topicProgress;
 
-
 	@Before
 	public void setUp() {
 		when(display.getTopicName()).thenReturn(topicName);
 		when(display.getTopicDescription()).thenReturn(topicDescription);
 		when(display.getTopicProgress()).thenReturn(topicProgress);
 
-		presenter = new TopicInfoPresenter(display, actionSender,
-				handlerManager, ssgMessages);
+		presenter = new TopicInfoPresenter(display, actionSender, handlerManager, ssgMessages);
 		presenter.bind();
 	}
 
@@ -69,8 +67,7 @@ public class TopicInfoPresenterTest extends AbstractPresenterTestCase {
 		AsyncCallback<Response> callback = verifyActionAndResturnCallback(GetTopicInfo.class);
 
 		// When
-		callback.onSuccess(new GetTopicInfoResponse(TstDataUtils
-				.createTopicDetailedProgressInfo(345, "Topic1")));
+		callback.onSuccess(new GetTopicInfoResponse(TstDataUtils.createTopicDetailedProgressInfo(345, "Topic1")));
 
 		// Then
 		assertText(topicName, "Topic1");
@@ -83,8 +80,7 @@ public class TopicInfoPresenterTest extends AbstractPresenterTestCase {
 		AsyncCallback<Response> callback = verifyActionAndResturnCallback(GetTopicInfo.class);
 
 		// When
-		callback.onSuccess(new GetTopicInfoResponse(TstDataUtils
-				.createTopicDetailedProgressInfo(345, "Topic1")));
+		callback.onSuccess(new GetTopicInfoResponse(TstDataUtils.createTopicDetailedProgressInfo(345, "Topic1")));
 
 		// Then
 		assertText(topicDescription, "Some Topic description");
@@ -97,8 +93,7 @@ public class TopicInfoPresenterTest extends AbstractPresenterTestCase {
 		AsyncCallback<Response> callback = verifyActionAndResturnCallback(GetTopicInfo.class);
 
 		// When
-		callback.onSuccess(new GetTopicInfoResponse(TstDataUtils
-				.createTopicDetailedProgressInfo(345, "Topic1")));
+		callback.onSuccess(new GetTopicInfoResponse(TstDataUtils.createTopicDetailedProgressInfo(345, "Topic1")));
 
 		// Then
 		assertText(topicProgress, "In Progress");

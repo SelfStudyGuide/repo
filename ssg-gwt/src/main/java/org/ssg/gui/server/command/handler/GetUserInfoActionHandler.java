@@ -14,11 +14,10 @@ import org.ssg.gui.server.command.ActionHandler;
 import org.ssg.gui.server.service.SecurityService;
 
 @Service
-public class GetUserInfoActionHandler implements
-		ActionHandler<GetUserInfoResponse, GetUserInfo> {
+public class GetUserInfoActionHandler implements ActionHandler<GetUserInfoResponse, GetUserInfo> {
 
 	private static final Log LOG = LogFactory.getLog(GetUserInfoActionHandler.class);
-	
+
 	@Autowired
 	private SecurityService securityService;
 
@@ -26,11 +25,11 @@ public class GetUserInfoActionHandler implements
 		ApplicationUserInfo into = new ApplicationUserInfo();
 
 		ApplicationUser user = securityService.getAuthorisedUserInfo();
-		
+
 		if (user == null) {
 			throw new SsgGuiServiceException("User id not authenticated", "userNotLoggedIn");
 		}
-		
+
 		ApplicationUserAdpater adapter = new ApplicationUserAdpater(user);
 		adapter.populate(into);
 

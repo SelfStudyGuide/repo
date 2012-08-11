@@ -1,6 +1,5 @@
 package org.ssg.gui.client.errordialog;
 
-
 import org.ssg.gui.client.action.Action;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -39,12 +38,11 @@ public class ErrorDialog {
 
 	@Deprecated
 	public void show(String message, Action<?> action) {
-		view.getActionInfoBox().setText(
-				messages.getActionInfo(action.getActionName()));
+		view.getActionInfoBox().setText(messages.getActionInfo(action.getActionName()));
 		view.getMessageBox().setHTML(message);
 		view.show();
 	}
-	
+
 	public void show(String message, String actionName) {
 		view.getActionInfoBox().setText(messages.getActionInfo(actionName));
 		view.getMessageBox().setHTML(message);

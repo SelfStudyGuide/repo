@@ -42,8 +42,7 @@ public class DefaultActionResponseCallbackProcessorTest {
 	public void setUp() {
 		action = new TestAction();
 		when(ssgLookupMessages.getString(eq("error_code"))).thenReturn("oups");
-		processor = new DefaultActionResponseCallbackProcessor(dialog,
-				messages, ssgLookupMessages);
+		processor = new DefaultActionResponseCallbackProcessor(dialog, messages, ssgLookupMessages);
 	}
 
 	@Test
@@ -58,10 +57,8 @@ public class DefaultActionResponseCallbackProcessorTest {
 	@Test
 	public void givenUnexpectedCommandExceptionWhenProcessExceptionThenDisplayErrorDialog() {
 		// Given
-		UnexpectedCommandException ex = new UnexpectedCommandException(
-				"something happened", "", action.getActionName());
-		when(messages.serviceErrorUnexpected(eq("something happened")))
-				.thenReturn("oups");
+		UnexpectedCommandException ex = new UnexpectedCommandException("something happened", "", action.getActionName());
+		when(messages.serviceErrorUnexpected(eq("something happened"))).thenReturn("oups");
 
 		// When
 		processor.processResponse(action, actionCallback).onFailure(ex);
@@ -69,14 +66,12 @@ public class DefaultActionResponseCallbackProcessorTest {
 		// Then
 		verify(dialog).show(eq("oups"), eq(action.getActionName()));
 	}
-	
+
 	@Test
 	public void givenUnexpectedCommandExceptionWhenProcessExceptionThenActionCallbackShouldntBeCalled() {
 		// Given
-		UnexpectedCommandException ex = new UnexpectedCommandException(
-				"something happened", "", action.getActionName());
-		when(messages.serviceErrorUnexpected(eq("something happened")))
-				.thenReturn("oups");
+		UnexpectedCommandException ex = new UnexpectedCommandException("something happened", "", action.getActionName());
+		when(messages.serviceErrorUnexpected(eq("something happened"))).thenReturn("oups");
 
 		// When
 		processor.processResponse(action, actionCallback).onFailure(ex);
@@ -88,8 +83,7 @@ public class DefaultActionResponseCallbackProcessorTest {
 	@Test
 	public void givenSsgGuiServiceExceptionWhichIsUnhandledWhenProcessingItThenDisplayErrorDialog() {
 
-		SsgGuiServiceException ex = new SsgGuiServiceException("description",
-				"error.code");
+		SsgGuiServiceException ex = new SsgGuiServiceException("description", "error.code");
 
 		// When
 		processor.processResponse(action, actionCallback).onFailure(ex);
@@ -101,8 +95,7 @@ public class DefaultActionResponseCallbackProcessorTest {
 	@Test
 	public void givenSsgGuiServiceExceptionWhichIsAlreadyHandledWhenProcessingItThenDontDisplayErrorDialog() {
 		// Given
-		SsgGuiServiceException ex = new SsgGuiServiceException("description",
-				"error.code");
+		SsgGuiServiceException ex = new SsgGuiServiceException("description", "error.code");
 		ex.setHandled(true);
 
 		// When
@@ -111,16 +104,15 @@ public class DefaultActionResponseCallbackProcessorTest {
 		// Then
 		verify(dialog, times(0)).show(eq("oups"), eq(action.getActionName()));
 	}
-	
+
 	@Test
 	public void givenSsgGuiServiceExceptionWhenProcessingItThenActionCallbackShouldBeCalled() {
 		// When
-		SsgGuiServiceException ex = new SsgGuiServiceException("description",
-		"error.code");
-		
+		SsgGuiServiceException ex = new SsgGuiServiceException("description", "error.code");
+
 		// When
 		processor.processResponse(action, actionCallback).onFailure(ex);
-		
+
 		// Then
 		verify(actionCallback).onError(same(ex));
 	}

@@ -24,7 +24,7 @@ import com.google.gwt.user.client.ui.HasText;
 public class UserInfoPresenter {
 
 	private static final String LOGOUT_URL = "j_spring_security_logout";
-	
+
 	private HandlerManager handlerManager;
 	private Display display;
 	private WindowLocation windowLocation;
@@ -32,12 +32,12 @@ public class UserInfoPresenter {
 
 	public interface Display {
 		HasText getUsernameLabel();
+
 		HasClickHandlers getLogoutButton();
 	}
-	
-	public UserInfoPresenter(Display display,
-			ActionSender actionSender, HandlerManager handlerManager,
-			WindowLocation windowLocation) {
+
+	public UserInfoPresenter(Display display, ActionSender actionSender, HandlerManager handlerManager,
+	        WindowLocation windowLocation) {
 		this.display = display;
 		this.actionSender = actionSender;
 		this.handlerManager = handlerManager;
@@ -45,19 +45,17 @@ public class UserInfoPresenter {
 	}
 
 	public void bind() {
-		handlerManager.addHandler(RetrieveUserInfoEvent.TYPE,
-				new RetrieveUserInfoEventHandler() {
-					public void onRetrieveUserInfo() {
-						doRetieveUserInfo();
-					}
-				});
+		handlerManager.addHandler(RetrieveUserInfoEvent.TYPE, new RetrieveUserInfoEventHandler() {
+			public void onRetrieveUserInfo() {
+				doRetieveUserInfo();
+			}
+		});
 
-		handlerManager.addHandler(ShareUserInfoEvent.TYPE,
-				new ShareUserInfoEventHandler() {
-					public void onUserInfoRetrieve(ShareUserInfoEvent event) {
-						doUpdateUserInfo(event.getUserInfo());
-					}
-				});
+		handlerManager.addHandler(ShareUserInfoEvent.TYPE, new ShareUserInfoEventHandler() {
+			public void onUserInfoRetrieve(ShareUserInfoEvent event) {
+				doUpdateUserInfo(event.getUserInfo());
+			}
+		});
 
 		handlerManager.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
 			public void onLogout() {
@@ -91,8 +89,7 @@ public class UserInfoPresenter {
 			public void onResponse(GetUserInfoResponse result) {
 				GWT.log("User info " + result.getUserInfo());
 				UserInfoHolder.setAppInfo(result.getUserInfo());
-				handlerManager.fireEvent(new ShareUserInfoEvent(result
-						.getUserInfo()));
+				handlerManager.fireEvent(new ShareUserInfoEvent(result.getUserInfo()));
 			}
 		});
 	}

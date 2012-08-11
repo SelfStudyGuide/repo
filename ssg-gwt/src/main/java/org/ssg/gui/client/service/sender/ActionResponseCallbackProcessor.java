@@ -8,6 +8,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface ActionResponseCallbackProcessor {
 
-	public <R extends Response> AsyncCallback<R> processResponse(
-			Action<R> action, ActionResponseCallback<R> actionCallback);
+	public <R extends Response> AsyncCallback<R> processResponse(Action<R> action,
+	        ActionResponseCallback<R> actionCallback);
 }

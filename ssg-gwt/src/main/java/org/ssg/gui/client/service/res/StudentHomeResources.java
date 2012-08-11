@@ -5,8 +5,7 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 
 public interface StudentHomeResources extends ClientBundle {
-	public static final StudentHomeResources INSTANCE = GWT
-			.create(StudentHomeResources.class);
+	public static final StudentHomeResources INSTANCE = GWT.create(StudentHomeResources.class);
 
 	@Source("/StudentHome.css")
 	@CssResource.NotStrict
@@ -16,15 +15,15 @@ public interface StudentHomeResources extends ClientBundle {
 		String floatLeft();
 
 		String floatRight();
-		
+
 		String clear();
-		
+
 		String widget_title();
-		
+
 		String clickButton();
-		
+
 		String paddingRight5();
-		
+
 		String paddingRight10();
 	}
 }

@@ -47,8 +47,7 @@ public class UserInfoPresenterTest extends AbstractPresenterTestCase {
 
 	@Before
 	public void setUp() {
-		presenter = new UserInfoPresenter(display, actionSender,
-				handlerManager, windowLocation);
+		presenter = new UserInfoPresenter(display, actionSender, handlerManager, windowLocation);
 		when(display.getUsernameLabel()).thenReturn(userNameLable);
 		when(display.getLogoutButton()).thenReturn(logoutButton);
 		presenter.bind();
@@ -64,15 +63,13 @@ public class UserInfoPresenterTest extends AbstractPresenterTestCase {
 	@Test
 	public void verifyThatAfterResponceFromServerEventIsFired() {
 
-		final ApplicationUserInfo userInfo = TstDataUtils
-				.createStudentUserInfo("John Dou", 1);
+		final ApplicationUserInfo userInfo = TstDataUtils.createStudentUserInfo("John Dou", 1);
 
-		AssertEventHandler eventAssert = verifyAppEvent(
-				ShareUserInfoEvent.TYPE, new ShareUserInfoEventHandler() {
-					public void onUserInfoRetrieve(ShareUserInfoEvent event) {
-						assertThat(event.getUserInfo(), is(userInfo));
-					}
-				});
+		AssertEventHandler eventAssert = verifyAppEvent(ShareUserInfoEvent.TYPE, new ShareUserInfoEventHandler() {
+			public void onUserInfoRetrieve(ShareUserInfoEvent event) {
+				assertThat(event.getUserInfo(), is(userInfo));
+			}
+		});
 
 		handlerManager.fireEvent(new RetrieveUserInfoEvent());
 		AsyncCallback<Response> callback = verifyActionAndResturnCallback(GetUserInfo.class);
@@ -84,8 +81,7 @@ public class UserInfoPresenterTest extends AbstractPresenterTestCase {
 
 	@Test
 	public void verifyThatAfterResponceUsernameLabelIsUpdated() {
-		final ApplicationUserInfo userInfo = TstDataUtils
-				.createStudentUserInfo("John Dou", 1);
+		final ApplicationUserInfo userInfo = TstDataUtils.createStudentUserInfo("John Dou", 1);
 
 		handlerManager.fireEvent(new RetrieveUserInfoEvent());
 		AsyncCallback<Response> callback = verifyActionAndResturnCallback(GetUserInfo.class);
@@ -104,11 +100,10 @@ public class UserInfoPresenterTest extends AbstractPresenterTestCase {
 
 	@Test
 	public void verifyThatWheUserClickOnLogoutButtonLogoutEventIsFired() {
-		AssertEventHandler assertEvent = verifyAppEvent(LogoutEvent.TYPE,
-				new LogoutEventHandler() {
-					public void onLogout() {
-					}
-				});
+		AssertEventHandler assertEvent = verifyAppEvent(LogoutEvent.TYPE, new LogoutEventHandler() {
+			public void onLogout() {
+			}
+		});
 
 		ClickHandler handler = verifyAndCaptureClickHnd(logoutButton);
 		handler.onClick(null);
@@ -118,13 +113,12 @@ public class UserInfoPresenterTest extends AbstractPresenterTestCase {
 
 	@Test
 	public void verifyThatUserInfoIsStoredInHolderAfterResponse() {
-		final ApplicationUserInfo userInfo = TstDataUtils
-				.createStudentUserInfo("John Dou", 1);
+		final ApplicationUserInfo userInfo = TstDataUtils.createStudentUserInfo("John Dou", 1);
 
 		handlerManager.fireEvent(new RetrieveUserInfoEvent());
 		AsyncCallback<Response> callback = verifyActionAndResturnCallback(GetUserInfo.class);
 		callback.onSuccess(new GetUserInfoResponse(userInfo));
-		
+
 		assertThat(UserInfoHolder.getAppUsername(), equalTo("John Dou"));
 		assertThat(UserInfoHolder.getStudentId(), equalTo(1));
 	}

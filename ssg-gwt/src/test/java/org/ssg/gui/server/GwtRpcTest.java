@@ -47,8 +47,7 @@ public class GwtRpcTest {
 			isImplements |= i.isAssignableFrom(Serializable.class);
 		}
 
-		assertTrue("Class " + clazz.getName()
-				+ " should implements Serializable", isImplements);
+		assertTrue("Class " + clazz.getName() + " should implements Serializable", isImplements);
 	}
 
 	@Test
@@ -62,8 +61,7 @@ public class GwtRpcTest {
 	}
 
 	@Parameters
-	public static Collection<Object[]> collectClasses()
-			throws ClassNotFoundException {
+	public static Collection<Object[]> collectClasses() throws ClassNotFoundException {
 
 		Collection<Object[]> result = new ArrayList<Object[]>();
 
@@ -73,15 +71,12 @@ public class GwtRpcTest {
 		return result;
 	}
 
-	private static void dtoObjects(Collection<Object[]> result)
-			throws ClassNotFoundException {
-		ClassPathScanningCandidateComponentProvider scaner = new ClassPathScanningCandidateComponentProvider(
-				false);
+	private static void dtoObjects(Collection<Object[]> result) throws ClassNotFoundException {
+		ClassPathScanningCandidateComponentProvider scaner = new ClassPathScanningCandidateComponentProvider(false);
 		scaner.addIncludeFilter(new TypeFilter() {
 
-			public boolean match(MetadataReader metadataReader,
-					MetadataReaderFactory metadataReaderFactory)
-					throws IOException {
+			public boolean match(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory)
+			        throws IOException {
 				return true;
 			}
 		});
@@ -89,23 +84,19 @@ public class GwtRpcTest {
 		scaner.addExcludeFilter(new AssignableTypeFilter(FieldType.class));
 		scaner.addExcludeFilter(new AssignableTypeFilter(TaskType.class));
 
-		Set<BeanDefinition> beans = scaner
-				.findCandidateComponents("org/ssg/core/dto");
+		Set<BeanDefinition> beans = scaner.findCandidateComponents("org/ssg/core/dto");
 
 		for (BeanDefinition bean : beans) {
 			result.add(new Object[] { Class.forName(bean.getBeanClassName()) });
 		}
 	}
 
-	private static void actionsAndResponses(Collection<Object[]> result)
-			throws ClassNotFoundException {
-		ClassPathScanningCandidateComponentProvider scaner = new ClassPathScanningCandidateComponentProvider(
-				false);
+	private static void actionsAndResponses(Collection<Object[]> result) throws ClassNotFoundException {
+		ClassPathScanningCandidateComponentProvider scaner = new ClassPathScanningCandidateComponentProvider(false);
 		scaner.addIncludeFilter(new AssignableTypeFilter(Action.class));
 		scaner.addIncludeFilter(new AssignableTypeFilter(Response.class));
-		
-		Set<BeanDefinition> beans = scaner
-				.findCandidateComponents("org/ssg/gui");
+
+		Set<BeanDefinition> beans = scaner.findCandidateComponents("org/ssg/gui");
 
 		for (BeanDefinition bean : beans) {
 			result.add(new Object[] { Class.forName(bean.getBeanClassName()) });

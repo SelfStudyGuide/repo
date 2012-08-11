@@ -17,7 +17,8 @@ public class Module {
 	private String name;
 	private String description;
 	private List<Topic> topics;
-	//private List<Homework> homeworks;
+
+	// private List<Homework> homeworks;
 
 	@Id
 	@GeneratedValue
@@ -57,14 +58,14 @@ public class Module {
 		this.topics = topics;
 	}
 
-//	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, 
-//			mappedBy = "modules", targetEntity = Homework.class)
-//	public List<Homework> getHomeworks() {
-//		return homeworks;
-//	}
-//
-//	public void setHomeworks(List<Homework> homeworks) {
-//		this.homeworks = homeworks;
-//	}
+	// @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+	// mappedBy = "modules", targetEntity = Homework.class)
+	// public List<Homework> getHomeworks() {
+	// return homeworks;
+	// }
+	//
+	// public void setHomeworks(List<Homework> homeworks) {
+	// this.homeworks = homeworks;
+	// }
 
 }

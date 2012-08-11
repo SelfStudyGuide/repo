@@ -54,16 +54,15 @@ public class HomeworkAdapter {
 		return iterateTopicProgressAndAdaptItToInfo(progresses);
 	}
 
-	private ArrayList<TopicProgressInfo> iterateTopicProgressAndAdaptItToInfo(
-			List<TopicProgress> progresses) {
+	private ArrayList<TopicProgressInfo> iterateTopicProgressAndAdaptItToInfo(List<TopicProgress> progresses) {
 		ArrayList<TopicProgressInfo> result = new ArrayList<TopicProgressInfo>();
 		for (TopicProgress tp : progresses) {
-			
+
 			TopicProgressInfo info = new TopicProgressInfo();
 			new TopicProgressAdapter(tp).populate(info);
 			result.add(info);
 		}
 		return result;
 	}
-	
+
 }

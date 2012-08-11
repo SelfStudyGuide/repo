@@ -7,9 +7,8 @@ import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.service.StudentControlService;
 import org.ssg.gui.server.SpringGwtServlet;
 
-public class StudentControlServiceImpl extends SpringGwtServlet implements
-		StudentControlService {
-	
+public class StudentControlServiceImpl extends SpringGwtServlet implements StudentControlService {
+
 	private static final long serialVersionUID = 992653253296938793L;
 
 	@Autowired

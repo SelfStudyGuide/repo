@@ -24,8 +24,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/spring/gui-service.ctx.xml",
-		"/serice-core-mock.ctx.xml" })
+@ContextConfiguration(locations = { "/spring/gui-service.ctx.xml", "/serice-core-mock.ctx.xml" })
 public class StudentUIServiceTest {
 
 	@Autowired
@@ -65,12 +64,8 @@ public class StudentUIServiceTest {
 		s.setHandlerLookup(actionHandlerLookupMock);
 		TstDataUtils.TestAction action = new TstDataUtils.TestAction();
 
-		when(
-				actionHandlerLookupMock
-						.findHandler(same(TstDataUtils.TestAction.class)))
-				.thenReturn(actionHandlerMock);
-		when(actionHandlerMock.execute(same(action))).thenThrow(
-				new RuntimeException("Some unexpected"));
+		when(actionHandlerLookupMock.findHandler(same(TstDataUtils.TestAction.class))).thenReturn(actionHandlerMock);
+		when(actionHandlerMock.execute(same(action))).thenThrow(new RuntimeException("Some unexpected"));
 
 		s.execute(action);
 	}

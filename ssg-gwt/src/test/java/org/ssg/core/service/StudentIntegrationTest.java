@@ -30,28 +30,25 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 	@Override
 	protected void cleanUpDb() {
 		deleteAll(Homework.class);
-		//deleteAll(TopicProgress.class);
+		// deleteAll(TopicProgress.class);
 		deleteAll(Student.class);
-		//deleteAll(Topic.class);
+		// deleteAll(Topic.class);
 		deleteAll(Module.class);
 	}
-	
+
 	@Test
 	public void verifyThatHomeworkCanBeLoadedById() {
 		Student savedStudent = createStudentAndSave();
 		Module savedModule = createModuleAndSave();
-		Homework savedHomework = createHomeworkAndSave(savedStudent,
-				savedModule);
+		Homework savedHomework = createHomeworkAndSave(savedStudent, savedModule);
 		clearSession();
 
-		Homework loadedHomework = homeworkDao
-				.getHomework(savedHomework.getId());
+		Homework loadedHomework = homeworkDao.getHomework(savedHomework.getId());
 
 		Assert.assertThat(loadedHomework.getId(), is(savedHomework.getId()));
 	}
 
-	private Homework createHomeworkAndSave(Student savedStudent,
-			Module savedModules) {
+	private Homework createHomeworkAndSave(Student savedStudent, Module savedModules) {
 		Homework savedHomework = TstDataUtils.createHomework(savedStudent, savedModules);
 		homeworkDao.saveHomework(savedHomework);
 		return savedHomework;
@@ -68,7 +65,7 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 		userDao.saveStudent(st);
 		return st;
 	}
-	
+
 	@Test
 	public void verifyThatStudentCanBeSaved() {
 		createStudentAndSave();
@@ -97,51 +94,50 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 	public void verifyThatHibernateExceptionIsThrowsIfNoUserFound() {
 		Student student = userDao.getStudentById(1);
 		Assert.assertThat(student, nullValue());
-		
+
 	}
-	
+
 	@Test
-	//@Rollback(value=false)
+	// @Rollback(value=false)
 	public void verifyThatHomeworkCanBeAssignedToStudent() {
 		createStudentAndSave();
 		createModuleAndSave();
-		
-		//clearSession();
+
+		// clearSession();
 
 		Student savedStudent = getSavedStudent();
 		Module savedModule = getSavedModule();
-		
-		
+
 		Homework homework = createHomeworkAndSave(savedStudent, savedModule);
 
 		clearSession();
-		
+
 		Homework savedHomework = getSavedHomework();
-		
+
 		Assert.assertThat(savedHomework.getId(), not(0));
 		Assert.assertThat(savedHomework.getStudent().getId(), is(savedStudent.getId()));
 		assertThat(savedHomework.getModules().size(), is(1));
-		
+
 	}
-	
+
 	@Test
-	//@Rollback(value=false)
+	// @Rollback(value=false)
 	public void verifyThatTopicProgressCanBeSavedWithHomework() {
 		createStudentAndSave();
 		Module module = TstDataUtils.enrichModuleWithTopics(TstDataUtils.createModuleWithUniqueName());
 		curriculumDao.saveModule(module);
-		
+
 		Student savedStudent = getSavedStudent();
 		Module savedModule = getSavedModule();
 
 		Homework homework = TstDataUtils.createHomework(savedStudent, savedModule);
 		homework = TstDataUtils.enrichHomeworkWithProgress(homework, savedModule.getTopics());
 		homeworkDao.saveHomework(homework);
-		
+
 		clearSession();
-		
+
 		Homework savedHomework = getSavedHomework();
-		
+
 		List<TopicProgress> savedProgress = savedHomework.getProgresses();
 		assertThat(savedProgress.size(), is(3));
 		assertThat(savedProgress.get(0).getHomework().getId(), is(savedHomework.getId()));
@@ -151,20 +147,19 @@ public class StudentIntegrationTest extends AbstractDaoTestSupport {
 		assertThat(savedProgress.get(1).getTopic().getId(), is(savedModule.getTopics().get(1).getId()));
 		assertThat(savedProgress.get(2).getTopic().getId(), is(savedModule.getTopics().get(2).getId()));
 	}
-	
+
 	@Test
 	public void verifyThatStudentCanBeLoadedByItsName() {
 		userDao.saveStudent(TstDataUtils.createStudent("John"));
-		
+
 		Student student = userDao.getStudentByName("John");
-		
+
 		Assert.assertThat(student.getName(), equalTo("John"));
 	}
 
 	private Homework getSavedHomework() {
 		List<Homework> all = template.loadAll(Homework.class);
-		Assert.assertThat("Expected one homework has been saved", all.size(),
-				is(1));
+		Assert.assertThat("Expected one homework has been saved", all.size(), is(1));
 		return all.iterator().next();
 	}
 

@@ -11,14 +11,13 @@ import org.ssg.gui.client.action.Action;
 import org.ssg.gui.client.action.Response;
 
 public class DefaultActionHandlerLookup<R extends Response, A extends Action<R>> implements ActionHandlerLookup,
-		ApplicationContextAware, InitializingBean {
+        ApplicationContextAware, InitializingBean {
 
 	private ApplicationContext applicationContext;
 
-	private Map<Class<A>, ActionHandler<R, A>> handlers = new HashMap<Class<A>, ActionHandler<R,A>>();
+	private Map<Class<A>, ActionHandler<R, A>> handlers = new HashMap<Class<A>, ActionHandler<R, A>>();
 
-	public void setApplicationContext(ApplicationContext applicationContext)
-			throws BeansException {
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
 

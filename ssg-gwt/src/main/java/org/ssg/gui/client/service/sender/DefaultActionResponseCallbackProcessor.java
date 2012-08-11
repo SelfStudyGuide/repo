@@ -13,30 +13,27 @@ import org.ssg.gui.client.service.res.SsgMessages;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class DefaultActionResponseCallbackProcessor implements
-		ActionResponseCallbackProcessor {
+public class DefaultActionResponseCallbackProcessor implements ActionResponseCallbackProcessor {
 
 	private final ErrorDialog dialog;
 	private final SsgMessages messages;
 	private final SsgLookupMessages ssgLookupMessages;
 
-	public DefaultActionResponseCallbackProcessor(ErrorDialog dialog,
-			SsgMessages messages, SsgLookupMessages ssgLookupMessages) {
+	public DefaultActionResponseCallbackProcessor(ErrorDialog dialog, SsgMessages messages,
+	        SsgLookupMessages ssgLookupMessages) {
 		this.dialog = dialog;
 		this.messages = messages;
 		this.ssgLookupMessages = ssgLookupMessages;
 	}
 
-	public <R extends Response> AsyncCallback<R> processResponse(
-			final Action<R> action,
-			final ActionResponseCallback<R> actionCallback) {
+	public <R extends Response> AsyncCallback<R> processResponse(final Action<R> action,
+	        final ActionResponseCallback<R> actionCallback) {
 
 		return createGwtRpcCallback(action, actionCallback);
 	}
 
-	private <R extends Response> AsyncCallback<R> createGwtRpcCallback(
-			final Action<R> action,
-			final ActionResponseCallback<R> actionCallback) {
+	private <R extends Response> AsyncCallback<R> createGwtRpcCallback(final Action<R> action,
+	        final ActionResponseCallback<R> actionCallback) {
 
 		return new AsyncCallback<R>() {
 			public void onFailure(Throwable ex) {
@@ -49,15 +46,14 @@ public class DefaultActionResponseCallbackProcessor implements
 		};
 	}
 
-	protected <R extends Response> void displayError(Action<R> action,
-			UnexpectedCommandException caught) {
+	protected <R extends Response> void displayError(Action<R> action, UnexpectedCommandException caught) {
 
 		String dialogMsg = messages.serviceErrorUnexpected(caught.getMessage());
 		dialog.show(dialogMsg, action.getActionName());
 	}
 
-	private <R extends Response> void handleException(final Action<R> action,
-			Throwable ex, ActionResponseCallback<R> actionCallback) {
+	private <R extends Response> void handleException(final Action<R> action, Throwable ex,
+	        ActionResponseCallback<R> actionCallback) {
 
 		if (ex instanceof UnexpectedCommandException) {
 
@@ -67,8 +63,7 @@ public class DefaultActionResponseCallbackProcessor implements
 			SsgGuiServiceException guiEx = (SsgGuiServiceException) ex;
 			actionCallback.onError(guiEx);
 			if (!guiEx.isHandled()) {
-				String dialogMsg = ssgLookupMessages
-						.getString(dot2underscore(guiEx.getErrorCode()));
+				String dialogMsg = ssgLookupMessages.getString(dot2underscore(guiEx.getErrorCode()));
 				dialog.show(dialogMsg, action.getActionName());
 			}
 		}

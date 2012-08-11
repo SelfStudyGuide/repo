@@ -8,7 +8,6 @@ public interface UserInfoMessages extends Messages {
 
 	@Key("userinfo.logout.link")
 	String logoutLink();
-	
 
 	@Key("userinfo.logout.label")
 	String logoutLabel();

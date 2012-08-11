@@ -8,5 +8,5 @@
 
 	<context:component-scan base-package="org.ssg.gui.server.devdata" />
 
-	
+
 </beans>

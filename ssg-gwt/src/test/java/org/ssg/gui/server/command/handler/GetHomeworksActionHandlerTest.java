@@ -18,8 +18,7 @@ import org.ssg.gui.client.studenthome.action.GetHomeworksResponse;
 
 import static org.mockito.Mockito.*;
 
-@ContextConfiguration(locations = { "/spring/gui-service.ctx.xml",
-		"/serice-core-mock.ctx.xml" })
+@ContextConfiguration(locations = { "/spring/gui-service.ctx.xml", "/serice-core-mock.ctx.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class GetHomeworksActionHandlerTest extends AbstractCommandTestCase<GetHomeworksResponse, GetHomeworks> {
 

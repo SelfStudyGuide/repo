@@ -12,9 +12,9 @@ public class GetHomeworksResponse implements Response, Serializable {
 	private ArrayList<HomeworkInfo> homeworks;
 
 	public GetHomeworksResponse() {
-		
+
 	}
-	
+
 	public GetHomeworksResponse(ArrayList<HomeworkInfo> homeworks) {
 		this.homeworks = homeworks;
 	}

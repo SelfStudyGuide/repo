@@ -28,24 +28,23 @@ public class TopicEntryPoint extends BaseEntryPoint {
 
 	private void setupTopicTaskView() {
 		TaskListView view = new TaskListView(RootPanel.get("tasklist"));
-		TaskListPresenter presenter = new TaskListPresenter(view, getHandlerManager(), getActionSender(), getWindowLocation(), getSsgMessages());
+		TaskListPresenter presenter = new TaskListPresenter(view, getHandlerManager(), getActionSender(),
+		        getWindowLocation(), getSsgMessages());
 		presenter.bind();
 		view.go();
 	}
 
 	private void setupTopicInfoView() {
 		TopicInfoView view = new TopicInfoView(RootPanel.get("topicinfo"));
-		TopicInfoPresenter presenter = new TopicInfoPresenter(view,
-				getActionSender(), getHandlerManager(), getSsgMessages());
+		TopicInfoPresenter presenter = new TopicInfoPresenter(view, getActionSender(), getHandlerManager(),
+		        getSsgMessages());
 		presenter.bind();
 	}
 
 	private void fireTopicInfoEventWhenUserInfoReceived() {
-		FireEventWhenUserInfo userInfoToAction = new FireEventWhenUserInfo(
-				getHandlerManager());
+		FireEventWhenUserInfo userInfoToAction = new FireEventWhenUserInfo(getHandlerManager());
 
-		userInfoToAction.setEvent(new RefreshTopicInfoEvent(
-				getParameterInt(HOMEWORK_ID), getParameterInt(TOPIC_ID)));
+		userInfoToAction.setEvent(new RefreshTopicInfoEvent(getParameterInt(HOMEWORK_ID), getParameterInt(TOPIC_ID)));
 	}
 
 	private int getParameterInt(String paramName) {

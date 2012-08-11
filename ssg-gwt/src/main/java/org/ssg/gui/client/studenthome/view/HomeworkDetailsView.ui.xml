@@ -1,12 +1,11 @@
 <!--!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent" -->
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	
+
 	<ui:with field="css"
 		type="org.ssg.gui.client.service.res.StudentHomeResources" />
 
-	<ui:with field='msg'
-		type='org.ssg.gui.client.service.res.SsgMessages' />
+	<ui:with field='msg' type='org.ssg.gui.client.service.res.SsgMessages' />
 
 	<g:HTMLPanel>
 		<g:FlowPanel styleName='{css.styles.widget_title}'>
@@ -34,7 +33,7 @@
 				<ui:text from='{msg.homeworkDetailsComplete}' />
 			</g:Label>
 		</g:FlowPanel>
-		<g:FlowPanel styleName="{css.styles.floatLeft}" >
+		<g:FlowPanel styleName="{css.styles.floatLeft}">
 			<g:Label ui:field="completeDate" />
 		</g:FlowPanel>
 

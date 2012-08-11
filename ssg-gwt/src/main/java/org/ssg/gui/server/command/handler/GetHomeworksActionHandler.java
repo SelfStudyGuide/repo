@@ -13,15 +13,13 @@ import org.ssg.gui.client.studenthome.action.GetHomeworksResponse;
 import org.ssg.gui.server.command.ActionHandler;
 
 @Service
-public class GetHomeworksActionHandler implements
-		ActionHandler<GetHomeworksResponse, GetHomeworks> {
+public class GetHomeworksActionHandler implements ActionHandler<GetHomeworksResponse, GetHomeworks> {
 
 	@Autowired
 	private StudentService studentService;
 
 	public GetHomeworksResponse execute(GetHomeworks action) throws SsgGuiServiceException {
-		Collection<HomeworkInfo> homeworks = studentService.getHomeworks(action
-				.getStudentId());
+		Collection<HomeworkInfo> homeworks = studentService.getHomeworks(action.getStudentId());
 		return new GetHomeworksResponse(new ArrayList<HomeworkInfo>(homeworks));
 	}
 

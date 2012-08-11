@@ -11,12 +11,12 @@ public class GetTopicTasksInfoResponse implements Response, Serializable {
 	private static final long serialVersionUID = 3033394799406497182L;
 
 	private List<TopicTaskInfo> taskInfos;
-	
+
 	// GWT PRC
 	@SuppressWarnings("unused")
 	private GetTopicTasksInfoResponse() {
 	}
-	
+
 	public GetTopicTasksInfoResponse(List<TopicTaskInfo> taskInfos) {
 		this.taskInfos = taskInfos;
 	}

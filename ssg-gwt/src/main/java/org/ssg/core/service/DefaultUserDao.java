@@ -34,8 +34,7 @@ public class DefaultUserDao extends HibernateDaoSupport implements UserDao {
 	}
 
 	public Student getStudentByName(String name) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(Student.class)
-				.add(Restrictions.eq("name", name));
+		DetachedCriteria criteria = DetachedCriteria.forClass(Student.class).add(Restrictions.eq("name", name));
 		List<Student> list = getHibernateTemplate().findByCriteria(criteria);
 		if (list != null && !list.isEmpty()) {
 			return list.get(0);

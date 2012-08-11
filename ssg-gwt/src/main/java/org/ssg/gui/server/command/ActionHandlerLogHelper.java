@@ -6,8 +6,7 @@ import org.ssg.gui.client.action.BaseAction;
 
 public class ActionHandlerLogHelper {
 
-	public static void info(Log log, Action<?> act, String message,
-			Object... args) {
+	public static void info(Log log, Action<?> act, String message, Object... args) {
 		if (log.isInfoEnabled()) {
 			if (act instanceof BaseAction<?>) {
 				String actName = ((BaseAction<?>) act).getActionName();
@@ -18,8 +17,7 @@ public class ActionHandlerLogHelper {
 		}
 	}
 
-	public static void debug(Log log, Action<?> act, String message,
-			Object... args) {
+	public static void debug(Log log, Action<?> act, String message, Object... args) {
 		if (log.isDebugEnabled()) {
 			if (act instanceof BaseAction<?>) {
 				String actName = ((BaseAction<?>) act).getActionName();

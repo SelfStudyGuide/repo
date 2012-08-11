@@ -20,15 +20,13 @@ public class DefaultActionNameProviderTest {
 
 	@Test
 	public void verifyThatActioNameCanBeGenerated() {
-		UserInfoHolder.setAppInfo(TstDataUtils.createStudentUserInfo(
-				"username", 1));
+		UserInfoHolder.setAppInfo(TstDataUtils.createStudentUserInfo("username", 1));
 		TestAction testAction = new TstDataUtils.TestAction();
 
 		String actionName = nameProvider.getActionName(testAction);
 
 		String expected = "username/TstDataUtils$TestAction/";
-		assertThat(actionName.substring(0, expected.length()),
-				equalTo(expected));
+		assertThat(actionName.substring(0, expected.length()), equalTo(expected));
 	}
 
 	@Test
@@ -38,10 +36,9 @@ public class DefaultActionNameProviderTest {
 
 		String actionName = nameProvider.getActionName(testAction);
 
-		//System.out.println(actionName);
-		
+		// System.out.println(actionName);
+
 		String expected = "Anonymous/TstDataUtils$TestAction/";
-		assertThat(actionName.substring(0, expected.length()),
-				equalTo(expected));
+		assertThat(actionName.substring(0, expected.length()), equalTo(expected));
 	}
 }

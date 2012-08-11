@@ -3,8 +3,7 @@ package org.ssg.gui.client.topic.event;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 
-public class RefreshTopicInfoEvent extends
-		GwtEvent<RefreshTopicInfoEvent.Handler> {
+public class RefreshTopicInfoEvent extends GwtEvent<RefreshTopicInfoEvent.Handler> {
 
 	public interface Handler extends EventHandler {
 		void onRefreshTopicInfo(int homeworkId, int topicId);

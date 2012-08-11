@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-	
+
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 
@@ -21,14 +20,13 @@
 			<value>${jdbc.password}</value>
 		</property>
 	</bean>
-	
+
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
-		<property name="packagesToScan"
-			value="org.ssg.core.domain" />
+		<property name="packagesToScan" value="org.ssg.core.domain" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
@@ -37,18 +35,19 @@
 			</props>
 		</property>
 	</bean>
-	
+
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	
-	<bean id="jdbcOps" class="org.springframework.jdbc.core.JdbcTemplate" scope="singleton">
-		<constructor-arg index="0" ref="dataSource"/>
+
+	<bean id="jdbcOps" class="org.springframework.jdbc.core.JdbcTemplate"
+		scope="singleton">
+		<constructor-arg index="0" ref="dataSource" />
 	</bean>
-	
+
 	<tx:annotation-driven />
 
 </beans>

@@ -26,7 +26,7 @@ import org.ssg.gui.server.ApplicationMessageSource;
 public class DefaultStudentService implements StudentService {
 
 	private static final Log LOG = LogFactory.getLog(DefaultStudentService.class);
-	
+
 	@Autowired
 	private UserDao userDao;
 
@@ -35,21 +35,19 @@ public class DefaultStudentService implements StudentService {
 
 	@Autowired
 	private CurriculumDao curriculumDao;
-	
+
 	private MessageSourceAccessor applicationMsg = ApplicationMessageSource.getAccessor();
 
 	public List<HomeworkInfo> getHomeworks(int userId) {
 		LOG.info("Loading list of homeworks for user with id " + userId);
 		Student student = userDao.getStudentById(userId);
-		
+
 		if (student == null) {
-			throw new SsgServiceException(applicationMsg.getMessage(
-					"ssg.student.notfound",
-					new String[] { String.valueOf(userId) }));
+			throw new SsgServiceException(applicationMsg.getMessage("ssg.student.notfound",
+			        new String[] { String.valueOf(userId) }));
 		}
 
-		ArrayList<HomeworkInfo> result = new ArrayList<HomeworkInfo>(student
-				.getHomeworks().size());
+		ArrayList<HomeworkInfo> result = new ArrayList<HomeworkInfo>(student.getHomeworks().size());
 
 		for (Homework hw : student.getHomeworks()) {
 			HomeworkInfo info = new HomeworkInfo();
@@ -66,30 +64,29 @@ public class DefaultStudentService implements StudentService {
 		homework.setModules(Arrays.asList(m));
 		homework.setStudent(student);
 		homework.initTopicProgress(m.getTopics());
-		
+
 		homeworkDao.saveHomework(homework);
 	}
-	
+
 	public int getStudentIdByName(String name) {
 		LOG.info("Loading student with name " + name);
-		
+
 		Student student = userDao.getStudentByName(name);
 		if (student == null) {
-			throw new SsgServiceException(applicationMsg.getMessage(
-					"ssg.auth.studentNotFoundByName", new String[] { name }));
+			throw new SsgServiceException(applicationMsg.getMessage("ssg.auth.studentNotFoundByName",
+			        new String[] { name }));
 		}
 		return student.getId();
 	}
 
 	public HomeworkInfo getHomeworksDetails(int homeworkId) {
 		LOG.info("Loading homework with id " + homeworkId);
-		
+
 		Homework homework = homeworkDao.getHomework(homeworkId);
 
 		if (homework == null) {
-			throw new SsgServiceException(applicationMsg.getMessage(
-					"ssg.homework.notfound",
-					new String[] { String.valueOf(homeworkId) }));
+			throw new SsgServiceException(applicationMsg.getMessage("ssg.homework.notfound",
+			        new String[] { String.valueOf(homeworkId) }));
 		}
 
 		HomeworkInfo info = new HomeworkInfo();

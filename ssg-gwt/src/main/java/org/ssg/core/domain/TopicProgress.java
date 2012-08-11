@@ -17,21 +17,21 @@ import javax.persistence.Transient;
 public class TopicProgress implements Serializable {
 	private static final long serialVersionUID = -1107116198666337327L;
 	private Homework homework;
-	private Topic topic;	
+	private Topic topic;
 	private String status;
 	private List<Answer> answers;
+
 	// Exercise should have completion status NOT_STARTED, IN_PROGRESS, DONE
 	// Module, Topic should have numbers of completed child elements.
-	
+
 	public TopicProgress(Topic topic, Homework homework) {
 		this.topic = topic;
-		this.homework = homework;		
-	}
-	
-	public TopicProgress() {
-		
+		this.homework = homework;
 	}
 
+	public TopicProgress() {
+
+	}
 
 	@Id
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -63,7 +63,7 @@ public class TopicProgress implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	@Transient
 	public List<Answer> getAnswers() {
 		return answers;
@@ -72,15 +72,15 @@ public class TopicProgress implements Serializable {
 	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;
 	}
-	
+
 	@Transient
 	public String getTopicName() {
 		return getTopic() != null ? getTopic().getName() : null;
 	}
-	
+
 	@Transient
 	public int getTopicId() {
 		return getTopic() != null ? getTopic().getId() : -1;
 	}
-	
+
 }

@@ -27,17 +27,17 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 		void creanUpView();
 
 		HasText getModuleName();
-				
+
 		void addTopic(String name, String url);
 
 		HasText getAssignedDate();
-		
+
 		HasText getCompleteDate();
-		
+
 		HasText getTeacherName();
-		
+
 		void hide();
-		
+
 		void show();
 	}
 
@@ -47,9 +47,8 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 	private final SsgMessages messages;
 	private final WindowLocation windowLocation;
 
-	public HomeworkDetailsPresenter(Display view,
-			SsgMessages messages, WindowLocation windowLocation,
-			ActionSender actionSender, HandlerManager handlerManager) {
+	public HomeworkDetailsPresenter(Display view, SsgMessages messages, WindowLocation windowLocation,
+	        ActionSender actionSender, HandlerManager handlerManager) {
 		this.view = view;
 		this.messages = messages;
 		this.windowLocation = windowLocation;
@@ -63,18 +62,17 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 
 	public void onHomeworkSelection(HomeworkInfo selected) {
 		view.hide();
-		actionSender.send(new GetHomeworkDetails(UserInfoHolder.getStudentId(),
-				selected.getId()),
-				new ActionCallbackAdapter<GetHomeworkDetailsResponse>() {
+		actionSender.send(new GetHomeworkDetails(UserInfoHolder.getStudentId(), selected.getId()),
+		        new ActionCallbackAdapter<GetHomeworkDetailsResponse>() {
 
-					@Override
-					public void onResponse(GetHomeworkDetailsResponse response) {
-						doUpdateDetails(response.getHomework());
-					}
+			        @Override
+			        public void onResponse(GetHomeworkDetailsResponse response) {
+				        doUpdateDetails(response.getHomework());
+			        }
 
-				});
+		        });
 	}
-	
+
 	public void onHomeworkDeselected() {
 		view.hide();
 	}
@@ -103,14 +101,13 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 				} else {
 					topicName = topic.getTopicName();
 				}
-				
+
 				view.addTopic(
-						topicName,
-						windowLocation.getUrl(TOPIC_PAGE + "?" + HOMEWORK_ID + "="
-								+ homework.getId() + "&" + TOPIC_ID + "=" + topic.getTopicId()));
+				        topicName,
+				        windowLocation.getUrl(TOPIC_PAGE + "?" + HOMEWORK_ID + "=" + homework.getId() + "&" + TOPIC_ID
+				                + "=" + topic.getTopicId()));
 			}
 		}
 	}
 
-	
 }

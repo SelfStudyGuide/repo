@@ -26,7 +26,7 @@ public class TopicTaskInfo implements Serializable {
 	public void setType(TaskType type) {
 		this.type = type;
 	}
-	
+
 	public int getExecrisesCount() {
 		return execrisesCount;
 	}
@@ -42,7 +42,7 @@ public class TopicTaskInfo implements Serializable {
 	public void setCompletedCount(int completedCount) {
 		this.completedCount = completedCount;
 	}
-	
+
 	public boolean isType(TaskType type) {
 		return getType() == type;
 	}

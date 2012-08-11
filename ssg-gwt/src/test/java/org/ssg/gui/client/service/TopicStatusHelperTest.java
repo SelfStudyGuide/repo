@@ -17,22 +17,20 @@ import org.ssg.gui.client.service.res.SsgMessagesMock;
 @RunWith(MockitoJUnitRunner.class)
 public class TopicStatusHelperTest {
 	private TopicStatusHelper helper;
-	
+
 	private SsgMessages messages;
 
 	@Before
 	public void setUp() {
 		messages = SsgMessagesMock.mockMsg(SsgMessages.class);
-		
-		helper = new TopicStatusHelper(TopicStatusHelper.TOPIC_DETAILS,
-				messages);
+
+		helper = new TopicStatusHelper(TopicStatusHelper.TOPIC_DETAILS, messages);
 	}
 
 	@Test
 	public void verifyThatIfTopicIsNotStartedAtTopicPageThenMessageIs_Not_Started() {
 		// Given
-		TopicDetailedProgressInfo topic = TstDataUtils
-				.createTopicDetailedProgressInfo(1, "name");
+		TopicDetailedProgressInfo topic = TstDataUtils.createTopicDetailedProgressInfo(1, "name");
 		topic.setStatus("0");
 
 		// When
@@ -46,8 +44,7 @@ public class TopicStatusHelperTest {
 	@Test
 	public void verifyThatIfTopicIsInProgressAtTopicPageThenMessageIs_In_Progress() {
 		// Given
-		TopicDetailedProgressInfo topic = TstDataUtils
-				.createTopicDetailedProgressInfo(1, "name");
+		TopicDetailedProgressInfo topic = TstDataUtils.createTopicDetailedProgressInfo(1, "name");
 		topic.setStatus("20");
 
 		// When
@@ -61,8 +58,7 @@ public class TopicStatusHelperTest {
 	@Test
 	public void verifyThatIfTopicIsDoneAtTopicPageThenMessageIs_Done() {
 		// Given
-		TopicDetailedProgressInfo topic = TstDataUtils
-				.createTopicDetailedProgressInfo(1, "name");
+		TopicDetailedProgressInfo topic = TstDataUtils.createTopicDetailedProgressInfo(1, "name");
 		topic.setStatus("100");
 
 		// When
@@ -76,8 +72,7 @@ public class TopicStatusHelperTest {
 	@Test
 	public void verifyThatIfTopicHasIncorresctPersentageAtTopicPageThenMessageIs_NA() {
 		// Given
-		TopicDetailedProgressInfo topic = TstDataUtils
-				.createTopicDetailedProgressInfo(1, "name");
+		TopicDetailedProgressInfo topic = TstDataUtils.createTopicDetailedProgressInfo(1, "name");
 		topic.setStatus("120");
 
 		// When

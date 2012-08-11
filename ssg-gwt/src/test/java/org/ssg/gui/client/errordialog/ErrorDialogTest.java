@@ -60,8 +60,7 @@ public class ErrorDialogTest extends AbstractPresenterTestCase {
 	public void verifyThatActionInfoIsUpdatedWhenDialogIsCalled() {
 		TestAction action = new TstDataUtils.TestAction();
 		action.setActionName("Test/TestAction");
-		when(messages.getActionInfo(eq("Test/TestAction"))).thenReturn(
-				"Action Name: Test/TestAction");
+		when(messages.getActionInfo(eq("Test/TestAction"))).thenReturn("Action Name: Test/TestAction");
 
 		dialog.show("Error message", action);
 
@@ -72,14 +71,13 @@ public class ErrorDialogTest extends AbstractPresenterTestCase {
 	public void verifyThatMessageInfoIsUpdatedWhenDialogIsCalled() {
 		TestAction action = new TstDataUtils.TestAction();
 		action.setActionName("Test/TestAction");
-		when(messages.getActionInfo(eq("Test/TestAction"))).thenReturn(
-				"Action Name: Test/TestAction");
+		when(messages.getActionInfo(eq("Test/TestAction"))).thenReturn("Action Name: Test/TestAction");
 
 		dialog.show("Error message", action);
 
 		verify(messageBox).setHTML(eq("Error message"));
 	}
-	
+
 	@Test
 	public void verifyThatWindowIsClosedWhenClickCloseButton() {
 		ClickHandler handler = verifyAndCaptureClickHnd(closeBtn);

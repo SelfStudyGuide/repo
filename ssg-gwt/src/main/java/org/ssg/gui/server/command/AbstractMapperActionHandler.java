@@ -12,8 +12,8 @@ import org.ssg.gui.server.command.datamap.DataMappingSupport;
  * 
  * @see DataMappingSupport
  */
-public abstract class AbstractMapperActionHandler<R extends Response, A extends Action<R>>
-		implements ActionHandler<R, A>, DataMappingSupport {
+public abstract class AbstractMapperActionHandler<R extends Response, A extends Action<R>> implements
+        ActionHandler<R, A>, DataMappingSupport {
 
 	@Autowired(required = true)
 	@Qualifier("OricaDataMapping")

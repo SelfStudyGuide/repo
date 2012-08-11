@@ -14,13 +14,15 @@ public interface StudentService {
 	Collection<HomeworkInfo> getHomeworks(int userId);
 
 	void giveHomework(int studentId, int moduleId);
-	
+
 	/**
 	 * Returns student id by its name.
-	 * @throws SsgServiceException if student not found
+	 * 
+	 * @throws SsgServiceException
+	 *             if student not found
 	 */
 	int getStudentIdByName(String name) throws SsgServiceException;
 
 	HomeworkInfo getHomeworksDetails(int homeworkId);
-	
+
 }

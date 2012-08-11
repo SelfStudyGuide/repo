@@ -24,11 +24,9 @@ import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.topic.action.GetTopicInfo;
 import org.ssg.gui.client.topic.action.GetTopicInfoResponse;
 
-@ContextConfiguration(locations = { "/spring/gui-service.ctx.xml",
-		"/serice-core-mock.ctx.xml" })
+@ContextConfiguration(locations = { "/spring/gui-service.ctx.xml", "/serice-core-mock.ctx.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class GetTopicInfoActionHandlerTest extends
-		AbstractCommandTestCase<GetTopicInfoResponse, GetTopicInfo> {
+public class GetTopicInfoActionHandlerTest extends AbstractCommandTestCase<GetTopicInfoResponse, GetTopicInfo> {
 
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
@@ -44,8 +42,7 @@ public class GetTopicInfoActionHandlerTest extends
 	@Test
 	public void verifyThatTopicInfoIsReturnedByGivenTopicIdAndHomeworkId() {
 		// Given
-		Mockito.when(mockHomeworkDao.getHomework(Matchers.eq(123))).thenReturn(
-				createHomework());
+		Mockito.when(mockHomeworkDao.getHomework(Matchers.eq(123))).thenReturn(createHomework());
 
 		// When
 		GetTopicInfoResponse action = whenAction(new GetTopicInfo(123, 345));
@@ -53,46 +50,39 @@ public class GetTopicInfoActionHandlerTest extends
 		// Then
 		assertThat(action, notNullValue());
 		assertThat(action.getInfo().getTopicId(), CoreMatchers.is(345));
-		assertThat(action.getInfo().getTopicName(),
-				CoreMatchers.is("Test topic 1"));
-		assertThat(action.getInfo().getDescription(),
-				CoreMatchers.is("Description of topic"));
+		assertThat(action.getInfo().getTopicName(), CoreMatchers.is("Test topic 1"));
+		assertThat(action.getInfo().getDescription(), CoreMatchers.is("Description of topic"));
 		assertThat(action.getInfo().getStatus(), CoreMatchers.is("10"));
 	}
-	
+
 	@Test
 	public void verifyThatIfHomeworkCannotBeFoundByGivenIdThenExceptionIsThrown() {
-		// Given		
+		// Given
 		thrown.expect(SsgGuiServiceException.class);
 		thrown.expect(hasErrorCode(is("topic.view.notfound")));
 		Mockito.when(mockHomeworkDao.getHomework(Matchers.eq(123))).thenReturn(null);
-		
-		
+
 		// When
 		GetTopicInfoResponse action = whenAction(new GetTopicInfo(123, 345));
-		
+
 	}
-	
+
 	@Test
 	public void verifyThatIfTopicCannotBeFoundByGivenIdThenExceptionIsThrown() {
-		// Given		
+		// Given
 		thrown.expect(SsgGuiServiceException.class);
 		thrown.expect(hasErrorCode(is("topic.view.notfound")));
-		
-		Mockito.when(mockHomeworkDao.getHomework(Matchers.eq(123))).thenReturn(
-				createHomework());
-		
-		
+
+		Mockito.when(mockHomeworkDao.getHomework(Matchers.eq(123))).thenReturn(createHomework());
+
 		// When
 		GetTopicInfoResponse action = whenAction(new GetTopicInfo(123, 678));
-		
+
 	}
 
 	private Homework createHomework() {
-		Homework hw = TstDataUtils.createHomework(
-				TstDataUtils.createStudent("jd"), TstDataUtils.createModule());
-		TstDataUtils.enrichHomeworkWithProgress(hw,
-				TstDataUtils.createTopic("Name", 345));
+		Homework hw = TstDataUtils.createHomework(TstDataUtils.createStudent("jd"), TstDataUtils.createModule());
+		TstDataUtils.enrichHomeworkWithProgress(hw, TstDataUtils.createTopic("Name", 345));
 		return hw;
 	}
 }

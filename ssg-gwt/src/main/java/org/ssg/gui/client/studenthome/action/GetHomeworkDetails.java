@@ -33,5 +33,5 @@ public class GetHomeworkDetails extends BaseAction<GetHomeworkDetailsResponse> i
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}
-	
+
 }

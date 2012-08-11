@@ -47,17 +47,17 @@ public class StudentServiceTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 	}
-	
+
 	@Test
 	public void verifyThatHomeworkInfoCanBeLoadedByStudentId() {
 		// given
 		Student student = prepareStudent("studen with homework", 123);
 		Homework homework = TstDataUtils.createHomework(student, TstDataUtils.createModule());
 		homework.setId(2);
-		
+
 		// when
 		Collection<HomeworkInfo> hwList = studentSerice.getHomeworks(123);
-		
+
 		// then
 		verify(userDao).getStudentById(eq(123));
 		assertThat(hwList, notNullValue());
@@ -65,7 +65,7 @@ public class StudentServiceTest {
 		HomeworkInfo hw = hwList.iterator().next();
 		assertThat(hw.getAssignedModules(), equalTo("name"));
 	}
-	
+
 	@Test
 	public void verifyThatHomeworkDetailsCanBeLoadedById() {
 		// given
@@ -74,29 +74,29 @@ public class StudentServiceTest {
 		Homework homework = TstDataUtils.createHomework(student, module);
 		homework.setId(234);
 		homework = TstDataUtils.enrichHomeworkWithProgress(homework, module.getTopics());
-		
+
 		when(homeworkDao.getHomework(234)).thenReturn(homework);
-		
+
 		// when
 		HomeworkInfo details = studentSerice.getHomeworksDetails(234);
-		
+
 		// then
 		verify(homeworkDao).getHomework(234);
 		assertThat(details.getId(), is(234));
 		assertThat(details.getAssignedModules(), equalTo("name"));
 		assertThat(details.getTopicProgress().size(), is(3));
-		
+
 	}
 
 	@Test(expected = SsgServiceException.class)
 	public void verifyThatExceptionIsThrownIfNoHomeworkFound() {
 		// given
 		when(homeworkDao.getHomework(234)).thenReturn(null);
-		
+
 		// when
 		studentSerice.getHomeworksDetails(234);
 	}
-	
+
 	@Test(expected = SsgServiceException.class)
 	public void verifyThatExceptionIsThrownIfNoStudentFound() {
 		when(userDao.getStudentById(eq(124))).thenReturn(null);
@@ -108,11 +108,10 @@ public class StudentServiceTest {
 	public void verifyThatHomeworkCanBeGivenToStudent() {
 		Student student = prepareStudent("studen", 1);
 		Module module = prepareModule(2);
-		
+
 		studentSerice.giveHomework(1, 2);
 
-		ArgumentCaptor<Homework> homeworkCaptor = ArgumentCaptor
-				.forClass(Homework.class);
+		ArgumentCaptor<Homework> homeworkCaptor = ArgumentCaptor.forClass(Homework.class);
 		verify(homeworkDao).saveHomework(homeworkCaptor.capture());
 
 		Homework homework = homeworkCaptor.getValue();
@@ -122,7 +121,6 @@ public class StudentServiceTest {
 
 	}
 
-	
 	@Test
 	public void verifyThatTopicProgressIsCreatedWhenHomeworkIsCreatedForStudent() {
 		// Given
@@ -133,8 +131,7 @@ public class StudentServiceTest {
 		studentSerice.giveHomework(1, 2);
 
 		// Then
-		ArgumentCaptor<Homework> homeworkCaptor = ArgumentCaptor
-				.forClass(Homework.class);
+		ArgumentCaptor<Homework> homeworkCaptor = ArgumentCaptor.forClass(Homework.class);
 		verify(homeworkDao).saveHomework(homeworkCaptor.capture());
 		Homework createdHomework = homeworkCaptor.getValue();
 		assertThat(createdHomework.getProgresses().size(), is(3));
@@ -146,25 +143,25 @@ public class StudentServiceTest {
 		when(curriculumDao.getModuleById(eq(id))).thenReturn(module);
 		return module;
 	}
-	
+
 	private Student prepareStudent(String name, int id) {
 		Student student = TstDataUtils.createStudent(name);
 		when(userDao.getStudentById(eq(id))).thenReturn(student);
 		return student;
 	}
-	
+
 	@Test
 	public void verifyThatStudentIdCanBeLoadedByItsUserName() {
 		Student student = TstDataUtils.createStudent("John");
 		student.setId(123);
-		
+
 		when(userDao.getStudentByName(eq("john"))).thenReturn(student);
-		
+
 		int id = studentSerice.getStudentIdByName("john");
-		
+
 		Assert.assertThat(id, is(123));
-		
+
 		verify(userDao).getStudentByName(eq("john"));
-		
+
 	}
 }

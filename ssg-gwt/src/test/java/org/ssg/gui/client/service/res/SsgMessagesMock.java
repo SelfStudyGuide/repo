@@ -34,13 +34,11 @@ public class SsgMessagesMock {
 
 	}
 
-	private static <T> void mockMessageMethod(T mock, Method method,
-			String message) {
+	private static <T> void mockMessageMethod(T mock, Method method, String message) {
 		try {
 			when(method.invoke(mock, (Object[]) null)).thenReturn(message);
 		} catch (Exception e) {
-			Assert.fail("Cannot mock mothod " + method + " for class "
-					+ mock.getClass());
+			Assert.fail("Cannot mock mothod " + method + " for class " + mock.getClass());
 		}
 	}
 
@@ -51,8 +49,7 @@ public class SsgMessagesMock {
 	private static <T> Properties loadProperties(Class<T> clazz) {
 		try {
 			Properties p = new Properties();
-			p.load(clazz.getResourceAsStream(clazz.getSimpleName()
-					+ ".properties"));
+			p.load(clazz.getResourceAsStream(clazz.getSimpleName() + ".properties"));
 			return p;
 		} catch (Exception e) {
 			Assert.fail("Cannot load " + clazz.getSimpleName() + ".properties");

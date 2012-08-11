@@ -1,6 +1,5 @@
 package org.ssg.gui.client.userinfo.view;
 
-
 import org.ssg.gui.client.userinfo.presenter.UserInfoPresenter.Display;
 
 import com.google.gwt.core.client.GWT;
@@ -19,14 +18,14 @@ public class UserInfoView implements Display {
 
 	interface UserInfoViewUiBinder extends UiBinder<Widget, UserInfoView> {
 	}
-	
+
 	private static UserInfoViewUiBinder uiBinder = GWT.create(UserInfoViewUiBinder.class);
-	
+
 	@UiField()
 	public Anchor logoutBtn;
 
-	//public DivElement usernameLbl;
-	
+	// public DivElement usernameLbl;
+
 	@UiField()
 	public HasText usernameLbl;
 
@@ -38,7 +37,6 @@ public class UserInfoView implements Display {
 		return logoutBtn;
 	}
 
-	
 	public void go(RootPanel rootPanel) {
 		Widget a = uiBinder.createAndBindUi(this);
 		rootPanel.add(a);

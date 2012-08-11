@@ -10,7 +10,7 @@ public class GetTopicTasksInfo extends BaseAction<GetTopicTasksInfoResponse> imp
 
 	private int homeworkId;
 	private int topicId;
-	
+
 	/**
 	 * Used by GWT RPC
 	 */
@@ -34,8 +34,7 @@ public class GetTopicTasksInfo extends BaseAction<GetTopicTasksInfoResponse> imp
 
 	@Override
 	public String toString() {
-		return "GetTopicTasksInfo [homeworkId=" + homeworkId + ", topicId="
-				+ topicId + "]";
+		return "GetTopicTasksInfo [homeworkId=" + homeworkId + ", topicId=" + topicId + "]";
 	}
-	
+
 }

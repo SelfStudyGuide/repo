@@ -39,27 +39,23 @@ public class TaskListPresenterTest extends AbstractPresenterTestCase {
 
 	@Mock
 	private HasText textTask;
-	
+
 	@Mock
 	private HasText listeningTask;
-	
+
 	@Mock
 	private HasText lexicalTask;
 
 	@Before
 	public void setUp() {
-		
-		presenter = new TaskListPresenter(display, handlerManager,
-				actionSender, windowLocation, ssgMessages);
+
+		presenter = new TaskListPresenter(display, handlerManager, actionSender, windowLocation, ssgMessages);
 		presenter.bind();
 
-		when(display.getTask(Mockito.eq(10), Mockito.anyString())).thenReturn(
-				textTask);
-		when(display.getTask(Mockito.eq(20), Mockito.anyString())).thenReturn(
-				listeningTask);
-		when(display.getTask(Mockito.eq(30), Mockito.anyString())).thenReturn(
-				lexicalTask);
-		
+		when(display.getTask(Mockito.eq(10), Mockito.anyString())).thenReturn(textTask);
+		when(display.getTask(Mockito.eq(20), Mockito.anyString())).thenReturn(listeningTask);
+		when(display.getTask(Mockito.eq(30), Mockito.anyString())).thenReturn(lexicalTask);
+
 	}
 
 	@Test
@@ -76,8 +72,7 @@ public class TaskListPresenterTest extends AbstractPresenterTestCase {
 		processGetTopicTaksInfoResponse();
 
 		// Then
-		verify(display, times(3))
-				.getTask(Mockito.anyInt(), Mockito.anyString());
+		verify(display, times(3)).getTask(Mockito.anyInt(), Mockito.anyString());
 	}
 
 	private void processGetTopicTaksInfoResponse() {
@@ -123,7 +118,7 @@ public class TaskListPresenterTest extends AbstractPresenterTestCase {
 		href.getAllValues();
 		assertThat(href.getValue(), is("http://localhost/ssg/Task.html?hid=1&taid=10"));
 	}
-	
+
 	@Test
 	public void givenLISTENINGtaskInfoWhenProcessingResponseThenHrefShouldBePassed() {
 		processGetTopicTaksInfoResponse();
@@ -134,7 +129,7 @@ public class TaskListPresenterTest extends AbstractPresenterTestCase {
 		href.getAllValues();
 		assertThat(href.getValue(), is("http://localhost/ssg/Task.html?hid=1&taid=20"));
 	}
-	
+
 	@Test
 	public void givenLEXICALtaskInfoWhenProcessingResponseThenHrefShouldBePassed() {
 		processGetTopicTaksInfoResponse();
@@ -148,15 +143,12 @@ public class TaskListPresenterTest extends AbstractPresenterTestCase {
 
 	private List<TopicTaskInfo> taskInfos() {
 		return Arrays.asList(
-				TstDataBuilder.topicTaskInfoBuilder().id(10)
-						.type(TaskType.TEXT).execrisesCount(10)
-						.completedCount(1).build(),
-				TstDataBuilder.topicTaskInfoBuilder().id(20)
-						.type(TaskType.LISTENING).execrisesCount(5)
-						.completedCount(0).build(),
-				TstDataBuilder.topicTaskInfoBuilder().id(30)
-						.type(TaskType.LEXICAL).execrisesCount(10)
-						.completedCount(10).build());
+		        TstDataBuilder.topicTaskInfoBuilder().id(10).type(TaskType.TEXT).execrisesCount(10).completedCount(1)
+		                .build(),
+		        TstDataBuilder.topicTaskInfoBuilder().id(20).type(TaskType.LISTENING).execrisesCount(5)
+		                .completedCount(0).build(),
+		        TstDataBuilder.topicTaskInfoBuilder().id(30).type(TaskType.LEXICAL).execrisesCount(10)
+		                .completedCount(10).build());
 	}
 
 }

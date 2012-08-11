@@ -10,11 +10,9 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class TopicInfoView extends Composite implements
-		TopicInfoPresenter.Display {
+public class TopicInfoView extends Composite implements TopicInfoPresenter.Display {
 
-	private static TopicInfoViewUiBinder uiBinder = GWT
-			.create(TopicInfoViewUiBinder.class);
+	private static TopicInfoViewUiBinder uiBinder = GWT.create(TopicInfoViewUiBinder.class);
 
 	interface TopicInfoViewUiBinder extends UiBinder<Widget, TopicInfoView> {
 	}

@@ -9,7 +9,7 @@
 				<g:Label ui:field="usernameLbl">...</g:Label>
 			</li>
 			<li style="border: 0">
-				<g:Anchor href="{res.logoutLink}" ui:field="logoutBtn" >
+				<g:Anchor href="{res.logoutLink}" ui:field="logoutBtn">
 					<ui:text from='{res.logoutLabel}' />
 				</g:Anchor>
 			</li>

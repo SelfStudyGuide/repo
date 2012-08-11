@@ -18,12 +18,12 @@ public class DefaultSecurityService implements SecurityService {
 
 	public static final String ROLE_STUDENT = "student";
 	public static final String ROLE_TEACHER = "teacher";
-	
+
 	@Autowired
 	private StudentService studentService;
-	
+
 	private MessageSourceAccessor applicationMsg = ApplicationMessageSource.getAccessor();
-	
+
 	public ApplicationUser authoriseUser(UserDetails userDetails) {
 
 		int personeId = 0;
@@ -32,14 +32,13 @@ public class DefaultSecurityService implements SecurityService {
 		} else if (userHasRole(userDetails, ROLE_TEACHER)) {
 			// TODO: derive teacher id;
 		} else {
-			throw new UsernameNotFoundException(applicationMsg.getMessage(
-					"ssg.auth.userDoesNotHaveRole",
-					new String[] { userDetails.getUsername() }));
+			throw new UsernameNotFoundException(applicationMsg.getMessage("ssg.auth.userDoesNotHaveRole",
+			        new String[] { userDetails.getUsername() }));
 		}
 
 		return new ApplicationUser(userDetails, personeId);
 	}
-	
+
 	private int retriveStudentIdByName(UserDetails userDetails) {
 		try {
 			return studentService.getStudentIdByName(userDetails.getUsername());
@@ -54,20 +53,18 @@ public class DefaultSecurityService implements SecurityService {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
 	public ApplicationUser getAuthorisedUserInfo() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
+
 		if (authentication == null) {
 			return null;
 		} else {
 			return (ApplicationUser) authentication.getPrincipal();
 		}
 	}
-	
-	
 
 }

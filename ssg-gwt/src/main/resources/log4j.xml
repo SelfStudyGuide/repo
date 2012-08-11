@@ -17,7 +17,7 @@
 
 		<layout class="org.apache.log4j.PatternLayout">
 			<!-- The log message pattern -->
-			<param name="ConversionPattern" value="%5p %d{ISO8601} %c - %m%n" />
+			<param name="ConversionPattern" value="%d{ISO8601} %5p %c - %m%n" />
 		</layout>
 	</appender>
 	

@@ -10,8 +10,7 @@ import org.ssg.core.domain.Homework;
 
 @Repository
 @Transactional
-public class DefaultHomeWorkDao extends HibernateDaoSupport implements
-		HomeworkDao {
+public class DefaultHomeWorkDao extends HibernateDaoSupport implements HomeworkDao {
 
 	@Autowired
 	public void populateSessionFactory(SessionFactory sessionFactory) {

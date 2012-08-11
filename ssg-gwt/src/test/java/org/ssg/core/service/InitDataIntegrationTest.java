@@ -44,8 +44,7 @@ public class InitDataIntegrationTest extends AbstractDaoTestSupport {
 	@Test
 	@Ignore
 	public void verifyThatGivenToStudentHomeworkCanBeLoaded() {
-		Collection<HomeworkInfo> homeworks = studentService
-				.getHomeworks(STUDENT_ID);
+		Collection<HomeworkInfo> homeworks = studentService.getHomeworks(STUDENT_ID);
 		Assert.assertThat(homeworks.size(), is(1));
 		HomeworkInfo homework = homeworks.iterator().next();
 

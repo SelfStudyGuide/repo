@@ -12,5 +12,4 @@ public class SsgServiceException extends RuntimeException {
 		super(message);
 	}
 
-	
 }

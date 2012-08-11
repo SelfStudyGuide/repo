@@ -15,11 +15,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class HomeworkDetailsView extends Composite implements Display {
 
-	private static HomeworkDetailsViewUiBinder uiBinder = GWT
-			.create(HomeworkDetailsViewUiBinder.class);
+	private static HomeworkDetailsViewUiBinder uiBinder = GWT.create(HomeworkDetailsViewUiBinder.class);
 
-	interface HomeworkDetailsViewUiBinder extends
-			UiBinder<Widget, HomeworkDetailsView> {
+	interface HomeworkDetailsViewUiBinder extends UiBinder<Widget, HomeworkDetailsView> {
 	}
 
 	@UiField

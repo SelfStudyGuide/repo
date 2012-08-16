@@ -5,15 +5,18 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-// TODO: This class should expose interface
-public class ApplicationUser implements UserDetails {
+public class ApplicationUserImpl implements UserDetails, ApplicationUser {
 	private static final long serialVersionUID = 2299224597100254165L;
 	private UserDetails underlying;
 	private int personId;
 
-	public ApplicationUser(UserDetails underlying, int personId) {
+	public ApplicationUserImpl(UserDetails underlying, int personId) {
 		this.underlying = underlying;
 		this.personId = personId;
+	}
+	
+	public ApplicationUserImpl(UserDetails underlying) {
+		this.underlying = underlying;
 	}
 
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -48,9 +51,13 @@ public class ApplicationUser implements UserDetails {
 		return personId;
 	}
 
-	public boolean containRole(String roleName) {
+	public void setPersonId(int personId) {
+    	this.personId = personId;
+    }
+
+	public boolean containRole(UserRole roleName) {
 		for (GrantedAuthority role : getAuthorities()) {
-			if (role.getAuthority().equals(roleName)) {
+			if (role.getAuthority().equals(roleName.toString())) {
 				return true;
 			}
 		}

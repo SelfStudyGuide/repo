@@ -25,7 +25,11 @@
 	</authentication-manager>
 
 	<beans:bean id="userDetailService"
-		class="org.ssg.gui.server.service.CustomJdbcUserDetailsManager">
+		class="org.ssg.gui.server.service.CustomJdbcUserDetailsManager" lazy-init="true">
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>
+
+	<beans:bean id="applicationUserProvider"
+		class="org.ssg.gui.server.service.SpringSecurityApplicationUserProvider" />
+
 </beans:beans>

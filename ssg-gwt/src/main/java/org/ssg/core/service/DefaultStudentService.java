@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import org.ssg.core.common.SsgServiceException;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
-import org.ssg.core.domain.TopicProgress;
 import org.ssg.core.domain.adapter.HomeworkAdapter;
 import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.gui.server.ApplicationMessageSource;
@@ -66,17 +64,6 @@ public class DefaultStudentService implements StudentService {
 		homework.initTopicProgress(m.getTopics());
 
 		homeworkDao.saveHomework(homework);
-	}
-
-	public int getStudentIdByName(String name) {
-		LOG.info("Loading student with name " + name);
-
-		Student student = userDao.getStudentByName(name);
-		if (student == null) {
-			throw new SsgServiceException(applicationMsg.getMessage("ssg.auth.studentNotFoundByName",
-			        new String[] { name }));
-		}
-		return student.getId();
 	}
 
 	public HomeworkInfo getHomeworksDetails(int homeworkId) {

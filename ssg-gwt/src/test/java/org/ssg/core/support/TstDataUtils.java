@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.ssg.core.domain.ApplicationUser;
+import org.ssg.core.domain.ApplicationUserImpl;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
@@ -216,7 +217,7 @@ public class TstDataUtils {
 		List<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
 		roles.add(new SimpleGrantedAuthority("student"));
 		User user = new User(username, "", roles);
-		ApplicationUser appUser = new ApplicationUser(user, studentId);
+		ApplicationUser appUser = new ApplicationUserImpl(user, studentId);
 		return appUser;
 	}
 

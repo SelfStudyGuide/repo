@@ -2,6 +2,7 @@ package org.ssg.core.domain.adapter;
 
 import org.springframework.beans.BeanUtils;
 import org.ssg.core.domain.ApplicationUser;
+import org.ssg.core.domain.UserRole;
 import org.ssg.core.dto.ApplicationUserInfo;
 
 public class ApplicationUserAdpater {
@@ -18,7 +19,7 @@ public class ApplicationUserAdpater {
 	}
 
 	public int getStudentId() {
-		if (user.containRole("student")) {
+		if (user.containRole(UserRole.student)) {
 			return user.getPersonId();
 		} else {
 			return 0;

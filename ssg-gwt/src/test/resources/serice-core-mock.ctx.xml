@@ -15,4 +15,6 @@
 	<mockito:mock id="jdbcOps"
 		class="org.springframework.jdbc.core.JdbcTemplate" />
 
+	<mockito:mock id="dataSource" class="javax.sql.DataSource" />
+
 </beans>

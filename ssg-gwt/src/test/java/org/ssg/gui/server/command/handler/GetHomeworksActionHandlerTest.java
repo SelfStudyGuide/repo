@@ -1,25 +1,20 @@
 package org.ssg.gui.server.command.handler;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.core.service.StudentService;
 import org.ssg.gui.client.studenthome.action.GetHomeworks;
 import org.ssg.gui.client.studenthome.action.GetHomeworksResponse;
 
-import static org.mockito.Mockito.*;
-
-@ContextConfiguration(locations = { "/spring/gui-service.ctx.xml", "/serice-core-mock.ctx.xml" })
-@RunWith(SpringJUnit4ClassRunner.class)
 public class GetHomeworksActionHandlerTest extends AbstractCommandTestCase<GetHomeworksResponse, GetHomeworks> {
 
 	@Autowired

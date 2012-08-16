@@ -1,15 +1,17 @@
 package org.ssg.core.service;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Collection;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -17,15 +19,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-
 import org.ssg.core.common.SsgServiceException;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
 import org.ssg.core.dto.HomeworkInfo;
-import org.ssg.core.service.DefaultStudentService;
-import org.ssg.core.service.HomeworkDao;
-import org.ssg.core.service.UserDao;
 import org.ssg.core.support.TstDataUtils;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -148,20 +146,5 @@ public class StudentServiceTest {
 		Student student = TstDataUtils.createStudent(name);
 		when(userDao.getStudentById(eq(id))).thenReturn(student);
 		return student;
-	}
-
-	@Test
-	public void verifyThatStudentIdCanBeLoadedByItsUserName() {
-		Student student = TstDataUtils.createStudent("John");
-		student.setId(123);
-
-		when(userDao.getStudentByName(eq("john"))).thenReturn(student);
-
-		int id = studentSerice.getStudentIdByName("john");
-
-		Assert.assertThat(id, is(123));
-
-		verify(userDao).getStudentByName(eq("john"));
-
 	}
 }

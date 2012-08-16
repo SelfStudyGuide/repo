@@ -1,13 +1,25 @@
 package org.ssg.gui.server.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.ssg.core.common.SsgServiceException;
 import org.ssg.core.domain.ApplicationUser;
 
+/**
+ * Security service.
+ * <p>
+ * This class should not contain dependency on security provider library.
+ */
 public interface SecurityService {
 
-	// TODO: service should not depends on 3rd party classes
-	ApplicationUser authoriseUser(UserDetails userDetails) throws UsernameNotFoundException;
+	/**
+	 * Derive person id of student or teacher depends on which role the given
+	 * user has.
+	 * 
+	 * @param user
+	 *            authenticated user
+	 * 
+	 * @throws SsgServiceException
+	 *             if student or teacher was not found.
+	 */
+	void enrichWithPersonId(ApplicationUser user);
 
-	ApplicationUser getAuthorisedUserInfo();
 }

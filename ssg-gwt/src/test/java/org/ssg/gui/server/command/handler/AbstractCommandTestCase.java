@@ -24,7 +24,7 @@ import org.ssg.gui.server.command.ActionHandlerLookup;
  * Action a = new Action(5);<br/>
  * Response r = whenAction(a);
  */
-@ContextConfiguration(locations = { "/spring/gui-service.ctx.xml", "/serice-core-mock.ctx.xml" })
+@ContextConfiguration(locations = { "/spring/gui-service.ctx.xml", "/serice-core-mock.ctx.xml", "/app-securty-mock.ctx.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 public abstract class AbstractCommandTestCase<R extends Response, A extends Action<R>> {
 

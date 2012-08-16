@@ -24,7 +24,8 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/spring/gui-service.ctx.xml", "/serice-core-mock.ctx.xml" })
+@ContextConfiguration(locations = { "/spring/gui-service.ctx.xml", "/serice-core-mock.ctx.xml",
+        "/app-securty-mock.ctx.xml" })
 public class StudentUIServiceTest {
 
 	@Autowired

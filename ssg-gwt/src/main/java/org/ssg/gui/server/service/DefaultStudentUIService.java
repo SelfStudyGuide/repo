@@ -15,10 +15,10 @@ import org.ssg.gui.server.security.CommandPreAuthorize;
 import org.ssg.gui.server.security.SsgSecurityException;
 
 @Service
-public class StudentUIServiceImpl implements StudentUIService {
+public class DefaultStudentUIService implements StudentUIService {
 	private static final long serialVersionUID = -4678144429318786071L;
 
-	private static final Log LOG = LogFactory.getLog(StudentUIServiceImpl.class);
+	private static final Log LOG = LogFactory.getLog(DefaultStudentUIService.class);
 
 	@Autowired
 	private ActionHandlerLookup handlerLookup;

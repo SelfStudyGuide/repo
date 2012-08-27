@@ -9,7 +9,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.ssg.gui.server.command.handler.AbstractCommandTestCase.hasErrorCode;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,7 +18,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.ssg.core.support.TstDataUtils;
@@ -27,17 +25,15 @@ import org.ssg.core.support.TstDataUtils.TestActionResponse;
 import org.ssg.gui.client.action.Action;
 import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.service.SsgGuiSecurityException;
-import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.service.UnexpectedCommandException;
 import org.ssg.gui.server.command.ActionHandlerLookup;
-import org.ssg.gui.server.command.handler.AbstractCommandTestCase;
 import org.ssg.gui.server.security.Authorization;
 import org.ssg.gui.server.security.SsgSecurityException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/spring/gui-service.ctx.xml", "/serice-core-mock.ctx.xml",
         "/app-securty-mock.ctx.xml", "/test-gui-command.ctx.xml" })
-public class StudentUIServiceTest {
+public class DefaultStudentUIServiceTest {
 
 	@Autowired
 	private StudentUIService service;
@@ -85,7 +81,7 @@ public class StudentUIServiceTest {
 		verify(authorization).student();
 
 	}
-
+ 
 	@Test
 	public void givenActionWithCommandPreAuthorizeInterfaceWhenExecutingThenSsgSecurityExceptionShouldBeWrappedWithSsgGui() {
 		// Given
@@ -111,7 +107,7 @@ public class StudentUIServiceTest {
 
 	@Test(expected = UnexpectedCommandException.class)
 	public void verifyThatIfRuntimeExceptionIsWrappedWithUnexpectedCommandException() {
-		StudentUIServiceImpl s = new StudentUIServiceImpl();
+		DefaultStudentUIService s = new DefaultStudentUIService();
 		s.setHandlerLookup(actionHandlerLookupMock);
 		TstDataUtils.TestAction action = new TstDataUtils.TestAction();
 

@@ -16,7 +16,7 @@ public class SsgGuiServiceException extends RuntimeException {
 	/**
 	 * For GWT marshaler.
 	 */
-	public SsgGuiServiceException() {
+	protected SsgGuiServiceException() {
 		super();
 	}
 

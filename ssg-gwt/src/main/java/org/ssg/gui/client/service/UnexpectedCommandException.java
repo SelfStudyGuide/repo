@@ -1,8 +1,8 @@
 package org.ssg.gui.client.service;
 
 /**
- * 
- *
+ * If any {@link RuntimeException} on server side then it is wrapped with
+ * {@link UnexpectedCommandException}.
  */
 public class UnexpectedCommandException extends SsgGuiServiceException {
 
@@ -10,7 +10,7 @@ public class UnexpectedCommandException extends SsgGuiServiceException {
 
 	private String commandName;
 
-	public UnexpectedCommandException() {
+    protected UnexpectedCommandException() {
 		super();
 	}
 

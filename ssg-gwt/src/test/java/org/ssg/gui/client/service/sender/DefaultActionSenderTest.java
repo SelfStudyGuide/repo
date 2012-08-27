@@ -77,7 +77,7 @@ public class DefaultActionSenderTest extends AbstractServiceTestCase {
 		sender.send(action, actionCallback);
 
 		AsyncCallback<Response> callback = verifyActionAndResturnCallback(TestAction.class);
-		TestActionResponse response = new TestActionResponse();
+		TestActionResponse response = new TestActionResponse("test");
 		callback.onSuccess(response);
 
 		verify(actionCallback).onResponse(same(response));

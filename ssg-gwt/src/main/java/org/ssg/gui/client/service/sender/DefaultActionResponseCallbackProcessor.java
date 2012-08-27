@@ -6,6 +6,7 @@ import org.ssg.gui.client.action.Action;
 import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.errordialog.ErrorDialog;
 import org.ssg.gui.client.service.ActionResponseCallback;
+import org.ssg.gui.client.service.SsgGuiSecurityException;
 import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.service.UnexpectedCommandException;
 import org.ssg.gui.client.service.res.SsgLookupMessages;
@@ -46,7 +47,7 @@ public class DefaultActionResponseCallbackProcessor implements ActionResponseCal
 		};
 	}
 
-	protected <R extends Response> void displayError(Action<R> action, UnexpectedCommandException caught) {
+	protected <R extends Response> void handleUnexpectedEx(UnexpectedCommandException caught, Action<R> action) {
 
 		String dialogMsg = messages.serviceErrorUnexpected(caught.getMessage());
 		dialog.show(dialogMsg, action.getActionName());
@@ -57,15 +58,31 @@ public class DefaultActionResponseCallbackProcessor implements ActionResponseCal
 
 		if (ex instanceof UnexpectedCommandException) {
 
-			displayError(action, (UnexpectedCommandException) ex);
+			handleUnexpectedEx((UnexpectedCommandException) ex, action);
 		} else if (ex instanceof SsgGuiServiceException) {
 
 			SsgGuiServiceException guiEx = (SsgGuiServiceException) ex;
 			actionCallback.onError(guiEx);
 			if (!guiEx.isHandled()) {
-				String dialogMsg = ssgLookupMessages.getString(dot2underscore(guiEx.getErrorCode()));
-				dialog.show(dialogMsg, action.getActionName());
+				if (guiEx instanceof SsgGuiSecurityException) {
+					handleSecurityEx((SsgGuiSecurityException) guiEx, action);
+				} else {
+					handleServiceEx(guiEx, action);
+				}
 			}
 		}
+	}
+
+	protected <R extends Response> void handleServiceEx(SsgGuiServiceException guiEx, final Action<R> action) {
+
+		String dialogMsg = ssgLookupMessages.getString(dot2underscore(guiEx.getErrorCode()));
+		dialog.show(dialogMsg, action.getActionName());
+	}
+
+	protected <R extends Response> void handleSecurityEx(SsgGuiSecurityException secEx, final Action<R> action) {
+
+		String dialogMsg = ssgLookupMessages.getString(dot2underscore(secEx.getErrorCode()));
+		dialogMsg += "\n" + secEx.getMessage();
+		dialog.show(dialogMsg, action.getActionName());
 	}
 }

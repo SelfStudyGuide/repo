@@ -5,6 +5,7 @@ import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
+import static org.ssg.gui.client.service.res.SsgMessagesMock.mockLookupMsg;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,13 +16,16 @@ import org.ssg.core.support.TstDataUtils.TestAction;
 import org.ssg.core.support.TstDataUtils.TestActionCallback;
 import org.ssg.core.support.TstDataUtils.TestActionResponse;
 import org.ssg.gui.client.errordialog.ErrorDialog;
+import org.ssg.gui.client.service.SsgGuiSecurityException;
 import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.service.UnexpectedCommandException;
 import org.ssg.gui.client.service.res.SsgLookupMessages;
 import org.ssg.gui.client.service.res.SsgMessages;
+import org.ssg.gui.client.service.res.SsgMessagesMock;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DefaultActionResponseCallbackProcessorTest {
+	
 	@Mock
 	private TestActionCallback actionCallback;
 
@@ -41,13 +45,14 @@ public class DefaultActionResponseCallbackProcessorTest {
 	@Before
 	public void setUp() {
 		action = new TestAction();
+		ssgLookupMessages = mockLookupMsg(ssgLookupMessages, SsgLookupMessages.class);
 		when(ssgLookupMessages.getString(eq("error_code"))).thenReturn("oups");
 		processor = new DefaultActionResponseCallbackProcessor(dialog, messages, ssgLookupMessages);
 	}
 
 	@Test
 	public void verifyThatSuccessfulResponseCallesOnResponseMethodOfActionCallback() {
-		TestActionResponse response = new TestActionResponse();
+		TestActionResponse response = new TestActionResponse("test");
 
 		processor.processResponse(action, actionCallback).onSuccess(response);
 
@@ -115,5 +120,17 @@ public class DefaultActionResponseCallbackProcessorTest {
 
 		// Then
 		verify(actionCallback).onError(same(ex));
+	}
+	
+	@Test
+	public void givenAccessDenyErrorWhenProcessingItThenDialogWithErrorShouldBeDisplayed() {
+		// When
+		SsgGuiSecurityException ex = new SsgGuiSecurityException("description", "security.accessdeny");
+	
+		// When
+		processor.processResponse(action, actionCallback).onFailure(ex);
+		
+		// Then
+		verify(dialog).show(eq("Access deny\ndescription"), eq(action.getActionName()));
 	}
 }

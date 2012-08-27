@@ -15,4 +15,7 @@ public interface SsgLookupMessages extends com.google.gwt.i18n.client.ConstantsW
 	@DefaultStringValue("System cannot find topic details")
 	@Key("topic.view.notfound")
 	String topic_view_notfound();
+	
+	@Key("security.accessdeny")
+	String security_accessdeny();
 }

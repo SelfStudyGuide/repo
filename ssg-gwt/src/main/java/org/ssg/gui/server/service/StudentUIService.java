@@ -6,6 +6,5 @@ import org.ssg.gui.client.service.SsgGuiServiceException;
 
 public interface StudentUIService {
 
-	// @PreAuthorize("hasRole('teller')")
 	<T extends Response> T execute(Action<T> action) throws SsgGuiServiceException;
 }

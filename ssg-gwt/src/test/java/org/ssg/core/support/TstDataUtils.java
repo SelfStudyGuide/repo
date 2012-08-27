@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.ssg.core.domain.ApplicationUser;
@@ -30,6 +31,9 @@ import org.ssg.gui.client.service.ActionResponseCallback;
 import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.service.res.SsgMessages;
 import org.ssg.gui.server.command.ActionHandler;
+import org.ssg.gui.server.security.Authorization;
+import org.ssg.gui.server.security.CommandPreAuthorize;
+import org.ssg.gui.server.security.SsgSecurityException;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
@@ -110,13 +114,8 @@ public class TstDataUtils {
 		return student;
 	}
 
-	@Deprecated
 	public static Homework createHomework(Student student, Module module) {
-		Homework homework = new Homework();
-		homework.setModules(Arrays.asList(module));
-		homework.setStudent(student);
-		student.setHomeworks(Arrays.asList(homework));
-		return homework;
+		return TstDataBuilder.homeworkBuilder().module(module).student(student).build();
 	}
 
 	public static Homework enrichHomeworkWithProgress(Homework homework, Topic... topics) {
@@ -225,23 +224,42 @@ public class TstDataUtils {
 
 	@SuppressWarnings("serial")
 	public static class TestAction extends BaseAction<TestActionResponse> {
+		
+		public String param;
+		
+		public TestAction(String param) {
+	        this.param = param;
+        }
+
 		public TestAction() {
 			setActionName("Test/TestAction/" + new Date().toString());
 		}
 	}
 
 	public static class TestActionResponse implements Response {
+		public String response;
 
+		public TestActionResponse(String response) {
+	        this.response = response;
+        }
 	}
 
-	public static class TestActionHandler implements ActionHandler<TestActionResponse, TestAction> {
+	public static class TestActionHandler implements ActionHandler<TestActionResponse, TestAction>,
+	        CommandPreAuthorize<TestAction> {
 
+		@Autowired
+		private Authorization authorization;
+		
 		public TestActionResponse execute(TestAction action) throws SsgGuiServiceException {
-			return null;
+			return new TestActionResponse(action.param);
 		}
 
 		public Class<TestAction> forClass() {
 			return TestAction.class;
+		}
+
+		public void preAuthorize(TestAction action) throws SsgSecurityException {
+			authorization.student();
 		}
 
 	}
@@ -261,8 +279,7 @@ public class TstDataUtils {
 		}
 	}
 
-	// ======================= TestApplicationEvent
-	// =============================
+	// ======================= TestApplicationEvent =====================
 
 	public static class TestApplicationEvent extends GwtEvent<TestApplicationEventHandler> {
 

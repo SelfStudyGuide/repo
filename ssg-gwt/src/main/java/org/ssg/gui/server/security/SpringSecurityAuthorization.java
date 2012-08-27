@@ -23,9 +23,6 @@ public class SpringSecurityAuthorization implements Authorization {
 	@Qualifier("targetSpringSecurityAuthorisation")
 	private TargetSpringSecurityAuthorisation target;
 
-	@Autowired(required = true)
-	private HomeworkDao homeworkDao;
-
 	private MessageSourceAccessor messages = ApplicationMessageSource.getAccessor();
 
 	public void ownStudent(int studentId) {
@@ -40,13 +37,14 @@ public class SpringSecurityAuthorization implements Authorization {
 		}
 	}
 
-	public void ownHomework(int hwId) throws SsgSecurityException {
+	public void ownHomework(Homework homework) throws SsgSecurityException {
 		try {
-			Homework homework = homeworkDao.getHomework(hwId);
 			target.ownHomework(homework);
 		} catch (AccessDeniedException e) {
 			throw new SsgSecurityException(messages.getMessage("ssg.authorize.ownhomework"), e);
-		}
-	}
+		} 
+    }
+	
+	
 
 }

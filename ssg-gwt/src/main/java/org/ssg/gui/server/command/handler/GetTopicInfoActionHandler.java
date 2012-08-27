@@ -14,14 +14,20 @@ import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.topic.action.GetTopicInfo;
 import org.ssg.gui.client.topic.action.GetTopicInfoResponse;
 import org.ssg.gui.server.command.ActionHandler;
+import org.ssg.gui.server.security.Authorization;
+import org.ssg.gui.server.security.CommandPreAuthorize;
+import org.ssg.gui.server.security.SsgSecurityException;
 
 @Service
-public class GetTopicInfoActionHandler implements ActionHandler<GetTopicInfoResponse, GetTopicInfo> {
+public class GetTopicInfoActionHandler implements ActionHandler<GetTopicInfoResponse, GetTopicInfo>, CommandPreAuthorize<GetTopicInfo> {
 
 	private static final Log LOG = LogFactory.getLog(GetTopicInfoActionHandler.class);
 
 	@Autowired
 	private HomeworkDao homeworkDao;
+	
+	@Autowired
+	private Authorization authorization;
 
 	@Transactional
 	public GetTopicInfoResponse execute(GetTopicInfo action) throws SsgGuiServiceException {
@@ -60,6 +66,10 @@ public class GetTopicInfoActionHandler implements ActionHandler<GetTopicInfoResp
 
 	public Class<GetTopicInfo> forClass() {
 		return GetTopicInfo.class;
+	}
+
+	public void preAuthorize(GetTopicInfo action) throws SsgSecurityException {
+		authorization.ownHomework(loadHomework(action.getHomeworkId()));
 	}
 
 }

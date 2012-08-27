@@ -26,8 +26,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.ssg.core.common.SsgServiceException;
 import org.ssg.core.domain.ApplicationUser;
 import org.ssg.core.domain.ApplicationUserImpl;
+import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Student;
 import org.ssg.core.service.HomeworkDao;
 import org.ssg.core.service.UserDao;
@@ -108,10 +110,10 @@ public class SpringSecurtyIntegrationTest {
 	public void givenStundetsHomeworkThenAuthorisationForOwnHomeworkShouldPass() {
 		// Given
 		authenticatedUser(createStudent("user", "student").getName());
-		when(homeworkDao.getHomework(Mockito.eq(20))).thenReturn(TstDataUtils.createHomework(student, null));
+		Homework hw = TstDataUtils.createHomework(student, null);
 
 		// When
-		authorization.ownHomework(20);
+		authorization.ownHomework(hw);
 	}
 	
 	@Test
@@ -119,14 +121,14 @@ public class SpringSecurtyIntegrationTest {
 		// Given
 		authenticatedUser(createStudent("user", "student").getName());
 		Student otherStudent = TstDataUtils.createStudent(456, "Bob");
-		when(homeworkDao.getHomework(Mockito.eq(20))).thenReturn(TstDataUtils.createHomework(otherStudent, null));
+		Homework otherHw = TstDataUtils.createHomework(otherStudent, null);
 
 		// Then
 		thrown.expect(SsgSecurityException.class);
 		thrown.expectMessage("You do not have access to this homework");
 		
 		// When
-		authorization.ownHomework(20);
+		authorization.ownHomework(otherHw);
 	}
 
 	private void authenticatedUser(String userName) {

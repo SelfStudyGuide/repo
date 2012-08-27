@@ -17,6 +17,7 @@ import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.server.command.ActionHandler;
 import org.ssg.gui.server.command.ActionHandlerLookup;
+import org.ssg.gui.server.service.StudentUIService;
 
 /**
  * Base class for action handler tests. It contains some generic methods. <br/>
@@ -31,6 +32,9 @@ public abstract class AbstractCommandTestCase<R extends Response, A extends Acti
 	@Autowired
 	private ActionHandlerLookup lookup;
 
+	@Autowired
+	private StudentUIService studentUIService;
+	
 	private ActionHandler<R, A> commandHandler;
 
 	@Before
@@ -44,7 +48,8 @@ public abstract class AbstractCommandTestCase<R extends Response, A extends Acti
 	public R whenAction(A action) {
 		Assert.assertThat("Handler for command " + testedCommandClass() + " is not found", commandHandler,
 		        CoreMatchers.notNullValue());
-		return commandHandler.execute(action);
+		return studentUIService.execute(action);
+		//return commandHandler.execute(action);
 	}
 
 	public static Matcher<SsgGuiServiceException> hasErrorCode(final Matcher<String> matcher) {

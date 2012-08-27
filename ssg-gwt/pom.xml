@@ -282,7 +282,11 @@
 					documentation at codehaus.org -->
 				<configuration>
 					<includes>**/*GwtTest.java</includes>
+					<mode>htmlunit</mode>
+					<!-- runTimeOut>120</runTimeOut-->
+					<testTimeOut>120</testTimeOut>
 					<draftCompile>true</draftCompile>
+					<testOutputDirectory>${project.build.directory}/target/www-test</testOutputDirectory>
 					<!--style>DETAILED</style -->
 					<runTarget>StudentHome.html</runTarget>
 					<hostedWebapp>${webappDirectory}</hostedWebapp>

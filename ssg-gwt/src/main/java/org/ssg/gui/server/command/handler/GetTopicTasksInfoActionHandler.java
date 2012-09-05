@@ -25,15 +25,22 @@ import org.ssg.gui.client.topic.action.GetTopicTasksInfo;
 import org.ssg.gui.client.topic.action.GetTopicTasksInfoResponse;
 import org.ssg.gui.server.command.AbstractMapperActionHandler;
 import org.ssg.gui.server.command.datamap.OrikaDataMappingConfiguration;
+import org.ssg.gui.server.security.Authorization;
+import org.ssg.gui.server.security.CommandPreAuthorize;
+import org.ssg.gui.server.security.SsgSecurityException;
 
 @Service
 public class GetTopicTasksInfoActionHandler extends
-        AbstractMapperActionHandler<GetTopicTasksInfoResponse, GetTopicTasksInfo> implements InitializingBean {
+        AbstractMapperActionHandler<GetTopicTasksInfoResponse, GetTopicTasksInfo> implements InitializingBean,
+        CommandPreAuthorize<GetTopicTasksInfo> {
 
 	private static final Log LOG = LogFactory.getLog(GetTopicTasksInfoActionHandler.class);
 
 	@Autowired
 	private HomeworkDao homeworkDao;
+	
+	@Autowired
+	private Authorization authorization;
 
 	@Transactional
 	public GetTopicTasksInfoResponse execute(GetTopicTasksInfo action) throws SsgGuiServiceException {
@@ -94,5 +101,9 @@ public class GetTopicTasksInfoActionHandler extends
 	public void afterPropertiesSet() throws Exception {
 		setDataMappingConfiguration(new DataMapperConfiguration());
 	}
+
+	public void preAuthorize(GetTopicTasksInfo action) throws SsgSecurityException, SsgGuiServiceException {
+		authorization.ownHomework(loadHomework(action.getHomeworkId()));
+    }
 
 }

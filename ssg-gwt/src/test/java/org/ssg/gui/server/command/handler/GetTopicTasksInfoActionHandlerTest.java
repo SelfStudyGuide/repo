@@ -14,13 +14,16 @@ import static org.ssg.core.support.TstDataBuilder.topicProgressBuilder;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Matchers;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
+import org.ssg.core.domain.Student;
 import org.ssg.core.domain.Task;
 import org.ssg.core.domain.Topic;
 import org.ssg.core.domain.TopicProgress;
@@ -31,24 +34,43 @@ import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.topic.action.GetTopicTasksInfo;
 import org.ssg.gui.client.topic.action.GetTopicTasksInfoResponse;
+import org.ssg.gui.server.security.Authorization;
 
 /**
- * {@link GetTopicTasksInfoActionHandler}
+ * Test of {@link GetTopicTasksInfoActionHandler}
  */
 public class GetTopicTasksInfoActionHandlerTest extends
         AbstractCommandTestCase<GetTopicTasksInfoResponse, GetTopicTasksInfo> {
 
+	private static final int TOPIC_ID = 2;
+
+	private static final int HW_ID = 1;
+
 	@Autowired
 	private HomeworkDao homeworkDao;
+
+	@Autowired
+	private Authorization authorization;
 
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 
+	private Module module;
+
+	private Homework homework;
+
+	private Student student;
+
+	@Before
+	public void setUp() {
+		createTestDate();
+	}
+
 	@Test
 	public void verifyThatCollectionOfTaskInfoIsReturnedWithReponse() {
 		// Given
-		GetTopicTasksInfo action = new GetTopicTasksInfo(1, 2);
-		testData();
+		GetTopicTasksInfo action = new GetTopicTasksInfo(HW_ID, TOPIC_ID);
+		when(homeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(homework);
 
 		// When
 		GetTopicTasksInfoResponse response = whenAction(action);
@@ -60,8 +82,8 @@ public class GetTopicTasksInfoActionHandlerTest extends
 	@Test
 	public void verifyThatListeningTaskIsPopulatedCorrectly() {
 		// Given
-		GetTopicTasksInfo action = new GetTopicTasksInfo(1, 2);
-		testData();
+		GetTopicTasksInfo action = new GetTopicTasksInfo(HW_ID, TOPIC_ID);
+		when(homeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(homework);
 
 		// When
 		GetTopicTasksInfoResponse response = whenAction(action);
@@ -77,8 +99,8 @@ public class GetTopicTasksInfoActionHandlerTest extends
 	@Test
 	public void verifyThatTextTaskIsPopulatedCorrectly() {
 		// Given
-		GetTopicTasksInfo action = new GetTopicTasksInfo(1, 2);
-		testData();
+		GetTopicTasksInfo action = new GetTopicTasksInfo(HW_ID, TOPIC_ID);
+		when(homeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(homework);
 
 		// When
 		GetTopicTasksInfoResponse response = whenAction(action);
@@ -94,8 +116,8 @@ public class GetTopicTasksInfoActionHandlerTest extends
 	@Test
 	public void verifyThatLexicalTaskIsPopulatedCorrectly() {
 		// Given
-		GetTopicTasksInfo action = new GetTopicTasksInfo(1, 2);
-		testData();
+		GetTopicTasksInfo action = new GetTopicTasksInfo(HW_ID, TOPIC_ID);
+		when(homeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(homework);
 
 		// When
 		GetTopicTasksInfoResponse response = whenAction(action);
@@ -111,7 +133,7 @@ public class GetTopicTasksInfoActionHandlerTest extends
 	@Test
 	public void verifyThatIfHomeworkIsNotFoundThenExceptionIsThrown() {
 		// Given
-		GetTopicTasksInfo action = new GetTopicTasksInfo(1, 2);
+		GetTopicTasksInfo action = new GetTopicTasksInfo(HW_ID, TOPIC_ID);
 		returnNullWhenHomeworkIsRequested();
 		thrown.expect(SsgGuiServiceException.class);
 		thrown.expect(hasErrorCode(is("topic.view.notfound")));
@@ -123,13 +145,26 @@ public class GetTopicTasksInfoActionHandlerTest extends
 	@Test
 	public void verifyThatIfTopicIsNotFoundThenExceptionIsThrown() {
 		// Given
-		GetTopicTasksInfo action = new GetTopicTasksInfo(1, 2);
+		GetTopicTasksInfo action = new GetTopicTasksInfo(HW_ID, TOPIC_ID);
 		testDataWithoutTopics();
 		thrown.expect(SsgGuiServiceException.class);
 		thrown.expect(hasErrorCode(is("topic.view.notfound")));
 
 		// When
 		GetTopicTasksInfoResponse response = whenAction(action);
+	}
+
+	@Test
+	public void verifyThenOwnHomeworkCalledWhenGetTopicTaskInfoRequestIsProcessed() {
+		// Given
+		GetTopicTasksInfo action = new GetTopicTasksInfo(HW_ID, TOPIC_ID);
+		when(homeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(homework);
+
+		// When
+		whenAction(action);
+
+		// Then
+		Mockito.verify(authorization).ownHomework(homework);
 	}
 
 	private void returnNullWhenHomeworkIsRequested() {
@@ -139,13 +174,14 @@ public class GetTopicTasksInfoActionHandlerTest extends
 	private void testDataWithoutTopics() {
 		Module module = TstDataUtils.createModule();
 
-		Homework homework = homeworkBuilder().id(1).student(TstDataUtils.createStudent("foo")).module(module).build();
+		Homework homework = homeworkBuilder().id(HW_ID).student(TstDataUtils.createStudent("foo")).module(module)
+		        .build();
 
-		when(homeworkDao.getHomework(Matchers.eq(1))).thenReturn(homework);
+		when(homeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(homework);
 	}
 
-	private void testData() {
-		Module module = TstDataUtils.createModule();
+	private void createTestDate() {
+		module = TstDataUtils.createModule();
 
 		Task listeningTask = taskBuilder().id(5).type(LISTENING).execrisesCount(10).build();
 
@@ -153,15 +189,14 @@ public class GetTopicTasksInfoActionHandlerTest extends
 
 		Task lexicalTask = taskBuilder().id(7).type(LEXICAL).execrisesCount(2).build();
 
-		Topic topic = topicBuilder().module(module).id(2).name("topic1").task(listeningTask).task(lexicalTask)
+		Topic topic = topicBuilder().module(module).id(TOPIC_ID).name("topic1").task(listeningTask).task(lexicalTask)
 		        .task(textTask).build();
 
 		TopicProgress topicProgress = topicProgressBuilder().topic(topic).build();
 
-		Homework homework = homeworkBuilder().id(1).student(TstDataUtils.createStudent("foo")).module(module)
-		        .topicProgress(topicProgress).build();
+		student = TstDataUtils.createStudent("John");
+		homework = homeworkBuilder().id(HW_ID).student(student).module(module).topicProgress(topicProgress).build();
 
-		when(homeworkDao.getHomework(Matchers.eq(1))).thenReturn(homework);
 	}
 
 	private TopicTaskInfo lookForTask(List<TopicTaskInfo> taskInfos, TaskType type) {

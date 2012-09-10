@@ -1,15 +1,15 @@
-<!doctype html>
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-<title>Self study guide - Topic</title>
+<title>Self study guide - Task</title>
 
 <script type="text/javascript" language="javascript"
-	src="Topic/Topic.nocache.js"></script>
+	src="Task/Task.nocache.js"></script>
 </head>
-
 <body class="body">
 	<div style="font-family: Tahoma, Arial, Helvetica, sans-serif;">
 		<div class="h_15"></div>
@@ -41,12 +41,8 @@
 					<div class="clear_ext"></div>
 					<div class="h_20"></div>
 					<div class="clear_ext"></div>
-
-					<div id="topicinfo" ></div>
-					<div class="clear_ext"></div>
-					<div class="h_15"></div>
 					
-					<div id="tasklist"></div>
+					This is task
 					
 					<div class="clear_ext"></div>
 					<div class="h_15"></div>

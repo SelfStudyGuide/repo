@@ -116,7 +116,7 @@ public class TaskListPresenterTest extends AbstractPresenterTestCase {
 		ArgumentCaptor<String> href = ArgumentCaptor.forClass(String.class);
 		verify(display).getTask(Matchers.eq(10), href.capture());
 		href.getAllValues();
-		assertThat(href.getValue(), is("http://localhost/ssg/Task.html?hid=1&taid=10"));
+		assertThat(href.getValue(), is("http://localhost/ssg/Task.jsp?hid=1&taid=10"));
 	}
 
 	@Test
@@ -127,7 +127,7 @@ public class TaskListPresenterTest extends AbstractPresenterTestCase {
 		ArgumentCaptor<String> href = ArgumentCaptor.forClass(String.class);
 		verify(display).getTask(Matchers.eq(20), href.capture());
 		href.getAllValues();
-		assertThat(href.getValue(), is("http://localhost/ssg/Task.html?hid=1&taid=20"));
+		assertThat(href.getValue(), is("http://localhost/ssg/Task.jsp?hid=1&taid=20"));
 	}
 
 	@Test
@@ -138,7 +138,7 @@ public class TaskListPresenterTest extends AbstractPresenterTestCase {
 		ArgumentCaptor<String> href = ArgumentCaptor.forClass(String.class);
 		verify(display).getTask(Matchers.eq(30), href.capture());
 		href.getAllValues();
-		assertThat(href.getValue(), is("http://localhost/ssg/Task.html?hid=1&taid=30"));
+		assertThat(href.getValue(), is("http://localhost/ssg/Task.jsp?hid=1&taid=30"));
 	}
 
 	private List<TopicTaskInfo> taskInfos() {

@@ -3,6 +3,7 @@ package org.ssg.gui.server.command.handler;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.ssg.core.dto.TaskType.LEXICAL;
 import static org.ssg.core.dto.TaskType.LISTENING;
@@ -164,7 +165,7 @@ public class GetTopicTasksInfoActionHandlerTest extends
 		whenAction(action);
 
 		// Then
-		Mockito.verify(authorization).ownHomework(homework);
+		verify(authorization).ownHomework(homework);
 	}
 
 	private void returnNullWhenHomeworkIsRequested() {

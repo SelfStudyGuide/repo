@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='Task'>
+	<inherits name="com.google.gwt.user.User" />
+	<inherits name="com.google.gwt.uibinder.UiBinder" />
+	<inherits name='com.google.gwt.user.theme.standard.Standard' />
+	<inherits name="com.google.gwt.resources.Resources" />
+	
+	<inherits name='org.ssg.core.Dto' />
+	<inherits name='org.ssg.gui.client.UserInfo' />
+	<inherits name='org.ssg.gui.client.Service' />
+	<inherits name='org.ssg.gui.client.ErrorDialog' />
+	<inherits name='org.ssg.gui.client.Action' />
+	
+	<entry-point class='org.ssg.gui.client.task.TaskEntryPoint' />
+	
+	<source path="task" />
+</module>

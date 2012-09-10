@@ -1,7 +1,6 @@
 package org.ssg.core.domain;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +11,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+/**
+ * Should aggregate all information regarding to progress of topic.
+ * 
+ * Exercise should have completion status NOT_STARTED, IN_PROGRESS, DONE
+ */
+
 @Entity
 @Table(name = "TOPIC_PROGRESS")
 public class TopicProgress implements Serializable {
@@ -19,10 +24,8 @@ public class TopicProgress implements Serializable {
 	private Homework homework;
 	private Topic topic;
 	private String status;
-	private List<Answer> answers;
-
-	// Exercise should have completion status NOT_STARTED, IN_PROGRESS, DONE
-	// Module, Topic should have numbers of completed child elements.
+	// Not sure that answers is neede here.
+	//private List<Answer> answers;
 
 	public TopicProgress(Topic topic, Homework homework) {
 		this.topic = topic;
@@ -64,14 +67,14 @@ public class TopicProgress implements Serializable {
 		this.status = status;
 	}
 
-	@Transient
-	public List<Answer> getAnswers() {
-		return answers;
-	}
-
-	public void setAnswers(List<Answer> answers) {
-		this.answers = answers;
-	}
+//	@Transient
+//	public List<Answer> getAnswers() {
+//		return answers;
+//	}
+//
+//	public void setAnswers(List<Answer> answers) {
+//		this.answers = answers;
+//	}
 
 	@Transient
 	public String getTopicName() {

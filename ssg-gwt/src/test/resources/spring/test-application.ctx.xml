@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<import resource="classpath:/spring/app-config.ctx.xml" />
+
+	<!-- Core -->
+	<beans profile="junit-mock-core">
+		<import resource="classpath:/spring/junit-mock-core-profile.ctx.xml" />
+	</beans>
+
+	<beans profile="real-core">
+		<import resource="classpath:/spring/db-config.xml" />
+		<import resource="classpath:/spring/core-service.ctx.xml" />
+	</beans>
+
+	<!-- Security -->
+	<beans profile="junit-mock-security">
+		<import resource="classpath:/spring/junit-mock-security-profile.ctx.xml" />
+	</beans>
+
+	<beans profile="real-security">
+		<import resource="classpath:/spring/app-security.ctx.xml" />
+	</beans>
+
+	<!-- Gui -->
+	<beans profile="junit-mock-gui">
+		<import resource="classpath:/spring/junit-mock-gui-profile.ctx.xml" />
+	</beans>
+
+	<beans profile="real-gui">
+		<import resource="classpath:/spring/gui-service.ctx.xml" />
+		<bean id="testCommandHandler" class="org.ssg.core.support.TstDataUtils.TestActionHandler" />
+	</beans>
+
+</beans>

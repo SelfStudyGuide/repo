@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.ssg.core.support.TstDataUtils;
@@ -30,9 +31,9 @@ import org.ssg.gui.server.command.ActionHandlerLookup;
 import org.ssg.gui.server.security.Authorization;
 import org.ssg.gui.server.security.SsgSecurityException;
 
+@ActiveProfiles({"junit", "junit-mock-core", "junit-mock-security", "real-gui"})
+@ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/spring/gui-service.ctx.xml", "/serice-core-mock.ctx.xml",
-        "/app-securty-mock.ctx.xml", "/test-gui-command.ctx.xml" })
 public class DefaultStudentUIServiceTest {
 
 	@Autowired

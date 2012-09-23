@@ -6,8 +6,7 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:/spring/app-config.ctx.xml
-		classpath:/spring/app-securty.ctx.xml
+		<param-value>classpath:/spring/application.ctx.xml
 		classpath:/spring/dev-data.ctx.xml</param-value>
 	</context-param>
 

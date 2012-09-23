@@ -4,8 +4,13 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.mockito.org/spring/mockito https://bitbucket.org/kubek2k/springockito/raw/tip/springockito/src/main/resources/spring/mockito.xsd">
 
-	<bean id="testCommandHandler" class="org.ssg.core.support.TstDataUtils.TestActionHandler">
-		
-	</bean>
+	<beans profile="junit-mock-security">
+	
+		<mockito:mock id="applicationUserProvider"
+			class="org.ssg.gui.server.service.ApplicationUserProvider" />
 
+		<mockito:mock id="authosization"
+			class="org.ssg.gui.server.security.Authorization" />
+
+	</beans>
 </beans>

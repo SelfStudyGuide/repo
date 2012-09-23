@@ -8,9 +8,7 @@ import java.io.File;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.LifecycleState;
 import org.apache.catalina.startup.Tomcat;
-import org.hamcrest.CoreMatchers;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,6 +26,9 @@ public class SimpleFunctionalTest {
 
 	@Before
 	public void before() throws LifecycleException {
+		
+		System.setProperty("spring.profiles.active", "functional");
+		
 	    mTomcat = new Tomcat();
 		mTomcat.setPort(0);
 		mTomcat.setBaseDir(mWorkingDir);

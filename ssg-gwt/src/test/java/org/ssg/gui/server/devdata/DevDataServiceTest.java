@@ -24,6 +24,7 @@ import org.mockito.internal.verification.Times;
 import org.mockito.internal.verification.VerificationModeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.ssg.core.domain.Module;
@@ -37,8 +38,9 @@ import org.ssg.core.service.UserDao;
 import org.ssg.core.support.TstDataBuilder;
 import org.ssg.core.support.TstDataUtils;
 
+@ActiveProfiles({"junit", "junit-mock-core"})
+@ContextConfiguration(locations = { "classpath:/spring/dev-data.ctx.xml", "classpath:/spring/junit-mock-core-profile.ctx.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/spring/dev-data.ctx.xml", "/serice-core-mock.ctx.xml" })
 public class DevDataServiceTest {
 
 	@Autowired

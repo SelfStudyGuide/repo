@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,8 @@ import org.ssg.core.domain.Student;
 import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.core.support.AbstractDaoTestSupport;
 
-@ContextConfiguration(locations = { "/test-config.ctx.xml" })
+@ActiveProfiles({"junit", "real-core", "junit-mock-security"})
+@ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml" })
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 public class InitDataIntegrationTest extends AbstractDaoTestSupport {

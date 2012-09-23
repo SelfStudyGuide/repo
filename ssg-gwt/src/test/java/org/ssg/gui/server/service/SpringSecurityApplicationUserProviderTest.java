@@ -15,13 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.ssg.core.domain.ApplicationUser;
 
+@ActiveProfiles({"junit", "junit-mock-core", "real-security", "junit-mock-gui"})
+@ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/spring/app-securty.ctx.xml", "/gui-service-mock.ctx.xml",
-        "/serice-core-mock.ctx.xml" })
 public class SpringSecurityApplicationUserProviderTest {
 
 	@Mock

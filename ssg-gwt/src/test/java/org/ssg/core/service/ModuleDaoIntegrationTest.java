@@ -6,13 +6,11 @@ import static org.hamcrest.CoreMatchers.not;
 
 import java.util.Collection;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +19,10 @@ import org.ssg.core.domain.Module;
 import org.ssg.core.support.AbstractDaoTestSupport;
 import org.ssg.core.support.TstDataUtils;
 
-@ContextConfiguration(locations = { "/test-config.ctx.xml", "/spring/core-service.ctx.xml" })
+@ActiveProfiles({"junit", "real-core", "junit-mock-security"})
+@ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml" })
+//@ContextConfiguration(locations = { "classpath:/spring/app-config.ctx.xml", 
+//		"/spring/db-config.xml", "/spring/core-service.ctx.xml" })
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ModuleDaoIntegrationTest extends AbstractDaoTestSupport {

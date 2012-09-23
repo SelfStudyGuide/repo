@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.ssg.gui.client.action.Action;
@@ -25,7 +26,8 @@ import org.ssg.gui.server.service.StudentUIService;
  * Action a = new Action(5);<br/>
  * Response r = whenAction(a);
  */
-@ContextConfiguration(locations = { "/spring/gui-service.ctx.xml", "/serice-core-mock.ctx.xml", "/app-securty-mock.ctx.xml" })
+@ActiveProfiles({"junit", "junit-mock-core", "junit-mock-security", "real-gui"})
+@ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public abstract class AbstractCommandTestCase<R extends Response, A extends Action<R>> {
 

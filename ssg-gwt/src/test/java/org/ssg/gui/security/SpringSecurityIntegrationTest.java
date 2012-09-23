@@ -24,24 +24,23 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.ssg.core.common.SsgServiceException;
 import org.ssg.core.domain.ApplicationUser;
 import org.ssg.core.domain.ApplicationUserImpl;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Student;
-import org.ssg.core.service.HomeworkDao;
 import org.ssg.core.service.UserDao;
 import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.server.security.Authorization;
 import org.ssg.gui.server.security.SsgSecurityException;
 import org.ssg.gui.server.service.CustomJdbcUserDetailsManager;
 
-@ContextConfiguration(locations = { "/spring/app-securty.ctx.xml", "/spring/gui-service.ctx.xml",
-        "/serice-core-mock.ctx.xml", "/spring/db-config.xml", "/test-config.ctx.xml" })
+@ActiveProfiles({"junit", "junit-mock-core", "real-security", "real-gui"})
+@ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml", "/spring/db-config.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class SpringSecurtyIntegrationTest {
+public class SpringSecurityIntegrationTest {
 
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
@@ -59,8 +58,8 @@ public class SpringSecurtyIntegrationTest {
 	@Autowired(required = true)
 	private Authorization authorization;
 
-	@Autowired
-	private HomeworkDao homeworkDao;
+//	@Autowired
+//	private HomeworkDao homeworkDao;
 
 	private Student student;
 

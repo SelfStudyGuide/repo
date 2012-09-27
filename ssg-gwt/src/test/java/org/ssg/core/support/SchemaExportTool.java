@@ -15,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles({"junit", "real-core"})
+@ActiveProfiles({"junit", "real-core", "postgres"})
 @ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml" })
 public class SchemaExportTool {
 
@@ -24,7 +24,7 @@ public class SchemaExportTool {
 	private LocalSessionFactoryBean factoryBean;
 
 	@Test
-	@Ignore
+	
 	public void execute() {
 		Assert.assertThat(factoryBean, CoreMatchers.notNullValue());
 		Configuration configuration = factoryBean.getConfiguration();

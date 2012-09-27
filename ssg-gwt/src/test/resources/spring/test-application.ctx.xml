@@ -6,6 +6,17 @@
 
 	<import resource="classpath:/spring/app-config.ctx.xml" />
 
+	<beans profile="junit">
+		<beans profile="mysql">
+			<context:property-placeholder location="classpath:config_junit.properties" />
+		</beans>
+
+		<beans profile="postgres">
+			<context:property-placeholder
+				location="classpath:config_junit_postgres.properties" />
+		</beans>
+	</beans>
+
 	<!-- Core -->
 	<beans profile="junit-mock-core">
 		<import resource="classpath:/spring/junit-mock-core-profile.ctx.xml" />

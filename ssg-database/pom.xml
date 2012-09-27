@@ -8,6 +8,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901.jdbc4</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.20</version>
@@ -37,8 +43,8 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>1.6.1</version>
 				<configuration>
-					<baseDir>ssg_db_migration</baseDir>
-					<driver>com.mysql.jdbc.Driver</driver>
+					<baseDir>${dbMigrationDir}</baseDir>
+					<driver>${dbDriver}</driver>
 					<!--mavenProject>ssg-database</mavenProject -->
 					<schemas>${dbSchema}</schemas>
 					<url>${dbUrl}</url>

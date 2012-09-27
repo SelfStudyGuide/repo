@@ -13,6 +13,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
 import org.ssg.core.domain.Task;
@@ -23,6 +25,8 @@ import org.ssg.core.service.HomeworkDao;
 import org.ssg.core.service.StudentService;
 import org.ssg.core.service.UserDao;
 
+@ActiveProfiles({"junit", "real-core", "junit-mock-security", "mysql"})
+@ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml" })
 public class AbstractDaoTestSupport {
 
 	@Autowired

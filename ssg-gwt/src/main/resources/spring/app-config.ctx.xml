@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<beans profile="prod, functional, heroku">
+		<context:property-placeholder location="classpath:config_${spring.profiles.active}.properties" />
+	</beans>
+	
+	<beans profile="functional">
+		<beans profile="mysql">
+			<context:property-placeholder location="classpath:config_functional.properties" />
+		</beans>
+		<beans profile="postgres">
+			<context:property-placeholder location="classpath:config_funcional_postgres.properties" />
+		</beans>
+	</beans>
+	
+	<beans profile="local">
+		<beans profile="mysql">
+			<context:property-placeholder location="classpath:config_local.properties" />
+		</beans>
+		<beans profile="postgres">
+			<context:property-placeholder location="classpath:config_local_postgres.properties" />
+		</beans>
+	</beans>
+	
+</beans>

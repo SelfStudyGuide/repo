@@ -117,16 +117,7 @@ public class HomeworkPresenterTest extends AbstractPresenterTestCase {
 		Handler selectionHnd = verifyAndCaptureSelectionHnd(homeworkSelection);
 		AssertEventHandler assertAppEvent = verifyAppEvent(HomeworkSelectedEvent.TYPE,
 		        HomeworkSelectedEvent.Handler.class);
-		// new HomeworkSelectedEvent.Handler() {
-		// public void onHomeworkSelection(HomeworkInfo selected) {
-		// assertThat(selected.getId(), is(homeworkInfo.getId()));
-		// }
-		//
-		// public void onHomeworkDeselected() {
-		// // TODO Auto-generated method stub
-		//
-		// }
-		// });
+		
 		when(homeworkSelection.getSelectedObject()).thenReturn(homeworkInfo);
 
 		selectionHnd.onSelectionChange(null);

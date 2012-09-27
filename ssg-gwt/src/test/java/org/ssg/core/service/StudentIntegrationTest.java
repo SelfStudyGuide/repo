@@ -19,8 +19,8 @@ import org.ssg.core.domain.Student;
 import org.ssg.core.support.AbstractDaoTestSupport;
 import org.ssg.core.support.TstDataUtils;
 
-@ActiveProfiles({"junit", "real-core", "junit-mock-security"})
-@ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml" })
+//@ActiveProfiles({"junit", "real-core", "junit-mock-security"})
+//@ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml" })
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 public class StudentIntegrationTest extends AbstractDaoTestSupport {

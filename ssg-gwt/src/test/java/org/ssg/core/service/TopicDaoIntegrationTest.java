@@ -24,17 +24,18 @@ import org.ssg.core.support.AbstractDaoTestSupport;
 import org.ssg.core.support.TstDataUtils;
 
 
-@ActiveProfiles({"junit", "real-core", "junit-mock-security"})
-@ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml" })
+//@ActiveProfiles({"junit", "real-core", "junit-mock-security"})
+//@ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml" })
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 
 	@Test
+	@Rollback(value=false)	
 	public void verifyThatModuleAndTopicCanBeSavedInCascade() {
 		saveModuleWithTopic();
 
-		clearSession();
+		//clearSession();
 
 		Topic savedTopic = getSavedTopic();
 		Assert.assertThat(savedTopic.getId(), is(not(0)));
@@ -46,7 +47,7 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 		module.setName("some unique name " + System.currentTimeMillis());
 		curriculumDao.saveModule(module);
 
-		clearSession();
+		//clearSession();
 
 		Topic topic = createTestTopic("test topic 1");
 		String topicName = topic.getName();
@@ -54,7 +55,7 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 
 		curriculumDao.saveTopic(topic);
 
-		clearSession();
+		//clearSession();
 
 		Topic savedTopic = getSavedTopic();
 		Assert.assertThat(savedTopic.getId(), is(not(0)));
@@ -68,7 +69,7 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 		Module module = saveModuleWithTopic();
 		Topic topic = module.getTopics().get(0);
 
-		clearSession();
+		//clearSession();
 
 		// Then
 		Topic loadedTopic = curriculumDao.getTopic(topic.getId());
@@ -79,19 +80,18 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 	}
 
 	@Test
-	// @Rollback(value = false)
 	public void verifyThatTopicCanBeAddedToPercictedModuleWhereOtherTopicExists() {
 		saveModuleWithTopic();
-		clearSession();
+		//clearSession();
 
 		Module savedModule = getSavedModule();
 
 		Topic topic = createTestTopic("test topic 2");
-		addTopicToModule(savedModule, topic, new ArrayList<Topic>());
+		addTopicToModule(savedModule, topic, savedModule.getTopics());
 
 		curriculumDao.saveTopic(topic);
 
-		clearSession();
+		//clearSession();
 
 		savedModule = getSavedModule();
 
@@ -161,7 +161,7 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 		curriculumDao.saveTask(task);
 
 		// Then
-		clearSession();
+		//clearSession();
 		Task savedTask = getSavedTask(TaskType.LISTENING);
 		assertThat(savedTask.getDescription().length(), is(65353));
 		assertThat(savedTask.getDescription(), is(longStr.toString()));
@@ -181,7 +181,7 @@ public class TopicDaoIntegrationTest extends AbstractDaoTestSupport {
 		curriculumDao.saveTask(task);
 
 		// Then
-		clearSession();
+		//clearSession();
 		Topic reloadTopic = getSavedTopic();
 		assertThat(reloadTopic.getTasks().size(), is(1));
 		Task savedTask = reloadTopic.getTasks().get(0);

@@ -37,7 +37,7 @@ import org.ssg.gui.server.security.Authorization;
 import org.ssg.gui.server.security.SsgSecurityException;
 import org.ssg.gui.server.service.CustomJdbcUserDetailsManager;
 
-@ActiveProfiles({"junit", "junit-mock-core", "real-security", "real-gui"})
+@ActiveProfiles({"junit", "junit-mock-core", "real-security", "real-gui", "postgres"})
 @ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml", "/spring/db-config.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SpringSecurityIntegrationTest {

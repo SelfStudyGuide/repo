@@ -17,6 +17,7 @@
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<springVersion>3.1.0.RELEASE</springVersion>
+		<ssgEnv>local_postgres</ssgEnv>
 	</properties>
 
 	<dependencies>
@@ -227,17 +228,17 @@
 							<goal>test</goal>
 						</goals>
 						<configuration>
-							<!-- Never skip running the tests when the test phase is invoked -->
 							<skip>false</skip>
 							<includes>
-								<!-- Include unit tests within integration-test phase. -->
 								<include>**/*Test.java</include>
 							</includes>
 							<excludes>
-								<!-- Exclude integration tests within (unit) test phase. -->
 								<exclude>**/*GwtTest.java</exclude>
 								<exclude>**/*IntegrationTest.java</exclude>
 							</excludes>
+							<systemProperties>
+								<ssg.env>junit_local</ssg.env>
+							</systemProperties>
 						</configuration>
 					</execution>
 					<execution>
@@ -247,13 +248,13 @@
 							<goal>test</goal>
 						</goals>
 						<configuration>
-							<!-- Never skip running the tests when the integration-test phase 
-								is invoked -->
 							<skip>false</skip>
 							<includes>
-								<!-- Include integration tests within integration-test phase. -->
 								<include>**/*IntegrationTest.java</include>
 							</includes>
+							<systemProperties>
+								<ssg.env>junit_local</ssg.env>
+							</systemProperties>
 						</configuration>
 					</execution>
 				</executions>
@@ -270,7 +271,7 @@
 					<contextFile>${tomcatContext}</contextFile>
 					<useTestClasspath>false</useTestClasspath>
 					<systemProperties>
-						<spring.profiles.active>heroku</spring.profiles.active>
+						<ssg.env>${ssgEnv}</ssg.env>
 					</systemProperties>
 				</configuration>
 
@@ -310,6 +311,10 @@
 					<i18nConstantsWithLookupBundle>org.ssg.gui.client.service.res.SsgLookupMessages</i18nConstantsWithLookupBundle>
 					<!-- cssFiles> <cssFile>bar/MyCss.css</cssFile> <cssFile>foo/MySite.css</cssFile> 
 						</cssFiles -->
+
+					<systemProperties>
+						<ssg.env>junit_local</ssg.env>
+					</systemProperties>
 				</configuration>
 			</plugin>
 

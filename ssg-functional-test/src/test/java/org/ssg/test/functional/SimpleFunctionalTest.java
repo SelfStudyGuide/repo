@@ -27,7 +27,7 @@ public class SimpleFunctionalTest {
 	@Before
 	public void before() throws LifecycleException {
 		
-		System.setProperty("spring.profiles.active", "functional");
+		//System.setProperty("spring.profiles.active", "functional");
 		
 	    mTomcat = new Tomcat();
 		mTomcat.setPort(0);

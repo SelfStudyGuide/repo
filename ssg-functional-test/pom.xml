@@ -111,6 +111,9 @@
 							<excludes>
 								<exclude>**/*FunctionalTest.java</exclude>
 							</excludes>
+							<systemProperties>
+								<ssg.env>functional</ssg.env>
+							</systemProperties>
 						</configuration>
 					</execution>
 					<execution>
@@ -127,6 +130,9 @@
 								<!-- Include integration tests within integration-test phase. -->
 								<include>**/*FunctionalTest.java</include>
 							</includes>
+							<systemProperties>
+								<ssg.env>functional</ssg.env>
+							</systemProperties>
 						</configuration>
 					</execution>
 				</executions>

@@ -1,6 +1,7 @@
 @def selectionBorderWidth 0px;
 .cellTableWidget {
-	
+	width: 100%;
+	margin: 5px 0;
 }
 
 .cellTableFirstColumn {
@@ -16,7 +17,7 @@
 	padding: 3px 15px;
 	text-align: left;
 	color: #4b4a4a;
-	text-shadow: #ddf 1px 1px 0;
+	text-shadow: none;
 }
 
 .cellTableHeader {
@@ -24,11 +25,13 @@
 	padding: 3px 15px;
 	text-align: left;
 	color: #4b4a4a;
-	text-shadow: #ddf 1px 1px 0;
+	text-shadow: none;
+	background-color: lightgray;
 }
 
 .cellTableCell {
 	padding: 2px 15px;
+	font-size: 14px;
 }
 
 .cellTableFirstColumnFooter {

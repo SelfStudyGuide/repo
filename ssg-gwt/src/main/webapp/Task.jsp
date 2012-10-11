@@ -11,7 +11,7 @@
 	src="Task/Task.nocache.js"></script>
 </head>
 <body class="body">
-	<div style="font-family: Tahoma, Arial, Helvetica, sans-serif;">
+	<div style="font-family:Arial">
 		<div class="h_15"></div>
 		<div style="margin: auto; width: 984px">
 			<div class="top"></div>

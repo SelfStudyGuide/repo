@@ -5,9 +5,15 @@
 	<ui:with type="org.ssg.gui.client.service.res.StudentHomeResources"
 		field="res" />
 
+	<ui:with field='msg' type='org.ssg.gui.client.service.res.SsgMessages' />
 
 	<g:HTMLPanel>
-		Task List
+		<g:FlowPanel styleName='{res.styles.widget_title}'>
+			<g:Label>
+				<ui:text from='{msg.topicViewTaskTitle}' />
+			</g:Label>
+		</g:FlowPanel>
+		<g:FlowPanel styleName='{res.styles.clear}'></g:FlowPanel>
 		<g:HorizontalPanel ui:field="topicTaskButtons"></g:HorizontalPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

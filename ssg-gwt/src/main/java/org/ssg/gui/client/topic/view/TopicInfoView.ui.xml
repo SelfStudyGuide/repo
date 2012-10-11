@@ -4,6 +4,7 @@
 
 	<ui:with type="org.ssg.gui.client.service.res.StudentHomeResources"
 		field="res" />
+	<ui:with field='msg' type='org.ssg.gui.client.service.res.SsgMessages' />
 
 	<g:HTMLPanel>
 		<g:FlowPanel styleName='{res.styles.widget_title}'>

@@ -25,5 +25,9 @@ public interface StudentHomeResources extends ClientBundle {
 		String paddingRight5();
 
 		String paddingRight10();
+		
+		String homeworkDetailsPropertyName();
+		
+		String topicTaskListContainer();
 	}
 }

@@ -2,6 +2,7 @@ package org.ssg.gui.client.topic.view;
 
 import java.util.HashMap;
 
+import org.ssg.gui.client.service.res.StudentHomeResources;
 import org.ssg.gui.client.topic.presenter.TaskListPresenter;
 
 import com.google.gwt.core.client.GWT;
@@ -41,8 +42,12 @@ public class TaskListView extends Composite implements TaskListPresenter.Display
 		} else {
 			anchor = new Anchor();
 			anchor.setHref(href);
+			anchor.setStyleName(StudentHomeResources.INSTANCE.styles().clickButton());
 			anchors.put(id, anchor);
-			topicTaskButtons.add(new SimplePanel(anchor));
+			SimplePanel p = new SimplePanel(anchor);
+			
+			p.setStyleName(StudentHomeResources.INSTANCE.styles().topicTaskListContainer());
+			topicTaskButtons.add(p);
 		}
 		return anchor;
 	}

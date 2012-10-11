@@ -20,7 +20,7 @@
 
 		<g:FlowPanel styleName='{css.styles.clear}'></g:FlowPanel>
 
-		<g:FlowPanel styleName='{css.styles.floatLeft} {css.styles.paddingRight5}'>
+		<g:FlowPanel styleName='{css.styles.floatLeft} {css.styles.paddingRight5} {css.styles.homeworkDetailsPropertyName}'>
 			<g:Label>
 				<ui:text from='{msg.homeworkDetailsAssigned}' />
 			</g:Label>
@@ -28,7 +28,7 @@
 		<g:FlowPanel styleName="{css.styles.floatLeft} {css.styles.paddingRight10}">
 			<g:Label ui:field="assignDate" />
 		</g:FlowPanel>
-		<g:FlowPanel styleName='{css.styles.floatLeft} {css.styles.paddingRight5}'>
+		<g:FlowPanel styleName='{css.styles.floatLeft} {css.styles.paddingRight5} {css.styles.homeworkDetailsPropertyName}'>
 			<g:Label>
 				<ui:text from='{msg.homeworkDetailsComplete}' />
 			</g:Label>
@@ -39,9 +39,9 @@
 
 		<g:FlowPanel styleName='{css.styles.clear}'></g:FlowPanel>
 
-		<g:FlowPanel styleName='{css.styles.floatLeft} {css.styles.paddingRight5}'>
+		<g:FlowPanel styleName='{css.styles.floatLeft} {css.styles.paddingRight5} {css.styles.homeworkDetailsPropertyName}'>
 			<g:Label>
-				<ui:text from='{msg.homeworkDetailsComplete}' />
+				<ui:text from='{msg.homeworkDetailsTeacher}' />
 			</g:Label>
 		</g:FlowPanel>
 		<g:FlowPanel styleName="{css.styles.floatLeft} {css.styles.paddingRight10}">

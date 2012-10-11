@@ -67,4 +67,7 @@ public interface SsgMessages extends Messages {
 	
 	@Key("topic.view.task.lexical")
 	String topicViewTaskLexical();
+	
+	@Key("topic.view.task.title")
+	String topicViewTaskTitle();
 }

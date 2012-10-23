@@ -22,6 +22,8 @@ import javax.persistence.Transient;
 public class TopicProgress implements Serializable {
 	private static final long serialVersionUID = -1107116198666337327L;
 	private Homework homework;
+	
+	// TODO: this should be references by id
 	private Topic topic;
 	private String status;
 	// Not sure that answers is neede here.

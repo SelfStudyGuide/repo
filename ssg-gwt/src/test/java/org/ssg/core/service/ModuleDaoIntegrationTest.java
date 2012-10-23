@@ -30,7 +30,7 @@ public class ModuleDaoIntegrationTest extends AbstractDaoTestSupport {
 
 	@Test
 	// @Rollback(value=false)
-	public void verifyThatModuleIsCreate() {
+	public void givenPercistedModuleInDbWhenGetAllModulesThenItShouldBeLoaded() {
 		Module module = TstDataUtils.createModule();
 		curriculumDao.saveModule(module);
 
@@ -41,20 +41,6 @@ public class ModuleDaoIntegrationTest extends AbstractDaoTestSupport {
 		Assert.assertThat(savedModule.getDescription(), equalTo("desc"));
 		Assert.assertThat(savedModule.getId(), is(not(0)));
 
-	}
-
-	@Test
-	public void verifyThatModuleObjectCanBeFoundByItsId() {
-		Module module = TstDataUtils.createModule();
-		curriculumDao.saveModule(module);
-
-		Module savedModule = getSavedModule();
-
-		Module moduleFetchedById = curriculumDao.getModuleById(savedModule.getId());
-
-		Assert.assertThat(moduleFetchedById.getName(), equalTo("name"));
-		Assert.assertThat(moduleFetchedById.getDescription(), equalTo("desc"));
-		Assert.assertThat(moduleFetchedById.getId(), is(not(0)));
 	}
 
 	// TODO: It should be re-done with implicit duplication check, and throw
@@ -68,20 +54,6 @@ public class ModuleDaoIntegrationTest extends AbstractDaoTestSupport {
 		curriculumDao.saveModule(module2);
 
 		template.flush();
-	}
-
-	@Test
-	public void verifyThatModuleCanBeDeleted() {
-		Module module = TstDataUtils.createModule();
-		curriculumDao.saveModule(module);
-
-		Module savedModule = getSavedModule();
-
-		curriculumDao.deleteModule(savedModule.getId());
-
-		Collection<Module> modules = curriculumDao.getAllModules();
-
-		Assert.assertThat(modules.isEmpty(), is(true));
 	}
 
 }

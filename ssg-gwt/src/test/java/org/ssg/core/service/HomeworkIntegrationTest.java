@@ -25,26 +25,13 @@ public class HomeworkIntegrationTest extends AbstractDaoTestSupport {
 	@Override
 	protected void cleanUpDb() {
 		deleteAll(Homework.class);
-		// deleteAll(TopicProgress.class);
 		deleteAll(Student.class);
-		// deleteAll(Topic.class);
 		deleteAll(Module.class);
 	}
 	
 	@Test
-	public void verifyThatHomeworkCanBeLoadedById() {
-		Student savedStudent = createStudentAndSave();
-		Module savedModule = createModuleAndSave();
-		Homework savedHomework = createHomeworkAndSave(savedStudent, savedModule);
-		clearSession();
-
-		Homework loadedHomework = homeworkDao.getHomework(savedHomework.getId());
-
-		Assert.assertThat(loadedHomework.getId(), is(savedHomework.getId()));
-	}
-	
-	@Test
 	// @Rollback(value=false)
+	// TODO to delete
 	public void verifyThatHomeworkCanBeAssignedToStudent() {
 		createStudentAndSave();
 		createModuleAndSave();
@@ -56,7 +43,7 @@ public class HomeworkIntegrationTest extends AbstractDaoTestSupport {
 
 		Homework homework = createHomeworkAndSave(savedStudent, savedModule);
 
-		clearSession();
+		//clearSession();
 
 		Homework savedHomework = getSavedHomework();
 
@@ -80,7 +67,7 @@ public class HomeworkIntegrationTest extends AbstractDaoTestSupport {
 		homework = TstDataUtils.enrichHomeworkWithProgress(homework, savedModule.getTopics());
 		homeworkDao.saveHomework(homework);
 
-		clearSession();
+		//clearSession();
 
 		Homework savedHomework = getSavedHomework();
 

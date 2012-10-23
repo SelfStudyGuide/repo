@@ -15,6 +15,44 @@ import org.ssg.core.dto.TopicTaskInfo;
 
 public class TstDataBuilder {
 
+	public static ModuleBuilder moduleBuilder() {
+		return new ModuleBuilder();
+	}
+	
+	public static class ModuleBuilder {
+		private Module module = new Module();
+
+		public Module build() {
+			return module;
+		}
+
+		public ModuleBuilder id(int id) {
+			module.setId(id);
+			return this;
+		}
+
+		public ModuleBuilder name(String name) {
+			module.setName(name);
+			return this;
+		}
+
+		public ModuleBuilder description(String description) {
+			module.setDescription(description);
+			return this;
+		}
+
+		public ModuleBuilder topic(Topic topic) {
+			List<Topic> topics = module.getTopics();
+			if (topics == null) {
+				topics = new ArrayList<Topic>();
+			}
+			topic.setModule(module);
+			topics.add(topic);
+			module.setTopics(topics);
+			return this;
+		}
+	}
+
 	public static TopicTaskInfoBuilder topicTaskInfoBuilder() {
 		return new TopicTaskInfoBuilder();
 	}
@@ -76,6 +114,11 @@ public class TstDataBuilder {
 
 		public Task build() {
 			return task;
+		}
+		
+		public TaskBuilder description(String d) {
+			task.setDescription(d);
+			return this;
 		}
 	}
 

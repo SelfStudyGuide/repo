@@ -18,8 +18,13 @@ import javax.persistence.Transient;
 
 import org.ssg.core.dto.FieldType;
 
-// This is abstract class. It can be extended with MultilineTextField, Table 
-// with additional properties
+/**
+ * This is abstract class. It can be extended with MultilineTextField, Table 
+ * with additional properties.
+ * 
+ * 
+ */
+// 
 //@Entity
 //@Table(name="FIELD")
 //@Inheritance(strategy=SINGLE_TABLE)

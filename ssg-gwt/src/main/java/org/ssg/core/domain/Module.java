@@ -1,5 +1,6 @@
 package org.ssg.core.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,8 +13,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "MODULE")
-public class Module {
-	private int id;
+public class Module implements Serializable {
+    
+	private static final long serialVersionUID = 1L;
+	
+    private int id;
 	private String name;
 	private String description;
 	private List<Topic> topics;

@@ -29,7 +29,6 @@ import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.service.ActionCallbackAdapter;
 import org.ssg.gui.client.service.ActionResponseCallback;
 import org.ssg.gui.client.service.SsgGuiServiceException;
-import org.ssg.gui.client.service.res.SsgMessages;
 import org.ssg.gui.server.command.ActionHandler;
 import org.ssg.gui.server.security.Authorization;
 import org.ssg.gui.server.security.CommandPreAuthorize;
@@ -41,17 +40,11 @@ import com.google.gwt.event.shared.GwtEvent;
 public class TstDataUtils {
 
 	public static Module createModule() {
-		Module module = new Module();
-		module.setName("name");
-		module.setDescription("desc");
-		return module;
+		return TstDataBuilder.moduleBuilder().name("name").description("desc").build();
 	}
 
 	public static Module createModule(String name, int id) {
-		Module module = createModule();
-		module.setName(name);
-		module.setId(id);
-		return module;
+		return TstDataBuilder.moduleBuilder().name(name).id(id).build();
 	}
 
 	@SuppressWarnings("serial")
@@ -73,9 +66,8 @@ public class TstDataUtils {
 	}
 
 	public static Module createModuleWithUniqueName() {
-		Module module = TstDataUtils.createModule();
-		module.setName("unique module name " + System.currentTimeMillis());
-		return module;
+		return TstDataBuilder.moduleBuilder().name("unique module name " + System.currentTimeMillis())
+		        .description("desc").build();
 	}
 
 	public static Topic createTopicWithUniqueName(Module module) {
@@ -91,14 +83,9 @@ public class TstDataUtils {
 		return topic;
 	}
 
-	@Deprecated
 	public static Task createTask(TaskType type) {
-		Task task = new Task();
-		task.setName(type.toString() + " task");
-		task.setType(type);
-		task.setDescription(type.toString() + " task descr");
-		task.setExecrisesCount(2);
-		return task;
+		return TstDataBuilder.taskBuilder().name(type.toString() + " task").type(type)
+		        .description(type.toString() + " task descr").execrisesCount(2).build();
 	}
 
 	public static Student createStudent(String name) {
@@ -136,16 +123,6 @@ public class TstDataUtils {
 		}
 		return homework;
 	}
-
-	// public static List<TopicProgress> enrichTopicProgressesWithId(
-	// List<TopicProgress> tp) {
-	// int i = 1;
-	// for (TopicProgress p : tp) {
-	// //p.setId(10 + i);
-	// i++;
-	// }
-	// return tp;
-	// }
 
 	public static HomeworkInfo createHomeworkInfo() {
 		HomeworkInfo result = new HomeworkInfo();
@@ -224,12 +201,12 @@ public class TstDataUtils {
 
 	@SuppressWarnings("serial")
 	public static class TestAction extends BaseAction<TestActionResponse> {
-		
+
 		public String param;
-		
+
 		public TestAction(String param) {
-	        this.param = param;
-        }
+			this.param = param;
+		}
 
 		public TestAction() {
 			setActionName("Test/TestAction/" + new Date().toString());
@@ -240,8 +217,8 @@ public class TstDataUtils {
 		public String response;
 
 		public TestActionResponse(String response) {
-	        this.response = response;
-        }
+			this.response = response;
+		}
 	}
 
 	public static class TestActionHandler implements ActionHandler<TestActionResponse, TestAction>,
@@ -249,7 +226,7 @@ public class TstDataUtils {
 
 		@Autowired
 		private Authorization authorization;
-		
+
 		public TestActionResponse execute(TestAction action) throws SsgGuiServiceException {
 			return new TestActionResponse(action.param);
 		}

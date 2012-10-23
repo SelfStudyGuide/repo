@@ -20,6 +20,8 @@ import javax.persistence.Table;
 @Table(name = "HOMEWORK")
 public class Homework {
 	private int id;
+	
+	// TODO: this should be references by id
 	private List<Module> modules;
 	private Student student;
 	private List<TopicProgress> progresses;
@@ -35,7 +37,7 @@ public class Homework {
 		this.id = id;
 	}
 
-	@ManyToMany(cascade = { CascadeType.ALL }, targetEntity = Module.class)
+	@ManyToMany(targetEntity = Module.class)
 	@JoinTable(name = "HOMEWORK_MODULE", joinColumns = @JoinColumn(name = "HW_ID"), inverseJoinColumns = @JoinColumn(name = "MODULE_ID"))
 	public List<Module> getModules() {
 		return modules;

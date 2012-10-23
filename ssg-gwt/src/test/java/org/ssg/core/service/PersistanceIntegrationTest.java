@@ -23,7 +23,7 @@ import org.ssg.core.support.TstDataBuilder;
         PersistanceIntegrationTest.TaskPersistanceTestCase.class,
         PersistanceIntegrationTest.HomeworkPersistanceTestCase.class,
         PersistanceIntegrationTest.StudentPersistanceTestCase.class,
-        PersistanceIntegrationTest.CurriculumTreePersistanceTestCase.class, })
+        PersistanceIntegrationTest.CurriculumTreePersistanceTestCase.class })
 public class PersistanceIntegrationTest {
 
 	public static class ModulePersistanceTestCase extends PersistanceTestCase {

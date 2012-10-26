@@ -81,8 +81,13 @@ public class GwtRpcTest {
 			}
 		});
 
-		scaner.addExcludeFilter(new AssignableTypeFilter(FieldType.class));
-		scaner.addExcludeFilter(new AssignableTypeFilter(TaskType.class));
+		scaner.addExcludeFilter(new TypeFilter() {
+
+			public boolean match(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory)
+			        throws IOException {
+				return "java.lang.Enum".equals(metadataReader.getClassMetadata().getSuperClassName());
+			}
+		});
 
 		Set<BeanDefinition> beans = scaner.findCandidateComponents("org/ssg/core/dto");
 

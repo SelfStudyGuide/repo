@@ -3,6 +3,7 @@ package org.ssg.core.domain;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -103,7 +104,14 @@ public class Task {
 	public void setExecrisesCount(int execrisesCount) {
 		this.execrisesCount = execrisesCount;
 	}
-	
-	
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "task", orphanRemoval = true)
+	public List<Exercise> getExercises() {
+    	return exercises;
+    }
+
+	public void setExercises(List<Exercise> exercises) {
+    	this.exercises = exercises;
+    }
 	
 }

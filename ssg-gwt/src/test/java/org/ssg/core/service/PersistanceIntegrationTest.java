@@ -9,11 +9,13 @@ import org.apache.commons.lang.math.RandomUtils;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+import org.ssg.core.domain.Exercise;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
 import org.ssg.core.domain.Task;
 import org.ssg.core.domain.Topic;
+import org.ssg.core.dto.ExerciseType;
 import org.ssg.core.dto.TaskType;
 import org.ssg.core.support.TstDataBuilder;
 
@@ -23,7 +25,8 @@ import org.ssg.core.support.TstDataBuilder;
         PersistanceIntegrationTest.TaskPersistanceTestCase.class,
         PersistanceIntegrationTest.HomeworkPersistanceTestCase.class,
         PersistanceIntegrationTest.StudentPersistanceTestCase.class,
-        PersistanceIntegrationTest.CurriculumTreePersistanceTestCase.class })
+        PersistanceIntegrationTest.CurriculumTreePersistanceTestCase.class,
+        PersistanceIntegrationTest.ExercisePersistanceTestCase.class })
 public class PersistanceIntegrationTest {
 
 	public static class ModulePersistanceTestCase extends PersistanceTestCase {
@@ -56,6 +59,12 @@ public class PersistanceIntegrationTest {
 		}
 	}
 
+	public static class ExercisePersistanceTestCase extends PersistanceTestCase {
+		public ExercisePersistanceTestCase() {
+			super(Exercise.class, objectTestValues());
+		}
+	}
+
 	public static class CurriculumTreePersistanceTestCase extends PersistanceTestCase {
 		public CurriculumTreePersistanceTestCase() {
 			super(module(), objectTreeTestValues());
@@ -75,8 +84,9 @@ public class PersistanceIntegrationTest {
 
 		values.put(int.class, new IntValue());
 		values.put(String.class, new StringValue());
-		values.put(TaskType.class, new TaskTypeValue());
+		values.put(TaskType.class, new EnumValue(TaskType.values()));
 		values.put(List.class, new EmptyListValue());
+		values.put(ExerciseType.class, new EnumValue(ExerciseType.values()));
 
 		return values;
 	}
@@ -86,8 +96,8 @@ public class PersistanceIntegrationTest {
 
 		values.put(int.class, new IntValue());
 		values.put(String.class, new StringValue());
-		values.put(TaskType.class, new TaskTypeValue());
-
+		values.put(TaskType.class, new EnumValue(TaskType.values()));
+		values.put(ExerciseType.class, new EnumValue(ExerciseType.values()));
 		return values;
 	}
 
@@ -116,9 +126,15 @@ public class PersistanceIntegrationTest {
 		}
 	}
 
-	public static class TaskTypeValue implements Value {
+	public static class EnumValue implements Value {
+		private Enum<?>[] values;
+
+		public EnumValue(Enum<?>[] values) {
+			this.values = values;
+		}
+
 		public Object createValue() {
-			return TaskType.values()[RandomUtils.nextInt(TaskType.values().length - 1)];
+			return values[RandomUtils.nextInt(values.length)];
 		}
 	}
 

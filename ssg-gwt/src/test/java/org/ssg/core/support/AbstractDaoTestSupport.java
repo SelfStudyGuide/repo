@@ -25,7 +25,7 @@ import org.ssg.core.service.HomeworkDao;
 import org.ssg.core.service.StudentService;
 import org.ssg.core.service.UserDao;
 
-@ActiveProfiles({"junit", "real-core", "junit-mock-security", "mysql"})
+@ActiveProfiles({"junit", "real-core", "junit-mock-security"})
 @ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml" })
 public class AbstractDaoTestSupport {
 

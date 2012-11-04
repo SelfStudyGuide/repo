@@ -10,6 +10,7 @@ public class TopicTaskInfo implements Serializable {
 	private TaskType type;
 	private int execrisesCount;
 	private int completedCount;
+	private Integer[] exerciseIds;
 
 	public int getId() {
 		return id;
@@ -47,4 +48,12 @@ public class TopicTaskInfo implements Serializable {
 		return getType() == type;
 	}
 
+	public Integer[] getExerciseIds() {
+    	return exerciseIds;
+    }
+
+	public void setExerciseIds(Integer[] exerciseIds) {
+    	this.exerciseIds = exerciseIds;
+    }
+	
 }

@@ -71,8 +71,9 @@ public class PersistanceIntegrationTest {
 		}
 
 		private static Module module() {
-			Topic topic1 = TstDataBuilder.topicBuilder().task(TstDataBuilder.taskBuilder().build())
-			        .task(TstDataBuilder.taskBuilder().build()).build();
+			Task task = TstDataBuilder.taskBuilder().exercise(TstDataBuilder.exerciseBuilder().name("ex").build())
+			        .build();
+			Topic topic1 = TstDataBuilder.topicBuilder().task(task).task(TstDataBuilder.taskBuilder().build()).build();
 			Topic topic2 = TstDataBuilder.topicBuilder().build();
 
 			return TstDataBuilder.moduleBuilder().topic(topic1).topic(topic2).build();

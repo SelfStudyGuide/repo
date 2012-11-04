@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:property-placeholder ignore-unresolvable="true" location="classpath:/config_common.properties" />
 	<context:property-placeholder location="classpath:/config_${ssg.env}.properties" />
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:/config_common.properties" />
 
 </beans>

@@ -101,7 +101,7 @@ public class Exercise {
 	}
 
 	@ManyToOne()
-	@JoinColumn(name="TOPIC_ID")
+	@JoinColumn(name="TASK_ID")
 	public Task getTask() {
 		return task;
 	}

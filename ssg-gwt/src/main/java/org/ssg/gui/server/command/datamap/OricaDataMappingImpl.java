@@ -3,6 +3,7 @@ package org.ssg.gui.server.command.datamap;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +17,11 @@ import org.springframework.stereotype.Service;
 @Scope("prototype")
 public class OricaDataMappingImpl implements DataMappingSupport {
 
+	@Autowired
 	private DefaultMapperFactory factory;
 	private MappingContext context = new MappingContext();
 
 	public OricaDataMappingImpl() {
-		DefaultMapperFactory.Builder builder = new DefaultMapperFactory.Builder();
-		factory = builder.build();
 	}
 
 	public <S, D> D map(S source, D destination) {

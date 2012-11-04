@@ -46,4 +46,10 @@ public class DefaultCurriculumDao extends DefaultGenericDao implements Curriculu
 		save(task);
 	}
 
+	public Task getTask(int id) {
+	    return getById(id, Task.class);
+    }
+	
+	
+
 }

@@ -5,9 +5,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.ssg.core.dao.DefaultGenericDao;
 import org.ssg.core.domain.Homework;
 
-@Repository
+@Repository("HomeworkDao")
 @Transactional
-public class DefaultHomeWorkDao extends DefaultGenericDao implements HomeworkDao {
+public class DefaultHomeworkDao extends DefaultGenericDao implements HomeworkDao {
 
 	public void saveHomework(Homework homework) {
 		save(homework);

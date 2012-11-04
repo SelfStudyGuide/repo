@@ -6,12 +6,12 @@
 
 	<!-- import resource="classpath:/spring/app-config.ctx.xml" / -->
 	<context:property-placeholder
-		ignore-unresolvable="true" location="classpath:/config_common.properties" />
-	<context:property-placeholder
 		ignore-unresolvable="true" ignore-resource-not-found="true"
 		location="classpath:config_${ssg.env}.properties" />
 	<context:property-placeholder
 		ignore-resource-not-found="true" location="classpath:config_junit_local.properties" />
+	<context:property-placeholder
+		ignore-unresolvable="true" location="classpath:/config_common.properties" />
 
 	<!-- Core -->
 	<beans profile="junit-mock-core">
@@ -21,6 +21,9 @@
 	<beans profile="real-core">
 		<import resource="classpath:/spring/db-config.xml" />
 		<import resource="classpath:/spring/core-service.ctx.xml" />
+		<bean id="databaseTester" class="org.dbunit.DataSourceDatabaseTester">
+			<constructor-arg index="0" ref="dataSource" />
+		</bean>
 	</beans>
 
 	<!-- Security -->

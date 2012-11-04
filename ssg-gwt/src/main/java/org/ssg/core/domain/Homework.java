@@ -100,4 +100,8 @@ public class Homework {
 		return result;
 	}
 
+	public boolean hasTopic(int topicId) {
+		return getTopicProgress(topicId) != null;
+	}
+
 }

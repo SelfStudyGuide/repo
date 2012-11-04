@@ -37,7 +37,7 @@ import org.ssg.gui.server.security.Authorization;
 import org.ssg.gui.server.security.SsgSecurityException;
 import org.ssg.gui.server.service.CustomJdbcUserDetailsManager;
 
-@ActiveProfiles({"junit", "junit-mock-core", "real-security", "real-gui", "postgres"})
+@ActiveProfiles({"junit", "junit-mock-core", "real-security", "real-gui"})
 @ContextConfiguration(locations = { "classpath:/spring/test-application.ctx.xml", "/spring/db-config.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SpringSecurityIntegrationTest {
@@ -58,9 +58,6 @@ public class SpringSecurityIntegrationTest {
 	@Autowired(required = true)
 	private Authorization authorization;
 
-//	@Autowired
-//	private HomeworkDao homeworkDao;
-
 	private Student student;
 
 	@Before
@@ -72,15 +69,6 @@ public class SpringSecurityIntegrationTest {
 		userDetailsManager.deleteUser(userName);
 		userDetailsManager.createUser(new User(userName, "pass", Arrays.asList(new SimpleGrantedAuthority(role))));
 	}
-
-//	@Test
-//	public void verifyThatPreAuthoriseAnnoationIsHandled() {
-//		// Given
-//		authenticatedUser(createStudent("user", "student").getName());
-//
-//		// When
-//		authorization.ownStudent(126);
-//	}
 
 	@Test
 	public void givenUserWithStudentRoleThenAuthorisationForStudentShouldPass() {

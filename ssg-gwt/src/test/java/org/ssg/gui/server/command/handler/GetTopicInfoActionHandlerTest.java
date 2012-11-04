@@ -23,6 +23,7 @@ import org.ssg.gui.client.topic.action.GetTopicInfo;
 import org.ssg.gui.client.topic.action.GetTopicInfoResponse;
 import org.ssg.gui.server.security.Authorization;
 
+// GetTopicInfoActionHandler
 public class GetTopicInfoActionHandlerTest extends AbstractCommandTestCase<GetTopicInfoResponse, GetTopicInfo> {
 
 	private static final int TOPIC_ID = 345;

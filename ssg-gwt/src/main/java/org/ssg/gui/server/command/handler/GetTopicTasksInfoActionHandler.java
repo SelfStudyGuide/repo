@@ -92,7 +92,7 @@ public class GetTopicTasksInfoActionHandler extends
 	private static class DataMapperConfiguration implements OrikaDataMappingConfiguration {
 
 		public void copfigureDataMapper(MapperFactory factory) {
-			ClassMapBuilder<Task, TopicTaskInfo> mapBuilder = ClassMapBuilder.map(Task.class, TopicTaskInfo.class);
+			ClassMapBuilder<Task, TopicTaskInfo> mapBuilder = factory.classMap(Task.class, TopicTaskInfo.class);
 
 			factory.registerClassMap(mapBuilder.byDefault().toClassMap());
 		}

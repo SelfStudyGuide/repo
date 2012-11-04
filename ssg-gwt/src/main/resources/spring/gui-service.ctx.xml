@@ -6,6 +6,12 @@
 
 	<bean id="action.handler.lookup" class="org.ssg.gui.server.command.DefaultActionHandlerLookup" />
 
+	<bean id="oricaMapperFactoryBuilder" class="ma.glasnost.orika.impl.DefaultMapperFactory.Builder">
+	</bean>
+
+	<bean id="oricaMapperFactory" factory-bean="oricaMapperFactoryBuilder"
+		factory-method="build" scope="prototype"/>
+
 	<context:component-scan base-package="org.ssg.gui.server.command" />
 	<context:component-scan base-package="org.ssg.gui.server.service" />
 

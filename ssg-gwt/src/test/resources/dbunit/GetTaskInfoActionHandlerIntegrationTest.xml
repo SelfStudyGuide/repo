@@ -1,0 +1,15 @@
+<dataset>
+	<student id="30" name="student1" email="foo@bar.baz" />
+
+
+	<module id="50" description="desc" name="One" />
+	<topic id="40" name="topic" mod_id="50" />
+	<topic_task id="20" name="task" type="TEXT" topic_id="40"
+		EXECRCISE_CNT="2" />
+	<exercise id="60" type="GENERIC" name="exercise" exercise_order="1" task_id="20"/>
+	<exercise id="70" type="GENERIC" name="exercise2" exercise_order="2" task_id="20"/>
+
+	<homework id="10" stud_id="30" />
+	<homework_module hw_id="10" module_id="50" />
+	<topic_progress topic_id="40" hw_id="10" />
+</dataset>

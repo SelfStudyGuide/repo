@@ -26,5 +26,7 @@ public interface CurriculumDao {
 	Topic getTopic(int id);
 
 	void saveTask(Task task);
+	
+	Task getTask(int id);
 
 }

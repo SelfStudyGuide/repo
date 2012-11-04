@@ -4,21 +4,60 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.ssg.core.domain.Exercise;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
 import org.ssg.core.domain.Task;
 import org.ssg.core.domain.Topic;
 import org.ssg.core.domain.TopicProgress;
+import org.ssg.core.dto.ExerciseType;
 import org.ssg.core.dto.TaskType;
 import org.ssg.core.dto.TopicTaskInfo;
 
 public class TstDataBuilder {
 
+	public static ExerciseBuilder exerciseBuilder() {
+		return new ExerciseBuilder();
+	}
+
+	public static class ExerciseBuilder {
+		private Exercise exercise = new Exercise();
+
+		public Exercise build() {
+			return exercise;
+		}
+
+		public ExerciseBuilder id(int id) {
+			exercise.setId(id);
+			return this;
+		}
+
+		public ExerciseBuilder description(String desc) {
+			exercise.setDescription(desc);
+			return this;
+		}
+
+		public ExerciseBuilder exerciseType(ExerciseType type) {
+			exercise.setExerciseType(type);
+			return this;
+		}
+
+		public ExerciseBuilder name(String name) {
+			exercise.setName(name);
+			return this;
+		}
+
+		public ExerciseBuilder order(int o) {
+			exercise.setOrder(o);
+			return this;
+		}
+	}
+
 	public static ModuleBuilder moduleBuilder() {
 		return new ModuleBuilder();
 	}
-	
+
 	public static class ModuleBuilder {
 		private Module module = new Module();
 
@@ -115,11 +154,27 @@ public class TstDataBuilder {
 		public Task build() {
 			return task;
 		}
-		
+
 		public TaskBuilder description(String d) {
 			task.setDescription(d);
 			return this;
 		}
+
+		public TaskBuilder exercise(Exercise e) {
+			e.setTask(task);
+
+			List<Exercise> exercises = task.getExercises();
+
+			if (exercises == null) {
+				exercises = new ArrayList<Exercise>();
+			}
+
+			exercises.add(e);
+			task.setExercises(exercises);
+			
+			return this;
+		}
+
 	}
 
 	public static TopicBuilder topicBuilder() {

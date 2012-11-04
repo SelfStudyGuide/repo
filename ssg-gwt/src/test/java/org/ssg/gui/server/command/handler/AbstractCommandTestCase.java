@@ -51,7 +51,6 @@ public abstract class AbstractCommandTestCase<R extends Response, A extends Acti
 		Assert.assertThat("Handler for command " + testedCommandClass() + " is not found", commandHandler,
 		        CoreMatchers.notNullValue());
 		return studentUIService.execute(action);
-		//return commandHandler.execute(action);
 	}
 
 	public static Matcher<SsgGuiServiceException> hasErrorCode(final Matcher<String> matcher) {

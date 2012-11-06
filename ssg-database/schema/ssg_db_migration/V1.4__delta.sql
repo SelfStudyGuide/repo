@@ -4,9 +4,9 @@ create table EXERCISE (
   TYPE varchar(255) not null, 
   NAME varchar(255) not null, 
   EXERCISE_ORDER integer not null, 
-  TOPIC_ID integer, 
+  TASK_ID integer, 
   primary key (ID)
 );
 
-alter table EXERCISE add index IX_EXERCISE_TOPIC_ID (TOPIC_ID), add constraint FK_EXERCISE_TOPIC_ID foreign key (TOPIC_ID) references TOPIC_TASK (ID);
+alter table EXERCISE add index IX_EXERCISE_TASK_ID (TASK_ID), add constraint FK_EXERCISE_TASK_ID foreign key (TASK_ID) references TOPIC_TASK (ID);
 

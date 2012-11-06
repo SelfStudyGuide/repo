@@ -1,0 +1,2 @@
+alter table TOPIC_PROGRESS drop constraint FK_TOPIC_PROGRESS_TOPIC_ID;
+alter table homework_module drop constraint FK_HOMEWORK_MODULE_MODULE_ID;

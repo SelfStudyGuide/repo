@@ -27,6 +27,35 @@
 
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>junit</id>
+			<properties>
+				<dbDriver>com.mysql.jdbc.Driver</dbDriver>
+				<dbMigrationDir>ssg_db_migration</dbMigrationDir>
+				<dbUser>ssg_user</dbUser>
+				<dbPass>ssg_user</dbPass>
+				<dbUrl>jdbc:mysql://localhost:3306/ssg_db_01</dbUrl>
+				<dbSchema>ssg_db_01</dbSchema>
+				<ssgEnv>junit</ssgEnv>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>junit_postgres</id>
+			<properties>
+				<dbDriver>org.postgresql.Driver</dbDriver>
+				<dbMigrationDir>postgres</dbMigrationDir>
+				<dbUser>postgres</dbUser>
+				<dbPass>1</dbPass>
+				<dbUrl>jdbc:postgresql://localhost:5432/postgres</dbUrl>
+				<dbSchema>public</dbSchema>
+				<ssgEnv>junit_postgres</ssgEnv>
+			</properties>
+		</profile>
+
+	</profiles>
+
 	<build>
 		<resources>
 			<resource>
@@ -35,9 +64,6 @@
 		</resources>
 
 		<plugins>
-			<!-- <profile> <id>dev</id> <properties> <dbUser>ssg_user</dbUser> <dbPass>ssg_user</dbPass> 
-				<dbUrl>jdbc:mysql://localhost:3306/ssg_db_01</dbUrl> <dbSchema>ssg_db_01</dbSchema> 
-				</properties> </profile> -->
 			<plugin>
 				<groupId>com.googlecode.flyway</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>

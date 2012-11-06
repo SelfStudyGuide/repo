@@ -17,8 +17,6 @@
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<springVersion>3.1.0.RELEASE</springVersion>
-		<localSsgEnv>local_postgres</localSsgEnv>
-		<junitSsgEnv>junit_local_postgres</junitSsgEnv>
 	</properties>
 
 	<dependencies>
@@ -260,7 +258,7 @@
 								<exclude>**/*IntegrationTest.java</exclude>
 							</excludes>
 							<systemProperties>
-								<ssg.env>${junitSsgEnv}</ssg.env>
+								<ssg.env>${ssgEnv}</ssg.env>
 							</systemProperties>
 						</configuration>
 					</execution>
@@ -276,7 +274,7 @@
 								<include>**/*IntegrationTest.java</include>
 							</includes>
 							<systemProperties>
-								<ssg.env>${junitSsgEnv}</ssg.env>
+								<ssg.env>${ssgEnv}</ssg.env>
 							</systemProperties>
 						</configuration>
 					</execution>
@@ -294,7 +292,7 @@
 					<contextFile>${tomcatContext}</contextFile>
 					<useTestClasspath>false</useTestClasspath>
 					<systemProperties>
-						<ssg.env>${localSsgEnv}</ssg.env>
+						<ssg.env>${ssgEnv}</ssg.env>
 					</systemProperties>
 				</configuration>
 

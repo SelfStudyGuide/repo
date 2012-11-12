@@ -70,4 +70,10 @@ public interface SsgMessages extends Messages {
 	
 	@Key("topic.view.task.title")
 	String topicViewTaskTitle();
+	
+	@Key("task.view.task.label")
+	String taskViewTaskLabel(String taskType);
+	
+	@Key("task.view.save.button")
+	String taskViewSaveButton();
 }

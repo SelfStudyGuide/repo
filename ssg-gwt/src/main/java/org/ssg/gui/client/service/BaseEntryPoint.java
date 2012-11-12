@@ -14,6 +14,7 @@ import org.ssg.gui.client.userinfo.view.UserInfoView;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
@@ -68,6 +69,16 @@ public abstract class BaseEntryPoint implements EntryPoint {
 		ErrorDialogView errorDialogView = new ErrorDialogView();
 		ErrorDialogMessages errorDialogMessages = GWT.create(ErrorDialogMessages.class);
 		errorDialog = new ErrorDialog(errorDialogView, errorDialogMessages);
+	}
+	
+	protected int getParameterInt(String paramName) {
+		String str = Window.Location.getParameter(paramName);
+		try {
+			return Integer.parseInt(str);
+		} catch (NumberFormatException e) {
+			GWT.log("Incorrect int value for url param: " + paramName, e);
+			return 0;
+		}
 	}
 
 	protected abstract void initPageContent();

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
+import static org.ssg.core.support.databuilder.TopicTaskInfoBuilder.topicTaskInfoBuilder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.ssg.core.dto.TaskType;
 import org.ssg.core.dto.TopicTaskInfo;
 import org.ssg.core.support.TstDataBuilder;
+import org.ssg.core.support.databuilder.TopicTaskInfoBuilder;
 import org.ssg.gui.client.AbstractPresenterTestCase;
 import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.topic.action.GetTopicTasksInfo;
@@ -142,13 +144,10 @@ public class TaskListPresenterTest extends AbstractPresenterTestCase {
 	}
 
 	private List<TopicTaskInfo> taskInfos() {
-		return Arrays.asList(
-		        TstDataBuilder.topicTaskInfoBuilder().id(10).type(TaskType.TEXT).execrisesCount(10).completedCount(1)
-		                .build(),
-		        TstDataBuilder.topicTaskInfoBuilder().id(20).type(TaskType.LISTENING).execrisesCount(5)
-		                .completedCount(0).build(),
-		        TstDataBuilder.topicTaskInfoBuilder().id(30).type(TaskType.LEXICAL).execrisesCount(10)
-		                .completedCount(10).build());
+		return Arrays.asList(topicTaskInfoBuilder().id(10).type(TaskType.TEXT).execrisesCount(10).completedCount(1)
+		        .build(), topicTaskInfoBuilder().id(20).type(TaskType.LISTENING).execrisesCount(5).completedCount(0)
+		        .build(), topicTaskInfoBuilder().id(30).type(TaskType.LEXICAL).execrisesCount(10).completedCount(10)
+		        .build());
 	}
 
 }

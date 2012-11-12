@@ -1,0 +1,24 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+	<ui:with type="org.ssg.gui.client.service.res.StudentHomeResources"
+		field="res" />
+
+	<ui:with field='msg' type='org.ssg.gui.client.service.res.SsgMessages' />
+
+	<g:HTMLPanel>
+		<g:FlowPanel styleName='{res.styles.widget_title}'>
+			<g:Label ui:field="taskLabel"></g:Label>
+		</g:FlowPanel>
+		<g:FlowPanel styleName='{res.styles.clear}'></g:FlowPanel>
+		<g:FlowPanel styleName='{res.styles.floatLeft}' ui:field="execrisePanel">
+			<g:Label>Exercise</g:Label>
+		</g:FlowPanel>
+		<g:FlowPanel styleName='{res.styles.clear}'></g:FlowPanel>
+		<g:FlowPanel styleName='{res.styles.floatRight}'>
+			<g:Button styleName='{res.styles.clickButton}' ui:field="saveButton">
+				<ui:text from='{msg.taskViewSaveButton}' />
+			</g:Button>
+		</g:FlowPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

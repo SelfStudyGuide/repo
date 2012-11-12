@@ -42,7 +42,7 @@
 					<div class="h_20"></div>
 					<div class="clear_ext"></div>
 					
-					This is task
+					<div id="taskController"></div>
 					
 					<div class="clear_ext"></div>
 					<div class="h_15"></div>

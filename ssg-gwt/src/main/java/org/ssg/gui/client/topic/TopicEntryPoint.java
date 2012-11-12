@@ -12,8 +12,6 @@ import org.ssg.gui.client.topic.view.TopicInfoView;
 import org.ssg.gui.client.userinfo.FireEventWhenUserInfo;
 import org.ssg.gui.client.userinfo.event.RetrieveUserInfoEvent;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class TopicEntryPoint extends BaseEntryPoint {
@@ -47,14 +45,5 @@ public class TopicEntryPoint extends BaseEntryPoint {
 		userInfoToAction.setEvent(new RefreshTopicInfoEvent(getParameterInt(HOMEWORK_ID), getParameterInt(TOPIC_ID)));
 	}
 
-	private int getParameterInt(String paramName) {
-		String str = Window.Location.getParameter(paramName);
-		try {
-			return Integer.parseInt(str);
-		} catch (NumberFormatException e) {
-			GWT.log("Incorrect int value for url param: " + paramName, e);
-			return 0;
-		}
-	}
-
+	
 }

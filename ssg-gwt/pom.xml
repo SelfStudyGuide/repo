@@ -20,8 +20,8 @@
 	</properties>
 
 	<dependencies>
-		
-		
+
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -208,6 +208,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.googlecode.gwt-test-utils</groupId>
+			<artifactId>gwt-test-utils</artifactId>
+			<version>0.42</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.1-901.jdbc4</version>
@@ -237,7 +243,7 @@
 				<version>2.7.1</version>
 				<configuration>
 					<redirectTestOutputToFile>true</redirectTestOutputToFile>
-					<skip>true</skip>
+					<!-- skip>true</skip -->
 					<!-- excludes> <exclude>**/*GwtTest.java</exclude> <exclude>**/*IntegrationTest.java</exclude> 
 						</excludes -->
 				</configuration>

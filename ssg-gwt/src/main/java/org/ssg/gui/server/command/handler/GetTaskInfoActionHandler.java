@@ -26,7 +26,8 @@ import org.ssg.gui.server.security.CommandPreAuthorize;
 import org.ssg.gui.server.security.SsgSecurityException;
 
 @Service
-public class GetTaskInfoActionHandler implements ActionHandler<GetTaskInfoResponse, GetTaskInfo>, InitializingBean, CommandPreAuthorize<GetTaskInfo> {
+public class GetTaskInfoActionHandler implements ActionHandler<GetTaskInfoResponse, GetTaskInfo>, InitializingBean,
+        CommandPreAuthorize<GetTaskInfo> {
 
 	@Autowired(required = true)
 	@Qualifier("OricaDataMapping")
@@ -37,7 +38,7 @@ public class GetTaskInfoActionHandler implements ActionHandler<GetTaskInfoRespon
 
 	@Autowired
 	private HomeworkDao homeworkDao;
-	
+
 	@Autowired
 	private Authorization authorization;
 
@@ -51,13 +52,15 @@ public class GetTaskInfoActionHandler implements ActionHandler<GetTaskInfoRespon
 		Task task = curriculumDao.getTask(action.getTaskId());
 
 		if (task != null) {
-			
+
 			int topicId = task.getTopic().getId();
 			Homework homework = homeworkDao.getHomework(action.getHomeworkId());
 
 			if (homework != null) {
 				if (homework.hasTopic(topicId)) {
-					TopicTaskInfo taskInfo = mapper.map(task, new TopicTaskInfo());
+					TopicTaskInfo taskInfo = new TopicTaskInfo();
+					taskInfo = mapper.map(homework, taskInfo);
+					taskInfo = mapper.map(task, taskInfo);
 					return new GetTaskInfoResponse(taskInfo);
 				} else {
 					throw new SsgGuiServiceException("Topic " + topicId + " does not belong to homework "
@@ -84,6 +87,9 @@ public class GetTaskInfoActionHandler implements ActionHandler<GetTaskInfoRespon
 
 			factory.registerClassMap(factory.classMap(Task.class, TopicTaskInfo.class)
 			        .field("exercises", "exerciseIds").byDefault().toClassMap());
+			factory.registerClassMap(factory.classMap(Homework.class, TopicTaskInfo.class).field("id", "homeworkId")
+			        .byDefault().toClassMap());
+
 		}
 	}
 
@@ -96,6 +102,6 @@ public class GetTaskInfoActionHandler implements ActionHandler<GetTaskInfoRespon
 		if (homework != null) {
 			authorization.ownHomework(homework);
 		}
-    }
+	}
 
 }

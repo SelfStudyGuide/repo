@@ -7,6 +7,7 @@ import org.ssg.gui.client.studenthome.view.HomeworkDetailsView;
 import org.ssg.gui.client.studenthome.view.HomeworkView;
 import org.ssg.gui.client.userinfo.event.RetrieveUserInfoEvent;
 
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
@@ -29,5 +30,8 @@ public class StudentHome extends BaseEntryPoint {
 		detailsPresenter.bind();
 
 		getHandlerManager().fireEvent(new RetrieveUserInfoEvent());
+		
+		DOM.removeChild(RootPanel.getBodyElement(), DOM.getElementById("loading"));
+
 	}
 }

@@ -138,6 +138,7 @@ public abstract class AbstractPresenterTestCase extends AbstractServiceTestCase 
 		}
 
 		public <T> T lastArgument(int idx, Class<T> argClass) {
+			assertInvoked();
 			return argClass.cast(lastArguments[idx]);
 		}
 	}

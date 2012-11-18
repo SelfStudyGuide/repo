@@ -5,7 +5,7 @@ import static org.ssg.gui.client.service.res.UrlContants.TASK_ID;
 
 import org.ssg.gui.client.service.BaseEntryPoint;
 import org.ssg.gui.client.task.event.OpenTaskEvent;
-import org.ssg.gui.client.task.presenter.TaskControllerPreseter;
+import org.ssg.gui.client.task.presenter.TaskControllerPresenter;
 import org.ssg.gui.client.task.view.TaskControllerView;
 import org.ssg.gui.client.userinfo.FireEventWhenUserInfo;
 import org.ssg.gui.client.userinfo.event.RetrieveUserInfoEvent;
@@ -18,7 +18,7 @@ public class TaskEntryPoint extends BaseEntryPoint {
 	protected void initPageContent() {
 
 		TaskControllerView view = new TaskControllerView(RootPanel.get("taskController"));
-		TaskControllerPreseter preseter = new TaskControllerPreseter(view, getSsgMessages(), getActionSender(),
+		TaskControllerPresenter preseter = new TaskControllerPresenter(view, getSsgMessages(), getActionSender(),
 		        getHandlerManager());
 		preseter.bind();
 		view.go();

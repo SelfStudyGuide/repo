@@ -64,7 +64,7 @@ public class GetTaskInfoActionHandlerTest extends AbstractCommandTestCase<GetTas
 	}
 	
 	@Test
-	public void givenHomeworkAndTaskThenTaksInfoShouldBeReturned() {
+	public void givenHomeworkAndTaskIdsThenTaksInfoShouldBeReturned() {
 		// Given
 		homework();
 		task();
@@ -79,6 +79,21 @@ public class GetTaskInfoActionHandlerTest extends AbstractCommandTestCase<GetTas
 		Assert.assertThat(info.getExecrisesCount(), CoreMatchers.is(2));
 		Assert.assertThat(info.getType(), CoreMatchers.is(TaskType.LEXICAL));
 		Assert.assertThat(info.getCompletedCount(), CoreMatchers.is(0));
+	}
+	
+	@Test
+	public void givenHomeworkAndTaskIdsThenHomeworkIdShouldBeReturnedInTaskInfo() {
+		// Given
+		homework();
+		task();
+		GetTaskInfo action = new GetTaskInfo(HW_ID, TASK_ID);
+
+		// When
+		GetTaskInfoResponse response = whenAction(action);
+
+		// Then
+		TopicTaskInfo info = response.getTaskInfo();
+		Assert.assertThat(info.getHomeworkId(), CoreMatchers.is(1));
 	}
 
 	@Test

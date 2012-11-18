@@ -11,6 +11,7 @@ public class TopicTaskInfo implements Serializable {
 	private int execrisesCount;
 	private int completedCount;
 	private Integer[] exerciseIds;
+	private int homeworkId;
 
 	public int getId() {
 		return id;
@@ -49,11 +50,26 @@ public class TopicTaskInfo implements Serializable {
 	}
 
 	public Integer[] getExerciseIds() {
-    	return exerciseIds;
-    }
+		return exerciseIds;
+	}
 
 	public void setExerciseIds(Integer[] exerciseIds) {
-    	this.exerciseIds = exerciseIds;
-    }
-	
+		this.exerciseIds = exerciseIds;
+	}
+
+	public int getHomeworkId() {
+		return homeworkId;
+	}
+
+	public void setHomeworkId(int homeworkId) {
+		this.homeworkId = homeworkId;
+	}
+
+	public Integer findFirstExercise() {
+		if (exerciseIds != null && exerciseIds.length > 0) {
+			return exerciseIds[0];
+		}
+		return null;
+	}
+
 }

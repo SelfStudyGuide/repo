@@ -13,11 +13,14 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.ssg.core.dto.TaskType;
 import org.ssg.core.dto.TopicTaskInfo;
+import org.ssg.core.support.databuilder.TopicTaskInfoBuilder;
 import org.ssg.gui.client.AbstractPresenterTestCase;
 import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.task.action.GetTaskInfo;
 import org.ssg.gui.client.task.action.GetTaskInfoResponse;
+import org.ssg.gui.client.task.event.OpenExerciseEvent;
 import org.ssg.gui.client.task.event.OpenTaskEvent;
+import org.ssg.gui.client.task.event.UpdateTaskInfoEvent;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasText;
@@ -25,18 +28,18 @@ import com.google.gwt.user.client.ui.HasText;
 @RunWith(MockitoJUnitRunner.class)
 public class TaskControllerPresenterTest extends AbstractPresenterTestCase {
 
-	private TaskControllerPreseter preseter;
+	private TaskControllerPresenter preseter;
 
 	@Mock
-	private TaskControllerPreseter.Display view;
-	
+	private TaskControllerPresenter.Display view;
+
 	@Mock
 	private HasText taskLabel;
 
 	@Before
 	public void setUp() {
 		Mockito.when(view.getTaskLabel()).thenReturn(taskLabel);
-		preseter = new TaskControllerPreseter(view, ssgMessages, actionSender, handlerManager);
+		preseter = new TaskControllerPresenter(view, ssgMessages, actionSender, handlerManager);
 		preseter.bind();
 	}
 
@@ -55,7 +58,7 @@ public class TaskControllerPresenterTest extends AbstractPresenterTestCase {
 	@Test
 	public void verifyThatTaskLabelIsPopulatedWhenTaskInfoIsReceived() {
 		// Given
-		TopicTaskInfo topicTaskInfo = topicTaskInfoBuilder().id(20).type(TaskType.TEXT).exerciseIds(11, 12, 13).build();
+		TopicTaskInfo topicTaskInfo = topicTaskInfo();
 
 		// When
 		handlerManager.fireEvent(new OpenTaskEvent(10, 20));
@@ -64,6 +67,47 @@ public class TaskControllerPresenterTest extends AbstractPresenterTestCase {
 
 		// Then
 		Mockito.verify(taskLabel).setText(Matchers.eq("TEXT Task"));
+	}
+
+	private TopicTaskInfo topicTaskInfo() {
+		return topicTaskInfoBuilder().id(20).type(TaskType.TEXT).exerciseIds(11, 12, 13).build();
+	}
+
+	@Test
+	public void verifyThatWhenNoExerciseIsOpenedThenOpenExerciseEventIsFiredAfterTaskInfoUpdate() {
+		// expect
+		AssertEventHandler event = verifyAppEvent(OpenExerciseEvent.TYPE, OpenExerciseEvent.Handler.class);
+
+		// given
+		TopicTaskInfo taskInfo = topicTaskInfo();
+
+		// when
+		handlerManager.fireEvent(new OpenTaskEvent(10, 20));
+		handlerManager.fireEvent(new UpdateTaskInfoEvent(taskInfo));
+
+		// then
+		event.assertInvoked();
+	}
+	
+	@Test
+	public void verifyThatIfNoExerciseIdProvidedThenFirstIsOpened() {
+		// expect
+		AssertEventHandler event = verifyAppEvent(OpenExerciseEvent.TYPE, OpenExerciseEvent.Handler.class);
+
+		// given
+		handlerManager.fireEvent(new OpenTaskEvent(10, 20));
+		TopicTaskInfo taskInfo = topicTaskInfo();
+		
+		// when
+		handlerManager.fireEvent(new UpdateTaskInfoEvent(taskInfo));
+
+		// then
+		Integer exerciseId = event.lastArgument(0, Integer.class);
+		Assert.assertThat(exerciseId, CoreMatchers.is(11));
+	}
+	
+	@Test
+	public void verifyThatWhenOpenExerciseEventIsFiredThenGetExerciseInfoActionIsSent() {
 		
 	}
 }

@@ -1,6 +1,6 @@
 package org.ssg.gui.client.task.view;
 
-import org.ssg.gui.client.task.presenter.TaskControllerPreseter.Display;
+import org.ssg.gui.client.task.presenter.TaskControllerPresenter.Display;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;

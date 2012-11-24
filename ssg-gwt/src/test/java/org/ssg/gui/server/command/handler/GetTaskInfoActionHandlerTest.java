@@ -11,9 +11,6 @@ import static org.ssg.core.support.TstDataBuilder.taskBuilder;
 import static org.ssg.core.support.TstDataBuilder.topicBuilder;
 import static org.ssg.core.support.TstDataBuilder.topicProgressBuilder;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -31,7 +28,7 @@ import org.ssg.core.dto.TaskType;
 import org.ssg.core.dto.TopicTaskInfo;
 import org.ssg.core.service.CurriculumDao;
 import org.ssg.core.service.HomeworkDao;
-import org.ssg.core.support.TstDataBuilder;
+import org.ssg.core.support.databuilder.ExerciseBuilder;
 import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.task.action.GetTaskInfo;
 import org.ssg.gui.client.task.action.GetTaskInfoResponse;
@@ -186,8 +183,8 @@ public class GetTaskInfoActionHandlerTest extends AbstractCommandTestCase<GetTas
 	}
 
 	private void task() {
-		Exercise e1 = TstDataBuilder.exerciseBuilder().id(20).description("d1").order(1).build();
-		Exercise e2 = TstDataBuilder.exerciseBuilder().id(30).description("d2").order(2).build();
+		Exercise e1 = ExerciseBuilder.exerciseBuilder().id(20).description("d1").order(1).build();
+		Exercise e2 = ExerciseBuilder.exerciseBuilder().id(30).description("d2").order(2).build();
 		Task task = taskBuilder().id(TASK_ID).name("Task1").description("Desc").execrisesCount(2)
 		        .type(TaskType.LEXICAL).exercise(e1).exercise(e2).build();
 		Topic topic = topicBuilder().task(task).id(TOPIC_ID).build();

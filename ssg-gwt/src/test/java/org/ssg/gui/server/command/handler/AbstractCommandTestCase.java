@@ -45,6 +45,9 @@ public abstract class AbstractCommandTestCase<R extends Response, A extends Acti
 		commandHandler = lookup.findHandler(testedCommandClass());
 	}
 
+	/**
+	 * Class of Action
+	 */
 	protected abstract Class<A> testedCommandClass();
 
 	public R whenAction(A action) {

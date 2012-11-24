@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.ssg.core.dao.DefaultGenericDao;
+import org.ssg.core.domain.Exercise;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Task;
 import org.ssg.core.domain.Topic;
@@ -48,6 +49,10 @@ public class DefaultCurriculumDao extends DefaultGenericDao implements Curriculu
 
 	public Task getTask(int id) {
 	    return getById(id, Task.class);
+    }
+
+	public Exercise getExercise(int id) {
+	    return getById(id, Exercise.class);
     }
 	
 	

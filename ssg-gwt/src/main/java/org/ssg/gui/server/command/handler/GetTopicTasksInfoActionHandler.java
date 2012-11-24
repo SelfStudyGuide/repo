@@ -24,6 +24,7 @@ import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.topic.action.GetTopicTasksInfo;
 import org.ssg.gui.client.topic.action.GetTopicTasksInfoResponse;
 import org.ssg.gui.server.command.AbstractMapperActionHandler;
+import org.ssg.gui.server.command.ActionHandlerUtils;
 import org.ssg.gui.server.command.datamap.OrikaDataMappingConfiguration;
 import org.ssg.gui.server.security.Authorization;
 import org.ssg.gui.server.security.CommandPreAuthorize;
@@ -67,21 +68,13 @@ public class GetTopicTasksInfoActionHandler extends
 
 	private TopicProgress loadTopic(int topicId, Homework homework) {
 		TopicProgress topicProgress = homework.getTopicProgress(topicId);
-
-		if (topicProgress == null) {
-			throw new SsgGuiServiceException("TopicProgress object cannot be found in db with id " + topicId,
-			        "topic.view.notfound");
-		}
+		ActionHandlerUtils.assertObjectNotNull(topicProgress, "topic.view.notfound", "TopicProgress object cannot be found in db with id: %s ", topicId);
 		return topicProgress;
 	}
 
 	private Homework loadHomework(int homeworkId) {
-		Homework homework = homeworkDao.getHomework(homeworkId);
-
-		if (homework == null) {
-			throw new SsgGuiServiceException("Homework object cannot be found in db with id " + homeworkId,
-			        "topic.view.notfound");
-		}
+		Homework homework = homeworkDao.getHomework(homeworkId);		
+		ActionHandlerUtils.assertObjectNotNull(homework, "topic.view.notfound", "Homework object cannot be found in db with id: %s ", homeworkId);
 		return homework;
 	}
 

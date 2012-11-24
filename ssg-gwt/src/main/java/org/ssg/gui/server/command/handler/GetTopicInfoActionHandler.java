@@ -14,6 +14,7 @@ import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.topic.action.GetTopicInfo;
 import org.ssg.gui.client.topic.action.GetTopicInfoResponse;
 import org.ssg.gui.server.command.ActionHandler;
+import org.ssg.gui.server.command.ActionHandlerUtils;
 import org.ssg.gui.server.security.Authorization;
 import org.ssg.gui.server.security.CommandPreAuthorize;
 import org.ssg.gui.server.security.SsgSecurityException;
@@ -36,31 +37,21 @@ public class GetTopicInfoActionHandler implements ActionHandler<GetTopicInfoResp
 
 		int topicId = action.getTopicId();
 		int homeworkId = action.getHomeworkId();
+		
 		Homework homework = loadHomework(homeworkId);
-		TopicProgress topicProgress = loadTopic(topicId, homework);
+		
+		TopicProgress topicProgress = homework.getTopicProgress(topicId);
+		ActionHandlerUtils.assertObjectNotNull(topicProgress, "topic.view.notfound", "TopicProgress object cannot be found in db with id: %s", topicId);
 
 		TopicDetailedProgressInfo info = new TopicDetailedProgressInfo();
 		new TopicProgressAdapter(topicProgress).populate(info);
+		
 		return new GetTopicInfoResponse(info);
 	}
 
-	private TopicProgress loadTopic(int topicId, Homework homework) {
-		TopicProgress topicProgress = homework.getTopicProgress(topicId);
-
-		if (topicProgress == null) {
-			throw new SsgGuiServiceException("TopicProgress object cannot be found in db with id " + topicId,
-			        "topic.view.notfound");
-		}
-		return topicProgress;
-	}
-
 	private Homework loadHomework(int homeworkId) {
-		Homework homework = homeworkDao.getHomework(homeworkId);
-
-		if (homework == null) {
-			throw new SsgGuiServiceException("Homework object cannot be found in db with id " + homeworkId,
-			        "topic.view.notfound");
-		}
+		Homework homework = homeworkDao.getHomework(homeworkId);		
+		ActionHandlerUtils.assertObjectNotNull(homework, "topic.view.notfound", "Homework object cannot be found in db with id: %s ", homeworkId);
 		return homework;
 	}
 

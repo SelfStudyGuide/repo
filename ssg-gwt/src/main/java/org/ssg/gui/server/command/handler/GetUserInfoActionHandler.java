@@ -12,6 +12,7 @@ import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.userinfo.action.GetUserInfo;
 import org.ssg.gui.client.userinfo.action.GetUserInfoResponse;
 import org.ssg.gui.server.command.ActionHandler;
+import org.ssg.gui.server.command.ActionHandlerUtils;
 import org.ssg.gui.server.service.ApplicationUserProvider;
 
 @Service
@@ -28,9 +29,7 @@ public class GetUserInfoActionHandler implements ActionHandler<GetUserInfoRespon
 
 		ApplicationUser user = userProvider.getUser();
 
-		if (user == null) {
-			throw new SsgGuiServiceException("User id not authenticated", "userNotLoggedIn");
-		}
+		ActionHandlerUtils.assertObjectNotNull(user, "userNotLoggedIn", "User id not authenticated");
 
 		ApplicationUserAdpater adapter = new ApplicationUserAdpater(user);
 		adapter.populate(into);

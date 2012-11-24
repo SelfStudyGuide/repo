@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -100,8 +101,8 @@ public class Exercise {
 		this.fields = fields;
 	}
 
-	@ManyToOne()
-	@JoinColumn(name="TASK_ID")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TASK_ID")
 	public Task getTask() {
 		return task;
 	}

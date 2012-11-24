@@ -1,5 +1,7 @@
 package org.ssg.core.service;
 
+import static org.ssg.core.support.databuilder.ExerciseBuilder.exerciseBuilder;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -71,7 +73,7 @@ public class PersistanceIntegrationTest {
 		}
 
 		private static Module module() {
-			Task task = TstDataBuilder.taskBuilder().exercise(TstDataBuilder.exerciseBuilder().name("ex").build())
+			Task task = TstDataBuilder.taskBuilder().exercise(exerciseBuilder().name("ex").build())
 			        .build();
 			Topic topic1 = TstDataBuilder.topicBuilder().task(task).task(TstDataBuilder.taskBuilder().build()).build();
 			Topic topic2 = TstDataBuilder.topicBuilder().build();

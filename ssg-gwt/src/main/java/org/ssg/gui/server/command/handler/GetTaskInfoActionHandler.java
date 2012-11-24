@@ -1,5 +1,6 @@
 package org.ssg.gui.server.command.handler;
 
+import static org.ssg.gui.server.command.ActionHandlerUtils.assertObjectNotNull;
 import ma.glasnost.orika.CustomConverter;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.metadata.Type;
@@ -51,28 +52,24 @@ public class GetTaskInfoActionHandler implements ActionHandler<GetTaskInfoRespon
 
 		Task task = curriculumDao.getTask(action.getTaskId());
 
-		if (task != null) {
+		assertObjectNotNull(task, "task.task.notfound", "Task object not found by id: %s", action.getTaskId());
 
-			int topicId = task.getTopic().getId();
-			Homework homework = homeworkDao.getHomework(action.getHomeworkId());
+		int topicId = task.getTopic().getId();
+		Homework homework = homeworkDao.getHomework(action.getHomeworkId());
 
-			if (homework != null) {
-				if (homework.hasTopic(topicId)) {
-					TopicTaskInfo taskInfo = new TopicTaskInfo();
-					taskInfo = mapper.map(homework, taskInfo);
-					taskInfo = mapper.map(task, taskInfo);
-					return new GetTaskInfoResponse(taskInfo);
-				} else {
-					throw new SsgGuiServiceException("Topic " + topicId + " does not belong to homework "
-					        + homework.getId(), "task.task.does.not.belong.to.hw");
-				}
-			} else {
-				throw new SsgGuiServiceException("Homework " + action.getHomeworkId() + " has not been found ",
-				        "task.homework.notfound");
-			}
+		assertObjectNotNull(homework, "task.homework.notfound", "Homework object not found by id: %s",
+		        action.getHomeworkId());
+
+		if (homework.hasTopic(topicId)) {
+			TopicTaskInfo taskInfo = new TopicTaskInfo();
+			taskInfo = mapper.map(homework, taskInfo);
+			taskInfo = mapper.map(task, taskInfo);
+			return new GetTaskInfoResponse(taskInfo);
 		} else {
-			throw new SsgGuiServiceException("Task " + action.getTaskId() + " is not found", "task.task.notfound");
+			throw new SsgGuiServiceException("Topic " + topicId + " does not belong to homework " + homework.getId(),
+			        "task.task.does.not.belong.to.hw");
 		}
+
 	}
 
 	private static class DataMapperConfiguration implements OrikaDataMappingConfiguration {

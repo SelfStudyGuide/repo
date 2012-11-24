@@ -20,11 +20,13 @@
 			<param name="ConversionPattern" value="%d{ISO8601} %5p %c - %m%n" />
 		</layout>
 	</appender>
-	
-	
-	
+
+	<logger name="org.ssg">
+		<level value="debug" />
+	</logger>
+
 	<root>
-		<priority value="debug" />
+		<priority value="info" />
 		<appender-ref ref="stdout" />
 		<appender-ref ref="file" />
 	</root>

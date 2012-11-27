@@ -239,13 +239,13 @@
 
 		<resources>
 			<resource>
-				<directory>E:\Work\Projects\SelfStudyGuide\svn\trunk\ssg-gwt\src\main\java</directory>
+				<directory>${basedir}\src\main\java</directory>
 				<includes>
 					<include>**\*.ui.xml</include>
 				</includes>
 			</resource>
 			<resource>
-				<directory>E:\Work\Projects\SelfStudyGuide\svn\trunk\ssg-gwt\src\main\resources</directory>
+				<directory>${basedir}\src\main\resources</directory>
 			</resource>
 		</resources>
 

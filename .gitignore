@@ -4,3 +4,8 @@
 *.jar
 *.war
 *.ear
+*/target
+*/.project
+*/.settings
+*/.classpath
+config_junit_local*.properties

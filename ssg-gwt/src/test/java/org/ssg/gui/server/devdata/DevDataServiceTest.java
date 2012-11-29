@@ -1,5 +1,7 @@
 package org.ssg.gui.server.devdata;
 
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.eq;
@@ -38,8 +40,9 @@ import org.ssg.core.service.UserDao;
 import org.ssg.core.support.TstDataBuilder;
 import org.ssg.core.support.TstDataUtils;
 
-@ActiveProfiles({"junit", "junit-mock-core"})
-@ContextConfiguration(locations = { "classpath:/spring/dev-data.ctx.xml", "classpath:/spring/junit-mock-core-profile.ctx.xml"})
+@ActiveProfiles({ "junit", "junit-mock-core" })
+@ContextConfiguration(locations = { "classpath:/spring/dev-data.ctx.xml",
+        "classpath:/spring/junit-mock-core-profile.ctx.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class DevDataServiceTest {
 
@@ -190,7 +193,7 @@ public class DevDataServiceTest {
 		devDataService.processRequest(params, writer);
 
 		// Then
-		assertThat(out.toString(), is("Module Id: 12\r\n"));
+		assertThat(out.toString(), CoreMatchers.containsString("Module Id: 12"));
 
 	}
 
@@ -214,7 +217,10 @@ public class DevDataServiceTest {
 		devDataService.processRequest(params, writer);
 
 		// Then
-		assertThat(out.toString(), is("Module Id: 12\r\nTopic Id: 1\r\nTopic Id: 2\r\nTopic Id: 3\r\n"));
+		assertThat(
+		        out.toString(),
+		        allOf(containsString("Module Id: 12"), containsString("Topic Id: 1"), containsString("Topic Id: 2"),
+		                containsString("Topic Id: 3")));
 
 	}
 

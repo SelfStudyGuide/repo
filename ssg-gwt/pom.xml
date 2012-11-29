@@ -8,7 +8,7 @@
 	<artifactId>ssg-gwt</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>GWT Maven Archetype</name>
+	<name>SSG Main</name>
 
 	<properties>
 		<!-- Convenience property to set the GWT version -->
@@ -352,7 +352,7 @@
 						</cssFiles -->
 
 					<systemProperties>
-						<ssg.env>${junitSsgEnv}</ssg.env>
+						<ssg.env>${ssgEnv}</ssg.env>
 					</systemProperties>
 				</configuration>
 			</plugin>

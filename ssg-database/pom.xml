@@ -46,9 +46,9 @@
 			<properties>
 				<dbDriver>org.postgresql.Driver</dbDriver>
 				<dbMigrationDir>postgres</dbMigrationDir>
-				<dbUser>postgres</dbUser>
-				<dbPass>1</dbPass>
-				<dbUrl>jdbc:postgresql://localhost:5432/postgres</dbUrl>
+				<dbUser>snbdhdrbvqjvrm</dbUser>
+				<dbPass>CBdN1bikgbmAy6HEDHImxZA7e4</dbPass>
+				<dbUrl>jdbc:postgresql://ec2-107-22-164-46.compute-1.amazonaws.com:5432/d5sc84aajgjua5?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory</dbUrl>
 				<dbSchema>public</dbSchema>
 				<ssgEnv>junit_postgres</ssgEnv>
 			</properties>

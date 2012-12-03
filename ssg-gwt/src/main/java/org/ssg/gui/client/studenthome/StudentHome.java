@@ -31,7 +31,7 @@ public class StudentHome extends BaseEntryPoint {
 
 		getHandlerManager().fireEvent(new RetrieveUserInfoEvent());
 		
-		DOM.removeChild(RootPanel.getBodyElement(), DOM.getElementById("loading"));
+		//DOM.removeChild(RootPanel.getBodyElement(), DOM.getElementById("loading"));
 
 	}
 }

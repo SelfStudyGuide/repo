@@ -103,5 +103,17 @@ public class Homework {
 	public boolean hasTopic(int topicId) {
 		return getTopicProgress(topicId) != null;
 	}
+	
+	public boolean hasExercise(Exercise exercise) {
+	    Task task = exercise.getTask();
+        if (task == null) {
+            throw new IllegalStateException(String.format("Exercise %s does not has task", exercise.getId()));
+        }
+        Topic topic = task.getTopic();
+        if (topic == null) {
+            throw new IllegalStateException(String.format("Task %s does not has topic", task.getId()));
+        }
+        return hasTopic(topic.getId());
+	}
 
 }

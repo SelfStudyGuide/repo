@@ -181,6 +181,11 @@ public class TstDataBuilder {
 			topicProgress.setTopic(topic);
 			return this;
 		}
+		
+		public TopicProgressBuilder status(String status) {
+			topicProgress.setStatus(status);
+			return this;
+		}
 
 	}
 

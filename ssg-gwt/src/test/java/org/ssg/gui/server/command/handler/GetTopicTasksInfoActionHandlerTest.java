@@ -30,6 +30,7 @@ import org.ssg.core.domain.Topic;
 import org.ssg.core.domain.TopicProgress;
 import org.ssg.core.dto.TaskType;
 import org.ssg.core.dto.TopicTaskInfo;
+import org.ssg.core.service.CurriculumDao;
 import org.ssg.core.service.HomeworkDao;
 import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.service.SsgGuiServiceException;
@@ -52,6 +53,9 @@ public class GetTopicTasksInfoActionHandlerTest extends
 
 	@Autowired
 	private Authorization authorization;
+	
+	@Autowired
+	private CurriculumDao curriculumDao;
 
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
@@ -62,16 +66,19 @@ public class GetTopicTasksInfoActionHandlerTest extends
 
 	private Student student;
 
+    private Topic topic;
+
 	@Before
 	public void setUp() {
-		createTestDate();
+		createTestData();
+		when(homeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(homework);
+        when(curriculumDao.getTopic(TOPIC_ID)).thenReturn(topic);
 	}
 
 	@Test
 	public void verifyThatCollectionOfTaskInfoIsReturnedWithReponse() {
 		// Given
 		GetTopicTasksInfo action = new GetTopicTasksInfo(HW_ID, TOPIC_ID);
-		when(homeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(homework);
 
 		// When
 		GetTopicTasksInfoResponse response = whenAction(action);
@@ -84,7 +91,6 @@ public class GetTopicTasksInfoActionHandlerTest extends
 	public void verifyThatListeningTaskIsPopulatedCorrectly() {
 		// Given
 		GetTopicTasksInfo action = new GetTopicTasksInfo(HW_ID, TOPIC_ID);
-		when(homeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(homework);
 
 		// When
 		GetTopicTasksInfoResponse response = whenAction(action);
@@ -101,7 +107,6 @@ public class GetTopicTasksInfoActionHandlerTest extends
 	public void verifyThatTextTaskIsPopulatedCorrectly() {
 		// Given
 		GetTopicTasksInfo action = new GetTopicTasksInfo(HW_ID, TOPIC_ID);
-		when(homeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(homework);
 
 		// When
 		GetTopicTasksInfoResponse response = whenAction(action);
@@ -118,7 +123,6 @@ public class GetTopicTasksInfoActionHandlerTest extends
 	public void verifyThatLexicalTaskIsPopulatedCorrectly() {
 		// Given
 		GetTopicTasksInfo action = new GetTopicTasksInfo(HW_ID, TOPIC_ID);
-		when(homeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(homework);
 
 		// When
 		GetTopicTasksInfoResponse response = whenAction(action);
@@ -181,7 +185,7 @@ public class GetTopicTasksInfoActionHandlerTest extends
 		when(homeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(homework);
 	}
 
-	private void createTestDate() {
+	private void createTestData() {
 		module = TstDataUtils.createModule();
 
 		Task listeningTask = taskBuilder().id(5).type(LISTENING).execrisesCount(10).build();
@@ -190,7 +194,7 @@ public class GetTopicTasksInfoActionHandlerTest extends
 
 		Task lexicalTask = taskBuilder().id(7).type(LEXICAL).execrisesCount(2).build();
 
-		Topic topic = topicBuilder().module(module).id(TOPIC_ID).name("topic1").task(listeningTask).task(lexicalTask)
+		topic = topicBuilder().module(module).id(TOPIC_ID).name("topic1").task(listeningTask).task(lexicalTask)
 		        .task(textTask).build();
 
 		TopicProgress topicProgress = topicProgressBuilder().topic(topic).build();

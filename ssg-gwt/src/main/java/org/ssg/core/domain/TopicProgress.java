@@ -82,7 +82,7 @@ public class TopicProgress implements Serializable {
 	public String getTopicName() {
 		return getTopic() != null ? getTopic().getName() : null;
 	}
-
+	
 	@Transient
 	public int getTopicId() {
 		return getTopic() != null ? getTopic().getId() : -1;

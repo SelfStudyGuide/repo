@@ -17,8 +17,4 @@ public class TopicProgressAdapter {
 		BeanUtils.copyProperties(this, info);
 	}
 
-	public String getDescription() {
-		return topicProgress.getTopic().getDescription();
-	}
-
 }

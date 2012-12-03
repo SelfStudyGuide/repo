@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service("OricaDataMapping")
-@Scope("prototype")
+//@Scope("prototype")
 public class OricaDataMappingImpl implements DataMappingSupport {
 
 	@Autowired

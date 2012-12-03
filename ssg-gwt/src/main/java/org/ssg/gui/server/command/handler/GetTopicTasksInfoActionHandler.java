@@ -17,8 +17,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Task;
+import org.ssg.core.domain.Topic;
 import org.ssg.core.domain.TopicProgress;
 import org.ssg.core.dto.TopicTaskInfo;
+import org.ssg.core.service.CurriculumDao;
 import org.ssg.core.service.HomeworkDao;
 import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.topic.action.GetTopicTasksInfo;
@@ -39,7 +41,10 @@ public class GetTopicTasksInfoActionHandler extends
 
 	@Autowired
 	private HomeworkDao homeworkDao;
-	
+
+	@Autowired
+	private CurriculumDao curriculumDao;
+
 	@Autowired
 	private Authorization authorization;
 
@@ -47,11 +52,17 @@ public class GetTopicTasksInfoActionHandler extends
 	public GetTopicTasksInfoResponse execute(GetTopicTasksInfo action) throws SsgGuiServiceException {
 
 		Homework homework = loadHomework(action.getHomeworkId());
-		TopicProgress topicProgress = loadTopic(action.getTopicId(), homework);
 
 		List<TopicTaskInfo> taskInfos = new ArrayList<TopicTaskInfo>();
 
-		List<Task> tasks = topicProgress.getTopic().getTasks();
+		Topic topic = curriculumDao.getTopic(action.getTopicId());
+
+		if (!homework.hasTopic(action.getTopicId())) {
+			throw new SsgGuiServiceException(String.format("Homework %s does not has topic %s", action.getHomeworkId(),
+			        action.getTopicId()), "topic.view.notfound");
+		}
+
+		List<Task> tasks = topic.getTasks();
 
 		debug(LOG, action, "Loaded %s task(s) for topic %d", tasks.size(), action.getTopicId());
 
@@ -66,15 +77,10 @@ public class GetTopicTasksInfoActionHandler extends
 		return new GetTopicTasksInfoResponse(taskInfos);
 	}
 
-	private TopicProgress loadTopic(int topicId, Homework homework) {
-		TopicProgress topicProgress = homework.getTopicProgress(topicId);
-		ActionHandlerUtils.assertObjectNotNull(topicProgress, "topic.view.notfound", "TopicProgress object cannot be found in db with id: %s ", topicId);
-		return topicProgress;
-	}
-
 	private Homework loadHomework(int homeworkId) {
-		Homework homework = homeworkDao.getHomework(homeworkId);		
-		ActionHandlerUtils.assertObjectNotNull(homework, "topic.view.notfound", "Homework object cannot be found in db with id: %s ", homeworkId);
+		Homework homework = homeworkDao.getHomework(homeworkId);
+		ActionHandlerUtils.assertObjectNotNull(homework, "topic.view.notfound",
+		        "Homework object cannot be found in db with id: %s ", homeworkId);
 		return homework;
 	}
 
@@ -97,6 +103,6 @@ public class GetTopicTasksInfoActionHandler extends
 
 	public void preAuthorize(GetTopicTasksInfo action) throws SsgSecurityException, SsgGuiServiceException {
 		authorization.ownHomework(loadHomework(action.getHomeworkId()));
-    }
+	}
 
 }

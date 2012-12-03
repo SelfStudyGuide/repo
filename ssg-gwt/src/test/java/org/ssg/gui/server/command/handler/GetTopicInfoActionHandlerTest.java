@@ -6,6 +6,10 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.ssg.core.support.TstDataBuilder.homeworkBuilder;
+import static org.ssg.core.support.TstDataBuilder.moduleBuilder;
+import static org.ssg.core.support.TstDataBuilder.topicBuilder;
+import static org.ssg.core.support.TstDataBuilder.topicProgressBuilder;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
@@ -16,6 +20,11 @@ import org.mockito.Matchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.ssg.core.domain.Homework;
+import org.ssg.core.domain.Module;
+import org.ssg.core.domain.Student;
+import org.ssg.core.domain.Topic;
+import org.ssg.core.domain.TopicProgress;
+import org.ssg.core.service.CurriculumDao;
 import org.ssg.core.service.HomeworkDao;
 import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.service.SsgGuiServiceException;
@@ -27,8 +36,12 @@ import org.ssg.gui.server.security.Authorization;
 public class GetTopicInfoActionHandlerTest extends AbstractCommandTestCase<GetTopicInfoResponse, GetTopicInfo> {
 
 	private static final int TOPIC_ID = 345;
+	
+	private static final int WRONG_TOPIC_ID = 346;
 
 	private static final int HW_ID = 123;
+	
+	private static final int WRONG_HW_ID = 124;
 
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
@@ -41,19 +54,29 @@ public class GetTopicInfoActionHandlerTest extends AbstractCommandTestCase<GetTo
 	@Autowired
 	private HomeworkDao mockHomeworkDao;
 
+	@Autowired 
+	private CurriculumDao curriculumDao;
+	
 	@Autowired
 	private Authorization mockAuthorization;
+
+	private Homework homework;
+
+	private TopicProgress progress;
+
+	private Topic topic;
 	
 	@Before
 	public void setUp() {
 		reset(mockAuthorization, mockHomeworkDao);
+		// Given
+		createTestData();
+		when(mockHomeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(homework);
+		when(curriculumDao.getTopic(TOPIC_ID)).thenReturn(topic);
 	}
 	
 	@Test
 	public void verifyThatTopicInfoIsReturnedByGivenTopicIdAndHomeworkId() {
-		// Given
-		when(mockHomeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(createHomework());
-
 		// When
 		GetTopicInfoResponse action = whenAction(new GetTopicInfo(HW_ID, TOPIC_ID));
 
@@ -67,48 +90,39 @@ public class GetTopicInfoActionHandlerTest extends AbstractCommandTestCase<GetTo
 
 	@Test
 	public void verifyThatIfHomeworkCannotBeFoundByGivenIdThenExceptionIsThrown() {
-		// Given
-		when(mockHomeworkDao.getHomework(Matchers.eq(123))).thenReturn(null);
-
 		// Then
 		thrown.expect(SsgGuiServiceException.class);
 		thrown.expect(hasErrorCode(is("topic.view.notfound")));
 		
 		// When
-		GetTopicInfoResponse action = whenAction(new GetTopicInfo(HW_ID, TOPIC_ID));
+		GetTopicInfoResponse action = whenAction(new GetTopicInfo(WRONG_HW_ID, TOPIC_ID));
 
 	}
 
 	@Test
 	public void verifyThatIfTopicCannotBeFoundByGivenIdThenExceptionIsThrown() {
-		// Given
-		when(mockHomeworkDao.getHomework(Matchers.eq(123))).thenReturn(createHomework());
-		
 		// Then
 		thrown.expect(SsgGuiServiceException.class);
 		thrown.expect(hasErrorCode(is("topic.view.notfound")));
 
 		// When
-		whenAction(new GetTopicInfo(HW_ID, 678));
+		whenAction(new GetTopicInfo(HW_ID, WRONG_TOPIC_ID));
 	}
 	
 	@Test
 	public void verifyThatOwnHomeworkIsCalledWhenGetTopicInfoRequest() {
-		// Given
-		Homework hw = createHomework();
-		when(mockHomeworkDao.getHomework(Matchers.eq(HW_ID))).thenReturn(hw);
-
 		// When
 		whenAction(new GetTopicInfo(HW_ID, TOPIC_ID));
 		
 		// Then
-		verify(mockAuthorization).ownHomework(Mockito.same(hw));
+		verify(mockAuthorization).ownHomework(Mockito.same(homework));
 	}
-	
 
-	private Homework createHomework() {
-		Homework hw = TstDataUtils.createHomework(TstDataUtils.createStudent("jd"), TstDataUtils.createModule());
-		TstDataUtils.enrichHomeworkWithProgress(hw, TstDataUtils.createTopic("Name", TOPIC_ID));
-		return hw;
+	private void createTestData() {
+		Module module = moduleBuilder().name("name").description("desc").build();
+		topic = topicBuilder().id(TOPIC_ID).description("Description of topic").name("Test topic 1").build();
+		Student student = TstDataUtils.createStudent("jd");
+		progress = topicProgressBuilder().topic(topic).status("10").build();
+		homework = homeworkBuilder().id(HW_ID).module(module).topicProgress(progress).student(student).build();
 	}
 }

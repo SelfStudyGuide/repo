@@ -6,7 +6,7 @@ public class TopicProgressInfo implements Serializable {
 	private static final long serialVersionUID = 9121820558110681358L;
 
 	private String status;
-	private String name;
+	private String topicName;
 	private int topicId;
 
 	public int getTopicId() {
@@ -26,11 +26,11 @@ public class TopicProgressInfo implements Serializable {
 	}
 
 	public String getTopicName() {
-		return name;
+		return topicName;
 	}
 
 	public void setTopicName(String name) {
-		this.name = name;
+		this.topicName = name;
 	}
 
 	public boolean isDone() {

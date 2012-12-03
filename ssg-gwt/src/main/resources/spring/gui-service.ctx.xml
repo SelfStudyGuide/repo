@@ -10,7 +10,7 @@
 	</bean>
 
 	<bean id="oricaMapperFactory" factory-bean="oricaMapperFactoryBuilder"
-		factory-method="build" scope="prototype"/>
+		factory-method="build"/>
 
 	<context:component-scan base-package="org.ssg.gui.server.command" />
 	<context:component-scan base-package="org.ssg.gui.server.service" />

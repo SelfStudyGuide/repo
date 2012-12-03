@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
+import org.ssg.core.domain.Topic;
 import org.ssg.core.domain.TopicProgress;
 import org.ssg.core.support.AbstractDaoTestSupport;
+import org.ssg.core.support.TstDataBuilder;
 import org.ssg.core.support.TstDataUtils;
 
 @Transactional
@@ -56,29 +58,22 @@ public class HomeworkIntegrationTest extends AbstractDaoTestSupport {
 	@Test
 	// @Rollback(value=false)
 	public void verifyThatTopicProgressCanBeSavedWithHomework() {
+		// Given
 		createStudentAndSave();
-		Module module = TstDataUtils.enrichModuleWithTopics(TstDataUtils.createModuleWithUniqueName());
-		curriculumDao.saveModule(module);
-
 		Student savedStudent = getSavedStudent();
-		Module savedModule = getSavedModule();
-
-		Homework homework = TstDataUtils.createHomework(savedStudent, savedModule);
-		homework = TstDataUtils.enrichHomeworkWithProgress(homework, savedModule.getTopics());
+		Topic topic = TstDataBuilder.topicBuilder().name("name").build();
+		curriculumDao.saveTopic(topic);
+		
+		// When
+		TopicProgress topicProgress = TstDataBuilder.topicProgressBuilder().topic(topic).build();
+		Homework homework = TstDataBuilder.homeworkBuilder().student(savedStudent).topicProgress(topicProgress).build();
 		homeworkDao.saveHomework(homework);
 
-		//clearSession();
-
+		// Then
 		Homework savedHomework = getSavedHomework();
-
 		List<TopicProgress> savedProgress = savedHomework.getProgresses();
-		assertThat(savedProgress.size(), is(3));
+		assertThat(savedProgress.size(), is(1));
 		assertThat(savedProgress.get(0).getHomework().getId(), is(savedHomework.getId()));
-		assertThat(savedProgress.get(1).getHomework().getId(), is(savedHomework.getId()));
-		assertThat(savedProgress.get(2).getHomework().getId(), is(savedHomework.getId()));
-		assertThat(savedProgress.get(0).getTopic().getId(), is(savedModule.getTopics().get(0).getId()));
-		assertThat(savedProgress.get(1).getTopic().getId(), is(savedModule.getTopics().get(1).getId()));
-		assertThat(savedProgress.get(2).getTopic().getId(), is(savedModule.getTopics().get(2).getId()));
 	}
 
 	private Homework createHomeworkAndSave(Student savedStudent, Module savedModules) {

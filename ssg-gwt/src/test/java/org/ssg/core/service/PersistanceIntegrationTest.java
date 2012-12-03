@@ -17,6 +17,7 @@ import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
 import org.ssg.core.domain.Task;
 import org.ssg.core.domain.Topic;
+import org.ssg.core.domain.TopicProgress;
 import org.ssg.core.dto.ExerciseType;
 import org.ssg.core.dto.TaskType;
 import org.ssg.core.support.TstDataBuilder;
@@ -28,9 +29,16 @@ import org.ssg.core.support.TstDataBuilder;
         PersistanceIntegrationTest.HomeworkPersistanceTestCase.class,
         PersistanceIntegrationTest.StudentPersistanceTestCase.class,
         PersistanceIntegrationTest.CurriculumTreePersistanceTestCase.class,
-        PersistanceIntegrationTest.ExercisePersistanceTestCase.class })
+        PersistanceIntegrationTest.ExercisePersistanceTestCase.class
+        /*PersistanceIntegrationTest.TopicProgressPersistanceTestCase.class*/})
 public class PersistanceIntegrationTest {
 
+	public static class HomeworkTreePersistanceTestCase extends PersistanceTestCase {
+		public HomeworkTreePersistanceTestCase() {
+			super(Module.class, objectTestValues());
+		}
+	}
+	
 	public static class ModulePersistanceTestCase extends PersistanceTestCase {
 		public ModulePersistanceTestCase() {
 			super(Module.class, objectTestValues());
@@ -52,6 +60,12 @@ public class PersistanceIntegrationTest {
 	public static class HomeworkPersistanceTestCase extends PersistanceTestCase {
 		public HomeworkPersistanceTestCase() {
 			super(Homework.class, objectTestValues());
+		}
+	}
+	
+	public static class TopicProgressPersistanceTestCase extends PersistanceTestCase {
+		public TopicProgressPersistanceTestCase() {
+			super(TopicProgress.class, objectTestValues());
 		}
 	}
 

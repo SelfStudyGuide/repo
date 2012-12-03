@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.ssg.core.domain.Exercise;
 import org.ssg.core.domain.Homework;
-import org.ssg.core.domain.Task;
-import org.ssg.core.domain.Topic;
 import org.ssg.core.dto.ExerciseInfo;
 import org.ssg.core.service.CurriculumDao;
 import org.ssg.core.service.HomeworkDao;
@@ -51,7 +49,7 @@ public class GetExerciseInfoActionHandler implements ActionHandler<GetExerciseIn
 		ActionHandlerUtils.assertObjectNotNull(homework, "task.homework.notfound",
 		        "Homework object not found by id: %s", action.getHomeworkId());
 
-		if (!exerciseBelongsToHomework(exercise, homework)) {
+		if (!homework.hasExercise(exercise)) {
 			throw new SsgGuiServiceException(String.format("Exercise %s does not belong to homework %s",
 			        exercise.getId(), homework.getId()), "task.exercise.dosnt.belong.to.homework");
 		}
@@ -59,18 +57,6 @@ public class GetExerciseInfoActionHandler implements ActionHandler<GetExerciseIn
 		result = mapper.map(homework, result);
 
 		return new GetExerciseInfoResponse(result);
-	}
-
-	private boolean exerciseBelongsToHomework(Exercise exercise, Homework homework) {
-		Task task = exercise.getTask();
-		if (task == null) {
-			throw new IllegalStateException(String.format("Exercise %s does not has task", exercise.getId()));
-		}
-		Topic topic = task.getTopic();
-		if (topic == null) {
-			throw new IllegalStateException(String.format("Task %s does not has topic", task.getId()));
-		}
-		return homework.hasTopic(topic.getId());
 	}
 
 	public Class<GetExerciseInfo> forClass() {

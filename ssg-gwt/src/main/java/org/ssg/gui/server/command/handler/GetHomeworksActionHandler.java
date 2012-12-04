@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.core.service.StudentService;
+import org.ssg.core.service.UserDao;
 import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.studenthome.action.GetHomeworks;
 import org.ssg.gui.client.studenthome.action.GetHomeworksResponse;
@@ -17,6 +18,9 @@ public class GetHomeworksActionHandler implements ActionHandler<GetHomeworksResp
 
 	@Autowired
 	private StudentService studentService;
+	
+	@Autowired
+	private UserDao userDao;
 
 	public GetHomeworksResponse execute(GetHomeworks action) throws SsgGuiServiceException {
 		Collection<HomeworkInfo> homeworks = studentService.getHomeworks(action.getStudentId());

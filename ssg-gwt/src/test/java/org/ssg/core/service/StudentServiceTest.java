@@ -114,8 +114,7 @@ public class StudentServiceTest {
 
 		Homework homework = homeworkCaptor.getValue();
 		Assert.assertThat(homework.getStudent(), is(student));
-		Assert.assertThat(homework.getModules().size(), is(1));
-		Assert.assertThat(homework.getModules().get(0), is(module));
+		Assert.assertThat(homework.getModuleId(), is(module.getId()));
 
 	}
 

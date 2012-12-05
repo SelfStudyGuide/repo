@@ -51,7 +51,7 @@ public class HomeworkIntegrationTest extends AbstractDaoTestSupport {
 
 		Assert.assertThat(savedHomework.getId(), not(0));
 		Assert.assertThat(savedHomework.getStudent().getId(), is(savedStudent.getId()));
-		assertThat(savedHomework.getModules().size(), is(1));
+		assertThat(savedHomework.getModuleId(), is(savedModule.getId()));
 
 	}
 	

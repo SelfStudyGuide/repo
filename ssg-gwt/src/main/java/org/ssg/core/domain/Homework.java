@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "HOMEWORK")
@@ -41,6 +42,15 @@ public class Homework {
 	@JoinTable(name = "HOMEWORK_MODULE", joinColumns = @JoinColumn(name = "HW_ID"), inverseJoinColumns = @JoinColumn(name = "MODULE_ID"))
 	public List<Module> getModules() {
 		return modules;
+	}
+	
+	@Transient
+	public Integer getModuleId() {
+		Integer res = null;
+		if (getModules() != null && !getModules().isEmpty()) {
+			res = getModules().iterator().next().getId();
+		}
+		return res;
 	}
 
 	/**

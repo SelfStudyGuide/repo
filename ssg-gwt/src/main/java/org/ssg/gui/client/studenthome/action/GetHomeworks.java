@@ -19,4 +19,11 @@ public class GetHomeworks extends BaseAction<GetHomeworksResponse> {
 		return studentId;
 	}
 
+	@Override
+    public String toString() {
+		return "GetHomeworks [studentId=" + studentId + ", actionName=" + getActionName() + "]";
+    }
+
+	
+
 }

@@ -2,19 +2,16 @@ package org.ssg.gui.server.command.handler;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.ssg.core.support.TstDataBuilder.homeworkBuilder;
 import static org.ssg.core.support.TstDataBuilder.moduleBuilder;
 import static org.ssg.core.support.TstDataBuilder.topicBuilder;
 import static org.ssg.core.support.TstDataBuilder.topicProgressBuilder;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.junit.Assert;
-import org.junit.Ignore;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.ssg.core.domain.Homework;
@@ -23,10 +20,10 @@ import org.ssg.core.domain.Student;
 import org.ssg.core.domain.Topic;
 import org.ssg.core.domain.TopicProgress;
 import org.ssg.core.dto.HomeworkInfo;
-import org.ssg.core.service.StudentService;
+import org.ssg.core.service.CurriculumDao;
 import org.ssg.core.service.UserDao;
-import org.ssg.core.support.TstDataBuilder;
 import org.ssg.core.support.TstDataUtils;
+import org.ssg.gui.client.service.SsgGuiServiceException;
 import org.ssg.gui.client.studenthome.action.GetHomeworks;
 import org.ssg.gui.client.studenthome.action.GetHomeworksResponse;
 
@@ -34,24 +31,30 @@ import org.ssg.gui.client.studenthome.action.GetHomeworksResponse;
 public class GetHomeworksActionHandlerTest extends AbstractCommandTestCase<GetHomeworksResponse, GetHomeworks> {
 
 	@Autowired
-	private StudentService studentService;
-
-	@Autowired
 	private UserDao userDao;
 
-	private static final int STUDENT_ID = 1;
+	@Autowired
+	private CurriculumDao curriculumDao;
 
+	private static final int STUDENT_ID = 1;
+	private static final int UNK_STUDENT_ID = 2;
 	private static final int HW_ID = 30;
+	private static final int MODULE_ID = 40;
 
 	private Student student;
+	private Module module;
+	
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
 
+	@Before
 	public void setUp() {
+		Mockito.reset(userDao, curriculumDao);
 		prepareData();
-		Mockito.when(userDao.getStudentById(STUDENT_ID)).thenReturn(student);
 	}
 
 	private void prepareData() {
-		Module module = moduleBuilder().name("name").description("desc").build();
+		module = moduleBuilder().id(MODULE_ID).name("Module name").description("desc").build();
 		Topic topic = topicBuilder().id(20).description("Description of topic").name("Test topic 1").build();
 		student = TstDataUtils.createStudent("jd");
 		TopicProgress progress = topicProgressBuilder().topic(topic).status("10").build();
@@ -59,42 +62,50 @@ public class GetHomeworksActionHandlerTest extends AbstractCommandTestCase<GetHo
 	}
 
 	@Test
-	@Ignore
+	public void givenUnknownStudentIdWhenGetHomeworkActionThenException() {
+		// Expect
+		thrown.expect(SsgGuiServiceException.class);
+		thrown.expect(hasErrorCode(is("studenthome.student.not.found")));
+		
+		// Given
+		when(userDao.getStudentById(STUDENT_ID)).thenReturn(student);
+		when(curriculumDao.getModuleById(MODULE_ID)).thenReturn(module);
+		GetHomeworks getHomeworks = new GetHomeworks(UNK_STUDENT_ID);
+
+		// When
+		GetHomeworksResponse response = whenAction(getHomeworks);
+	}
+	
+	@Test
+	public void givenUnfoundModuleWhenGetHomeworkActionThenException() {
+		// Expect
+		thrown.expect(SsgGuiServiceException.class);
+		thrown.expect(hasErrorCode(is("studenthome.module.not.found")));
+		
+		// Given
+		when(userDao.getStudentById(STUDENT_ID)).thenReturn(student);
+		when(curriculumDao.getModuleById(MODULE_ID)).thenReturn(null);
+		GetHomeworks getHomeworks = new GetHomeworks(STUDENT_ID);
+
+		// When
+		GetHomeworksResponse response = whenAction(getHomeworks);
+	}
+	
+	@Test
 	public void givenStudentIdWhenGetHomeworkActionThenHomeworkInfoListShouldBeReturned() {
 		// Given
+		when(userDao.getStudentById(STUDENT_ID)).thenReturn(student);
+		when(curriculumDao.getModuleById(MODULE_ID)).thenReturn(module);
 		GetHomeworks getHomeworks = new GetHomeworks(STUDENT_ID);
 
 		// When
 		GetHomeworksResponse response = whenAction(getHomeworks);
 
 		// Then
-		assertThat(response.getHomeworks().size(), is(2));
-	}
-
-	@Test
-	public void verifyThatHandlerIsCreated() {
-		when(studentService.getHomeworks(1)).thenReturn(homeworks());
-
-		GetHomeworksResponse response = whenAction(new GetHomeworks(1));
-
-		verify(studentService).getHomeworks(1);
-
-		ArrayList<HomeworkInfo> homeworks = response.getHomeworks();
-		assertThat(homeworks.size(), is(2));
-
-	}
-
-	private Collection<HomeworkInfo> homeworks() {
-		ArrayList<HomeworkInfo> list = new ArrayList<HomeworkInfo>();
-
-		HomeworkInfo info = new HomeworkInfo();
-		list.add(info);
-		info.setId(1);
-		info = new HomeworkInfo();
-		list.add(info);
-		info.setId(2);
-
-		return list;
+		assertThat(response.getHomeworks().size(), is(1));
+		HomeworkInfo homeworkInfo = response.getHomeworks().iterator().next();
+		assertThat(homeworkInfo.getId(), is(30));
+		assertThat(homeworkInfo.getAssignedModules(), is("Module name"));
 	}
 
 	@Override

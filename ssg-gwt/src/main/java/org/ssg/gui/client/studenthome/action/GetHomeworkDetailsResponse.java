@@ -2,29 +2,25 @@ package org.ssg.gui.client.studenthome.action;
 
 import java.io.Serializable;
 
-import org.ssg.core.dto.HomeworkInfo;
+import org.ssg.core.dto.HomeworkDetailedInfo;
 import org.ssg.gui.client.action.Response;
 
 public class GetHomeworkDetailsResponse implements Response, Serializable {
 	private static final long serialVersionUID = 9010519578060555721L;
 
-	private HomeworkInfo homework;
+	private HomeworkDetailedInfo homework;
 
 	/**
 	 * For GWT RPC usage
 	 * */
-	protected GetHomeworkDetailsResponse() {
+	public GetHomeworkDetailsResponse() {
 	}
 
-	public GetHomeworkDetailsResponse(HomeworkInfo homework) {
+	public GetHomeworkDetailsResponse(HomeworkDetailedInfo homework) {
 		this.homework = homework;
 	}
 
-	public HomeworkInfo getHomework() {
+	public HomeworkDetailedInfo getHomework() {
 		return homework;
-	}
-
-	public void setHomework(HomeworkInfo homework) {
-		this.homework = homework;
 	}
 }

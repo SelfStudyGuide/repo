@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.ssg.core.dto.HomeworkDetailedInfo;
 import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.core.support.TstDataUtils;
 import org.ssg.gui.client.AbstractPresenterTestCase;
@@ -128,7 +129,7 @@ public class HomeworkDetailsPresenterTest extends AbstractPresenterTestCase {
 
 	private void processResponse() {
 		AsyncCallback<Response> callback = verifyActionAndResturnCallback(GetHomeworkDetails.class);
-		HomeworkInfo received = TstDataUtils.createHomeworkInfoWithDetails();
+		HomeworkDetailedInfo received = TstDataUtils.createHomeworkInfoWithDetails();
 		received.setId(567);
 		callback.onSuccess(new GetHomeworkDetailsResponse(received));
 	}

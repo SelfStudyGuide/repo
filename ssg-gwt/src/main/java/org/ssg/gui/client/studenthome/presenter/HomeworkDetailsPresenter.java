@@ -6,6 +6,7 @@ import static org.ssg.gui.client.service.res.UrlContants.TOPIC_PAGE;
 
 import java.util.ArrayList;
 
+import org.ssg.core.dto.HomeworkDetailedInfo;
 import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.core.dto.TopicProgressInfo;
 import org.ssg.gui.client.service.ActionCallbackAdapter;
@@ -77,7 +78,7 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 		view.hide();
 	}
 
-	protected void doUpdateDetails(HomeworkInfo homework) {
+	protected void doUpdateDetails(HomeworkDetailedInfo homework) {
 		view.creanUpView();
 		view.getModuleName().setText(homework.getAssignedModules());
 		view.getCompleteDate().setText("N/A");
@@ -87,7 +88,7 @@ public class HomeworkDetailsPresenter implements HomeworkSelectedEvent.Handler {
 		view.show();
 	}
 
-	private void updateTopics(HomeworkInfo homework) {
+	private void updateTopics(HomeworkDetailedInfo homework) {
 		ArrayList<TopicProgressInfo> topics = homework.getTopicProgress();
 		if (topics != null && !topics.isEmpty()) {
 			for (TopicProgressInfo topic : topics) {

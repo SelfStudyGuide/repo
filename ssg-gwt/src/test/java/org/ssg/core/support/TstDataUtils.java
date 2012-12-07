@@ -19,6 +19,7 @@ import org.ssg.core.domain.Task;
 import org.ssg.core.domain.Topic;
 import org.ssg.core.domain.TopicProgress;
 import org.ssg.core.dto.ApplicationUserInfo;
+import org.ssg.core.dto.HomeworkDetailedInfo;
 import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.core.dto.ModuleInfo;
 import org.ssg.core.dto.TaskType;
@@ -132,8 +133,10 @@ public class TstDataUtils {
 	}
 
 	@Deprecated
-	public static HomeworkInfo createHomeworkInfoWithDetails() {
-		HomeworkInfo result = createHomeworkInfo();
+	public static HomeworkDetailedInfo createHomeworkInfoWithDetails() {
+		HomeworkDetailedInfo result = new HomeworkDetailedInfo();
+		result.setId(1);
+		result.setAssignedModules("Test Module");
 
 		ArrayList<TopicProgressInfo> topicProgress = new ArrayList<TopicProgressInfo>();
 		result.setTopicProgress(topicProgress);

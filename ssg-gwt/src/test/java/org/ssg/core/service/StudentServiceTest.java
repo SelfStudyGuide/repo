@@ -1,14 +1,10 @@
 package org.ssg.core.service;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.util.Collection;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,11 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.ssg.core.common.SsgServiceException;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
-import org.ssg.core.dto.HomeworkInfo;
 import org.ssg.core.support.TstDataUtils;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -46,61 +40,6 @@ public class StudentServiceTest {
 		MockitoAnnotations.initMocks(this);
 	}
 
-	@Test
-	public void verifyThatHomeworkInfoCanBeLoadedByStudentId() {
-		// given
-		Student student = prepareStudent("studen with homework", 123);
-		Homework homework = TstDataUtils.createHomework(student, TstDataUtils.createModule());
-		homework.setId(2);
-
-		// when
-		Collection<HomeworkInfo> hwList = studentSerice.getHomeworks(123);
-
-		// then
-		verify(userDao).getStudentById(eq(123));
-		assertThat(hwList, notNullValue());
-		assertThat(hwList.size(), is(1));
-		HomeworkInfo hw = hwList.iterator().next();
-		assertThat(hw.getAssignedModules(), equalTo("name"));
-	}
-
-	@Test
-	public void verifyThatHomeworkDetailsCanBeLoadedById() {
-		// given
-		Student student = TstDataUtils.createStudent("studen with homework");
-		Module module = TstDataUtils.enrichModuleWithTopics(TstDataUtils.createModule());
-		Homework homework = TstDataUtils.createHomework(student, module);
-		homework.setId(234);
-		homework = TstDataUtils.enrichHomeworkWithProgress(homework, module.getTopics());
-
-		when(homeworkDao.getHomework(234)).thenReturn(homework);
-
-		// when
-		HomeworkInfo details = studentSerice.getHomeworksDetails(234);
-
-		// then
-		verify(homeworkDao).getHomework(234);
-		assertThat(details.getId(), is(234));
-		assertThat(details.getAssignedModules(), equalTo("name"));
-		assertThat(details.getTopicProgress().size(), is(3));
-
-	}
-
-	@Test(expected = SsgServiceException.class)
-	public void verifyThatExceptionIsThrownIfNoHomeworkFound() {
-		// given
-		when(homeworkDao.getHomework(234)).thenReturn(null);
-
-		// when
-		studentSerice.getHomeworksDetails(234);
-	}
-
-	@Test(expected = SsgServiceException.class)
-	public void verifyThatExceptionIsThrownIfNoStudentFound() {
-		when(userDao.getStudentById(eq(124))).thenReturn(null);
-
-		studentSerice.getHomeworks(124);
-	}
 
 	@Test
 	public void verifyThatHomeworkCanBeGivenToStudent() {

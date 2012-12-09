@@ -45,8 +45,6 @@ public class GetHomeworkDetailsActionHandlerTest extends
 	private static final int HW_ID = 30;
 	private static final int MODULE_ID = 40;
 	
-	@Autowired
-	private StudentService service;
 	private Module module;
 	private Student student;
 	private Homework homework;

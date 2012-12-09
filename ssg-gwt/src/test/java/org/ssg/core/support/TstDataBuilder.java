@@ -178,7 +178,8 @@ public class TstDataBuilder {
 		}
 
 		public TopicProgressBuilder topic(Topic topic) {
-			topicProgress.setTopic(topic);
+			topicProgress.setTopicId(topic.getId());
+			topicProgress.setTopicName(topic.getName());
 			return this;
 		}
 		

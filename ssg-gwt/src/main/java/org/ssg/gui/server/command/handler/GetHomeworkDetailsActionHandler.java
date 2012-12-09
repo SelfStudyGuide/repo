@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Module;
+import org.ssg.core.domain.Topic;
 import org.ssg.core.domain.TopicProgress;
 import org.ssg.core.dto.HomeworkDetailedInfo;
 import org.ssg.core.dto.TopicProgressInfo;

@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * Should aggregate all information regarding to progress of topic.
@@ -23,14 +22,15 @@ public class TopicProgress implements Serializable {
 	private static final long serialVersionUID = -1107116198666337327L;
 	private Homework homework;
 	
-	// TODO: this should be references by id
-	private Topic topic;
 	private String status;
 	// Not sure that answers is neede here.
 	//private List<Answer> answers;
+	private int topicId;
+	private String topicName;
 
 	public TopicProgress(Topic topic, Homework homework) {
-		this.topic = topic;
+		this.topicId = topic.getId();
+		this.topicName = topic.getName();
 		this.homework = homework;
 	}
 
@@ -50,14 +50,13 @@ public class TopicProgress implements Serializable {
 	}
 
 	@Id
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TOPIC_ID")
-	public Topic getTopic() {
-		return topic;
+	@Column(name = "TOPIC_ID")
+	public int getTopicId() {
+		return topicId;
 	}
 
-	public void setTopic(Topic topic) {
-		this.topic = topic;
+	public void setTopicId(int topicId) {
+		this.topicId = topicId;
 	}
 
 	@Column(name = "STATUS")
@@ -78,14 +77,13 @@ public class TopicProgress implements Serializable {
 //		this.answers = answers;
 //	}
 
-	@Transient
+	@Column(name = "TOPIC_NAME")
 	public String getTopicName() {
-		return getTopic() != null ? getTopic().getName() : null;
+		return topicName;
 	}
-
-	@Transient
-	public int getTopicId() {
-		return getTopic() != null ? getTopic().getId() : -1;
+	
+	public void setTopicName(String topicName) {
+		this.topicName = topicName;
 	}
 
 }

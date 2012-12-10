@@ -1,7 +1,6 @@
 package org.ssg.core.domain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,20 +9,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "HOMEWORK")
 public class Homework {
-	private int id;
 	
-	// TODO: this should be references by id
-	private List<Module> modules;
+	private int id;
+	private int moduleId;
 	private Student student;
 	private List<TopicProgress> progresses;
 
@@ -38,30 +33,19 @@ public class Homework {
 		this.id = id;
 	}
 
-	@ManyToMany(targetEntity = Module.class)
-	@JoinTable(name = "HOMEWORK_MODULE", joinColumns = @JoinColumn(name = "HW_ID"), inverseJoinColumns = @JoinColumn(name = "MODULE_ID"))
-	public List<Module> getModules() {
-		return modules;
+	@Column(name = "MODULE_ID", nullable = false)
+	public int getModuleId() {
+		return moduleId;
 	}
 	
-	@Transient
-	public Integer getModuleId() {
-		Integer res = null;
-		if (getModules() != null && !getModules().isEmpty()) {
-			res = getModules().iterator().next().getId();
-		}
-		return res;
-	}
-
-	/**
-	 * Sets assigned module. Should be only one.
-	 */
-	public void setModules(List<Module> modules) {
-		this.modules = modules;
+	public void setModuleId(int moduleId) {
+		this.moduleId = moduleId;
 	}
 
 	public void setModule(Module module) {
-		this.modules = Arrays.asList(module);
+		if (module != null) {
+			this.moduleId = module.getId();
+		}
 	}
 
 	@ManyToOne

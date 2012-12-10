@@ -9,7 +9,6 @@
 	<exercise id="60" type="GENERIC" name="exercise" exercise_order="1" task_id="20"/>
 	<exercise id="70" type="GENERIC" name="exercise2" exercise_order="2" task_id="20"/>
 
-	<homework id="10" stud_id="30" />
-	<homework_module hw_id="10" module_id="50" />
+	<homework id="10" stud_id="30"  module_id="50"/>
 	<topic_progress topic_id="40" hw_id="10" />
 </dataset>

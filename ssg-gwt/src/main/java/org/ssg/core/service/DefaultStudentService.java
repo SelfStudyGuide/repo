@@ -1,7 +1,5 @@
 package org.ssg.core.service;
 
-import java.util.Arrays;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +30,7 @@ public class DefaultStudentService implements StudentService {
 		Student student = userDao.getStudentById(studentId);
 		Module m = curriculumDao.getModuleById(moduleId);
 		Homework homework = new Homework();
-		homework.setModules(Arrays.asList(m));
+		homework.setModule(m);
 		homework.setStudent(student);
 		homework.initTopicProgress(m.getTopics());
 

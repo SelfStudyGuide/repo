@@ -16,7 +16,6 @@
 		EXECRCISE_CNT="0" />
 
 
-	<homework id="10" stud_id="30" />
-	<homework_module hw_id="10" module_id="50" />
+	<homework id="10" stud_id="30" module_id="50"/>
 	<topic_progress topic_id="40" hw_id="10" />
 </dataset>

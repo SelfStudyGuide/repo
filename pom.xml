@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.ssg</groupId>
+	<artifactId>ssg-gwt-parent</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>SSG Parent</name>
+
+	<properties>
+	
+	</properties>
+
+        <developers>
+		<developer>
+			<id>maksym.bryzhko</id>
+			<name>Maksym Bryzhko</name>
+			<email>maxim.bryzhko@gmail.com</email>
+		</developer>
+	</developers>
+        <scm>
+    <connection>scm:git:git@github.com:gwt-maven-plugin/gwt-maven-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:gwt-maven-plugin/gwt-maven-plugin.git</developerConnection>
+    <url>https://github.com/gwt-maven-plugin/gwt-maven-plugin</url>
+  </scm>
+
+<ciManagement>
+    <system>buildhive</system>
+    <url>https://buildhive.cloudbees.com/job/gwt-maven-plugin/job/gwt-maven-plugin/</url>
+  </ciManagement>	
+	<dependencies>
+
+	</dependencies>
+
+	<modules>
+		<module>ssg-gwt</module>
+		<module>ssg-database</module>
+		<!--module>ssg-functional-test</module-->
+	</modules>
+</project>

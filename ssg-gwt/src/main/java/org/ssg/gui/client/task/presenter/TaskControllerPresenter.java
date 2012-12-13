@@ -1,6 +1,6 @@
 package org.ssg.gui.client.task.presenter;
 
-import org.ssg.core.dto.TopicTaskInfo;
+import org.ssg.core.dto.TopicTaskDetailedInfo;
 import org.ssg.gui.client.service.ActionCallbackAdapter;
 import org.ssg.gui.client.service.res.SsgMessages;
 import org.ssg.gui.client.service.sender.DefaultActionSender;
@@ -57,12 +57,12 @@ public class TaskControllerPresenter implements OpenTaskEvent.Handler, UpdateTas
 		        });
 	}
 
-	protected void processTaskInfoResponse(TopicTaskInfo info) {
+	protected void processTaskInfoResponse(TopicTaskDetailedInfo info) {
 		String taskLabel = ssgMessages.taskViewTaskLabel(info.getType().toString());
 		view.getTaskLabel().setText(taskLabel);
 	}
 
-	public void onTaskInfoUpdate(TopicTaskInfo taskInfo) {
+	public void onTaskInfoUpdate(TopicTaskDetailedInfo taskInfo) {
 		processTaskInfoResponse(taskInfo);
 		
 	}

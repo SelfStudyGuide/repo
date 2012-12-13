@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.ssg.core.domain.Exercise;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.domain.Task;
+import org.ssg.core.dto.TopicTaskDetailedInfo;
 import org.ssg.core.dto.TopicTaskInfo;
 import org.ssg.core.service.CurriculumDao;
 import org.ssg.core.service.HomeworkDao;
@@ -61,7 +62,7 @@ public class GetTaskInfoActionHandler implements ActionHandler<GetTaskInfoRespon
 		        action.getHomeworkId());
 
 		if (homework.hasTopic(topicId)) {
-			TopicTaskInfo taskInfo = new TopicTaskInfo();
+			TopicTaskDetailedInfo taskInfo = new TopicTaskDetailedInfo();
 			taskInfo = mapper.map(homework, taskInfo);
 			taskInfo = mapper.map(task, taskInfo);
 			return new GetTaskInfoResponse(taskInfo);
@@ -82,9 +83,9 @@ public class GetTaskInfoActionHandler implements ActionHandler<GetTaskInfoRespon
 				}
 			});
 
-			factory.registerClassMap(factory.classMap(Task.class, TopicTaskInfo.class)
+			factory.registerClassMap(factory.classMap(Task.class, TopicTaskDetailedInfo.class)
 			        .field("exercises", "exerciseIds").byDefault().toClassMap());
-			factory.registerClassMap(factory.classMap(Homework.class, TopicTaskInfo.class).field("id", "homeworkId")
+			factory.registerClassMap(factory.classMap(Homework.class, TopicTaskDetailedInfo.class).field("id", "homeworkId")
 			        .byDefault().toClassMap());
 
 		}

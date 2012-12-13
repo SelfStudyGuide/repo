@@ -1,17 +1,16 @@
 package org.ssg.gui.client.task.presenter;
 
-import org.ssg.core.dto.TopicTaskInfo;
+import org.ssg.core.dto.TopicTaskDetailedInfo;
 import org.ssg.gui.client.task.event.OpenExerciseEvent;
 import org.ssg.gui.client.task.event.OpenTaskEvent;
 import org.ssg.gui.client.task.event.UpdateTaskInfoEvent;
 
-import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.HandlerManager;
 
 public class TaskExercisePagerPresenter implements UpdateTaskInfoEvent.Handler, OpenTaskEvent.Handler {
 
 	private HandlerManager handlerManager;
-	private TopicTaskInfo taskInfo;
+	private TopicTaskDetailedInfo taskInfo;
 	private boolean openFirstExercise;
 
 	protected TaskExercisePagerPresenter(HandlerManager handlerManager) {
@@ -23,7 +22,7 @@ public class TaskExercisePagerPresenter implements UpdateTaskInfoEvent.Handler, 
 		handlerManager.addHandler(UpdateTaskInfoEvent.TYPE, this);
 	}
 
-	public void onTaskInfoUpdate(TopicTaskInfo taskInfo) {
+	public void onTaskInfoUpdate(TopicTaskDetailedInfo taskInfo) {
 		this.taskInfo = taskInfo;
 		Integer exerciseId = null;
 		

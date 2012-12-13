@@ -12,7 +12,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.ssg.core.dto.TaskType;
+import org.ssg.core.dto.TopicTaskDetailedInfo;
 import org.ssg.core.dto.TopicTaskInfo;
+import org.ssg.core.support.databuilder.TopicTaskDetailedInfoBuilder;
 import org.ssg.core.support.databuilder.TopicTaskInfoBuilder;
 import org.ssg.gui.client.AbstractPresenterTestCase;
 import org.ssg.gui.client.action.Response;
@@ -58,7 +60,7 @@ public class TaskControllerPresenterTest extends AbstractPresenterTestCase {
 	@Test
 	public void verifyThatTaskLabelIsPopulatedWhenTaskInfoIsReceived() {
 		// Given
-		TopicTaskInfo topicTaskInfo = topicTaskInfo();
+		TopicTaskDetailedInfo topicTaskInfo = topicTaskInfo();
 
 		// When
 		handlerManager.fireEvent(new OpenTaskEvent(10, 20));
@@ -69,8 +71,8 @@ public class TaskControllerPresenterTest extends AbstractPresenterTestCase {
 		Mockito.verify(taskLabel).setText(Matchers.eq("TEXT Task"));
 	}
 
-	private TopicTaskInfo topicTaskInfo() {
-		return topicTaskInfoBuilder().id(20).type(TaskType.TEXT).exerciseIds(11, 12, 13).build();
+	private TopicTaskDetailedInfo topicTaskInfo() {
+		return (TopicTaskDetailedInfo) TopicTaskDetailedInfoBuilder.topicTaskDetailedInfoBuilder().id(20).type(TaskType.TEXT).exerciseIds(11, 12, 13).build();
 	}
 
 	@Test
@@ -79,7 +81,7 @@ public class TaskControllerPresenterTest extends AbstractPresenterTestCase {
 		AssertEventHandler event = verifyAppEvent(OpenExerciseEvent.TYPE, OpenExerciseEvent.Handler.class);
 
 		// given
-		TopicTaskInfo taskInfo = topicTaskInfo();
+		TopicTaskDetailedInfo taskInfo = topicTaskInfo();
 
 		// when
 		handlerManager.fireEvent(new OpenTaskEvent(10, 20));
@@ -96,7 +98,7 @@ public class TaskControllerPresenterTest extends AbstractPresenterTestCase {
 
 		// given
 		handlerManager.fireEvent(new OpenTaskEvent(10, 20));
-		TopicTaskInfo taskInfo = topicTaskInfo();
+		TopicTaskDetailedInfo taskInfo = topicTaskInfo();
 		
 		// when
 		handlerManager.fireEvent(new UpdateTaskInfoEvent(taskInfo));

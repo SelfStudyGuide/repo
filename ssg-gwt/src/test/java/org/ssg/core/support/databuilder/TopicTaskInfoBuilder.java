@@ -5,11 +5,11 @@ import org.ssg.core.dto.TopicTaskInfo;
 
 public class TopicTaskInfoBuilder implements DataBuilder<TopicTaskInfo> {
 
-	private int id;
-	private TaskType type;
-	private int cnt;
-	private int completedCnt;
-	private Integer[] exerciseIds;
+	protected int id;
+	protected TaskType type;
+	protected int cnt;
+	protected int completedCnt;
+	protected Integer[] exerciseIds;
 	
 	public static TopicTaskInfoBuilder topicTaskInfoBuilder() {
 		return new TopicTaskInfoBuilder();
@@ -46,7 +46,6 @@ public class TopicTaskInfoBuilder implements DataBuilder<TopicTaskInfo> {
 		result.setCompletedCount(completedCnt);
 		result.setType(type);
 		result.setExecrisesCount(cnt);
-		result.setExerciseIds(exerciseIds);
 	    return result;
     }
 

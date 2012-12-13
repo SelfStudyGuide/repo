@@ -95,7 +95,6 @@ public class GetTaskInfoActionHandlerTest extends AbstractCommandTestCase<GetTas
 	}
 
 	@Test
-	@Ignore
 	// Known issue with data mapper
 	public void givenHomeworkAndTaskThenExerciseIdsShouldBeReturned() {
 		// Given

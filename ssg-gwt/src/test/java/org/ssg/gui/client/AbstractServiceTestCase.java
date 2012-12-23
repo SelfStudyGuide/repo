@@ -6,8 +6,11 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.verify;
 
+import org.hamcrest.CoreMatchers;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.internal.verification.api.VerificationData;
+import org.mockito.verification.VerificationMode;
 import org.ssg.gui.client.action.Action;
 import org.ssg.gui.client.action.Response;
 import org.ssg.gui.client.service.StudentControlServiceAsync;
@@ -28,9 +31,10 @@ public class AbstractServiceTestCase {
 		verify(service).execute(argument.capture(), any(AsyncCallback.class));
 		A action = (A) argument.getValue();
 		assertThat(action, notNullValue());
+		assertThat(action, CoreMatchers.instanceOf(actionClass));
 		return action;
 	}
-
+	
 	/**
 	 * When need to emulate response.
 	 */
@@ -41,6 +45,14 @@ public class AbstractServiceTestCase {
 		AsyncCallback<Response> ac = acCaptor.getValue();
 
 		return ac;
+	}
+	
+	public static class VerifyActionType implements VerificationMode {
+
+		public void verify(VerificationData data) {
+	        
+        }
+		
 	}
 
 }

@@ -7,13 +7,16 @@ import org.ssg.gui.client.task.event.UpdateTaskInfoEvent;
 
 import com.google.gwt.event.shared.HandlerManager;
 
+/**
+ * This presenter should handle following tasks: next/prev exercise, go to a exercise.
+ */
 public class TaskExercisePagerPresenter implements UpdateTaskInfoEvent.Handler, OpenTaskEvent.Handler {
 
 	private HandlerManager handlerManager;
 	private TopicTaskDetailedInfo taskInfo;
 	private boolean openFirstExercise;
 
-	protected TaskExercisePagerPresenter(HandlerManager handlerManager) {
+	protected TaskExercisePagerPresenter(HandlerManager handlerManager){
 		this.handlerManager = handlerManager;
 	}
 
@@ -25,23 +28,23 @@ public class TaskExercisePagerPresenter implements UpdateTaskInfoEvent.Handler, 
 	public void onTaskInfoUpdate(TopicTaskDetailedInfo taskInfo) {
 		this.taskInfo = taskInfo;
 		Integer exerciseId = null;
-		
+
 		if (openFirstExercise) {
 			exerciseId = taskInfo.findFirstExercise();
 		} else {
 			// TODO: get provided exercise id
 		}
-		
+
 		if (exerciseId == null) {
 			// TODO: show error message
 		} else {
 			openExercise(exerciseId);
 		}
-			
+
 	}
 
 	private void openExercise(int exerciseId) {
-		handlerManager.fireEvent(new OpenExerciseEvent(exerciseId));
+		handlerManager.fireEvent(new OpenExerciseEvent(taskInfo.getHomeworkId(),  exerciseId));
 	}
 
 	public void onOpenTaskEvent(OpenTaskEvent event) {

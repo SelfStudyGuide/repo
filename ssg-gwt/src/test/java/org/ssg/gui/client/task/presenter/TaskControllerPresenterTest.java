@@ -1,32 +1,44 @@
 package org.ssg.gui.client.task.presenter;
 
-import static org.ssg.core.support.databuilder.TopicTaskInfoBuilder.topicTaskInfoBuilder;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.same;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.ssg.core.dto.ExerciseInfo;
+import org.ssg.core.dto.ExerciseType;
 import org.ssg.core.dto.TaskType;
 import org.ssg.core.dto.TopicTaskDetailedInfo;
-import org.ssg.core.dto.TopicTaskInfo;
+import org.ssg.core.support.databuilder.ExerciseInfoBuilder;
 import org.ssg.core.support.databuilder.TopicTaskDetailedInfoBuilder;
-import org.ssg.core.support.databuilder.TopicTaskInfoBuilder;
 import org.ssg.gui.client.AbstractPresenterTestCase;
 import org.ssg.gui.client.action.Response;
+import org.ssg.gui.client.studenthome.event.HomeworkSelectedEvent;
+import org.ssg.gui.client.task.action.GetExerciseInfo;
+import org.ssg.gui.client.task.action.GetExerciseInfoResponse;
 import org.ssg.gui.client.task.action.GetTaskInfo;
 import org.ssg.gui.client.task.action.GetTaskInfoResponse;
+import org.ssg.gui.client.task.event.DisplayExerciseEvent;
 import org.ssg.gui.client.task.event.OpenExerciseEvent;
 import org.ssg.gui.client.task.event.OpenTaskEvent;
 import org.ssg.gui.client.task.event.UpdateTaskInfoEvent;
+import org.ssg.gui.client.task.view.ExerciseView;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.HasWidgets.ForIsWidget;
 
+// TaskControllerPresenter
 @RunWith(MockitoJUnitRunner.class)
 public class TaskControllerPresenterTest extends AbstractPresenterTestCase {
 
@@ -37,11 +49,24 @@ public class TaskControllerPresenterTest extends AbstractPresenterTestCase {
 
 	@Mock
 	private HasText taskLabel;
+	
+	@Mock
+	private ForIsWidget exercisePanel;
+	
+	@Mock 
+	private ExerciseView exerciseView;
+
+	@Mock
+	private ExerciseViewProvider exerciseViewProvider;
 
 	@Before
 	public void setUp() {
-		Mockito.when(view.getTaskLabel()).thenReturn(taskLabel);
-		preseter = new TaskControllerPresenter(view, ssgMessages, actionSender, handlerManager);
+		when(view.getTaskLabel()).thenReturn(taskLabel);
+		when(view.getExercisePanel()).thenReturn(exercisePanel);
+		
+		when(exerciseViewProvider.getExerciseView(same(ExerciseType.GENERIC))).thenReturn(exerciseView);
+		
+		preseter = new TaskControllerPresenter(view, ssgMessages, actionSender, handlerManager, exerciseViewProvider);
 		preseter.bind();
 	}
 
@@ -72,7 +97,8 @@ public class TaskControllerPresenterTest extends AbstractPresenterTestCase {
 	}
 
 	private TopicTaskDetailedInfo topicTaskInfo() {
-		return (TopicTaskDetailedInfo) TopicTaskDetailedInfoBuilder.topicTaskDetailedInfoBuilder().id(20).type(TaskType.TEXT).exerciseIds(11, 12, 13).build();
+		return TopicTaskDetailedInfoBuilder.topicTaskDetailedInfoBuilder().id(20)
+		        .type(TaskType.TEXT).exerciseIds(11, 12, 13).build();
 	}
 
 	@Test
@@ -90,26 +116,72 @@ public class TaskControllerPresenterTest extends AbstractPresenterTestCase {
 		// then
 		event.assertInvoked();
 	}
-	
+
 	@Test
 	public void verifyThatIfNoExerciseIdProvidedThenFirstIsOpened() {
 		// expect
-		AssertEventHandler event = verifyAppEvent(OpenExerciseEvent.TYPE, OpenExerciseEvent.Handler.class);
+		AssertEventHandler eventHandler = verifyAppEvent(OpenExerciseEvent.TYPE, OpenExerciseEvent.Handler.class);
 
 		// given
 		handlerManager.fireEvent(new OpenTaskEvent(10, 20));
 		TopicTaskDetailedInfo taskInfo = topicTaskInfo();
-		
+
 		// when
 		handlerManager.fireEvent(new UpdateTaskInfoEvent(taskInfo));
 
 		// then
-		Integer exerciseId = event.lastArgument(0, Integer.class);
-		Assert.assertThat(exerciseId, CoreMatchers.is(11));
+		OpenExerciseEvent event = eventHandler.lastArgument(0, OpenExerciseEvent.class);
+		assertThat(event.getExerciseId(), CoreMatchers.is(11));
+	}
+
+	@Test
+	@Ignore
+	public void verifyThatWhenOpenExerciseEventIsFiredThenGetExerciseInfoActionIsSent() {
+		// Given
+
+		// When
+		handlerManager.fireEvent(new OpenExerciseEvent(10, 11));
+
+		// Then
+		GetExerciseInfo anAction = verifyAction(GetExerciseInfo.class);
+		assertThat(anAction.getExerciseId(), CoreMatchers.is(11));
+		assertThat(anAction.getHomeworkId(), CoreMatchers.is(10));
+
+	}
+
+	@Test
+	@Ignore
+	public void givenGenericExerciseReceivedFromServerThenCorrespondedPresenterIsCreated() {
+		// Given
+		handlerManager.fireEvent(new OpenExerciseEvent(10, 11));
+		
+		// When
+		AsyncCallback<Response> asyncCallback = verifyActionAndResturnCallback(GetExerciseInfo.class);
+		ExerciseInfo exerciseInfo = ExerciseInfoBuilder.exerciseInfoBuilder().id(11).exerciseType(ExerciseType.GENERIC).homeworkId(10).build();
+		asyncCallback.onSuccess(new GetExerciseInfoResponse(exerciseInfo));
+		
+		// Then
+		verify(exerciseViewProvider).getExerciseView(same(ExerciseType.GENERIC));
+		verify(exerciseView).go(same(exercisePanel));
+		
 	}
 	
 	@Test
-	public void verifyThatWhenOpenExerciseEventIsFiredThenGetExerciseInfoActionIsSent() {
+	@Ignore
+	public void givenGenericExerciseReceivedFromServerThenDisplayExerciseEventIsFired() {
+		// Expect
+		AssertEventHandler event = verifyAppEvent(DisplayExerciseEvent.TYPE,
+				DisplayExerciseEvent.Handler.class);
+
+		// Given
+		handlerManager.fireEvent(new OpenExerciseEvent(10, 11));
 		
+		// When
+		AsyncCallback<Response> asyncCallback = verifyActionAndResturnCallback(GetExerciseInfo.class);
+		ExerciseInfo exerciseInfo = ExerciseInfoBuilder.exerciseInfoBuilder().id(11).exerciseType(ExerciseType.GENERIC).homeworkId(10).build();
+		asyncCallback.onSuccess(new GetExerciseInfoResponse(exerciseInfo));
+		
+		// Then
+		event.assertInvoked();
 	}
 }

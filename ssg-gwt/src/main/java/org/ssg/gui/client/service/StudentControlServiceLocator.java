@@ -8,7 +8,10 @@ public class StudentControlServiceLocator {
 	public static StudentControlServiceAsync create() {
 
 		StudentControlServiceAsync studentService = GWT.create(StudentControlService.class);
-		((ServiceDefTarget) studentService).setServiceEntryPoint(GWT.getHostPageBaseURL() + "StudentControlService");
+		if (studentService instanceof ServiceDefTarget) {
+			((ServiceDefTarget) studentService)
+			        .setServiceEntryPoint(GWT.getHostPageBaseURL() + "StudentControlService");
+		}
 		return studentService;
 	}
 }

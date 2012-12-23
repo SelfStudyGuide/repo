@@ -8,23 +8,29 @@ public class OpenExerciseEvent extends GwtEvent<OpenExerciseEvent.Handler> {
 	public static final Type<OpenExerciseEvent.Handler> TYPE = new Type<OpenExerciseEvent.Handler>();
 
 	private int exerciseId;
+	private int homeworkId;
 
-	public OpenExerciseEvent(int exerciseId) {
+	public OpenExerciseEvent(int homeworkId, int exerciseId) {
 		super();
+		this.homeworkId = homeworkId;
 		this.exerciseId = exerciseId;
 	}
 
 	public interface Handler extends EventHandler {
-		void onOpenExerciseEvent(int execriseId);
+		void onOpenExerciseEvent(OpenExerciseEvent event);
 	}
 
 	public int getExerciseId() {
     	return exerciseId;
     }
+	
+	public int getHomeworkId() {
+    	return homeworkId;
+    }
 
 	@Override
 	protected void dispatch(Handler h) {
-		h.onOpenExerciseEvent(exerciseId);
+		h.onOpenExerciseEvent(this);
 	}
 
 	@Override

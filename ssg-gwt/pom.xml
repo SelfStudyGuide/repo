@@ -242,6 +242,7 @@
 				<directory>${basedir}\src\main\java</directory>
 				<includes>
 					<include>**\*.ui.xml</include>
+					<include>**\*.css</include>                                   
 				</includes>
 			</resource>
 			<resource>

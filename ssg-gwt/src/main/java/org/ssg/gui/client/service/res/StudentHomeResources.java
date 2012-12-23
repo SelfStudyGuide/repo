@@ -7,7 +7,7 @@ import com.google.gwt.resources.client.CssResource;
 public interface StudentHomeResources extends ClientBundle {
 	public static final StudentHomeResources INSTANCE = GWT.create(StudentHomeResources.class);
 
-	@Source("/StudentHome.css")
+	@Source("StudentHome.css")
 	@CssResource.NotStrict
 	Style styles();
 

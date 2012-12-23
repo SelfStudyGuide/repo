@@ -36,6 +36,7 @@ public abstract class BaseEntryPoint implements EntryPoint {
 	private DefaultActionSender actionSender;
 	private ErrorDialog errorDialog;
 	private DefaultActionResponseCallbackProcessor processor;
+	private UserInfoView userInfoView;
 
 	public final void onModuleLoad() {
 
@@ -57,7 +58,7 @@ public abstract class BaseEntryPoint implements EntryPoint {
 	}
 
 	private void createUserInfoView() {
-		UserInfoView userInfoView = new UserInfoView();
+		userInfoView = new UserInfoView();
 		UserInfoPresenter userInfoPresenter = new UserInfoPresenter(userInfoView, actionSender, handlerManager,
 		        windowLocation);
 
@@ -111,4 +112,8 @@ public abstract class BaseEntryPoint implements EntryPoint {
 		return errorDialog;
 	}
 
+	public UserInfoView getUserInfoView() {
+    	return userInfoView;
+    }
+	
 }

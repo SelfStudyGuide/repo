@@ -12,6 +12,7 @@ import org.ssg.gui.client.service.UnexpectedCommandException;
 import org.ssg.gui.client.service.res.SsgLookupMessages;
 import org.ssg.gui.client.service.res.SsgMessages;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class DefaultActionResponseCallbackProcessor implements ActionResponseCallbackProcessor {
@@ -38,10 +39,12 @@ public class DefaultActionResponseCallbackProcessor implements ActionResponseCal
 
 		return new AsyncCallback<R>() {
 			public void onFailure(Throwable ex) {
+				GWT.log("Process failure " + ex.getMessage() + " for action " + action.getActionName());
 				handleException(action, ex, actionCallback);
 			}
 
 			public void onSuccess(R actionResponse) {
+				GWT.log("Process success repospone " + actionResponse + " for action " + action.getActionName());
 				actionCallback.onResponse(actionResponse);
 			};
 		};

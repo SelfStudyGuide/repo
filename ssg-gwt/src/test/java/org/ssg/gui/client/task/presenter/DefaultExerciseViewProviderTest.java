@@ -14,9 +14,9 @@ import org.ssg.gui.client.AbstractPresenterTestCase;
 import org.ssg.gui.client.task.view.ExerciseView;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DefaultExercisePresenterProviderTest extends AbstractPresenterTestCase {
+public class DefaultExerciseViewProviderTest extends AbstractPresenterTestCase {
 
-	private DefaultExercisePresenterProvider provider;
+	private DefaultExerciseViewProvider provider;
 	
 	@Mock
 	private GenericExercisePresenter genericExercisePresenter;
@@ -31,7 +31,7 @@ public class DefaultExercisePresenterProviderTest extends AbstractPresenterTestC
 	public void setUp() {
 		HashMap<ExerciseType, ExerciseView> map = new HashMap<ExerciseType, ExerciseView>();
 		map.put(ExerciseType.GENERIC, exerciseView);
-		provider = new DefaultExercisePresenterProvider(map, notFoundView);
+		provider = new DefaultExerciseViewProvider(map, notFoundView);
 	}
 	
 	@Test
@@ -46,7 +46,7 @@ public class DefaultExercisePresenterProviderTest extends AbstractPresenterTestC
 	@Test
 	public void givenUnknownExerciseTypeThenCorresondedViewIsReturned() {
 		HashMap<ExerciseType, ExerciseView> map = new HashMap<ExerciseType, ExerciseView>();
-		provider = new DefaultExercisePresenterProvider(map, notFoundView);
+		provider = new DefaultExerciseViewProvider(map, notFoundView);
 		
 		// When
 		ExerciseView view = provider.getExerciseView(ExerciseType.GENERIC);

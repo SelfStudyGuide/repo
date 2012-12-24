@@ -135,7 +135,6 @@ public class TaskControllerPresenterTest extends AbstractPresenterTestCase {
 	}
 
 	@Test
-	@Ignore
 	public void verifyThatWhenOpenExerciseEventIsFiredThenGetExerciseInfoActionIsSent() {
 		// Given
 
@@ -150,7 +149,6 @@ public class TaskControllerPresenterTest extends AbstractPresenterTestCase {
 	}
 
 	@Test
-	@Ignore
 	public void givenGenericExerciseReceivedFromServerThenCorrespondedPresenterIsCreated() {
 		// Given
 		handlerManager.fireEvent(new OpenExerciseEvent(10, 11));
@@ -167,7 +165,6 @@ public class TaskControllerPresenterTest extends AbstractPresenterTestCase {
 	}
 	
 	@Test
-	@Ignore
 	public void givenGenericExerciseReceivedFromServerThenDisplayExerciseEventIsFired() {
 		// Expect
 		AssertEventHandler event = verifyAppEvent(DisplayExerciseEvent.TYPE,

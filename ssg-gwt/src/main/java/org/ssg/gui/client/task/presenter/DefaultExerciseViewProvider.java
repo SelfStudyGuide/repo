@@ -5,13 +5,13 @@ import java.util.HashMap;
 import org.ssg.core.dto.ExerciseType;
 import org.ssg.gui.client.task.view.ExerciseView;
 
-public class DefaultExercisePresenterProvider implements ExerciseViewProvider {
+public class DefaultExerciseViewProvider implements ExerciseViewProvider {
 
 	private HashMap<ExerciseType, ExerciseView> map;
 	private ExerciseView notFoundView;
 
-	public DefaultExercisePresenterProvider(HashMap<ExerciseType, ExerciseView> map, ExerciseView notFoundView){
-		this.map = map;
+	public DefaultExerciseViewProvider(HashMap<ExerciseType,ExerciseView> hashMap, ExerciseView notFoundView){
+		this.map = hashMap;
 		this.notFoundView = notFoundView;
     }
 

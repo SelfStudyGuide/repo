@@ -27,8 +27,10 @@ public class TaskControllerPresenter implements OpenTaskEvent.Handler, UpdateTas
 	private DefaultActionSender actionSender;
 	private Display view;
 	private SsgMessages ssgMessages;
-	private TaskExercisePagerPresenter exercisePagerPresenter;
+	//private TaskExercisePagerPresenter exercisePagerPresenter;
 	private ExerciseViewProvider exercisePresenterProvider;
+	private boolean openFirstExercise;
+	private TopicTaskDetailedInfo taskInfo;
 
 	public interface Display {
 		HasText getTaskLabel();
@@ -45,17 +47,23 @@ public class TaskControllerPresenter implements OpenTaskEvent.Handler, UpdateTas
 		this.actionSender = actionSender;
 		this.handlerManager = handlerManager;
 		this.exercisePresenterProvider = exercisePresenterFactory;
-		exercisePagerPresenter = new TaskExercisePagerPresenter(handlerManager);
+		//exercisePagerPresenter = new TaskExercisePagerPresenter(handlerManager);
 	}
 
 	public void bind() {
 		handlerManager.addHandler(OpenTaskEvent.TYPE, this);
 		handlerManager.addHandler(UpdateTaskInfoEvent.TYPE, this);
 		handlerManager.addHandler(OpenExerciseEvent.TYPE, this);
-		exercisePagerPresenter.bind();
+		//exercisePagerPresenter.bind();
 	}
 
 	public void onOpenTaskEvent(OpenTaskEvent event) {
+		if (event.isExerciseProvided()) {
+			// TODO: set exercise id to be opened
+		} else {
+			openFirstExercise = true;
+		}
+
 		actionSender.send(new GetTaskInfo(event.getHomeworkId(), event.getTaskId()),
 		        new ActionCallbackAdapter<GetTaskInfoResponse>() {
 
@@ -67,8 +75,24 @@ public class TaskControllerPresenter implements OpenTaskEvent.Handler, UpdateTas
 		        });
 	}
 
-	protected void processTaskInfoResponse(TopicTaskDetailedInfo info) {
-		String taskLabel = ssgMessages.taskViewTaskLabel(info.getType().toString());
+	protected void processTaskInfoResponse(TopicTaskDetailedInfo taskInfo) {
+
+		this.taskInfo = taskInfo;
+		Integer exerciseId = null;
+
+		if (openFirstExercise) {
+			exerciseId = taskInfo.findFirstExercise();
+		} else {
+			// TODO: get provided exercise id
+		}
+
+		if (exerciseId == null) {
+			// TODO: show error message
+		} else {
+			openExercise(exerciseId);
+		}
+
+		String taskLabel = ssgMessages.taskViewTaskLabel(taskInfo.getType().toString());
 		view.getTaskLabel().setText(taskLabel);
 	}
 
@@ -77,20 +101,24 @@ public class TaskControllerPresenter implements OpenTaskEvent.Handler, UpdateTas
 
 	}
 
+	private void openExercise(int exerciseId) {
+		handlerManager.fireEvent(new OpenExerciseEvent(taskInfo.getHomeworkId(), exerciseId));
+	}
+
 	public void onOpenExerciseEvent(OpenExerciseEvent event) {
 		GetExerciseInfo action = new GetExerciseInfo(event.getHomeworkId(), event.getExerciseId());
-//		actionSender.send(action, new ActionCallbackAdapter<GetExerciseInfoResponse>() {
-//
-//			@Override
-//			public void onResponse(GetExerciseInfoResponse response) {
-//				view.getExercisePanel().clear();
-//				ExerciseInfo exerciseInfo = response.getExerciseInfo();
-//				ExerciseView exerciseView = exercisePresenterProvider.getExerciseView(exerciseInfo.getExerciseType());
-//				exerciseView.go(view.getExercisePanel());
-//				handlerManager.fireEvent(new DisplayExerciseEvent(exerciseInfo));
-//			}
-//
-//		});
+		actionSender.send(action, new ActionCallbackAdapter<GetExerciseInfoResponse>() {
+
+			@Override
+			public void onResponse(GetExerciseInfoResponse response) {
+				view.getExercisePanel().clear();
+				ExerciseInfo exerciseInfo = response.getExerciseInfo();
+				ExerciseView exerciseView = exercisePresenterProvider.getExerciseView(exerciseInfo.getExerciseType());
+				exerciseView.go(view.getExercisePanel());
+				handlerManager.fireEvent(new DisplayExerciseEvent(exerciseInfo));
+			}
+
+		});
 	}
 
 }

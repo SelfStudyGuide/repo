@@ -30,6 +30,7 @@ import com.googlecode.gwt.test.GwtModule;
 import com.googlecode.gwt.test.GwtTestWithMockito;
 import com.googlecode.gwt.test.assertions.GwtAssertions;
 
+// TaskEntryPoint
 @GwtModule("org.ssg.gui.client.Task")
 public class TaskEntryPointTest extends GwtTestWithMockito {
 
@@ -69,6 +70,7 @@ public class TaskEntryPointTest extends GwtTestWithMockito {
 
 		GwtAssertions.assertThat(entryPoint.getUserInfoView().getUsernameLabel().getText()).isEqualTo("John Dou");
 		GwtAssertions.assertThat(entryPoint.getTaskControllerView().getTaskLabel().getText()).isEqualTo("TEXT Task");
+		GwtAssertions.assertThat(entryPoint.getTaskControllerView().getExercisePanel().iterator().next()).htmlContains("Execrise view is under construction.");
 	}
 
 }

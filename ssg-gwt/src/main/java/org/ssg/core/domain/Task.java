@@ -1,5 +1,6 @@
 package org.ssg.core.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -20,9 +21,9 @@ import javax.persistence.Table;
 import org.ssg.core.dto.TaskType;
 
 /**
- * Task aggregates exercises according to type of task (text, listening...)
- * Task should have execrisesCount fields which then will used to 
- * calculate completed task
+ * Task aggregates exercises according to type of task (text, listening...) Task
+ * should have execrisesCount fields which then will used to calculate completed
+ * task
  */
 @Entity
 @Table(name = "TOPIC_TASK")
@@ -34,48 +35,47 @@ public class Task {
 	private String description;
 	private Topic topic;
 	private int execrisesCount;
-	
-	public Task() {
-		
+
+	public Task(){
+
 	}
-	
-	public Task(Topic topic) {
+
+	public Task(Topic topic){
 		Topic.assignTask(topic, this);
 	}
 
 	@Id
-    @GeneratedValue
-    @Column(name = "ID", nullable=false)
+	@GeneratedValue
+	@Column(name = "ID", nullable = false)
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	@Column(name = "NAME", nullable=false)
+
+	@Column(name = "NAME", nullable = false)
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@Enumerated(EnumType.STRING)
-	@Column(name = "TYPE", nullable=false)
+	@Column(name = "TYPE", nullable = false)
 	public TaskType getType() {
 		return type;
 	}
-	
+
 	public void setType(TaskType type) {
 		this.type = type;
 	}
 
-	
 	@ManyToOne()
-	@JoinColumn(name="TOPIC_ID")
+	@JoinColumn(name = "TOPIC_ID")
 	public Topic getTopic() {
 		return topic;
 	}
@@ -94,24 +94,34 @@ public class Task {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	@Column(name = "EXECRCISE_CNT")
 	public int getExecrisesCount() {
 		return execrisesCount;
 	}
 
-	
 	public void setExecrisesCount(int execrisesCount) {
 		this.execrisesCount = execrisesCount;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "task", orphanRemoval = true)
 	public List<Exercise> getExercises() {
-    	return exercises;
-    }
+		return exercises;
+	}
 
 	public void setExercises(List<Exercise> exercises) {
-    	this.exercises = exercises;
-    }
-	
+		this.exercises = exercises;
+	}
+
+	public void addExercise(Exercise exercise) {
+		List<Exercise> exrList = getExercises();
+		if (exrList == null) {
+			exrList = new ArrayList<Exercise>();
+		}
+		exrList.add(exercise);
+		setExercises(exrList);
+
+		setExecrisesCount(getExecrisesCount() + 1);
+	}
+
 }

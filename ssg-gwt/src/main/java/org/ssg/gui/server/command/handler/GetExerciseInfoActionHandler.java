@@ -6,6 +6,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.ssg.core.domain.Exercise;
 import org.ssg.core.domain.Homework;
 import org.ssg.core.dto.ExerciseInfo;
@@ -20,6 +21,7 @@ import org.ssg.gui.server.command.datamap.DataMappingSupport;
 import org.ssg.gui.server.command.datamap.OrikaDataMappingConfiguration;
 
 @Service
+@Transactional
 public class GetExerciseInfoActionHandler implements ActionHandler<GetExerciseInfoResponse, GetExerciseInfo>,
         InitializingBean {
 

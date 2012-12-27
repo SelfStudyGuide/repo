@@ -8,6 +8,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.ssg.core.support.TstDataBuilder.taskBuilder;
 
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
@@ -252,6 +253,28 @@ public class DevDataServiceTest {
 		// Then
 		verify(curriculumDao, VerificationModeFactory.times(3)).saveTask(Matchers.isA(Task.class));
 		assertThat(topic.getTasks().size(), is(3));
+	}
+
+	@Test
+	public void givenExerciseNameAndTaskIdThenNewExerciseIsCreatedForTask() {
+		// Given
+		param("newExercise", "new exercise");
+		param("forTask", "20");
+
+		Task task = taskBuilder().id(20).execrisesCount(0).name("some task name").type(TaskType.LEXICAL).build();
+		when(curriculumDao.getTask(Matchers.eq(20))).thenReturn(task);
+
+		// When
+		devDataService.processRequest(params, writer);
+
+		// Then
+		ArgumentCaptor<Task> tc = ArgumentCaptor.forClass(Task.class);
+		verify(curriculumDao).saveTask(tc.capture());
+		Task savedTask = tc.getValue();
+		assertThat(savedTask.getExecrisesCount(), is(1));
+		assertThat(savedTask.getExercises().get(0).getName(), is("new exercise"));
+		assertThat(out.toString(), containsString("Create exercise name: new exercise, for task id: 20"));
+
 	}
 
 	private void param(String name, String value) {

@@ -1,7 +1,7 @@
 package org.ssg.gui.server.devdata;
 
 import java.io.PrintWriter;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -12,10 +12,12 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ssg.core.common.SsgServiceException;
+import org.ssg.core.domain.Exercise;
 import org.ssg.core.domain.Module;
 import org.ssg.core.domain.Student;
 import org.ssg.core.domain.Task;
 import org.ssg.core.domain.Topic;
+import org.ssg.core.dto.ExerciseType;
 import org.ssg.core.dto.TaskType;
 import org.ssg.core.service.CurriculumDao;
 import org.ssg.core.service.StudentService;
@@ -43,8 +45,32 @@ public class DefaultDevDataService {
 		if (!params.isEmpty()) {
 			dispatchRequest(params, writer);
 		} else {
+			printStudents(writer);
+			writer.println();
+			printModules(writer);
+			writer.println();
 			printUsage(writer);
 		}
+	}
+
+	private void printModules(PrintWriter writer) {
+		writer.println("Modules");
+		writer.println("=======");
+		Collection<Module> modules = curriculumDao.getAllModules();
+		for (Module module : modules) {
+			writer.printf("id: %s, name: %s\n", module.getId(), module.getName());
+		}
+		writer.printf("Count: %s\n", modules.size());
+	}
+
+	private void printStudents(PrintWriter writer) {
+		writer.println("Students");
+		writer.println("========");
+		List<Student> students = userDao.getAllStudents();
+		for (Student student : students) {
+			writer.printf("id: %s, name: %s\n", student.getId(), student.getName());
+		}
+		writer.printf("Count: %s\n", students.size());
 	}
 
 	private void dispatchRequest(Map<Object, Object> params, PrintWriter writer) {
@@ -58,6 +84,8 @@ public class DefaultDevDataService {
 					processHomework(params, writer);
 				} else if (key.equals("taskForTopic")) {
 					processTaskForTopic(params, writer);
+				} else if (key.equals("newExercise")) {
+					processExercise(params, writer);
 				}
 			}
 		} catch (RuntimeException e) {
@@ -68,12 +96,28 @@ public class DefaultDevDataService {
 		}
 	}
 
+	private void processExercise(Map<Object, Object> params, PrintWriter writer) {
+		int taskId = getParamInt(params, "forTask");
+		String exerciseName = getParam(params, "newExercise");
+
+		Task task = curriculumDao.getTask(taskId);
+
+		Exercise exercise = new Exercise(task);
+		exercise.setExerciseType(ExerciseType.GENERIC);
+		exercise.setName(exerciseName);
+		task.addExercise(exercise);
+
+		curriculumDao.saveTask(task);
+
+		writer.printf("Create exercise name: %s, for task id: %s", exerciseName, taskId);
+	}
+
 	private void printUsage(PrintWriter writer) {
-		writer.println("To create Student. ?user=1");
-		writer.println("To create Module. ?module=name&topics=2");
+		writer.println("To create Student (password is '1'). ?user=name");
 		writer.println("To create Homework. ?homeworkForStudent=1&moduleId=2");
-		writer.println("To create Tasks. ?taskForTopic=1");
-		writer.println("Get info for module. ?moduleInfo=1");
+		writer.println("To create Module (and given topics). ?module=name&topics=2");
+		writer.println("To create Tasks. ?taskForTopic=2");
+		writer.println("To create Exercise. ?newExercise=name&forTask=1");
 	}
 
 	private void processHomework(Map<Object, Object> params, PrintWriter writer) {

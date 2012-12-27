@@ -33,4 +33,5 @@ public interface CurriculumDao {
 	
 	Exercise getExercise(int id);
 
+	void saveExercise(Exercise exercise);
 }

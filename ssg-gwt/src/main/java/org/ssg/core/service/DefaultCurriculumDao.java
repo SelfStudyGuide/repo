@@ -54,7 +54,9 @@ public class DefaultCurriculumDao extends DefaultGenericDao implements Curriculu
 	public Exercise getExercise(int id) {
 	    return getById(id, Exercise.class);
     }
-	
-	
+
+	public void saveExercise(Exercise exercise) {
+		save(exercise);
+    }
 
 }

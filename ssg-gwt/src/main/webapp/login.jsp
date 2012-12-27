@@ -32,22 +32,28 @@
 							<tr>
 								<th><label for="j_username">Email</label>:&nbsp;</th>
 								<td class="left"><input id="j_username" name="j_username"
-									size="20" maxlength="50" type="text" /></td>
+									size="20" maxlength="50" type="text" />
+								</td>
 							</tr>
 							<tr>
 								<th><label for="j_password">Password</label>:&nbsp;</th>
 								<td class="left"><input id="j_password" name="j_password"
-									size="20" maxlength="50" type="password" /></td>
+									size="20" maxlength="50" type="password" />
+								</td>
 							</tr>
 
 						</tbody>
 						<tfoot>
 							<tr>
-								<td align="left"><input type="submit" value="Login" /></td>
+								<td align="left"><input type="submit" value="Login" />
+								</td>
 							</tr>
 						</tfoot>
 					</table>
 				</form>
+				<div style="text-align: center; margin-top: 15px;">
+					If you don't have your account click <a href="DevData">here</a>
+				</div>
 			</div>
 		</div>
 	</div>

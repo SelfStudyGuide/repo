@@ -44,6 +44,13 @@ public class Exercise {
 	private List<Field> fields;
 	private Task task;
 
+	public Exercise(){
+	}
+
+	public Exercise(Task task){
+		this.task = task;
+	}
+
 	@Id
 	@GeneratedValue
 	@Column(name = "ID", nullable = false)

@@ -49,9 +49,17 @@ public class DefaultDevDataService {
 			writer.println();
 			printModules(writer);
 			writer.println();
+			printTips(writer);
+			writer.println();
 			printUsage(writer);
 		}
 	}
+
+	private void printTips(PrintWriter writer) {
+		writer.println("Tips: You can either create new student or/and new module.");
+		writer.println("Or you can use existing module and assign it to one of student above.");
+		
+    }
 
 	private void printModules(PrintWriter writer) {
 		writer.println("Modules");
@@ -64,8 +72,8 @@ public class DefaultDevDataService {
 	}
 
 	private void printStudents(PrintWriter writer) {
-		writer.println("Students");
-		writer.println("========");
+		writer.println("Students/Users (pwd '1')");
+		writer.println("========================");
 		List<Student> students = userDao.getAllStudents();
 		for (Student student : students) {
 			writer.printf("id: %s, name: %s\n", student.getId(), student.getName());
